@@ -1,0 +1,9 @@
+{
+  "newLinkFormat": "relative",
+  "attachmentFolderPath": "static/images",
+  "alwaysUpdateLinks": true,
+  "useMarkdownLinks": true,
+  "newFileLocation": "folder",
+  "newFileFolderPath": "docs",
+  "showUnsupportedFiles": false
+}
