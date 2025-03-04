@@ -1,8 +1,19 @@
 /* src/components/EconomyCityLanding/EconomyCityLanding.module.css */
 
 .landingWrapper {
-    width: 100%;
-    overflow-x: hidden;
-  }
-  
-  /* Chỉ thêm CSS bổ sung tại đây. CSS chính đã được phân chia vào các module con */
+  width: 100%;
+  overflow-x: hidden;
+}
+
+/* Chỉ thêm CSS bổ sung tại đây. CSS chính đã được phân chia vào các module con */
+
+/* Mỗi phần có padding phù hợp */
+.landingWrapper > div {
+  padding: 60px 0;
+  position: relative;
+}
+
+/* Phần hero không cần padding trên */
+.landingWrapper > div:first-child {
+  padding-top: 0;
+}

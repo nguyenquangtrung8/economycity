@@ -84,6 +84,65 @@ img {
   height: auto;
 }
 
+/* CSS mạnh hơn để căn giữa navbar */
+@media (min-width: 996px) {
+  /* Đặt lại cấu trúc navbar */
+  .navbar__inner {
+    display: flex !important;
+    align-items: center !important;
+    max-width: 100% !important;
+  }
+  
+  /* Logo căn trái */
+  .navbar__brand {
+    flex: 0 0 auto !important;
+    margin-right: 2rem !important;
+  }
+  
+  /* Container chứa các menu item */
+  .navbar__items:not(.navbar__items--right) {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+  }
+  
+  /* Nút đăng ký và các item bên phải */
+  .navbar__items--right {
+    flex: 0 0 auto !important;
+    margin-left: 2rem !important;
+  }
+  
+  /* Khoảng cách giữa các menu item */
+  .navbar__items a.navbar__item {
+    padding: 0 0.75rem !important;
+  }
+}
+
+/* Custom style cho nút đăng ký */
+.navbar-register-button {
+  background-color: var(--primary-color, #3b82f6) !important;
+  color: white !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 0.25rem !important;
+  font-weight: 600 !important;
+  margin-left: 1rem !important;
+}
+
+.navbar-register-button:hover {
+  background-color: var(--primary-dark, #2563eb) !important;
+  text-decoration: none !important;
+}
+
+/* Scroll mượt */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Điều chỉnh khoảng cách khi scroll đến các phần */
+:target {
+  scroll-margin-top: 80px;
+}
+
 /* Section heading styles */
 .section-title {
   position: relative;

@@ -58,11 +58,11 @@ const Hero = () => {
       
       <div className={`container ${styles.container}`}>
         <div className={styles.content}>
-          <img 
+          {/* <img 
             src="/img/logo.jpg" 
             alt="Economy City" 
             className={styles.projectLogo}
-          />
+          /> */}
           
           <h1 className={styles.title}>{projectData.name}</h1>
           

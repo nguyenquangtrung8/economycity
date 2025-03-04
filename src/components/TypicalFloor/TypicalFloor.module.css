@@ -1,26 +1,79 @@
 /* src/components/EconomyCityLanding/TypicalFloor/TypicalFloor.module.css */
 
-.container {
+/* 1. CSS Variables - Đề xuất 1 */
+:root {
+    /* Colors */
+    --primary-color: #1e40af;
+    --primary-light: #60a5fa;
+    --primary-dark: #1e3a8a;
+    --secondary-color: #64748b;
+    --text-color: #1e293b;
+    --text-light: #475569;
+    --text-lighter: #94a3b8;
+    --bg-color: #ffffff;
+    --bg-light: #f8f9fa;
+    --bg-lighter: #f1f5f9;
+    --error-color: #ef4444;
+    
+    /* Borders */
+    --border-color: #e5e7eb;
+    --border-light: #e2e8f0;
+    --border-active: #1e40af;
+    
+    /* Sizes */
+    --spacing-xs: 0.25rem;   /* 4px */
+    --spacing-sm: 0.5rem;    /* 8px */
+    --spacing-md: 0.75rem;   /* 12px */
+    --spacing-lg: 1rem;      /* 16px */
+    --spacing-xl: 1.5rem;    /* 24px */
+    --spacing-2xl: 2rem;     /* 32px */
+    
+    /* Typography */
+    --font-xs: 0.75rem;      /* 12px */
+    --font-sm: 0.875rem;     /* 14px */
+    --font-md: 1rem;         /* 16px */
+    --font-lg: 1.125rem;     /* 18px */
+    --font-xl: 1.5rem;       /* 24px */
+    --font-2xl: 2rem;        /* 32px */
+    
+    /* Borders & Shadows - Đề xuất 7 */
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    --radius-xl: 10px;
+    --radius-round: 50%;
+    
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 4px 10px rgba(0, 0, 0, 0.1);
+    
+    /* Transitions */
+    --transition-fast: all 0.2s ease;
+    --transition-normal: all 0.3s ease;
+  }
+  
+  .container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 0 15px;
+    padding: 0 var(--spacing-lg);
   }
   
   .sectionHeader {
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: var(--spacing-xl);
   }
   
+  /* 5. Sử dụng rem thay vì px - Đề xuất 5 */
   .sectionTitle {
-    font-size: 32px;
+    font-size: var(--font-2xl);
     font-weight: 700;
-    color: #1e293b;
-    margin-bottom: 10px;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-sm);
   }
   
   .sectionSubtitle {
-    font-size: 16px;
-    color: #64748b;
+    font-size: var(--font-md);
+    color: var(--secondary-color);
     max-width: 700px;
     margin: 0 auto;
   }
@@ -28,32 +81,39 @@
   /* Tab chọn loại căn hộ */
   .apartmentTabs {
     display: flex;
-    background-color: white;
-    border-radius: 10px 10px 0 0;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    background-color: var(--bg-color);
+    border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+    box-shadow: var(--shadow-md);
     margin-bottom: 0;
     overflow: hidden;
-    border-bottom: 2px solid #e5e7eb;
+    border-bottom: 2px solid var(--border-color);
     position: relative;
   }
   
   .apartmentTab {
     flex: 1;
-    padding: 18px 20px;
+    padding: 1.125rem 1.25rem;
     background: transparent;
     border: none;
-    color: #64748b;
+    color: var(--secondary-color);
     font-weight: 600;
-    font-size: 17px;
+    font-size: var(--font-lg);
     text-align: center;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
     position: relative;
     letter-spacing: 0.2px;
   }
   
+  /* 6. Thêm focus styles - Đề xuất 6 */
+  .apartmentTab:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+    z-index: 1;
+  }
+  
   .activeTab {
-    background-color: #1e40af;
+    background-color: var(--primary-color);
     color: white;
     font-weight: 700;
   }
@@ -66,84 +126,52 @@
     transform: translateX(-50%);
     width: 20px;
     height: 3px;
-    background-color: #60a5fa;
+    background-color: var(--primary-light);
   }
   
   /* Phần đối tượng phù hợp và đánh giá */
   .overviewSection {
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-lg);
   }
   
   .overviewTitle {
-    font-size: 16px;
+    font-size: var(--font-md);
     font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 12px;
-    border-left: 3px solid #1e40af;
-    padding-left: 10px;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-md);
+    border-left: 3px solid var(--primary-color);
+    padding-left: var(--spacing-sm);
   }
   
   .overviewList {
     list-style-type: none;
     padding: 0;
-    margin: 0 0 20px 0;
+    margin: 0 0 var(--spacing-xl) 0;
   }
   
   .overviewList li {
-    padding: 6px 0 6px 24px;
+    padding: var(--spacing-xs) 0 var(--spacing-xs) 1.5rem;
     position: relative;
-    color: #475569;
-    font-size: 14px;
+    color: var(--text-light);
+    font-size: var(--font-sm);
   }
   
   .overviewList li:before {
     content: '✓';
     position: absolute;
     left: 0;
-    color: #1e40af;
+    color: var(--primary-color);
     font-weight: bold;
-  }
-  
-  .evaluationBox {
-    background-color: #f8fafc;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 10px;
-  }
-  
-  .evaluationItem {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-  }
-  
-  .evaluationItem:last-child {
-    margin-bottom: 0;
-  }
-  
-  .evaluationLabel {
-    font-size: 14px;
-    color: #475569;
-  }
-  
-  .evaluationValue {
-    font-weight: 500;
-  }
-  
-  .starRating {
-    color: #f59e0b;
-    font-size: 15px;
-    letter-spacing: 2px;
   }
   
   /* Container chính */
   .mainContainer {
     display: flex;
-    background-color: white;
-    border-radius: 0 0 10px 10px;
+    background-color: var(--bg-color);
+    border-radius: 0 0 var(--radius-xl) var(--radius-xl);
     overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    margin-bottom: 20px;
+    box-shadow: var(--shadow-md);
+    margin-bottom: var(--spacing-xl);
     border-top: none;
     position: relative;
   }
@@ -155,53 +183,59 @@
     left: 0;
     right: 0;
     height: 1px;
-    background-color: #e5e7eb;
+    background-color: var(--border-color);
     z-index: 2;
   }
   
   /* Cột bên trái */
   .leftColumn {
     flex: 0.4;
-    padding: 20px;
-    border-right: 1px solid #f1f5f9;
+    padding: var(--spacing-xl);
+    border-right: 1px solid var(--border-light);
   }
   
   /* Chọn tầng */
   .floorSelector {
-    margin-bottom: 15px;
+    margin-bottom: var(--spacing-lg);
   }
   
   .floorSelectorTitle {
-    font-size: 16px;
+    font-size: var(--font-md);
     font-weight: 600;
-    color: #1e293b;
-    margin-bottom: 15px;
-    border-left: 3px solid #1e40af;
-    padding-left: 10px;
+    color: var(--text-color);
+    margin-bottom: var(--spacing-lg);
+    border-left: 3px solid var(--primary-color);
+    padding-left: var(--spacing-sm);
   }
   
   .floorButtonRow {
     display: flex;
-    gap: 8px;
+    gap: var(--spacing-sm);
   }
   
   .floorButton {
     flex: 1;
-    padding: 8px 5px;
-    background-color: #f1f5f9;
-    border: 1px solid #e2e8f0;
-    border-radius: 6px;
-    font-size: 14px;
-    color: #64748b;
+    padding: var(--spacing-sm) var(--spacing-xs);
+    background-color: var(--bg-lighter);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-md);
+    font-size: var(--font-sm);
+    color: var(--secondary-color);
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
     text-align: center;
     white-space: nowrap;
   }
   
+  /* 6. Thêm focus styles - Đề xuất 6 */
+  .floorButton:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+  
   .activeFloor {
-    background-color: #1e40af;
-    border-color: #1e40af;
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
     color: white;
   }
   
@@ -209,38 +243,38 @@
   .propertyDetails {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
-    margin-bottom: 10px; /* Thu nhỏ khoảng trống ở dưới */
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-sm);
   }
   
   .detailItem {
     display: flex;
     align-items: center;
-    margin-bottom: 5px; /* Giảm khoảng cách giữa các item */
+    margin-bottom: var(--spacing-xs);
   }
   
   .detailIcon {
     width: 32px;
     height: 32px;
-    background-color: #f1f5f9;
-    border-radius: 50%;
+    background-color: var(--bg-lighter);
+    border-radius: var(--radius-round);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #1e40af;
-    margin-right: 10px;
+    color: var(--primary-color);
+    margin-right: var(--spacing-sm);
   }
   
   .detailLabel {
-    font-size: 13px;
-    color: #64748b;
+    font-size: var(--font-xs);
+    color: var(--secondary-color);
     margin-bottom: 1px;
   }
   
   .detailValue {
-    font-size: 15px;
+    font-size: var(--font-sm);
     font-weight: 600;
-    color: #1e293b;
+    color: var(--text-color);
     line-height: 1.2;
   }
   
@@ -254,41 +288,82 @@
   
   .floorPlanLabel {
     position: absolute;
-    top: 10px;
-    right: 10px;
-    font-size: 12px;
-    color: #64748b;
+    top: var(--spacing-sm);
+    right: var(--spacing-sm);
+    font-size: var(--font-xs);
+    color: var(--secondary-color);
     background-color: rgba(255, 255, 255, 0.8);
-    padding: 4px 10px;
-    border-radius: 4px;
+    padding: 4px var(--spacing-sm);
+    border-radius: var(--radius-sm);
     z-index: 10;
   }
   
+  /* 4. Hiệu suất render ảnh - Đề xuất 4 */
   .floorPlanWrapper {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
     position: relative;
+    height: 400px;
+    width: 100%;
     overflow: hidden;
   }
   
   .floorPlanImage {
     width: 100%;
-    height: auto;
-    object-fit: contain;
+    height: 100%;
+    object-fit: contain; /* Thay thế transform:scale */
     display: block;
-    transform: scale(1.25); /* Zoom ảnh lên 15% */
-    transform-origin: center;
+  }
+  
+  /* Chức năng zoom */
+  .zoomControls {
+    position: absolute;
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+    z-index: 10;
+  }
+  
+  .zoomButton {
+    width: 30px;
+    height: 30px;
+    background-color: white;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--font-md);
+    font-weight: bold;
+    color: var(--primary-color);
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-fast);
+  }
+  
+  /* 6. Thêm focus styles - Đề xuất 6 */
+  .zoomButton:focus {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+  }
+  
+  .zoomButton:hover {
+    background-color: var(--bg-lighter);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .zoomButton:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-sm);
   }
   
   .floorPlanNavigation {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 10px 0;
-    background-color: #fff;
+    padding: var(--spacing-sm) 0;
+    background-color: var(--bg-color);
     position: relative;
     z-index: 5;
   }
@@ -300,47 +375,106 @@
     align-items: center;
     justify-content: center;
     background-color: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 50%;
-    color: #1e40af;
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-round);
+    color: var(--primary-color);
     cursor: pointer;
-    transition: all 0.2s;
-    margin: 0 10px;
+    transition: var(--transition-fast);
+    margin: 0 var(--spacing-sm);
+  }
+  
+  /* 6. Thêm focus styles - Đề xuất 6 */
+  .navButton:focus:not(.disabled) {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
   }
   
   .navButton.disabled {
     opacity: 0.5;
     cursor: not-allowed;
-    color: #94a3b8;
+    color: var(--text-lighter);
   }
   
   .navLabel {
-    font-size: 14px;
+    font-size: var(--font-sm);
     font-weight: 500;
-    color: #1e293b;
+    color: var(--text-color);
   }
   
-  /* Nút đăng ký tư vấn rộng toàn màn hình */
+  /* Nút đăng ký tư vấn */
   .registerButtonFull {
     width: 100%;
-    padding: 16px 15px;
-    background-color: #1e40af;
+    padding: var(--spacing-lg) var(--spacing-lg);
+    background-color: var(--primary-color);
     color: white;
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: var(--radius-md);
+    font-size: var(--font-md);
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
     text-align: center;
-    margin-bottom: 30px;
+    margin-bottom: var(--spacing-xl);
+  }
+  
+  /* 6. Thêm focus styles - Đề xuất 6 */
+  .registerButtonFull:focus {
+    outline: 3px solid var(--primary-light);
+    outline-offset: 2px;
   }
   
   .registerButtonFull:hover {
-    background-color: #1e3a8a;
+    background-color: var(--primary-dark);
   }
   
-  /* Responsive */
+  /* Style cho phần hiển thị lỗi */
+  .error {
+    padding: 2.5rem 1.25rem;
+    text-align: center;
+    background-color: var(--bg-color);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .error p {
+    color: var(--error-color);
+    font-size: var(--font-md);
+    font-weight: 500;
+  }
+  
+  /* Ghi đè một số style của thư viện react-zoom-pan-pinch */
+  :global(.react-transform-component) {
+    width: 100% !important;
+    height: 100% !important;
+  }
+  
+  :global(.react-transform-element) {
+    width: 100% !important;
+    height: 100% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  
+  /* 3. Responsive chưa tối ưu - Đề xuất 3 */
+  /* Tablet landscape - Giữa mobile và desktop */
+  @media (min-width: 641px) and (max-width: 991px) {
+    .propertyDetails {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--spacing-md);
+    }
+    
+    .floorPlanWrapper {
+      height: 350px;
+    }
+    
+    .apartmentTab {
+      padding: 0.75rem 1rem;
+      font-size: var(--font-md);
+    }
+  }
+  
+  /* Tablet portrait */
   @media (max-width: 992px) {
     .mainContainer {
       flex-direction: column;
@@ -353,16 +487,31 @@
     
     .leftColumn {
       border-right: none;
-      border-bottom: 1px solid #f1f5f9;
-    }
-    
-    .actionButtonsRow {
-      flex-direction: column;
-      gap: 10px;
+      border-bottom: 1px solid var(--border-light);
     }
   }
   
-  @media (max-width: 640px) {
+  /* Mobile landscape */
+  @media (min-width: 481px) and (max-width: 640px) {
+    .propertyDetails {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .floorButtonRow {
+      flex-wrap: wrap;
+    }
+    
+    .floorButton {
+      flex-basis: calc(33.33% - 8px);
+    }
+    
+    .sectionTitle {
+      font-size: var(--font-xl);
+    }
+  }
+  
+  /* Mobile portrait */
+  @media (max-width: 480px) {
     .propertyDetails {
       grid-template-columns: 1fr;
     }
@@ -372,11 +521,33 @@
     }
     
     .floorButton {
-      flex-basis: calc(33.33% - 7px);
+      flex-basis: calc(50% - 4px);
+      font-size: var(--font-xs);
+    }
+    
+    .sectionTitle {
+      font-size: var(--font-xl);
+    }
+    
+    .sectionSubtitle {
+      font-size: var(--font-sm);
+    }
+    
+    .apartmentTab {
+      padding: 0.625rem 0.5rem;
+      font-size: var(--font-sm);
+    }
+    
+    .floorPlanWrapper {
+      height: 300px;
+    }
+    
+    .overviewList li {
+      font-size: var(--font-xs);
     }
   }
   
   .typicalFloor {
-    padding: 60px 0;
-    background-color: #f8f9fa;
+    padding: 3.75rem 0;
+    background-color: var(--bg-light);
   }

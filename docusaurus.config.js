@@ -61,7 +61,7 @@ const config = {
       announcementBar: {
         id: 'promo_banner',
         content:
-          '🔥 Ưu đãi đặc biệt: Chiết khấu lên đến 6% khi thanh toán sớm - <a href="/register">Đăng ký ngay!</a>',
+          '🔥 Ưu đãi đặc biệt: Chiết khấu lên đến 6% khi thanh toán sớm - <a href="#contact">Đăng ký ngay!</a>',
         backgroundColor: '#1e40af',
         textColor: '#ffffff',
         isCloseable: true,
@@ -88,21 +88,88 @@ const config = {
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
-            position: 'left',
+            href: '/#hero',
             label: 'Tổng quan',
+            position: 'left',
+            className: 'navbar-center-item',
           },
-          {to: '/docs/location', label: 'Vị trí', position: 'left'},
-          {to: '/docs/products', label: 'Sản phẩm', position: 'left'},
-          {to: '/docs/payment', label: 'Thanh toán', position: 'left'},
-          {to: '/docs/gallery', label: 'Thư viện', position: 'left'},
-          {to: '/contact', label: 'Liên hệ', position: 'left'},
           {
-            to: '/register',
-            label: 'Đăng ký tư vấn',
+            href: '/#location',
+            label: 'Vị trí',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#features',
+            label: 'Lợi thế cạnh tranh',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#products',
+            label: 'Sản phẩm',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#priceList',
+            label: 'Bảng giá',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#typicalFloor',
+            label: 'Tiện ích nổi bật',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#legal',
+            label: 'Pháp lý',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#salesPolicy',
+            label: 'Chính sách bán hàng',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#gallery',
+            label: 'Gallery',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#progress',
+            label: 'Cập nhật tiến độ',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#FAQs',
+            label: 'FAQs',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#FAQs',
+            label: 'Đối tác',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
+            href: '/#contact',
+            label: 'Đăng ký Tham quan & Tư vấn',
             position: 'right',
             className: 'navbar-register-button',
+          },
+          {
+            href: '/#blog',
+            label: 'Tin tức',
+            position: 'left',
+            className: 'navbar-center-item',
           },
         ],
       },
@@ -113,16 +180,16 @@ const config = {
             title: 'Thông tin dự án',
             items: [
               {
-                label: 'Tổng quan',
-                to: '/docs/intro',
+                label: 'Hero',
+                href: '/#hero',
               },
               {
-                label: 'Vị trí',
-                to: '/docs/location',
+                label: 'Features',
+                href: '/#features',
               },
               {
-                label: 'Tiện ích',
-                to: '/docs/amenities',
+                label: 'Products',
+                href: '/#products',
               },
             ],
           },
@@ -131,15 +198,15 @@ const config = {
             items: [
               {
                 label: 'Nhà phố thương mại',
-                to: '/docs/products',
+                href: '/#products',
               },
               {
                 label: 'Biệt thự',
-                to: '/docs/products#villas',
+                href: '/#products',
               },
               {
                 label: 'Căn hộ cao tầng',
-                to: '/docs/products#apartments',
+                href: '/#products',
               },
             ],
           },
@@ -147,8 +214,8 @@ const config = {
             title: 'Liên hệ',
             items: [
               {
-                label: 'Hotline: 0988.156.516',
-                href: 'tel:0123456789',
+                label: 'Hotline: 0123.456.789',
+                href: 'tel:0123.456.789',
               },
               {
                 label: 'Email: sales@economycity.vn',
@@ -156,7 +223,7 @@ const config = {
               },
               {
                 label: 'Văn phòng giao dịch',
-                to: '/contact',
+                href: '/#contact',
               },
             ],
           },

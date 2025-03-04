@@ -292,12 +292,12 @@ export const galleryImages = [
   },
   { 
     id: 'park', 
-    src: "Công viên.jpg", // Tạm sử dụng lại ảnh có sẵn
+    src: "Công viên.jpg", 
     alt: "Công viên xanh mát" 
   },
   { 
     id: 'clubhouse', 
-    src: "Clubhouse.jpg", // Tạm sử dụng lại ảnh có sẵn
+    src: "Clubhouse.jpg", 
     alt: "Clubhouse đẳng cấp" 
   }
 ];
