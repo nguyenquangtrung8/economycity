@@ -1,106 +1,208 @@
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
+/* src/css/custom.css */
 
-/* You can override the default Infima variables here. */
-:root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
-  --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+@import url('./variables.css');
+@import url('./utilities.css');
+
+/* Reset and base styles */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+html, body {
+  height: 100%;
+  width: 100%;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  color: var(--neutral-darkest);
+  background-color: var(--neutral-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* FONT SETUP */
-
-/* Apply Inter as the default font for the entire site */
-body {
-  line-height: 1.6; /* Optional: adjust line spacing */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  line-height: 1.2;
+  margin-bottom: var(--spacing-4);
+  color: var(--neutral-black);
 }
 
-/* Style for headings */
 h1 {
-  font-size: 2.0em; /* Adjust as needed */
-  font-weight: 700; /* Bold weight for h1 */
+  font-size: var(--font-size-4xl);
 }
 
 h2 {
-  font-size: 1.7em; /* Adjust as needed */
-  font-weight: 600; /* Semi-bold weight for h2 */
+  font-size: var(--font-size-3xl);
 }
 
 h3 {
-  font-size: 1.5em; /* Adjust as needed */
-  font-weight: 600; /* Semi-bold weight for h3 */
+  font-size: var(--font-size-2xl);
 }
 
-/* Style for other elements */
+h4 {
+  font-size: var(--font-size-xl);
+}
+
+h5 {
+  font-size: var(--font-size-lg);
+}
+
+h6 {
+  font-size: var(--font-size-md);
+}
+
 p {
-  font-size: 1em; /* Default font size for paragraphs */
+  margin-bottom: var(--spacing-4);
 }
 
 a {
-  color: #00334D; /* Default link color (Google blue) */
-  text-decoration: none; /* No underline */
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: color var(--transition-normal);
 }
 
 a:hover {
-  text-decoration: underline; /* Underline on hover */
+  color: var(--primary-dark);
+  text-decoration: underline;
 }
 
-/* Adjust margin and padding for a clean layout */
-section {
-  padding: 2em 1em; /* Adjust padding for sections */
+ul, ol {
+  margin-bottom: var(--spacing-4);
+  padding-left: var(--spacing-5);
 }
 
-.navbar__item {
-  margin-right: 1.1em; /* Adjust margin between navbar items */
+li {
+  margin-bottom: var(--spacing-2);
 }
 
-
-/* THIẾT LẬP BANNER THÔNG BÁO Ở ĐẦU TRANG */
-/* Use background image banner */
-div[class^='announcementBar_'] {
-  font-size: 20px;
-
-  background: #ffffff; /* Change background to solid white */
-  font-weight: bold;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-  height: auto;
-  max-height: none; /* Ensure the announcement bar does not limit the height */
-  text-align: center; /* Center align text and inline elements */
-}
-
-/* Ensure the image displays at its full height */
-.announcement-bar-image {
-  width: auto;
-  height: auto;
+img {
   max-width: 100%;
-  max-height: 100%;
-  display: block; /* Ensure the image is displayed as a block element */
-  margin: auto; /* Center the image */
+  height: auto;
 }
 
-/* KẾT THÚC THIẾT LẬP BANNER THÔNG BÁO */
+/* Section heading styles */
+.section-title {
+  position: relative;
+  display: inline-block;
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--primary-dark);
+  margin-bottom: var(--spacing-6);
+  padding-bottom: var(--spacing-2);
+}
+
+.section-title::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--secondary-color);
+}
+
+.section-title.text-center::after {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.section-subtitle {
+  font-size: var(--font-size-md);
+  color: var(--neutral-darker);
+  margin-bottom: var(--spacing-8);
+  max-width: 800px;
+}
+
+/* Feature icon */
+.feature-icon {
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-full);
+  background-color: var(--primary-light);
+  color: var(--neutral-white);
+  margin-bottom: var(--spacing-4);
+}
+
+/* Animation utilities */
+.fade-in {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.8s ease-in-out;
+}
+
+.fade-in-left {
+  animation: fadeInLeft 0.8s ease-in-out;
+}
+
+.fade-in-right {
+  animation: fadeInRight 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-lighter);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-dark);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-darker);
+}

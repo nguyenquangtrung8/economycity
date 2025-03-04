@@ -1,0 +1,94 @@
+/* src/css/variables.css */
+
+:root {
+    /* Colors */
+    --primary-color: #2a6f97; /* Main blue color */
+    --primary-dark: #0a4d7f;
+    --primary-light: #61a5c2;
+    
+    --secondary-color: #e9c46a; /* Gold accent */
+    --secondary-dark: #d4a017;
+    --secondary-light: #f1d68f;
+    
+    --neutral-white: #ffffff;
+    --neutral-lightest: #f8f9fa;
+    --neutral-lighter: #e9ecef;
+    --neutral-light: #dee2e6;
+    --neutral: #ced4da;
+    --neutral-dark: #adb5bd;
+    --neutral-darker: #6c757d;
+    --neutral-darkest: #343a40;
+    --neutral-black: #212529;
+    
+    --success-color: #52b788;
+    --warning-color: #ffd166;
+    --danger-color: #ef476f;
+    --info-color: #118ab2;
+    
+    /* Typography */
+    --font-family-heading: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
+    --font-family-body: 'Open Sans', 'Segoe UI', Roboto, sans-serif;
+    
+    --font-size-xs: 0.75rem;  /* 12px */
+    --font-size-sm: 0.875rem; /* 14px */
+    --font-size-base: 1rem;   /* 16px */
+    --font-size-md: 1.125rem; /* 18px */
+    --font-size-lg: 1.25rem;  /* 20px */
+    --font-size-xl: 1.5rem;   /* 24px */
+    --font-size-2xl: 1.875rem; /* 30px */
+    --font-size-3xl: 2.25rem;  /* 36px */
+    --font-size-4xl: 3rem;     /* 48px */
+    
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* Spacing */
+    --spacing-1: 0.25rem; /* 4px */
+    --spacing-2: 0.5rem;  /* 8px */
+    --spacing-3: 0.75rem; /* 12px */
+    --spacing-4: 1rem;    /* 16px */
+    --spacing-5: 1.5rem;  /* 24px */
+    --spacing-6: 2rem;    /* 32px */
+    --spacing-8: 3rem;    /* 48px */
+    --spacing-10: 4rem;   /* 64px */
+    --spacing-12: 6rem;   /* 96px */
+    --spacing-16: 8rem;   /* 128px */
+    
+    /* Borders */
+    --border-radius-sm: 0.125rem; /* 2px */
+    --border-radius: 0.25rem;    /* 4px */
+    --border-radius-md: 0.375rem; /* 6px */
+    --border-radius-lg: 0.5rem;   /* 8px */
+    --border-radius-xl: 1rem;     /* 16px */
+    --border-radius-full: 9999px;
+    
+    /* Shadows */
+    --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+    
+    /* Transitions */
+    --transition-fast: 150ms;
+    --transition-normal: 300ms;
+    --transition-slow: 500ms;
+    
+    /* Container widths */
+    --container-sm: 640px;
+    --container-md: 768px;
+    --container-lg: 1024px;
+    --container-xl: 1280px;
+    
+    /* Z-index values */
+    --z-index-dropdown: 1000;
+    --z-index-sticky: 1020;
+    --z-index-fixed: 1030;
+    --z-index-modal-backdrop: 1040;
+    --z-index-modal: 1050;
+    --z-index-popover: 1060;
+    --z-index-tooltip: 1070;
+  }

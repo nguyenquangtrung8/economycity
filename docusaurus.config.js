@@ -1,48 +1,37 @@
 // @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
-
 import {themes as prismThemes} from 'prism-react-renderer';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
-
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'Awesome Docusaurus',
-  tagline: 'Dinosaurs thật tuyệt vời!',
+  title: 'Economy City Văn Lâm',
+  tagline: 'Không gian sống đẳng cấp - Cơ hội đầu tư vượt trội',
   favicon: 'img/favicon.ico',
 
-  // Set the production url of your site here
-  url: 'https://your-docusaurus-site.example.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
+  // Cập nhật URL thực tế của website sau khi triển khai
+  url: 'https://economycity.vn',
   baseUrl: '/',
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  // Cập nhật thông tin tổ chức/dự án của bạn
+  organizationName: 'economycity', 
+  projectName: 'economycity-website',
 
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
   i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
+    defaultLocale: 'vi',
+    locales: ['vi'],
   },
 
+  // Giữ lại tính năng Mermaid để vẽ sơ đồ nếu cần
   markdown: {
     mermaid: true,
   },
   themes: ['@docusaurus/theme-mermaid'],
 
+  // Giữ lại tính năng tìm kiếm
   plugins: [require.resolve('docusaurus-lunr-search')],
   
   presets: [
@@ -54,26 +43,10 @@ const config = {
           sidebarPath: './sidebars.js',
           remarkPlugins: [remarkMath],
           rehypePlugins: [rehypeKatex],
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          // Xóa editUrl vì không cần chức năng chỉnh sửa từ người dùng
+          editUrl: undefined,
         },
-        blog: {
-          showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
-          onInlineTags: 'warn',
-          onInlineAuthors: 'warn',
-          onUntruncatedBlogPosts: 'warn',
-        },
+        blog: false, // Tắt tính năng blog vì không cần thiết cho website bất động sản
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -84,29 +57,22 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
-
-      // announcementBar: {
-      //   id: 'announcementBar-v3.2', // Increment on change
-      //   content: `🎉️ <b>Khai giảng khoá học Python chứng khoán K9 từ 8/12/2024 <a target="_blank" href="https://vnstocks.com/lp-khoa-hoc-python-chung-khoan/"></a></b>. Đăng ký ngay! 🥳️`,
-      // },
-
+      // Banner quảng cáo (có thể sử dụng để hiển thị khuyến mãi hoặc tin tức quan trọng)
       announcementBar: {
-        id: 'image_banner', // Any value that will identify this message.
+        id: 'promo_banner',
         content:
-          '<a href="https://vnstocks.com/lp-khoa-hoc-python-chung-khoan"><img src="https://vnstocks.com/img/python_chung_khoan_banner.png" alt="Banner" class="announcement-bar-image" /></a>',
-        backgroundColor: '#fafbfc', // Defaults to `#fff`.
-        textColor: '#091E42', // Defaults to `#000`.
-        isCloseable: true, // Defaults to `true`.
+          '🔥 Ưu đãi đặc biệt: Chiết khấu lên đến 6% khi thanh toán sớm - <a href="/register">Đăng ký ngay!</a>',
+        backgroundColor: '#1e40af',
+        textColor: '#ffffff',
+        isCloseable: true,
       },
 
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+      image: 'img/economy-city-social-card.jpg',
       
       mermaid: {
-        theme: {light: 'neutral', dark: 'forest'}, // Các them khác xem tại đây: https://mermaid.js.org/config/theming.html
+        theme: {light: 'neutral', dark: 'forest'},
       },
 
-      // Cho phép thu gọn/mở rộng Sidebar trong giao diện tài liệu: https://docusaurus.io/docs/sidebar#auto-collapse-sidebar-categories
       docs: {
         sidebar: {
           hideable: true,
@@ -115,24 +81,28 @@ const config = {
       },
 
       navbar: {
-        title: 'Awesome Docusaurus',
+        title: 'Economy City',
         logo: {
-          alt: 'Awesome Docusaurus Logo',
-          src: 'img/logo.svg',
+          alt: 'Economy City Logo',
+          src: 'img/logo.jpg',
         },
         items: [
           {
             type: 'docSidebar',
             sidebarId: 'tutorialSidebar',
             position: 'left',
-            label: 'Hướng dẫn',
+            label: 'Tổng quan',
           },
-          {to: '/markdown-page', label: 'Trang Markdown', position: 'left'},
-          {to: '/blog', label: 'Blog', position: 'left'},
+          {to: '/docs/location', label: 'Vị trí', position: 'left'},
+          {to: '/docs/products', label: 'Sản phẩm', position: 'left'},
+          {to: '/docs/payment', label: 'Thanh toán', position: 'left'},
+          {to: '/docs/gallery', label: 'Thư viện', position: 'left'},
+          {to: '/contact', label: 'Liên hệ', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
+            to: '/register',
+            label: 'Đăng ký tư vấn',
             position: 'right',
+            className: 'navbar-register-button',
           },
         ],
       },
@@ -140,46 +110,58 @@ const config = {
         style: 'dark',
         links: [
           {
-            title: 'Docs',
+            title: 'Thông tin dự án',
             items: [
               {
-                label: 'Tutorial',
+                label: 'Tổng quan',
                 to: '/docs/intro',
               },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
               {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
+                label: 'Vị trí',
+                to: '/docs/location',
               },
               {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
+                label: 'Tiện ích',
+                to: '/docs/amenities',
               },
             ],
           },
           {
-            title: 'More',
+            title: 'Sản phẩm',
             items: [
               {
-                label: 'Blog',
-                to: '/blog',
+                label: 'Nhà phố thương mại',
+                to: '/docs/products',
               },
               {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
+                label: 'Biệt thự',
+                to: '/docs/products#villas',
+              },
+              {
+                label: 'Căn hộ cao tầng',
+                to: '/docs/products#apartments',
+              },
+            ],
+          },
+          {
+            title: 'Liên hệ',
+            items: [
+              {
+                label: 'Hotline: 0988.156.516',
+                href: 'tel:0123456789',
+              },
+              {
+                label: 'Email: sales@economycity.vn',
+                href: 'mailto:sales@economycity.vn',
+              },
+              {
+                label: 'Văn phòng giao dịch',
+                to: '/contact',
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Awesome Docusaurus, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Economy City Văn Lâm. Tất cả quyền được bảo lưu.`,
       },
       prism: {
         theme: prismThemes.github,

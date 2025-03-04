@@ -1,0 +1,256 @@
+/* src/components/EconomyCityLanding/Hero/Hero.module.css */
+
+/* === KEYFRAMES ZOOM-IN === */
+@keyframes zoomIn {
+    from {
+        transform: scale(1); /* Bắt đầu với kích thước bình thường */
+    }
+    to {
+        transform: scale(1.2); /* Phóng to lên 1.2 lần */
+    }
+}
+
+/* === KHỐI CHÍNH === */
+.hero {
+    position: relative;
+    height: 100vh; /* Chiều cao toàn màn hình */
+    width: 100%;
+    display: flex;
+    align-items: center; /* Canh giữa theo chiều dọc */
+    background-color: var(--neutral-black); /* Màu nền tối */
+    color: var(--neutral-white); /* Màu chữ trắng */
+    overflow: hidden; /* Ẩn phần thừa */
+}
+
+/* === HÌNH NỀN === */
+.heroBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cân chỉnh hình ảnh phủ kín */
+    opacity: 0.7; /* Độ mờ 30% */
+    z-index: 0; /* Layer dưới cùng */
+    animation: zoomIn 20s ease-in-out infinite alternate; /* Áp dụng hiệu ứng zoom-in */
+}
+
+/* === LỚP OVERLAY === */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Gradient từ đen 40% ở trên xuống 70% ở dưới */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.7));
+    z-index: 1; /* Trên lớp hình nền */
+}
+
+/* === CONTAINER CHÍNH === */
+.container {
+    position: relative;
+    z-index: 3; /* Trên các lớp overlay */
+    padding-top: var(--spacing-10); /* Khoảng cách đầu trang */
+}
+
+/* === NỘI DUNG === */
+.content {
+    max-width: 700px; /* Giới hạn chiều rộng */
+    margin: 0 auto; /* Canh giữa */
+    text-align: center; /* Căn lề giữa cho text */
+}
+
+/* === LOGO DỰ ÁN === */
+.projectLogo {
+    width: 120px;
+    height: 120px;
+    margin-bottom: var(--spacing-4); /* Khoảng cách dưới logo */
+}
+
+/* === TIÊU ĐỀ CHÍNH === */
+.title {
+    font-size: var(--font-size-3xl); /* Cỡ chữ lớn */
+    font-weight: var(--font-weight-bold); /* In đậm */
+    margin-bottom: var(--spacing-4); /* Khoảng cách dưới tiêu đề */
+    color: var(--neutral-white); /* Màu trắng */
+}
+
+/* === KHỐI HIỆU ỨNG GÕ CHỮ === */
+.typingContainer {
+    position: relative;
+    margin-bottom: var(--spacing-6); /* Khoảng cách dưới */
+    min-height: 48px; /* Chiều cao tối thiểu */
+}
+
+/* === SUBTITLE VỚI HIỆU ỨNG === */
+.subtitle {
+    font-size: var(--font-size-lg); /* Cỡ chữ trung bình lớn */
+    color: var(--neutral-lighter); /* Màu xám nhạt */
+    margin-bottom: 0; /* Không có margin dưới */
+}
+
+/* === TEXT HIỆU ỨNG === */
+.typingText {
+    display: inline-block;
+    transition: opacity 0.5s ease; /* Hiệu ứng mờ dần */
+}
+
+/* === HIỆU ỨNG MỜ DẦN === */
+.fadeOut {
+    opacity: 0; /* Biến mất sau 0.5s */
+}
+
+/* === CON TRỎ GÕ CHỮ === */
+.cursor {
+    display: inline-block;
+    width: 2px; /* Độ rộng 2px */
+    height: 1em; /* Cao bằng 1 dòng text */
+    background: var(--neutral-white); /* Màu trắng */
+    margin-left: 2px; /* Khoảng cách với chữ */
+    animation: blink 1s infinite; /* Nhấp nháy mỗi giây */
+}
+
+/* === ANIMATION NHẤP NHÁY === */
+@keyframes blink {
+    50% { opacity: 0; } /* Mờ 50% thời gian */
+}
+
+/* === THÔNG TIN VỊ TRÍ === */
+.location {
+    display: flex;
+    align-items: center; /* Canh giữa theo chiều dọc */
+    justify-content: center; /* Canh giữa theo chiều ngang */
+    margin-bottom: var(--spacing-6); /* Khoảng cách dưới */
+    color: var(--neutral-light); /* Màu xám */
+    font-size: var(--font-size-md); /* Cỡ chữ trung bình */
+}
+
+/* === ICON VỊ TRÍ === */
+.locationIcon {
+    margin-right: var(--spacing-2); /* Khoảng cách với text */
+}
+
+/* === NHÓM NÚT === */
+.buttonsContainer {
+    margin-bottom: var(--spacing-6); /* Khoảng cách dưới */
+    display: flex;
+    justify-content: center; /* Canh giữa */
+    gap: var(--spacing-4); /* Khoảng cách giữa các nút */
+}
+
+/* === NÚT CHÍNH === */
+.ctaButton {
+    display: inline-block;
+    padding: var(--spacing-3) var(--spacing-6); /* Padding nội dung */
+    background-color: var(--primary-color); /* Màu chính */
+    color: var(--neutral-white); /* Chữ trắng */
+    font-weight: var(--font-weight-medium); /* Độ đậm trung bình */
+    font-size: var(--font-size-md); /* Cỡ chữ */
+    border-radius: var(--border-radius); /* Bo góc */
+    text-decoration: none; /* Bỏ gạch chân */
+    transition: background-color var(--transition-normal); /* Hiệu ứng màu nền */
+}
+
+.ctaButton:hover {
+    background-color: var(--primary-dark); /* Màu tối hơn khi hover */
+}
+
+/* === NÚT PHỤ === */
+.secondaryButton {
+    display: inline-block;
+    padding: var(--spacing-3) var(--spacing-6);
+    background-color: transparent; /* Nền trong suốt */
+    color: var(--neutral-white);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-md);
+    border: 2px solid var(--neutral-white); /* Viền trắng */
+    border-radius: var(--border-radius);
+    text-decoration: none;
+    transition: all var(--transition-normal); /* Hiệu ứng tổng thể */
+}
+
+.secondaryButton:hover {
+    background-color: var(--neutral-white); /* Nền trắng khi hover */
+    color: var(--neutral-black); /* Chữ đen */
+}
+
+/* === NÚT CUỘN XUỐNG === */
+.scrollIndicator {
+    position: absolute;
+    bottom: var(--spacing-6); /* Cách đáy 6 đơn vị */
+    left: 50%; /* Canh giữa */
+    transform: translateX(-50%); /* Dịch chỉnh vị trí */
+    animation: bounce 2s infinite; /* Hiệu ứng nảy */
+    z-index: 4; /* Trên các lớp khác */
+    cursor: pointer; /* Biến con trỏ thành bàn tay */
+}
+
+/* === KHỐI THỐNG KÊ === */
+.statsContainerBelow {
+    margin-top: var(--spacing-8); /* Khoảng cách trên */
+    padding: var(--spacing-6) 0; /* Padding dọc */
+    /* Gradient nền xanh lá mờ */
+    /* background: linear-gradient(135deg, rgba(46,204,113,0.01), rgba(39,174,96,0.01)); */
+    border-radius: var(--border-radius); /* Bo góc */
+    /* backdrop-filter: blur(5px); Hiệu ứng mờ nền */
+}
+
+/* === GRID THỐNG KÊ === */
+.statsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2 cột trên mobile */
+    gap: var(--spacing-4); /* Khoảng cách giữa các card */
+    max-width: 1200px; /* Giới hạn chiều rộng */
+    margin: 0 auto; /* Canh giữa */
+    padding: 0 var(--spacing-4); /* Padding ngang */
+}
+
+/* === CARD THỐNG KÊ === */
+.statCard {
+    background: rgba(255, 255, 255, 0.02); /* Nền trắng mờ */
+    padding: var(--spacing-4); /* Padding nội dung */
+    border-radius: var(--border-radius); /* Bo góc */
+    transition: all 0.3s ease; /* Hiệu ứng mượt */
+    text-align: center; /* Căn giữa text */
+}
+
+.statCard:hover {
+    background: rgba(255, 255, 255, 0.04); /* Nền sáng hơn khi hover */
+    transform: translateY(-5px); /* Dịch lên 5px */
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1); /* Đổ bóng */
+}
+
+/* === GIÁ TRỊ THỐNG KÊ === */
+.statValue {
+    font-size: 2.5rem; /* Cỡ chữ lớn */
+    font-weight: var(--font-weight-bold); /* In đậm */
+    color: var(--secondary-color); /* Màu phụ */
+    margin-bottom: var(--spacing-2); /* Khoảng cách dưới */
+    font-family: 'Montserrat', sans-serif; /* Font chữ */
+}
+
+/* === NHÃN THỐNG KÊ === */
+.statLabel {
+    font-size: var(--font-size-md); /* Cỡ chữ trung bình */
+    font-family: 'Roboto', 'Arial', sans-serif; /* Font chữ */
+}
+
+/* === RESPONSIVE DESIGN === */
+@media (min-width: 768px) {
+    .title {
+        font-size: var(--font-size-4xl); /* Cỡ chữ lớn hơn trên màn hình rộng */
+    }
+    
+    .subtitle {
+        font-size: var(--font-size-xl); /* Cỡ chữ lớn hơn */
+    }
+
+    .statsGrid {
+        grid-template-columns: repeat(4, 1fr); /* 4 cột trên desktop */
+    }
+    
+    .buttonsContainer {
+        margin-bottom: var(--spacing-8); /* Khoảng cách lớn hơn */
+    }
+}

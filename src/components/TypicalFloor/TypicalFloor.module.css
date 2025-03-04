@@ -1,0 +1,382 @@
+/* src/components/EconomyCityLanding/TypicalFloor/TypicalFloor.module.css */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+  }
+  
+  .sectionHeader {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .sectionTitle {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 10px;
+  }
+  
+  .sectionSubtitle {
+    font-size: 16px;
+    color: #64748b;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  
+  /* Tab chọn loại căn hộ */
+  .apartmentTabs {
+    display: flex;
+    background-color: white;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 0;
+    overflow: hidden;
+    border-bottom: 2px solid #e5e7eb;
+    position: relative;
+  }
+  
+  .apartmentTab {
+    flex: 1;
+    padding: 18px 20px;
+    background: transparent;
+    border: none;
+    color: #64748b;
+    font-weight: 600;
+    font-size: 17px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    letter-spacing: 0.2px;
+  }
+  
+  .activeTab {
+    background-color: #1e40af;
+    color: white;
+    font-weight: 700;
+  }
+  
+  .activeTab::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20px;
+    height: 3px;
+    background-color: #60a5fa;
+  }
+  
+  /* Phần đối tượng phù hợp và đánh giá */
+  .overviewSection {
+    margin-bottom: 15px;
+  }
+  
+  .overviewTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 12px;
+    border-left: 3px solid #1e40af;
+    padding-left: 10px;
+  }
+  
+  .overviewList {
+    list-style-type: none;
+    padding: 0;
+    margin: 0 0 20px 0;
+  }
+  
+  .overviewList li {
+    padding: 6px 0 6px 24px;
+    position: relative;
+    color: #475569;
+    font-size: 14px;
+  }
+  
+  .overviewList li:before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #1e40af;
+    font-weight: bold;
+  }
+  
+  .evaluationBox {
+    background-color: #f8fafc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .evaluationItem {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .evaluationItem:last-child {
+    margin-bottom: 0;
+  }
+  
+  .evaluationLabel {
+    font-size: 14px;
+    color: #475569;
+  }
+  
+  .evaluationValue {
+    font-weight: 500;
+  }
+  
+  .starRating {
+    color: #f59e0b;
+    font-size: 15px;
+    letter-spacing: 2px;
+  }
+  
+  /* Container chính */
+  .mainContainer {
+    display: flex;
+    background-color: white;
+    border-radius: 0 0 10px 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+    border-top: none;
+    position: relative;
+  }
+  
+  .mainContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e5e7eb;
+    z-index: 2;
+  }
+  
+  /* Cột bên trái */
+  .leftColumn {
+    flex: 0.4;
+    padding: 20px;
+    border-right: 1px solid #f1f5f9;
+  }
+  
+  /* Chọn tầng */
+  .floorSelector {
+    margin-bottom: 15px;
+  }
+  
+  .floorSelectorTitle {
+    font-size: 16px;
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 15px;
+    border-left: 3px solid #1e40af;
+    padding-left: 10px;
+  }
+  
+  .floorButtonRow {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .floorButton {
+    flex: 1;
+    padding: 8px 5px;
+    background-color: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #64748b;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    white-space: nowrap;
+  }
+  
+  .activeFloor {
+    background-color: #1e40af;
+    border-color: #1e40af;
+    color: white;
+  }
+  
+  /* Thông tin chi tiết */
+  .propertyDetails {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 10px; /* Thu nhỏ khoảng trống ở dưới */
+  }
+  
+  .detailItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px; /* Giảm khoảng cách giữa các item */
+  }
+  
+  .detailIcon {
+    width: 32px;
+    height: 32px;
+    background-color: #f1f5f9;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e40af;
+    margin-right: 10px;
+  }
+  
+  .detailLabel {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 1px;
+  }
+  
+  .detailValue {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1e293b;
+    line-height: 1.2;
+  }
+  
+  /* Cột bên phải */
+  .rightColumn {
+    flex: 0.6;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .floorPlanLabel {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 12px;
+    color: #64748b;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 4px 10px;
+    border-radius: 4px;
+    z-index: 10;
+  }
+  
+  .floorPlanWrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .floorPlanImage {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: block;
+    transform: scale(1.25); /* Zoom ảnh lên 15% */
+    transform-origin: center;
+  }
+  
+  .floorPlanNavigation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 0;
+    background-color: #fff;
+    position: relative;
+    z-index: 5;
+  }
+  
+  .navButton {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #e2e8f0;
+    border-radius: 50%;
+    color: #1e40af;
+    cursor: pointer;
+    transition: all 0.2s;
+    margin: 0 10px;
+  }
+  
+  .navButton.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    color: #94a3b8;
+  }
+  
+  .navLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1e293b;
+  }
+  
+  /* Nút đăng ký tư vấn rộng toàn màn hình */
+  .registerButtonFull {
+    width: 100%;
+    padding: 16px 15px;
+    background-color: #1e40af;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .registerButtonFull:hover {
+    background-color: #1e3a8a;
+  }
+  
+  /* Responsive */
+  @media (max-width: 992px) {
+    .mainContainer {
+      flex-direction: column;
+    }
+    
+    .leftColumn, .rightColumn {
+      flex: auto;
+      width: 100%;
+    }
+    
+    .leftColumn {
+      border-right: none;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    
+    .actionButtonsRow {
+      flex-direction: column;
+      gap: 10px;
+    }
+  }
+  
+  @media (max-width: 640px) {
+    .propertyDetails {
+      grid-template-columns: 1fr;
+    }
+    
+    .floorButtonRow {
+      flex-wrap: wrap;
+    }
+    
+    .floorButton {
+      flex-basis: calc(33.33% - 7px);
+    }
+  }
+  
+  .typicalFloor {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+  }

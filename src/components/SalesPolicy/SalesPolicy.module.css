@@ -1,0 +1,1045 @@
+/* ==============================
+   SalesPolicy BEM Structure CSS
+   Tổ chức theo mô hình BEM
+   ============================== */
+
+/* ------ Sales Policy (Block) ------ */
+.sales {
+    padding: 60px 0;
+    background-color: #f8f9fa;
+    will-change: transform;
+  }
+  
+  .sales__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .sales__header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .sales__title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1a202c;
+    margin-bottom: 8px;
+  }
+  
+  .sales__subtitle {
+    font-size: 18px;
+    color: #4a5568;
+  }
+  
+  /* ------ Tabs Container (Block) ------ */
+  .tabs {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    transform: translateZ(0);
+  }
+  
+  .tabs__list {
+    display: flex;
+    background-color: #f8f9fa;
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #e2e8f0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  
+  .tabs__button {
+    flex: 1;
+    padding: 16px 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #4a5568;
+    transition: all 0.15s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .tabs__button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: transparent;
+    transform: translateY(2px);
+    transition: transform 0.2s ease, background-color 0.2s ease;
+  }
+  
+  .tabs__button:hover::after {
+    background-color: #a0aec0;
+    transform: translateY(0);
+  }
+  
+  .tabs__button--active::after {
+    background-color: #3182ce;
+    transform: translateY(0);
+  }
+  
+  .tabs__button:hover {
+    color: #2b6cb0;
+    background-color: rgba(235, 248, 255, 0.5);
+  }
+  
+  .tabs__button--active {
+    color: #2b6cb0;
+    background-color: #fff;
+  }
+  
+  .tabs__content {
+    padding: 24px;
+    opacity: 1;
+    transition: opacity 0.2s ease, height 0.3s ease;
+    overscroll-behavior: contain;
+    will-change: opacity, height;
+    transform: translateZ(0);
+  }
+  
+  /* ------ Card (Block) ------ */
+  .card {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+    transform: translateZ(0);
+  }
+  
+  .card:hover {
+    border-color: #90cdf4;
+    transform: translateY(-2px);
+  }
+  
+  .card--special {
+    background-color: #ebf8ff;
+    border: 2px solid #3182ce;
+  }
+  
+  .card--special:hover {
+    background-color: #bee3f8;
+  }
+  
+  .card__header {
+    padding: 16px;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  
+  .card__title {
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    font-weight: 600;
+    color: #2d3748;
+    margin: 0;
+  }
+  
+  .card__description {
+    font-size: 14px;
+    color: #718096;
+    margin: 4px 0 0;
+  }
+  
+  .card__content {
+    padding: 16px;
+  }
+  
+  .card__footer {
+    padding: 12px 16px;
+    border-top: 1px solid #e2e8f0;
+  }
+  
+  /* ------ Discount Tab (Block) - New Modern Design ------ */
+  .discountTab {
+    padding: 8px 0;
+  }
+  
+  .discountGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    contain: layout;
+  }
+  
+  .discountCard {
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 1px solid #f0f4f8;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 24px 20px;
+  }
+  
+  .discountCard:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  }
+  
+  .discountCardSpecial {
+    background-color: #f0f9ff;
+    border: 1px solid #dbeafe;
+    position: relative;
+  }
+  
+  .discountCardSpecial:hover {
+    box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+  }
+  
+  .discountCardHeader {
+    margin-bottom: 24px;
+  }
+  
+  .discountBadge {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #f3f4f6;
+    color: #4b5563;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
+  .discountBadgeSpecial {
+    background-color: #2563eb;
+    color: #fff;
+  }
+  
+  .discountTitle {
+    font-size: 20px;
+    font-weight: 700;
+    color: #111827;
+    margin: 0 0 8px 0;
+  }
+  
+  .discountDescription {
+    font-size: 14px;
+    color: #4b5563;
+    margin: 0;
+    line-height: 1.5;
+  }
+  
+  .discountCardContent {
+    display: flex;
+    align-items: center;
+    margin-top: auto;
+  }
+  
+  .discountValueWrapper {
+    display: flex;
+    align-items: center;
+  }
+  
+  .discountIconWrapper {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    background-color: #ecfdf5;
+    color: #059669;
+    flex-shrink: 0;
+  }
+  
+  .discountIconWrapperSpecial {
+    background-color: #dbeafe;
+    color: #2563eb;
+  }
+  
+  .discountIcon {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+  }
+  
+  .discountInfo {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .discountLabel {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 2px;
+  }
+  
+  .discountValue {
+    font-size: 22px;
+    font-weight: 700;
+    color: #059669;
+  }
+  
+  .discountValueSpecial {
+    color: #2563eb;
+  }
+  
+  /* ------ Payment Timeline (Block) ------ */
+  .payment {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    contain: content;
+  }
+  
+  .payment__selector {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 24px;
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: #fff;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    transform: translateZ(0);
+  }
+  
+  .payment__method {
+    flex: 1;
+    padding: 16px;
+    border-radius: 8px;
+    background-color: #f7fafc;
+    border: 2px solid transparent;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    text-align: left;
+    transform: translateZ(0);
+  }
+  
+  .payment__method:hover {
+    background-color: #edf2f7;
+  }
+  
+  .payment__method--active {
+    background-color: #f7fafc;
+    border-width: 2px;
+    border-style: solid;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  }
+  
+  .payment__method--standard {
+    border-color: #4299e1;
+    background-color: rgba(235, 248, 255, 0.5);
+  }
+  
+  .payment__method--early70 {
+    border-color: #38a169;
+    background-color: rgba(240, 255, 244, 0.5);
+  }
+  
+  .payment__method--early95 {
+    border-color: #805ad5;
+    background-color: rgba(250, 245, 255, 0.5);
+  }
+  
+  .payment__method-name {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #2d3748;
+  }
+  
+  .payment__method-name--standard {
+    color: #4299e1;
+  }
+  
+  .payment__method-name--early70 {
+    color: #38a169;
+  }
+  
+  .payment__method-name--early95 {
+    color: #805ad5;
+  }
+  
+  .payment__method-description {
+    font-size: 14px;
+    color: #718096;
+  }
+  
+  .payment__summary {
+    padding: 16px;
+    border-radius: 8px;
+    margin-top: 16px;
+    contain: content;
+  }
+  
+  .payment__summary-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  
+  .payment__summary-list {
+    list-style-type: disc;
+    padding-left: 24px;
+    margin: 0;
+  }
+  
+  .payment__summary-list li {
+    margin-bottom: 8px;
+    color: #4a5568;
+  }
+  
+  .payment__summary-list li:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* ------ Timeline (Block) ------ */
+  .timeline {
+    position: relative;
+    padding: 10px 0;
+    contain: layout;
+    transform: translateZ(0);
+  }
+  
+  .timeline__line {
+    position: absolute;
+    left: 16px;
+    top: 24px;
+    width: 2px;
+    background-color: #3182ce;
+    z-index: 1;
+    will-change: transform;
+  }
+  
+  .timeline__item {
+    position: relative;
+    display: flex;
+    margin-bottom: 32px;
+    z-index: 2;
+    will-change: transform;
+  }
+  
+  /* Tối ưu animation pulse */
+  @keyframes softPulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(49, 130, 206, 0);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(49, 130, 206, 0.1);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(49, 130, 206, 0);
+    }
+  }
+  
+  .timeline__item--highlighted {
+    animation: softPulse 3s ease-in-out infinite;
+  }
+  
+  .timeline__icon {
+    flex-shrink: 0;
+    width: 34px;
+    display: flex;
+    justify-content: center;
+    contain: strict;
+  }
+  
+  .timeline__circle {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #3182ce;
+    color: white;
+    font-weight: 600;
+    z-index: 3;
+    transform: translateZ(0);
+  }
+  
+  .timeline__content {
+    flex-grow: 1;
+    margin-left: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 16px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    will-change: transform, box-shadow;
+  }
+  
+  .timeline__content:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  }
+  
+  .timeline__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  
+  .timeline__stage {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 4px;
+  }
+  
+  .timeline__period {
+    font-size: 14px;
+    color: #718096;
+  }
+  
+  .timeline__amount {
+    padding: 4px 10px;
+    border-radius: 16px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  
+  .timeline__highlight {
+    margin-top: 12px;
+    padding: 10px;
+    border-radius: 6px;
+    font-size: 14px;
+  }
+  
+  .timeline__highlight-text {
+    font-weight: 500;
+  }
+  
+  /* ------ Bank Tab (Block) ------ */
+  .bank {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    contain: content;
+  }
+  
+  .bank__support-card {
+    border-left: 4px solid #3182ce;
+  }
+  
+  .bank__options-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    contain: layout;
+  }
+  
+  .bank__support-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  
+  .bank__support-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  
+  .bank__support-title {
+    font-weight: 500;
+    margin: 0 0 4px;
+  }
+  
+  .bank__support-value {
+    color: #4a5568;
+    margin: 0;
+  }
+  
+  .bank__support-subtitle {
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+  
+  .bank__support-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .bank__rate-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    contain: layout;
+  }
+  
+  .bank__rate-item {
+    background-color: #f7fafc;
+    padding: 8px;
+    border-radius: 4px;
+    font-size: 14px;
+  }
+  
+  .bank__rate-duration {
+    font-weight: 500;
+  }
+  
+  .bank__prepayment-card {
+    background-color: #f7fafc;
+  }
+  
+  .bank__fee-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    contain: layout;
+  }
+  
+  .bank__fee-item {
+    background-color: white;
+    padding: 12px;
+    border-radius: 4px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    text-align: center;
+  }
+  
+  .bank__fee-period {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  
+  .bank__fee-value {
+    font-weight: normal;
+  }
+  
+  /* ------ Document Tab (Block) ------ */
+  .document {
+    padding: 0;
+    contain: content;
+  }
+  
+  .document__section {
+    margin-bottom: 24px;
+  }
+  
+  .document__section-title {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  
+  .document__section-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background-color: #ebf8ff;
+    color: #3182ce;
+    border-radius: 50%;
+    margin-right: 8px;
+    font-size: 14px;
+  }
+  
+  .document__list {
+    list-style-type: disc;
+    padding-left: 24px;
+    color: #4a5568;
+  }
+  
+  .document__financial-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-top: 16px;
+    contain: layout;
+  }
+  
+  .document__financial-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  /* ------ Footer (Block) ------ */
+  .footer {
+    border-top: 1px solid #e2e8f0;
+    padding: 24px;
+  }
+  
+  .footer__content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .footer__text {
+    font-size: 14px;
+    color: #718096;
+    margin: 0;
+  }
+  
+  .footer__hotline {
+    font-weight: 500;
+    margin: 4px 0 0;
+  }
+  
+  .footer__button {
+    background-color: #3182ce;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.15s ease;
+    transform: translateZ(0);
+  }
+  
+  .footer__button:hover {
+    background-color: #2b6cb0;
+  }
+  
+  /* ------ Icons (Utility) ------ */
+  .icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    color: #3182ce;
+    contain: strict;
+  }
+  
+  .checkIcon {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    margin-top: 2px;
+    color: #38a169;
+    flex-shrink: 0;
+    contain: strict;
+  }
+  
+  .infoIcon {
+    width: 16px;
+    height: 16px;
+    margin-right: 4px;
+    color: #3182ce;
+    flex-shrink: 0;
+    contain: strict;
+  }
+  
+  /* ------ Loading Placeholder (Block) ------ */
+  .loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    padding: 40px 0;
+  }
+  
+  .loading__spinner {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 16px;
+  }
+  
+  .loading__dot {
+    width: 12px;
+    height: 12px;
+    margin: 0 4px;
+    border-radius: 50%;
+    background-color: #3182ce;
+    animation: loadingDot 1.4s infinite ease-in-out both;
+  }
+  
+  .loading__dot:nth-child(1) {
+    animation-delay: -0.32s;
+  }
+  
+  .loading__dot:nth-child(2) {
+    animation-delay: -0.16s;
+  }
+  
+  @keyframes loadingDot {
+    0%, 80%, 100% { 
+      transform: scale(0);
+      opacity: 0.6;
+    }
+    40% { 
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .loading__text {
+    color: #4a5568;
+    font-size: 14px;
+    text-align: center;
+  }
+  
+  /* ==============================
+     Responsive Design
+     ============================== */
+  
+  /* Tablet and smaller desktops */
+  @media (max-width: 1024px) {
+    .sales__title {
+      font-size: 28px;
+    }
+    
+    .sales__subtitle {
+      font-size: 16px;
+    }
+    
+    .sales__container {
+      padding: 0 16px;
+    }
+    
+    .tabs__content {
+      padding: 20px;
+    }
+    
+    /* Discount tab responsive */
+    .discountGrid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    
+    .discountTitle {
+      font-size: 18px;
+    }
+    
+    .document__financial-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .card__title {
+      font-size: 16px;
+    }
+    
+    .card__description {
+      font-size: 13px;
+    }
+    
+    .timeline__content {
+      padding: 14px;
+    }
+  }
+  
+  /* Mobile */
+  @media (max-width: 768px) {
+    .sales {
+      padding: 40px 0;
+    }
+    
+    .sales__title {
+      font-size: 24px;
+    }
+    
+    .sales__container {
+      padding: 0 12px;
+    }
+    
+    .tabs__content {
+      padding: 16px;
+    }
+    
+    .tabs__list {
+      flex-wrap: wrap;
+    }
+    
+    .tabs__button {
+      flex-basis: 50%;
+      padding: 12px 8px;
+      font-size: 14px;
+    }
+    
+    /* Discount tab responsive */
+    .discountGrid {
+      grid-template-columns: 1fr;
+    }
+    
+    .discountCard {
+      max-width: 450px;
+      margin: 0 auto;
+    }
+    
+    .discountCard {
+      padding: 20px 16px;
+    }
+    
+    .payment__selector {
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .payment__method {
+      padding: 12px;
+    }
+    
+    .payment__method-name {
+      font-size: 14px;
+    }
+    
+    .payment__method-description {
+      font-size: 12px;
+    }
+    
+    /* Timeline responsive */
+    .timeline__item {
+      flex-direction: column;
+      margin-left: 12px;
+      margin-bottom: 40px;
+    }
+    
+    .timeline__icon {
+      position: absolute;
+      top: 0;
+      left: -12px;
+    }
+    
+    .timeline__content {
+      margin-left: 0;
+      margin-top: 16px;
+      width: 100%;
+    }
+    
+    .timeline__header {
+      flex-direction: column;
+    }
+    
+    .timeline__amount {
+      margin-top: 8px;
+      align-self: flex-start;
+    }
+    
+    /* Card layouts */
+    .bank__options-grid,
+    .bank__support-grid,
+    .document__financial-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .bank__fee-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    /* Footer */
+    .footer {
+      padding: 16px;
+    }
+    
+    .footer__content {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    
+    .footer__button {
+      margin-top: 12px;
+      width: 100%;
+      padding: 12px;
+    }
+    
+    /* Loading */
+    .loading {
+      min-height: 150px;
+      padding: 20px 0;
+    }
+    
+    .loading__dot {
+      width: 10px;
+      height: 10px;
+    }
+  }
+  
+  /* Small mobile devices */
+  @media (max-width: 480px) {
+    .tabs__button {
+      flex-basis: 100%;
+    }
+    
+    .bank__fee-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .payment__summary {
+      padding: 12px;
+    }
+    
+    .payment__summary-title {
+      font-size: 14px;
+    }
+    
+    .payment__summary-list {
+      font-size: 13px;
+    }
+    
+    .card__content {
+      padding: 12px;
+    }
+    
+    .card__header {
+      padding: 12px;
+    }
+    
+    .timeline__stage {
+      font-size: 14px;
+    }
+    
+    .timeline__period {
+      font-size: 12px;
+    }
+    
+    /* Giảm độ phức tạp của animation trên thiết bị yếu */
+    @keyframes softPulse {
+      0%, 100% { 
+        box-shadow: 0 0 0 0 rgba(49, 130, 206, 0);
+      }
+      50% { 
+        box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.1);
+      }
+    }
+    
+    /* Discount Mobile */
+    .discountTitle {
+      font-size: 16px;
+    }
+    
+    .discountDescription {
+      font-size: 13px;
+    }
+    
+    .discountValue {
+      font-size: 20px;
+    }
+  }
+  
+  /* Avoid small text */
+  @media (max-width: 360px) {
+    html {
+      font-size: 14px;
+    }
+    
+    .sales__title {
+      font-size: 20px;
+    }
+    
+    .sales__subtitle {
+      font-size: 14px;
+    }
+    
+    .card__title {
+      font-size: 15px;
+    }
+  }

@@ -1,6 +1,6 @@
 {
-  "name": "awesome-docusaurus",
-  "version": "0.0.0",
+  "name": "economy-city",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "docusaurus": "docusaurus",
@@ -17,14 +17,17 @@
     "@docusaurus/core": "3.6.0",
     "@docusaurus/preset-classic": "3.6.0",
     "@docusaurus/theme-mermaid": "^3.6.0",
-    "rehype-katex": "^7.0.1",
-    "remark-math": "^6.0.0",
     "@mdx-js/react": "^3.0.0",
     "clsx": "^2.0.0",
     "docusaurus-lunr-search": "^3.5.0",
+    "lucide-react": "^0.476.0",
     "prism-react-renderer": "^2.3.0",
     "react": "^18.0.0",
-    "react-dom": "^18.0.0"
+    "react-dom": "^18.0.0",
+    "react-icons": "^5.5.0",
+    "react-zoom-pan-pinch": "^3.7.0",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0"
   },
   "devDependencies": {
     "@docusaurus/module-type-aliases": "3.6.0",
