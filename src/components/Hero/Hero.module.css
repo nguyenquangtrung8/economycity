@@ -225,7 +225,7 @@
 .statValue {
     font-size: 2.5rem; /* Cỡ chữ lớn */
     font-weight: var(--font-weight-bold); /* In đậm */
-    color: var(--secondary-color); /* Màu phụ */
+    color: #f9d925; /* Màu vàng trang sức */
     margin-bottom: var(--spacing-2); /* Khoảng cách dưới */
     font-family: 'Montserrat', sans-serif; /* Font chữ */
 }

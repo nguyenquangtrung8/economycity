@@ -119,7 +119,7 @@ const config = {
           },
           {
             href: '/#typicalFloor',
-            label: 'Tiện ích nổi bật',
+            label: 'Tiện ích',
             position: 'left',
             className: 'navbar-center-item',
           },
@@ -143,7 +143,7 @@ const config = {
           },
           {
             href: '/#progress',
-            label: 'Cập nhật tiến độ',
+            label: 'Tiến độ',
             position: 'left',
             className: 'navbar-center-item',
           },
@@ -161,7 +161,7 @@ const config = {
           },
           {
             href: '/#contact',
-            label: 'Đăng ký Tham quan & Tư vấn',
+            label: 'Tham quan & Tư vấn',
             position: 'right',
             className: 'navbar-register-button',
           },
