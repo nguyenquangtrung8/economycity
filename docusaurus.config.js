@@ -131,7 +131,7 @@ const config = {
           },
           {
             href: '/#salesPolicy',
-            label: 'Chính sách bán hàng',
+            label: 'Chính sách',
             position: 'left',
             className: 'navbar-center-item',
           },
