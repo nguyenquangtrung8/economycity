@@ -1,6 +1,9 @@
 /* src/css/custom.css */
 
+/* Import fonts */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Open+Sans:wght@400;500;600;700&display=swap');
+
+/* Import other CSS files */
 @import url('./variables.css');
 @import url('./utilities.css');
 
@@ -16,9 +19,9 @@ html, body {
   width: 100%;
   font-family: var(--font-family-body);
   font-size: var(--font-size-base);
-  line-height: 1.5;
-  color: var(--neutral-darkest);
-  background-color: var(--neutral-white);
+  line-height: var(--line-height-normal);
+  color: var(--text-primary);
+  background-color: var(--bg-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -26,9 +29,9 @@ html, body {
 h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-heading);
   font-weight: var(--font-weight-bold);
-  line-height: 1.2;
+  line-height: var(--line-height-tight);
   margin-bottom: var(--spacing-4);
-  color: var(--neutral-black);
+  color: var(--text-primary);
 }
 
 h1 {
@@ -60,7 +63,7 @@ p {
 }
 
 a {
-  color: var(--primary-color);
+  color: var(--text-link);
   text-decoration: none;
   transition: color var(--transition-normal);
 }
@@ -84,6 +87,55 @@ img {
   height: auto;
 }
 
+/* Docusaurus specific overrides */
+:root {
+  --ifm-color-primary: var(--primary-color);
+  --ifm-color-primary-dark: var(--primary-dark);
+  --ifm-color-primary-darker: var(--primary-dark);
+  --ifm-color-primary-darkest: var(--primary-dark);
+  --ifm-color-primary-light: var(--primary-light);
+  --ifm-color-primary-lighter: var(--primary-light);
+  --ifm-color-primary-lightest: var(--primary-light);
+  --ifm-code-font-size: 95%;
+  --ifm-font-family-base: var(--font-family-body);
+  --ifm-heading-font-family: var(--font-family-heading);
+  --ifm-navbar-background-color: var(--bg-primary);
+  --ifm-footer-background-color: var(--neutral-darker);
+  --ifm-footer-color: var(--neutral-lightest);
+}
+
+/* Docusaurus navbar adjustments */
+.navbar__title {
+  font-family: var(--font-family-heading);
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-lg);
+}
+
+.navbar__link {
+  font-weight: var(--font-weight-medium);
+}
+
+.navbar__link--active {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Custom styling for navbar register button */
+.navbar-register-button {
+  background-color: var(--primary-color) !important;
+  color: var(--neutral-white) !important;
+  padding: var(--spacing-2) var(--spacing-4) !important;
+  border-radius: var(--border-radius) !important;
+  font-weight: var(--font-weight-semibold) !important;
+  margin-left: var(--spacing-4) !important;
+  transition: background-color var(--transition-normal) !important;
+}
+
+.navbar-register-button:hover {
+  background-color: var(--primary-dark) !important;
+  text-decoration: none !important;
+}
+
 /* CSS mạnh hơn để căn giữa navbar */
 @media (min-width: 996px) {
   /* Đặt lại cấu trúc navbar */
@@ -96,7 +148,7 @@ img {
   /* Logo căn trái */
   .navbar__brand {
     flex: 0 0 auto !important;
-    margin-right: 2rem !important;
+    margin-right: var(--spacing-8) !important;
   }
   
   /* Container chứa các menu item */
@@ -109,31 +161,16 @@ img {
   /* Nút đăng ký và các item bên phải */
   .navbar__items--right {
     flex: 0 0 auto !important;
-    margin-left: 2rem !important;
+    margin-left: var(--spacing-8) !important;
   }
   
   /* Khoảng cách giữa các menu item */
   .navbar__items a.navbar__item {
-    padding: 0 0.75rem !important;
+    padding: 0 var(--spacing-3) !important;
   }
 }
 
-/* Custom style cho nút đăng ký */
-.navbar-register-button {
-  background-color: var(--primary-color, #3b82f6) !important;
-  color: white !important;
-  padding: 0.5rem 1rem !important;
-  border-radius: 0.25rem !important;
-  font-weight: 600 !important;
-  margin-left: 1rem !important;
-}
-
-.navbar-register-button:hover {
-  background-color: var(--primary-dark, #2563eb) !important;
-  text-decoration: none !important;
-}
-
-/* Scroll mượt */
+/* Smooth scrolling */
 html {
   scroll-behavior: smooth;
 }
@@ -143,7 +180,25 @@ html {
   scroll-margin-top: 80px;
 }
 
-/* Section heading styles */
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-lighter);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-dark);
+  border-radius: var(--border-radius);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neutral-darker);
+}
+
+/* Section styling */
 .section-title {
   position: relative;
   display: inline-block;
@@ -171,7 +226,7 @@ html {
 
 .section-subtitle {
   font-size: var(--font-size-md);
-  color: var(--neutral-darker);
+  color: var(--text-secondary);
   margin-bottom: var(--spacing-8);
   max-width: 800px;
 }
@@ -189,79 +244,93 @@ html {
   margin-bottom: var(--spacing-4);
 }
 
-/* Animation utilities */
-.fade-in {
-  animation: fadeIn 0.8s ease-in-out;
+/* Fix for docusaurus anchor links and fixed header */
+.anchor {
+  display: block;
+  position: relative;
+  top: -80px;
+  visibility: hidden;
 }
 
-.fade-in-up {
-  animation: fadeInUp 0.8s ease-in-out;
+/* Common badge styles */
+.badge {
+  display: inline-block;
+  padding: var(--spacing-1) var(--spacing-2);
+  border-radius: var(--border-radius-full);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
 }
 
-.fade-in-left {
-  animation: fadeInLeft 0.8s ease-in-out;
+.badge-primary {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
 }
 
-.fade-in-right {
-  animation: fadeInRight 0.8s ease-in-out;
+.badge-secondary {
+  background-color: var(--secondary-light);
+  color: var(--secondary-dark);
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes fadeInLeft {
-  from {
-    opacity: 0;
-    transform: translateX(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  background: var(--neutral-lighter);
-}
-
-::-webkit-scrollbar-thumb {
-  background: var(--neutral-dark);
+/* Form elements */
+input, textarea, select {
+  width: 100%;
+  padding: var(--spacing-3);
+  border: 1px solid var(--neutral-light);
   border-radius: var(--border-radius);
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--neutral-darker);
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.25);
+}
+
+/* Placeholder text */
+::placeholder {
+  color: var(--neutral-dark);
+}
+
+/* Mobile menu adjustments */
+@media (max-width: 996px) {
+  .navbar-sidebar__brand {
+    padding: var(--spacing-2) var(--spacing-4) !important;
+  }
+  
+  .navbar-sidebar__items {
+    padding: var(--spacing-4) var(--spacing-2) !important;
+  }
+  
+  .menu__list-item {
+    margin: var(--spacing-1) 0 !important;
+  }
+}
+
+/* Responsive font sizes */
+@media (max-width: 768px) {
+  h1 {
+    font-size: var(--font-size-3xl);
+  }
+  
+  h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  h3 {
+    font-size: var(--font-size-xl);
+  }
+}
+
+/* Disable CSS animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
