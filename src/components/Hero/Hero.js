@@ -1,91 +1,59 @@
-// src/components/EconomyCityLanding/Hero/Hero.js
-import React, { useState, useEffect } from 'react';
+// src/components/Hero/Hero.js
+import React from 'react';
 import styles from './Hero.module.css';
-import { projectData } from '../common/data';
+import { heroData } from './HeroData';
+import { useTypingEffect } from '../../hooks/useTypingEffect';
 
 const Hero = () => {
-  const texts = [
-    "Khu đô thị kiểu mẫu phía Đông Hà Nội",
-    "Mua khi thị trấn nhỏ, giàu khi thành phố to"
-  ];
+  // Sử dụng custom hook cho hiệu ứng typing
+  const { displayText, isFadingOut, isTyping } = useTypingEffect(
+    heroData.typingTexts,
+    100, // typing speed (ms)
+    3000 // display duration (ms)
+  );
 
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [displayText, setDisplayText] = useState('');
-  const [isFadingOut, setIsFadingOut] = useState(false);
-
-  // Typing Effect Logic
-  useEffect(() => {
-    if (isFadingOut) return;
-
-    const currentText = texts[currentIndex];
-    let index = 0;
-
-    const typingTimer = setInterval(() => {
-      setDisplayText(currentText.slice(0, index));
-      index++;
-      if (index > currentText.length) {
-        clearInterval(typingTimer);
-        setTimeout(() => setIsFadingOut(true), 3000); // Hiển thị text trong 3 giây
-      }
-    }, 100); // Tốc độ typing: 100ms
-
-    return () => clearInterval(typingTimer);
-  }, [currentIndex, isFadingOut]);
-
-  useEffect(() => {
-    if (!isFadingOut) return;
-
-    const fadeOutTimer = setTimeout(() => {
-      setDisplayText('');
-      setCurrentIndex((prev) => (prev + 1) % texts.length);
-      setIsFadingOut(false);
-    }, 500); // Thời gian fade out: 500ms
-
-    return () => clearTimeout(fadeOutTimer);
-  }, [isFadingOut]);
-
-  // Scroll handler
+  // Xử lý scroll xuống phần Features
   const scrollToFeatures = () => {
     document.getElementById('features')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className={styles.hero}>
-      {/* Background Image */}
+    <section className={styles.hero} aria-label="Giới thiệu dự án">
+      {/* Hình nền với thuộc tính đầy đủ để tối ưu hiệu năng */}
       <img 
-        src="/img/hero-bg.jpg" 
-        alt="Economy City Văn Lâm" 
+        src={heroData.backgroundImage.src} 
+        alt={heroData.backgroundImage.alt} 
         className={styles.heroBackground}
         loading="lazy"
+        width={heroData.backgroundImage.width}
+        height={heroData.backgroundImage.height}
       />
-      <div className={styles.overlay}></div>
+      <div className={styles.overlay} aria-hidden="true"></div>
 
-      {/* Main Content */}
+      {/* Nội dung chính */}
       <div className={`container ${styles.container}`}>
         <div className={styles.content}>
-          {/* Project Logo (Optional) */}
-          {/* <img 
-            src="/img/logo.jpg" 
-            alt="Economy City" 
-            className={styles.projectLogo}
-          /> */}
+          {/* Tiêu đề */}
+          <h1 className={styles.title}>{heroData.title}</h1>
 
-          {/* Title */}
-          <h1 className={styles.title}>{projectData.name}</h1>
-
-          {/* Typing Effect */}
+          {/* Hiệu ứng typing với accessibility cải tiến */}
           <div className={styles.typingContainer}>
-            <p className={styles.subtitle}>
+            <p 
+              className={styles.subtitle}
+              role="status" 
+              aria-live="polite"
+              aria-atomic="true"
+            >
               <span 
                 className={`${styles.typingText} ${isFadingOut ? styles.fadeOut : ''}`}
               >
                 {displayText}
               </span>
-              {!isFadingOut && <span className={styles.cursor}></span>}
+              {isTyping && <span className={styles.cursor} aria-hidden="true"></span>}
             </p>
           </div>
 
-          {/* Location */}
+          {/* Vị trí */}
           <div className={styles.location}>
             <svg 
               className={styles.locationIcon}
@@ -98,45 +66,54 @@ const Hero = () => {
               strokeWidth="2" 
               strokeLinecap="round" 
               strokeLinejoin="round"
+              aria-hidden="true"
             >
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
               <circle cx="12" cy="10" r="3"></circle>
             </svg>
-            {projectData.location}
+            {heroData.location}
           </div>
 
-          {/* Buttons */}
+          {/* Nút CTA */}
           <div className={styles.buttonsContainer}>
-            <a href="#san-pham" className={styles.ctaButton}>Xem sản phẩm</a>
-            <a href="#lien-he" className={styles.secondaryButton}>Liên hệ ngay</a>
+            {heroData.buttons.map((button, index) => (
+              <a 
+                key={index}
+                href={button.link} 
+                className={button.type === 'primary' ? styles.ctaButton : styles.secondaryButton}
+              >
+                {button.text}
+              </a>
+            ))}
           </div>
 
-          {/* Stats Grid */}
+          {/* Khối thống kê */}
           <div className={styles.statsContainerBelow}>
             <div className={styles.statsGrid}>
-              <div className={styles.statCard}>
-                <div className={styles.statValue}>37ha</div>
-                <div className={styles.statLabel}>Tổng diện tích</div>
-              </div>
-              <div className={styles.statCard}>
-                <div className={styles.statValue}>1,044</div>
-                <div className={styles.statLabel}>Sản phẩm thấp tầng</div>
-              </div>
-              <div className={styles.statCard}>
-                <div className={styles.statValue}>30+</div>
-                <div className={styles.statLabel}>Tiện ích nội khu</div>
-              </div>
-              <div className={styles.statCard}>
-                <div className={styles.statValue}>107tr</div>
-                <div className={styles.statLabel}>Giá chỉ từ/m²</div>
-              </div>
+              {heroData.stats.map((stat, index) => (
+                <div key={index} className={styles.statCard}>
+                  <div className={styles.statValue}>{stat.value}</div>
+                  <div className={styles.statLabel}>{stat.label}</div>
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className={styles.scrollIndicator} onClick={scrollToFeatures} role="button" tabIndex="0">
+      {/* Nút cuộn xuống với accessibility cải tiến */}
+      <div 
+        className={styles.scrollIndicator} 
+        onClick={scrollToFeatures} 
+        role="button" 
+        tabIndex="0"
+        aria-label="Cuộn xuống xem thêm thông tin"
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            scrollToFeatures();
+          }
+        }}
+      >
         <svg 
           xmlns="http://www.w3.org/2000/svg" 
           width="32" 
@@ -147,6 +124,7 @@ const Hero = () => {
           strokeWidth="2" 
           strokeLinecap="round" 
           strokeLinejoin="round"
+          aria-hidden="true"
         >
           <polyline points="7 13 12 18 17 13"></polyline>
           <polyline points="7 6 12 11 17 6"></polyline>
