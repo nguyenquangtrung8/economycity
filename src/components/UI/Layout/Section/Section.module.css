@@ -1,0 +1,36 @@
+/* src/components/UI/Layout/Section/Section.module.css */
+.section {
+  width: 100%;
+  position: relative;
+}
+
+.section-sm {
+  padding: var(--spacing-8) 0;
+}
+
+.section-md {
+  padding: var(--spacing-16) 0;
+}
+
+.section-lg {
+  padding: var(--spacing-24) 0;
+}
+
+.fullWidth {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (max-width: 768px) {
+  .section-sm {
+    padding: var(--spacing-6) 0;
+  }
+  
+  .section-md {
+    padding: var(--spacing-10) 0;
+  }
+  
+  .section-lg {
+    padding: var(--spacing-16) 0;
+  }
+}

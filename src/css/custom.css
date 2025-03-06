@@ -26,147 +26,119 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-family-heading);
-  font-weight: var(--font-weight-bold);
-  line-height: var(--line-height-tight);
-  margin-bottom: var(--spacing-4);
-  color: var(--text-primary);
+/* Navbar styling */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--navbar-bg);
+  box-shadow: var(--navbar-shadow);
+  transition: all 0.3s ease;
+  padding: 12px 0;
 }
 
-h1 {
-  font-size: var(--font-size-4xl);
-}
-
-h2 {
-  font-size: var(--font-size-3xl);
-}
-
-h3 {
-  font-size: var(--font-size-2xl);
-}
-
-h4 {
-  font-size: var(--font-size-xl);
-}
-
-h5 {
-  font-size: var(--font-size-lg);
-}
-
-h6 {
-  font-size: var(--font-size-md);
-}
-
-p {
-  margin-bottom: var(--spacing-4);
-}
-
-a {
-  color: var(--text-link);
-  text-decoration: none;
-  transition: color var(--transition-normal);
-}
-
-a:hover {
-  color: var(--primary-dark);
-  text-decoration: underline;
-}
-
-ul, ol {
-  margin-bottom: var(--spacing-4);
-  padding-left: var(--spacing-5);
-}
-
-li {
-  margin-bottom: var(--spacing-2);
-}
-
-img {
-  max-width: 100%;
-  height: auto;
-}
-
-/* Docusaurus specific overrides */
-:root {
-  --ifm-color-primary: var(--primary-color);
-  --ifm-color-primary-dark: var(--primary-dark);
-  --ifm-color-primary-darker: var(--primary-dark);
-  --ifm-color-primary-darkest: var(--primary-dark);
-  --ifm-color-primary-light: var(--primary-light);
-  --ifm-color-primary-lighter: var(--primary-light);
-  --ifm-color-primary-lightest: var(--primary-light);
-  --ifm-code-font-size: 95%;
-  --ifm-font-family-base: var(--font-family-body);
-  --ifm-heading-font-family: var(--font-family-heading);
-  --ifm-navbar-background-color: var(--bg-primary);
-  --ifm-footer-background-color: var(--neutral-darker);
-  --ifm-footer-color: var(--neutral-lightest);
-}
-
-/* Docusaurus navbar adjustments */
-.navbar__title {
-  font-family: var(--font-family-heading);
-  font-weight: var(--font-weight-bold);
-  font-size: var(--font-size-lg);
-}
-
-.navbar__link {
-  font-weight: var(--font-weight-medium);
-}
-
-.navbar__link--active {
+/* Logo */
+.logoText {
+  font-weight: 700;
   color: var(--primary-color);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-heading);
+  font-size: var(--font-size-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
 }
 
-/* Custom styling for navbar register button */
-.navbar-register-button {
-  background-color: var(--primary-color) !important;
-  color: var(--neutral-white) !important;
-  padding: var(--spacing-2) var(--spacing-4) !important;
-  border-radius: var(--border-radius) !important;
-  font-weight: var(--font-weight-semibold) !important;
-  margin-left: var(--spacing-4) !important;
-  transition: background-color var(--transition-normal) !important;
+/* Navigation links */
+.navLink {
+  color: var(--navbar-text);
+  font-weight: 500;
+  position: relative;
+  transition: color 0.2s ease;
+  padding: var(--spacing-2) var(--spacing-4);
+  text-decoration: none;
 }
 
-.navbar-register-button:hover {
-  background-color: var(--primary-dark) !important;
-  text-decoration: none !important;
+.navLink:hover {
+  color: var(--navbar-text-hover);
 }
 
-/* CSS mạnh hơn để căn giữa navbar */
+/* Active link indicator */
+.navLink.active::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: -4px;
+  width: 80%;
+  height: 2px;
+  background-color: var(--navbar-text-hover);
+  border-radius: var(--border-radius-small);
+}
+
+/* CTA Button */
+.ctaButton {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: background-color 0.2s ease;
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+}
+
+.ctaButton:hover {
+  background-color: var(--primary-dark);
+  text-decoration: none;
+}
+
+/* Mobile menu */
+.mobileMenu {
+  background-color: var(--navbar-bg);
+  box-shadow: var(--navbar-shadow);
+  padding: var(--spacing-4);
+}
+
+.mobileLink {
+  color: var(--navbar-text);
+  font-weight: 500;
+  transition: color 0.2s ease;
+  padding: var(--spacing-2) var(--spacing-4);
+  display: block;
+  text-decoration: none;
+}
+
+.mobileLink:hover {
+  color: var(--navbar-text-hover);
+}
+
+/* Responsive adjustments for navbar */
 @media (min-width: 996px) {
-  /* Đặt lại cấu trúc navbar */
+  /* Center-aligned navbar items */
   .navbar__inner {
     display: flex !important;
     align-items: center !important;
-    max-width: 100% !important;
+    justify-content: space-between !important;
   }
-  
-  /* Logo căn trái */
+
+  /* Logo alignment */
   .navbar__brand {
     flex: 0 0 auto !important;
     margin-right: var(--spacing-8) !important;
   }
-  
-  /* Container chứa các menu item */
+
+  /* Centered navigation links */
   .navbar__items:not(.navbar__items--right) {
     flex: 1 1 auto !important;
     display: flex !important;
     justify-content: center !important;
   }
-  
-  /* Nút đăng ký và các item bên phải */
+
+  /* Right-aligned items */
   .navbar__items--right {
     flex: 0 0 auto !important;
     margin-left: var(--spacing-8) !important;
-  }
-  
-  /* Khoảng cách giữa các menu item */
-  .navbar__items a.navbar__item {
-    padding: 0 var(--spacing-3) !important;
   }
 }
 
@@ -175,7 +147,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Điều chỉnh khoảng cách khi scroll đến các phần */
+/* Adjust spacing when scrolling to sections */
 :target {
   scroll-margin-top: 80px;
 }
@@ -293,36 +265,6 @@ input:focus, textarea:focus, select:focus {
 /* Placeholder text */
 ::placeholder {
   color: var(--neutral-dark);
-}
-
-/* Mobile menu adjustments */
-@media (max-width: 996px) {
-  .navbar-sidebar__brand {
-    padding: var(--spacing-2) var(--spacing-4) !important;
-  }
-  
-  .navbar-sidebar__items {
-    padding: var(--spacing-4) var(--spacing-2) !important;
-  }
-  
-  .menu__list-item {
-    margin: var(--spacing-1) 0 !important;
-  }
-}
-
-/* Responsive font sizes */
-@media (max-width: 768px) {
-  h1 {
-    font-size: var(--font-size-3xl);
-  }
-  
-  h2 {
-    font-size: var(--font-size-2xl);
-  }
-  
-  h3 {
-    font-size: var(--font-size-xl);
-  }
 }
 
 /* Disable CSS animations for users who prefer reduced motion */

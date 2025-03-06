@@ -1,0 +1,29 @@
+/* src/components/UI/Layout/Stack/Stack.module.css */
+.stack {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.stackItem {
+  width: 100%;
+}
+
+/* Spacing */
+.stack-spacing-sm > .stackItem:not(:first-child) {
+  margin-top: var(--spacing-2);
+}
+
+.stack-spacing-md > .stackItem:not(:first-child) {
+  margin-top: var(--spacing-4);
+}
+
+.stack-spacing-lg > .stackItem:not(:first-child) {
+  margin-top: var(--spacing-8);
+}
+
+/* Dividers */
+.withDividers > .stackItem:not(:last-child) {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: var(--spacing-4);
+}

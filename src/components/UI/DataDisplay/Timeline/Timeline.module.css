@@ -1,0 +1,262 @@
+/* src/components/UI/DataDisplay/Timeline/Timeline.module.css */
+.timeline {
+  position: relative;
+  padding: var(--spacing-4) 0;
+  margin: 0;
+}
+
+/* Timeline line */
+.timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--neutral-light);
+  z-index: 1;
+}
+
+/* Mode positioning */
+.mode-left::before {
+  left: 16px;
+}
+
+.mode-right::before {
+  right: 16px;
+}
+
+.mode-alternate::before {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* Timeline item */
+.item {
+  position: relative;
+  margin-bottom: var(--spacing-6);
+  display: flex;
+}
+
+.item:last-child {
+  margin-bottom: 0;
+}
+
+/* Tail - connecting line */
+.tail {
+  position: absolute;
+  height: 100%;
+  width: 2px;
+  z-index: 2;
+}
+
+.mode-left .tail {
+  left: 16px;
+}
+
+.mode-right .tail {
+  right: 16px;
+}
+
+.mode-alternate .position-left .tail {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mode-alternate .position-right .tail {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.lastItem .tail {
+  display: none;
+}
+
+/* Dot */
+.head {
+  position: absolute;
+  z-index: 3;
+}
+
+.mode-left .head {
+  left: 12px;
+}
+
+.mode-right .head {
+  right: 12px;
+}
+
+.mode-alternate .position-left .head {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.mode-alternate .position-right .head {
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: var(--primary-color);
+  border: 2px solid var(--neutral-white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Timeline content */
+.content {
+  padding: var(--spacing-2) var(--spacing-4);
+  background-color: var(--neutral-white);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-sm);
+  flex: 1;
+}
+
+.mode-left .content {
+  margin-left: var(--spacing-8);
+}
+
+.mode-right .content {
+  margin-right: var(--spacing-8);
+}
+
+.mode-alternate .position-left .content {
+  margin-right: 50%;
+  padding-right: var(--spacing-4);
+  text-align: right;
+}
+
+.mode-alternate .position-right .content {
+  margin-left: 50%;
+  padding-left: var(--spacing-4);
+}
+
+/* Title and description */
+.title {
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-1);
+  color: var(--text-primary);
+}
+
+.description {
+  color: var(--text-secondary);
+}
+
+/* Label positioning */
+.label {
+  position: absolute;
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.mode-left .label {
+  left: 40px;
+}
+
+.mode-right .label {
+  right: 40px;
+  text-align: right;
+}
+
+.mode-alternate .position-left .label {
+  right: calc(50% + var(--spacing-4));
+  text-align: right;
+}
+
+.mode-alternate .position-right .label {
+  left: calc(50% + var(--spacing-4));
+}
+
+.label-start .label {
+  top: 0;
+}
+
+.label-center .label {
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.label-end .label {
+  bottom: 0;
+}
+
+/* Pending item */
+.pendingItem .dot {
+  background-color: transparent;
+  border-color: var(--neutral-dark);
+  animation: pendingDotPulse 1.5s infinite;
+}
+
+@keyframes pendingDotPulse {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Color variants */
+.color-primary .dot {
+  background-color: var(--primary-color);
+}
+
+.color-secondary .dot {
+  background-color: var(--secondary-color);
+}
+
+.color-success .dot {
+  background-color: var(--accent-success);
+}
+
+.color-warning .dot {
+  background-color: var(--accent-warning);
+}
+
+.color-danger .dot {
+  background-color: var(--accent-danger);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .mode-alternate::before {
+    left: 16px;
+  }
+  
+  .mode-alternate .position-left .head,
+  .mode-alternate .position-right .head {
+    left: 12px;
+    transform: none;
+  }
+  
+  .mode-alternate .position-left .tail,
+  .mode-alternate .position-right .tail {
+    left: 16px;
+    transform: none;
+  }
+  
+  .mode-alternate .position-left .content,
+  .mode-alternate .position-right .content {
+    margin-left: var(--spacing-8);
+    margin-right: 0;
+    padding-right: 0;
+    padding-left: var(--spacing-4);
+    text-align: left;
+  }
+  
+  .mode-alternate .position-left .label,
+  .mode-alternate .position-right .label {
+    left: 40px;
+    right: auto;
+    text-align: left;
+  }
+}

@@ -1,0 +1,89 @@
+/* src/components/UI/Typography/Subtitle/Subtitle.module.css */
+
+.subtitle {
+  font-family: var(--font-family-body);
+  line-height: var(--line-height-relaxed);
+  margin-top: 0;
+}
+
+/* Các biến thể */
+.variant-default {
+  color: var(--text-secondary);
+}
+
+.variant-muted {
+  color: var(--text-muted);
+}
+
+.variant-light {
+  color: var(--text-light);
+}
+
+/* Kích thước */
+.size-sm {
+  font-size: var(--font-size-sm);
+}
+
+.size-md {
+  font-size: var(--font-size-md);
+}
+
+.size-lg {
+  font-size: var(--font-size-lg);
+}
+
+/* Căn chỉnh */
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* Margin bottom control */
+.gutterBottom {
+  margin-bottom: var(--spacing-6);
+}
+
+.subtitle:not(.gutterBottom) {
+  margin-bottom: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .size-md {
+    font-size: var(--font-size-base);
+  }
+  
+  .size-lg {
+    font-size: var(--font-size-md);
+  }
+  
+  .gutterBottom {
+    margin-bottom: var(--spacing-4);
+  }
+}
+
+@media (max-width: 480px) {
+  .size-sm {
+    font-size: var(--font-size-xs);
+  }
+  
+  .size-md {
+    font-size: var(--font-size-sm);
+  }
+  
+  .size-lg {
+    font-size: var(--font-size-base);
+  }
+}
+
+/* Kết hợp với Title */
+.subtitle + .title {
+  margin-top: var(--spacing-4);
+}

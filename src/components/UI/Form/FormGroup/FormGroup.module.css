@@ -1,0 +1,34 @@
+/* src/components/UI/Form/FormGroup/FormGroup.module.css */
+.formGroup {
+  margin-bottom: var(--spacing-4);
+  width: 100%;
+}
+
+.labelWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spacing-2);
+}
+
+.labelEnd {
+  display: flex;
+  align-items: center;
+}
+
+.helperText {
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  color: var(--neutral-darker);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .formGroup {
+    margin-bottom: var(--spacing-3);
+  }
+  
+  .helperText {
+    font-size: var(--font-size-xs);
+  }
+}

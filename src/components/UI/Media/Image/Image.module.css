@@ -1,0 +1,62 @@
+/* src/components/UI/Media/Image/Image.module.css */
+.imageContainer {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--neutral-lighter);
+  border-radius: var(--border-radius);
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transition: opacity var(--transition-normal);
+}
+
+.loading {
+  opacity: 0;
+}
+
+.loaded {
+  opacity: 1;
+}
+
+.placeholder {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--neutral-lighter);
+}
+
+.placeholderBox {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    var(--neutral-lighter) 0%,
+    var(--neutral-light) 50%,
+    var(--neutral-lighter) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.placeholderImage {
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

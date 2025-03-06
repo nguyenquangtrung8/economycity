@@ -1,0 +1,76 @@
+/* src/components/UI/Layout/Flex/Flex.module.css */
+.flex {
+  display: flex;
+}
+
+/* Direction */
+.flex-direction-row {
+  flex-direction: row;
+}
+
+.flex-direction-column {
+  flex-direction: column;
+}
+
+/* Align */
+.flex-align-start {
+  align-items: flex-start;
+}
+
+.flex-align-center {
+  align-items: center;
+}
+
+.flex-align-end {
+  align-items: flex-end;
+}
+
+.flex-align-stretch {
+  align-items: stretch;
+}
+
+/* Justify */
+.flex-justify-start {
+  justify-content: flex-start;
+}
+
+.flex-justify-center {
+  justify-content: center;
+}
+
+.flex-justify-end {
+  justify-content: flex-end;
+}
+
+.flex-justify-between {
+  justify-content: space-between;
+}
+
+.flex-justify-around {
+  justify-content: space-around;
+}
+
+/* Gap */
+.flex-gap-sm {
+  gap: var(--spacing-2);
+}
+
+.flex-gap-md {
+  gap: var(--spacing-4);
+}
+
+.flex-gap-lg {
+  gap: var(--spacing-8);
+}
+
+/* Wrap */
+.flexWrap {
+  flex-wrap: wrap;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .flex-direction-row {
+    flex-direction: column;
+  }
+}

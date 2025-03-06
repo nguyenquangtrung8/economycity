@@ -1,0 +1,73 @@
+.list {
+  /* Default styles for List */
+}
+/* src/components/UI/DataDisplay/List/List.module.css */
+.listContainer {
+  width: 100%;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style-position: inside;
+}
+
+.bordered .item {
+  border-bottom: 1px solid var(--neutral-light);
+}
+
+.bordered .item:last-child {
+  border-bottom: none;
+}
+
+.horizontal {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.horizontal .item {
+  border-bottom: none;
+  border-right: 1px solid var(--neutral-light);
+  margin-right: var(--spacing-4);
+}
+
+.horizontal .item:last-child {
+  border-right: none;
+  margin-right: 0;
+}
+
+.size-sm .item {
+  padding: var(--spacing-2);
+}
+
+.size-md .item {
+  padding: var(--spacing-3);
+}
+
+.size-lg .item {
+  padding: var(--spacing-4);
+}
+
+.header {
+  padding: var(--spacing-3);
+  font-weight: var(--font-weight-semibold);
+  border-bottom: 1px solid var(--neutral-light);
+}
+
+.footer {
+  padding: var(--spacing-3);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--neutral-light);
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-8);
+  text-align: center;
+  color: var(--text-secondary);
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius);
+}

@@ -1,0 +1,127 @@
+/* src/components/UI/DataDisplay/Statistic/Statistic.module.css */
+.statistic {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  /* Icon positioning */
+  .icon-left {
+    flex-direction: column;
+  }
+  
+  .icon-top {
+    flex-direction: column;
+  }
+  
+  .icon-right {
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  
+  .icon-value-left .icon,
+  .icon-left .icon {
+    margin-right: var(--spacing-2);
+  }
+  
+  .icon-value-right .icon,
+  .icon-right .icon {
+    margin-left: var(--spacing-2);
+  }
+  
+  .icon-top .icon {
+    margin-bottom: var(--spacing-2);
+    align-self: center;
+  }
+  
+  /* Title */
+  .title {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  /* Value wrapper */
+  .valueWrapper {
+    display: flex;
+    align-items: baseline;
+  }
+  
+  .value {
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .prefix {
+    margin-right: var(--spacing-1);
+  }
+  
+  .suffix {
+    margin-left: var(--spacing-1);
+  }
+  
+  /* Size variants */
+  .size-sm .title {
+    font-size: var(--font-size-xs);
+  }
+  
+  .size-sm .value {
+    font-size: var(--font-size-md);
+  }
+  
+  .size-md .title {
+    font-size: var(--font-size-sm);
+  }
+  
+  .size-md .value {
+    font-size: var(--font-size-xl);
+  }
+  
+  .size-lg .title {
+    font-size: var(--font-size-md);
+  }
+  
+  .size-lg .value {
+    font-size: var(--font-size-3xl);
+  }
+  
+  /* Trend styles */
+  .trendIcon {
+    vertical-align: middle;
+  }
+  
+  .trend-up .trendIcon {
+    color: var(--accent-success);
+  }
+  
+  .trend-down .trendIcon {
+    color: var(--accent-danger);
+  }
+  
+  .trend-neutral .trendIcon {
+    color: var(--neutral-dark);
+  }
+  
+  .trend-up .value {
+    color: var(--accent-success);
+  }
+  
+  .trend-down .value {
+    color: var(--accent-danger);
+  }
+  
+  /* Animation for trend */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.7;
+    }
+  }
+  
+  .trend-up .trendIcon,
+  .trend-down .trendIcon {
+    animation: pulse 2s infinite;
+  }

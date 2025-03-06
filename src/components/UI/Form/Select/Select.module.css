@@ -1,0 +1,108 @@
+/* src/components/UI/Form/Select/Select.module.css */
+.selectWrapper {
+  width: 100%;
+  margin-bottom: var(--spacing-2);
+}
+
+.selectContainer {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  background-color: var(--input-bg);
+  transition: all var(--transition-normal);
+}
+
+.selectContainer:focus-within {
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
+}
+
+.select {
+  width: 100%;
+  padding: var(--spacing-3);
+  padding-right: var(--spacing-8); /* Space for the arrow */
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  color: var(--input-text);
+  appearance: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.select[multiple] {
+  padding-right: var(--spacing-3);
+  height: auto;
+  min-height: 120px;
+}
+
+.selectArrow {
+  position: absolute;
+  top: 50%;
+  right: var(--spacing-3);
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: var(--neutral-darker);
+}
+
+.selectError {
+  border-color: var(--accent-danger);
+}
+
+.selectError:focus-within {
+  border-color: var(--accent-danger);
+  box-shadow: 0 0 0 3px rgba(239, 71, 111, 0.25);
+}
+
+.selectDisabled {
+  background-color: var(--neutral-lighter);
+  cursor: not-allowed;
+}
+
+.selectDisabled .select {
+  cursor: not-allowed;
+  color: var(--neutral-dark);
+}
+
+.errorMessage {
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  color: var(--accent-danger);
+}
+
+/* Styling the options */
+.select option {
+  padding: var(--spacing-2);
+  font-size: var(--font-size-base);
+}
+
+.select option:checked {
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+}
+
+.select option:disabled {
+  color: var(--neutral-dark);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .select {
+    padding: var(--spacing-2);
+    padding-right: var(--spacing-8);
+  }
+}
+
+/* Focus visible polyfill - For non-mouse users */
+.select:focus-visible {
+  outline: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .selectContainer {
+    transition: none;
+  }
+}

@@ -1,0 +1,56 @@
+/* src/components/UI/Typography/Label/Label.module.css */
+
+.label {
+  display: inline-block;
+  font-family: var(--font-family-body);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  margin-bottom: var(--spacing-2);
+}
+
+/* Kích thước */
+.size-sm {
+  font-size: var(--font-size-xs);
+}
+
+.size-md {
+  font-size: var(--font-size-sm);
+}
+
+.size-lg {
+  font-size: var(--font-size-base);
+}
+
+/* Trạng thái vô hiệu hóa */
+.disabled {
+  color: var(--text-muted);
+  cursor: not-allowed;
+}
+
+/* Trạng thái lỗi */
+.error {
+  color: var(--accent-danger);
+}
+
+/* Required indicator */
+.requiredIndicator {
+  color: var(--accent-danger);
+  margin-left: var(--spacing-1);
+}
+
+/* Khoảng cách với input */
+.label + input,
+.label + select,
+.label + textarea {
+  margin-top: var(--spacing-1);
+}
+
+/* Focus state */
+.label:focus-within {
+  color: var(--primary-color);
+}
+
+/* Hover effect khi không disabled */
+.label:not(.disabled):hover {
+  color: var(--primary-dark);
+}

@@ -1,0 +1,98 @@
+/* src/components/UI/DataDisplay/Avatar/Avatar.module.css */
+.avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primary-color);
+  color: var(--neutral-white);
+  font-weight: var(--font-weight-medium);
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  transition: all var(--transition-normal);
+}
+
+/* Size variants */
+.size-xs {
+  width: 24px;
+  height: 24px;
+  font-size: var(--font-size-xs);
+}
+
+.size-sm {
+  width: 32px;
+  height: 32px;
+  font-size: var(--font-size-sm);
+}
+
+.size-md {
+  width: 40px;
+  height: 40px;
+  font-size: var(--font-size-base);
+}
+
+.size-lg {
+  width: 48px;
+  height: 48px;
+  font-size: var(--font-size-lg);
+}
+
+.size-xl {
+  width: 64px;
+  height: 64px;
+  font-size: var(--font-size-xl);
+}
+
+/* Shape variants */
+.shape-circle {
+  border-radius: 50%;
+}
+
+.shape-square {
+  border-radius: 0;
+}
+
+.shape-rounded {
+  border-radius: var(--border-radius);
+}
+
+/* Content */
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.icon,
+.initials,
+.placeholder {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Hover effect for clickable avatars */
+.avatar[role="button"] {
+  cursor: pointer;
+}
+
+.avatar[role="button"]:hover {
+  opacity: 0.9;
+}
+
+.avatar[role="button"]:active {
+  opacity: 0.8;
+}
+
+.avatar[role="button"]:focus-visible {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
+}
+
+/* Ensure proper alignment for SVG icons */
+.placeholder svg {
+  display: block;
+}

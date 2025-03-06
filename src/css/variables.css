@@ -43,6 +43,30 @@
   --bg-primary-light: rgba(42, 111, 151, 0.05); /* Light primary background */
   --bg-secondary-light: rgba(233, 196, 106, 0.1); /* Light secondary background */
   
+  /* Colors cho light mode */
+  --primary-color: #2a6f97; /* Màu chính */
+  --primary-dark: #0a4d7f; /* Màu đậm hơn của màu chính */
+  
+  /* Navbar colors - Light mode */
+  --navbar-bg-light: #ffffff;
+  --navbar-text-light: #1e293b; /* Text tối trên nền sáng */
+  --navbar-text-hover-light: #2a6f97; /* Màu hover = primary color */
+  
+  /* Navbar colors - Dark mode */
+  --navbar-bg-dark: #1e293b; /* Màu tối xanh navy */
+  --navbar-text-dark: #f8fafc; /* Text trắng trên nền tối */
+  --navbar-text-hover-dark: #61a5c2; /* Màu hover sáng hơn */
+  
+  /* Shadow cho navbar */
+  --navbar-shadow-light: 0 2px 10px rgba(0, 0, 0, 0.05);
+  --navbar-shadow-dark: 0 2px 10px rgba(0, 0, 0, 0.2);
+  
+  /* Default là light mode */
+  --navbar-bg: var(--navbar-bg-light);
+  --navbar-text: var(--navbar-text-light);
+  --navbar-text-hover: var(--navbar-text-hover-light);
+  --navbar-shadow: var(--navbar-shadow-light);
+  
   /* ===== TYPOGRAPHY ===== */
   /* Font Families */
   --font-family-heading: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
@@ -199,4 +223,14 @@
   --nav-text: var(--text-primary);
   --nav-hover: var(--primary-color);
   --nav-active: var(--primary-color);
+}
+
+/* Media query cho dark mode */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --navbar-bg: var(--navbar-bg-dark);
+    --navbar-text: var(--navbar-text-dark);
+    --navbar-text-hover: var(--navbar-text-hover-dark);
+    --navbar-shadow: var(--navbar-shadow-dark);
+  }
 }

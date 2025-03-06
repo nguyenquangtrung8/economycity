@@ -1,0 +1,85 @@
+/* src/components/UI/Form/Textarea/Textarea.module.css */
+.textareaWrapper {
+  width: 100%;
+  margin-bottom: var(--spacing-2);
+}
+
+.textareaContainer {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--input-border);
+  border-radius: var(--border-radius);
+  background-color: var(--input-bg);
+  transition: all var(--transition-normal);
+}
+
+.textareaContainer:focus-within {
+  border-color: var(--input-focus-border);
+  box-shadow: var(--input-focus-shadow);
+}
+
+.textarea {
+  width: 100%;
+  padding: var(--spacing-3);
+  border: none;
+  background: transparent;
+  font-family: var(--font-family-body);
+  font-size: var(--font-size-base);
+  color: var(--input-text);
+  resize: vertical;
+  outline: none;
+  min-height: 100px;
+  line-height: var(--line-height-normal);
+}
+
+.textarea::placeholder {
+  color: var(--input-placeholder);
+}
+
+.textareaError {
+  border-color: var(--accent-danger);
+}
+
+.textareaError:focus-within {
+  border-color: var(--accent-danger);
+  box-shadow: 0 0 0 3px rgba(239, 71, 111, 0.25);
+}
+
+.textareaDisabled {
+  background-color: var(--neutral-lighter);
+  cursor: not-allowed;
+}
+
+.textareaDisabled .textarea {
+  cursor: not-allowed;
+}
+
+.notResizable .textarea {
+  resize: none;
+}
+
+.errorMessage {
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  color: var(--accent-danger);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .textarea {
+    padding: var(--spacing-2);
+    font-size: var(--font-size-base);
+  }
+}
+
+/* Focus visible polyfill - For non-mouse users */
+.textarea:focus-visible {
+  outline: none;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .textareaContainer {
+    transition: none;
+  }
+}

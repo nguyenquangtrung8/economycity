@@ -1,0 +1,96 @@
+/* src/components/UI/Typography/Title/Title.module.css */
+
+.title {
+  font-family: var(--font-family-heading);
+  color: var(--text-primary);
+  margin-top: 0;
+  line-height: var(--line-height-tight);
+  font-weight: var(--font-weight-bold);
+}
+
+/* Các variant theo cấp độ */
+.title-h1 {
+  font-size: var(--font-size-4xl);
+  margin-bottom: var(--spacing-6);
+}
+
+.title-h2 {
+  font-size: var(--font-size-3xl);
+  margin-bottom: var(--spacing-5);
+}
+
+.title-h3 {
+  font-size: var(--font-size-2xl);
+  margin-bottom: var(--spacing-4);
+}
+
+.title-h4 {
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-3);
+}
+
+.title-h5 {
+  font-size: var(--font-size-lg);
+  margin-bottom: var(--spacing-2);
+}
+
+.title-h6 {
+  font-size: var(--font-size-md);
+  margin-bottom: var(--spacing-2);
+}
+
+/* Căn chỉnh */
+.align-left {
+  text-align: left;
+}
+
+.align-center {
+  text-align: center;
+}
+
+.align-right {
+  text-align: right;
+}
+
+/* Kiểm soát margin bottom */
+.gutterBottom {
+  /* Margin bottom đã được đặt trong các .title-hX */
+}
+
+/* Bỏ gutterBottom */
+.title.gutterBottom {
+  margin-bottom: var(--spacing-6);
+}
+
+.title:not(.gutterBottom) {
+  margin-bottom: 0;
+}
+
+/* Media queries */
+@media (max-width: 768px) {
+  .title-h1 {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .title-h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .title-h3 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .title-h4 {
+    font-size: var(--font-size-lg);
+  }
+}
+
+@media (max-width: 480px) {
+  .title-h1 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .title-h2 {
+    font-size: var(--font-size-xl);
+  }
+}

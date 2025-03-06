@@ -1,0 +1,199 @@
+/* src/components/UI/DataDisplay/Progress/Progress.module.css */
+/* ===== Line Progress Bar ===== */
+.container {
+  width: 100%;
+}
+
+.progressBar {
+  width: 100%;
+  background-color: var(--neutral-lighter);
+  border-radius: var(--border-radius-full);
+  overflow: hidden;
+}
+
+/* Size variants for line progress */
+.size-sm {
+  height: 4px;
+}
+
+.size-md {
+  height: 8px;
+}
+
+.size-lg {
+  height: 12px;
+}
+
+/* Fill */
+.progressFill {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  transition: width 0.6s ease;
+}
+
+/* Color variants */
+.color-primary .progressFill {
+  background-color: var(--primary-color);
+}
+
+.color-secondary .progressFill {
+  background-color: var(--secondary-color);
+}
+
+.color-success .progressFill {
+  background-color: var(--accent-success);
+}
+
+.color-warning .progressFill {
+  background-color: var(--accent-warning);
+}
+
+.color-danger .progressFill {
+  background-color: var(--accent-danger);
+}
+
+/* Striped effect */
+.striped .progressFill {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.15) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.15) 50%,
+    rgba(255, 255, 255, 0.15) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 1rem 1rem;
+}
+
+/* Animated striped effect */
+@keyframes progress-bar-stripes {
+  from {
+    background-position: 1rem 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+.animated .progressFill {
+  animation: progress-bar-stripes 1s linear infinite;
+}
+
+/* Labels */
+.label {
+  color: var(--neutral-white);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-medium);
+  padding: 0 var(--spacing-2);
+}
+
+.size-sm .label {
+  display: none; /* Too small for label */
+}
+
+.outsideLabel {
+  margin-top: var(--spacing-1);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+  text-align: right;
+}
+
+/* ===== Circle Progress ===== */
+.circleContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Size variants for circle progress */
+.circleContainer.size-sm {
+  width: 60px;
+  height: 60px;
+}
+
+.circleContainer.size-md {
+  width: 80px;
+  height: 80px;
+}
+
+.circleContainer.size-lg {
+  width: 100px;
+  height: 100px;
+}
+
+.circleSvg {
+  transform: rotate(-90deg);
+  width: 100%;
+  height: 100%;
+}
+
+.circleBackground {
+  fill: none;
+  stroke: var(--neutral-lighter);
+}
+
+.circleProgress {
+  fill: none;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+/* Circle color variants */
+.color-primary .circleProgress {
+  stroke: var(--primary-color);
+}
+
+.color-secondary .circleProgress {
+  stroke: var(--secondary-color);
+}
+
+.color-success .circleProgress {
+  stroke: var(--accent-success);
+}
+
+.color-warning .circleProgress {
+  stroke: var(--accent-warning);
+}
+
+.color-danger .circleProgress {
+  stroke: var(--accent-danger);
+}
+
+.circleLabel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+}
+
+.size-sm .circleLabel {
+  font-size: var(--font-size-xs);
+}
+
+.size-md .circleLabel {
+  font-size: var(--font-size-sm);
+}
+
+.size-lg .circleLabel {
+  font-size: var(--font-size-base);
+}
+
+/* High contrast mode and accessibility */
+@media (forced-colors: active) {
+  .progressFill {
+    border: 2px solid transparent;
+  }
+  
+  .circleProgress {
+    stroke: CanvasText;
+  }
+}
