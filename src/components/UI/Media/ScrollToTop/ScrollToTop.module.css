@@ -1,3 +1,120 @@
+/* src/components/UI/Media/ScrollToTop/ScrollToTop.module.css */
+
 .scrollToTop {
-  /* Default styles for ScrollToTop */
+  position: fixed;
+  width: 40px;
+  height: 40px;
+  background-color: var(--primary-color);
+  color: var(--neutral-white);
+  border-radius: var(--border-radius-full);
+  border: none;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-index-fixed);
+  opacity: 0;
+  animation: fadeIn var(--transition-normal) forwards;
+  transition: background-color var(--transition-normal), transform var(--transition-normal);
+  will-change: transform;
+}
+
+/* Position variants */
+.bottom-right {
+  bottom: var(--spacing-6);
+  right: var(--spacing-6);
+}
+
+.bottom-left {
+  bottom: var(--spacing-6);
+  left: var(--spacing-6);
+}
+
+.top-right {
+  top: var(--spacing-6);
+  right: var(--spacing-6);
+}
+
+.top-left {
+  top: var(--spacing-6);
+  left: var(--spacing-6);
+}
+
+/* Hover effect */
+.scrollToTop:hover {
+  background-color: var(--primary-dark);
+  transform: translateY(-4px);
+}
+
+.scrollToTop:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(42, 111, 151, 0.4);
+}
+
+/* Active state */
+.scrollToTop:active {
+  transform: translateY(0);
+}
+
+/* Icon styles */
+.icon {
+  transition: transform var(--transition-fast);
+}
+
+.scrollToTop:hover .icon {
+  transform: translateY(-2px);
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .scrollToTop {
+    width: 36px;
+    height: 36px;
+  }
+  
+  .bottom-right, .top-right {
+    right: var(--spacing-4);
+  }
+  
+  .bottom-left, .top-left {
+    left: var(--spacing-4);
+  }
+  
+  .bottom-right, .bottom-left {
+    bottom: var(--spacing-4);
+  }
+  
+  .top-right, .top-left {
+    top: var(--spacing-4);
+  }
+}
+
+/* Accessibility - support for prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .scrollToTop {
+    animation: none;
+    opacity: 1;
+    transition: none;
+  }
+  
+  .scrollToTop:hover {
+    transform: none;
+  }
+  
+  .scrollToTop:hover .icon {
+    transform: none;
+  }
 }

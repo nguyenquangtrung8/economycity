@@ -4,7 +4,7 @@ import List from './List/List';
 import Table from './Table/Table';
 import Timeline from './Timeline/Timeline';
 import Avatar from './Avatar/Avatar';
-import Progress from './Progress/Progress';
+import Tooltip from './Tooltip/Tooltip';
 import Statistic from './Statistic/Statistic';
 
 export {
@@ -13,6 +13,6 @@ export {
   Table,
   Timeline,
   Avatar,
-  Progress,
+  Tooltip,
   Statistic
 };

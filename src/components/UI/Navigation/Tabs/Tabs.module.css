@@ -1,3 +1,206 @@
-.tabs {
-  /* Default styles for Tabs */
+/* src/components/UI/Navigation/Tabs/Tabs.module.css */
+
+.tabsContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+/* Position variants */
+.position-top {
+  flex-direction: column;
+}
+
+.position-bottom {
+  flex-direction: column-reverse;
+}
+
+.position-left {
+  flex-direction: row;
+}
+
+.position-right {
+  flex-direction: row-reverse;
+}
+
+/* Tab list */
+.tabList {
+  display: flex;
+  position: relative;
+}
+
+.tabList-top, .tabList-bottom {
+  flex-direction: row;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.tabList-left, .tabList-right {
+  flex-direction: column;
+  border-right: 1px solid var(--border-color);
+}
+
+.position-bottom .tabList {
+  border-bottom: none;
+  border-top: 1px solid var(--border-color);
+}
+
+.position-right .tabList {
+  border-right: none;
+  border-left: 1px solid var(--border-color);
+}
+
+/* Individual tab */
+.tab {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--spacing-3) var(--spacing-4);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color var(--transition-normal), background-color var(--transition-normal);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--text-primary);
+  border-radius: 0;
+  white-space: nowrap;
+  position: relative;
+}
+
+.tab:hover {
+  color: var(--primary-color);
+}
+
+.activeTab {
+  color: var(--primary-color);
+  font-weight: var(--font-weight-semibold);
+}
+
+.disabledTab {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tab indicator */
+.tabIndicator {
+  position: absolute;
+  background-color: var(--primary-color);
+  transition: all var(--transition-normal);
+  z-index: 1;
+}
+
+.tabList-top .tabIndicator {
+  bottom: 0;
+  height: 2px;
+}
+
+.tabList-bottom .tabIndicator {
+  top: 0;
+  height: 2px;
+}
+
+.tabList-left .tabIndicator {
+  right: 0;
+  width: 2px;
+}
+
+.tabList-right .tabIndicator {
+  left: 0;
+  width: 2px;
+}
+
+/* Tab icon */
+.tabIcon {
+  margin-right: var(--spacing-2);
+  display: flex;
+  align-items: center;
+}
+
+/* Tab content panel */
+.tabPanel {
+  flex: 1;
+  padding: var(--spacing-4);
+  overflow: hidden;
+}
+
+/* Tab panel animation */
+.tabPanelAnimating {
+  animation: fadeIn var(--transition-normal);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Variant styles */
+.variant-default .tabList {
+  background-color: transparent;
+}
+
+.variant-card .tabList {
+  padding: var(--spacing-1) var(--spacing-1) 0;
+  background-color: var(--bg-secondary);
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.variant-card .tab {
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+  border: 1px solid var(--border-color);
+  border-bottom: none;
+  margin-right: var(--spacing-1);
+  background-color: var(--bg-tertiary);
+}
+
+.variant-card .activeTab {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--bg-primary);
+  margin-bottom: -1px;
+}
+
+.variant-card .tabPanel {
+  border: 1px solid var(--border-color);
+  border-top: none;
+  border-radius: 0 0 var(--border-radius) var(--border-radius);
+}
+
+.variant-line .tab {
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.variant-line .activeTab {
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.variant-line .tabIndicator {
+  display: none;
+}
+
+/* Accessibility */
+.tab:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+  z-index: 1;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .tabIndicator {
+    transition: none;
+  }
+  
+  .tabPanelAnimating {
+    animation: none;
+  }
+  
+  .tab {
+    transition: none;
+  }
 }

@@ -1,3 +1,126 @@
+/* src/components/UI/Navigation/NavLink/NavLink.module.css */
+
 .navLink {
-  /* Default styles for NavLink */
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-primary);
+  padding: var(--spacing-2) var(--spacing-3);
+  transition: color var(--transition-normal), background-color var(--transition-normal);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  position: relative;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--primary-color);
+}
+
+.navLink.active {
+  color: var(--primary-color);
+}
+
+/* Default variant with bottom indicator */
+.navLink-default.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background-color: var(--primary-color);
+  border-radius: 1px;
+  transition: width var(--transition-normal);
+}
+
+.navLink-default:hover::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 2px;
+  background-color: var(--primary-color);
+  border-radius: 1px;
+}
+
+/* Button variant */
+.navLink-button {
+  border: 1px solid transparent;
+  padding: var(--spacing-2) var(--spacing-4);
+}
+
+.navLink-button:hover {
+  background-color: var(--bg-primary-light);
+}
+
+.navLink-button.active {
+  background-color: var(--primary-color);
+  color: var(--neutral-white);
+}
+
+/* Underline variant */
+.navLink-underline {
+  background-color: transparent;
+  text-decoration: none;
+  padding: var(--spacing-1) 0;
+}
+
+.navLink-underline::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0%;
+  height: 1px;
+  background-color: var(--primary-color);
+  transition: width var(--transition-normal);
+}
+
+.navLink-underline:hover::after,
+.navLink-underline.active::after {
+  width: 100%;
+}
+
+/* Disabled state */
+.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Icon */
+.icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: var(--spacing-2);
+}
+
+.iconRight {
+  margin-right: 0;
+  margin-left: var(--spacing-2);
+}
+
+/* Content wrapper */
+.content {
+  display: inline-block;
+}
+
+/* Accessibility focus styles */
+.navLink:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navLink,
+  .navLink-default.active::after,
+  .navLink-default:hover::after,
+  .navLink-underline::after {
+    transition: none;
+  }
 }

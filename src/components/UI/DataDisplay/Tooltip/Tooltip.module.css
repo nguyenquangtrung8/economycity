@@ -1,3 +1,176 @@
+/* src/components/UI/Feedback/Tooltip/Tooltip.module.css */
+
 .tooltip {
-  /* Default styles for Tooltip */
+  position: fixed;
+  z-index: var(--z-index-tooltip);
+  padding: var(--spacing-2) var(--spacing-3);
+  border-radius: var(--border-radius);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-normal);
+  pointer-events: none; /* By default tooltip is not interactive */
+  max-width: 250px;
+  opacity: 0;
+  transform: scale(0.95);
+  animation: tooltipFadeIn var(--transition-normal) forwards;
+  box-shadow: var(--shadow);
+  word-wrap: break-word;
+  line-height: var(--line-height-normal);
+}
+
+/* Animation for tooltip */
+@keyframes tooltipFadeIn {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Accessibility: Make tooltip interactive if specified */
+.tooltip:where(:has(:hover), :has(:focus-visible)) {
+  pointer-events: auto;
+}
+
+/* Variants */
+.tooltip-dark {
+  background-color: var(--neutral-darkest);
+  color: var(--neutral-white);
+}
+
+.tooltip-light {
+  background-color: var(--neutral-white);
+  color: var(--neutral-darkest);
+  border: 1px solid var(--neutral-light);
+}
+
+.tooltip-info {
+  background-color: var(--accent-info);
+  color: var(--neutral-white);
+}
+
+.tooltip-warning {
+  background-color: var(--accent-warning);
+  color: var(--neutral-black);
+}
+
+/* Tooltip arrow styles */
+.hasArrow {
+  margin: 8px 0; /* Space for arrow */
+}
+
+.arrow {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transform: rotate(45deg);
+}
+
+/* Arrow position and color for each placement */
+.arrow-top {
+  bottom: -5px;
+  left: calc(50% - 5px);
+}
+
+.tooltip-dark .arrow-top {
+  background-color: var(--neutral-darkest);
+}
+
+.tooltip-light .arrow-top {
+  background-color: var(--neutral-white);
+  border-right: 1px solid var(--neutral-light);
+  border-bottom: 1px solid var(--neutral-light);
+}
+
+.tooltip-info .arrow-top {
+  background-color: var(--accent-info);
+}
+
+.tooltip-warning .arrow-top {
+  background-color: var(--accent-warning);
+}
+
+.arrow-right {
+  left: -5px;
+  top: calc(50% - 5px);
+}
+
+.tooltip-dark .arrow-right {
+  background-color: var(--neutral-darkest);
+}
+
+.tooltip-light .arrow-right {
+  background-color: var(--neutral-white);
+  border-left: 1px solid var(--neutral-light);
+  border-bottom: 1px solid var(--neutral-light);
+}
+
+.tooltip-info .arrow-right {
+  background-color: var(--accent-info);
+}
+
+.tooltip-warning .arrow-right {
+  background-color: var(--accent-warning);
+}
+
+.arrow-bottom {
+  top: -5px;
+  left: calc(50% - 5px);
+}
+
+.tooltip-dark .arrow-bottom {
+  background-color: var(--neutral-darkest);
+}
+
+.tooltip-light .arrow-bottom {
+  background-color: var(--neutral-white);
+  border-left: 1px solid var(--neutral-light);
+  border-top: 1px solid var(--neutral-light);
+}
+
+.tooltip-info .arrow-bottom {
+  background-color: var(--accent-info);
+}
+
+.tooltip-warning .arrow-bottom {
+  background-color: var(--accent-warning);
+}
+
+.arrow-left {
+  right: -5px;
+  top: calc(50% - 5px);
+}
+
+.tooltip-dark .arrow-left {
+  background-color: var(--neutral-darkest);
+}
+
+.tooltip-light .arrow-left {
+  background-color: var(--neutral-white);
+  border-right: 1px solid var(--neutral-light);
+  border-top: 1px solid var(--neutral-light);
+}
+
+.tooltip-info .arrow-left {
+  background-color: var(--accent-info);
+}
+
+.tooltip-warning .arrow-left {
+  background-color: var(--accent-warning);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .tooltip {
+    max-width: 200px;
+    font-size: var(--font-size-xs);
+    padding: var(--spacing-1) var(--spacing-2);
+  }
+}
+
+/* Respecting reduced motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .tooltip {
+    animation: none;
+    opacity: 1;
+    transform: scale(1);
+  }
 }

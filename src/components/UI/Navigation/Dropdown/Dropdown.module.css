@@ -1,3 +1,183 @@
+/* src/components/UI/Navigation/Dropdown/Dropdown.module.css */
+
 .dropdown {
-  /* Default styles for Dropdown */
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Trigger element styling */
+.trigger {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color var(--transition-normal);
+  user-select: none;
+  outline: none;
+}
+
+.trigger:hover {
+  color: var(--primary-color);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--primary-light);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Arrow indicator */
+.arrow {
+  margin-left: var(--spacing-2);
+  font-size: var(--font-size-sm);
+  transition: transform var(--transition-normal);
+}
+
+.arrowUp {
+  transform: rotate(180deg);
+}
+
+/* Disabled state */
+.disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Dropdown menu */
+.menu {
+  position: absolute;
+  z-index: var(--z-index-dropdown);
+  min-width: 180px;
+  padding: var(--spacing-1) 0;
+  margin: 0;
+  list-style: none;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  overflow-y: auto;
+  overflow-x: hidden;
+  will-change: transform, opacity; /* Optimize animation performance */
+  animation: fadeIn var(--transition-normal) var(--transition-ease);
+}
+
+/* Animation for dropdown appearance */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Placement variants */
+.menu-bottom {
+  top: 100%;
+  left: 0;
+  margin-top: var(--spacing-1);
+  transform-origin: top left;
+}
+
+.menu-top {
+  bottom: 100%;
+  left: 0;
+  margin-bottom: var(--spacing-1);
+  transform-origin: bottom left;
+}
+
+.menu-right {
+  top: 0;
+  left: 100%;
+  margin-left: var(--spacing-1);
+  transform-origin: top left;
+}
+
+.menu-left {
+  top: 0;
+  right: 100%;
+  margin-right: var(--spacing-1);
+  transform-origin: top right;
+}
+
+/* Dropdown item */
+.item {
+  display: flex;
+  align-items: center;
+  padding: var(--spacing-2) var(--spacing-3);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background-color var(--transition-fast);
+  outline: none;
+}
+
+.item:hover {
+  background-color: var(--bg-secondary);
+}
+
+.item:focus-visible {
+  background-color: var(--bg-secondary);
+  outline: 2px solid var(--primary-light);
+  outline-offset: -2px;
+}
+
+.item:active {
+  background-color: var(--bg-tertiary);
+}
+
+/* Icon in item */
+.itemIcon {
+  margin-right: var(--spacing-2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Text in item */
+.itemText {
+  flex: 1;
+}
+
+/* Disabled item */
+.itemDisabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* Empty state */
+.emptyItem {
+  padding: var(--spacing-2) var(--spacing-3);
+  color: var(--text-muted);
+  font-style: italic;
+  text-align: center;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .menu {
+    max-width: 280px;
+  }
+  
+  .menu-left, .menu-right {
+    /* Force top/bottom on mobile */
+    left: 0;
+    right: auto;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  
+  .menu-left {
+    top: 100%;
+    bottom: auto;
+    margin-top: var(--spacing-1);
+    transform-origin: top left;
+  }
+  
+  .item {
+    padding: var(--spacing-3) var(--spacing-3); /* Larger touch target on mobile */
+  }
 }
