@@ -1,3 +1,160 @@
-.spinner {
-  /* Default styles for Spinner */
+/* src/components/UI/Feedback/Spinner/Spinner.module.css */
+/* Common styles */
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Border Spinner */
+.border {
+  display: inline-block;
+  border-radius: 50%;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.75s linear infinite;
+}
+
+.border-sm {
+  width: 1rem;
+  height: 1rem;
+  border-width: 2px;
+}
+
+.border-md {
+  width: 2rem;
+  height: 2rem;
+  border-width: 3px;
+}
+
+.border-lg {
+  width: 3rem;
+  height: 3rem;
+  border-width: 4px;
+}
+
+/* Growing Spinner */
+.grow {
+  display: inline-block;
+  background-color: currentColor;
+  border-radius: 50%;
+  animation: grow 1s ease-in-out infinite;
+}
+
+.grow-sm {
+  width: 1rem;
+  height: 1rem;
+}
+
+.grow-md {
+  width: 2rem;
+  height: 2rem;
+}
+
+.grow-lg {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* Dots Spinner */
+.dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dots > div {
+  background-color: currentColor;
+  border-radius: 50%;
+  animation: bounce 1.4s infinite ease-in-out both;
+}
+
+.dots > div:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.dots > div:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+.dots-sm > div {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+.dots-md > div {
+  width: 0.75rem;
+  height: 0.75rem;
+}
+
+.dots-lg > div {
+  width: 1rem;
+  height: 1rem;
+}
+
+/* Color variants */
+.border-primary, .grow-primary, .dots-primary {
+  color: var(--primary-color);
+}
+
+.border-secondary, .grow-secondary, .dots-secondary {
+  color: var(--secondary-color);
+}
+
+.border-success, .grow-success, .dots-success {
+  color: var(--accent-success);
+}
+
+.border-warning, .grow-warning, .dots-warning {
+  color: var(--accent-warning);
+}
+
+.border-danger, .grow-danger, .dots-danger {
+  color: var(--accent-danger);
+}
+
+.border-light, .grow-light, .dots-light {
+  color: var(--neutral-light);
+}
+
+.border-dark, .grow-dark, .dots-dark {
+  color: var(--neutral-darkest);
+}
+
+/* Animations */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes grow {
+  0%, 100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes bounce {
+  0%, 80%, 100% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  40% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

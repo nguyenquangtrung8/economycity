@@ -1,3 +1,207 @@
+/* src/components/UI/Feedback/Toast/Toast.module.css */
 .toast {
-  /* Default styles for Toast */
+  position: fixed;
+  display: flex;
+  align-items: flex-start;
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-lg);
+  max-width: 350px;
+  min-width: 250px;
+  z-index: var(--z-index-tooltip);
+  animation-duration: 0.3s;
+  animation-fill-mode: both;
+}
+
+/* Variants */
+.toast-info {
+  background-color: var(--bg-primary);
+  border-left: 4px solid var(--accent-info);
+  color: var(--text-primary);
+}
+
+.toast-success {
+  background-color: var(--bg-primary);
+  border-left: 4px solid var(--accent-success);
+  color: var(--text-primary);
+}
+
+.toast-warning {
+  background-color: var(--bg-primary);
+  border-left: 4px solid var(--accent-warning);
+  color: var(--text-primary);
+}
+
+.toast-error {
+  background-color: var(--bg-primary);
+  border-left: 4px solid var(--accent-danger);
+  color: var(--text-primary);
+}
+
+/* Positions */
+.topRight {
+  top: var(--spacing-4);
+  right: var(--spacing-4);
+  animation-name: slideInRight;
+}
+
+.topLeft {
+  top: var(--spacing-4);
+  left: var(--spacing-4);
+  animation-name: slideInLeft;
+}
+
+.topCenter {
+  top: var(--spacing-4);
+  left: 50%;
+  transform: translateX(-50%);
+  animation-name: slideInDown;
+}
+
+.bottomRight {
+  bottom: var(--spacing-4);
+  right: var(--spacing-4);
+  animation-name: slideInRight;
+}
+
+.bottomLeft {
+  bottom: var(--spacing-4);
+  left: var(--spacing-4);
+  animation-name: slideInLeft;
+}
+
+.bottomCenter {
+  bottom: var(--spacing-4);
+  left: 50%;
+  transform: translateX(-50%);
+  animation-name: slideInUp;
+}
+
+/* Visibility */
+.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Icon */
+.iconWrapper {
+  margin-right: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.toast-info .icon {
+  color: var(--accent-info);
+}
+
+.toast-success .icon {
+  color: var(--accent-success);
+}
+
+.toast-warning .icon {
+  color: var(--accent-warning);
+}
+
+.toast-error .icon {
+  color: var(--accent-danger);
+}
+
+/* Content */
+.content {
+  flex: 1;
+  margin-right: var(--spacing-3);
+}
+
+/* Close button */
+.closeButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity var(--transition-normal);
+  color: var(--text-primary);
+  align-self: flex-start;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}
+
+.closeButton svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Animation keyframes */
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    transform: translateY(100%) translateX(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) translateX(-50%);
+    opacity: 1;
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    transform: translateY(-100%) translateX(-50%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) translateX(-50%);
+    opacity: 1;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .toast {
+    max-width: calc(100% - var(--spacing-8));
+    min-width: calc(100% - var(--spacing-8));
+  }
+  
+  .topCenter, .bottomCenter {
+    width: calc(100% - var(--spacing-8));
+  }
 }

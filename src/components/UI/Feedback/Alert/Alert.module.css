@@ -1,3 +1,86 @@
+/* src/components/UI/Feedback/Alert/Alert.module.css */
 .alert {
-  /* Default styles for Alert */
+  display: flex;
+  align-items: flex-start;
+  padding: var(--spacing-4);
+  border-radius: var(--border-radius);
+  margin-bottom: var(--spacing-4);
+  position: relative;
+  border: 1px solid transparent;
+}
+
+.alert-info {
+  background-color: rgba(var(--accent-info-rgb, 17, 138, 178), 0.1);
+  border-color: rgba(var(--accent-info-rgb, 17, 138, 178), 0.2);
+  color: var(--accent-info, #118ab2);
+}
+
+.alert-success {
+  background-color: rgba(var(--accent-success-rgb, 82, 183, 136), 0.1);
+  border-color: rgba(var(--accent-success-rgb, 82, 183, 136), 0.2);
+  color: var(--accent-success, #52b788);
+}
+
+.alert-warning {
+  background-color: rgba(var(--accent-warning-rgb, 255, 209, 102), 0.1);
+  border-color: rgba(var(--accent-warning-rgb, 255, 209, 102), 0.2);
+  color: var(--accent-warning, #ffd166);
+}
+
+.alert-error {
+  background-color: rgba(var(--accent-danger-rgb, 239, 71, 111), 0.1);
+  border-color: rgba(var(--accent-danger-rgb, 239, 71, 111), 0.2);
+  color: var(--accent-danger, #ef476f);
+}
+
+.iconWrapper {
+  margin-right: var(--spacing-3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.icon {
+  width: 20px;
+  height: 20px;
+}
+
+.content {
+  flex: 1;
+}
+
+.title {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--spacing-1);
+}
+
+.message {
+  font-size: var(--font-size-base);
+}
+
+.closeButton {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: var(--spacing-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.6;
+  transition: opacity var(--transition-normal);
+  color: inherit;
+}
+
+.closeButton:hover {
+  opacity: 1;
+}
+
+.closeButton svg {
+  width: 16px;
+  height: 16px;
 }
