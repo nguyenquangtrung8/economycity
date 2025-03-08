@@ -64,7 +64,7 @@ const Features = () => {
   }, []);
 
   return (
-    <section className={styles.featuresSection}>
+    <section className={styles.featuresSection} id="features">
       <div className={styles.container}>
         <div className={styles.tagWrapper}>
           <span className={styles.tag}>TẠI SAO CHỌN ECONOMY CITY</span>
@@ -113,80 +113,44 @@ const Features = () => {
           
           {/* Feature card */}
           <div className={styles.featureCard}>
-            <div className={styles.featureContent}>
-              <div className={styles.contentWrapper}>
-                {featureData.map((feature) => (
-                  <div 
-                    key={feature.id} 
-                    className={`${styles.featureDetails} ${
-                      activeFeature === feature.id 
-                        ? styles.active 
-                        : ''
-                    }`}
-                  >
-                    <div className={styles.featureTag}>
-                      <span>{feature.categoryName}</span>
-                    </div>
-                    
-                    <h3 className={styles.featureTitle}>{feature.title}</h3>
-                    <p className={styles.featureDescription}>{feature.description}</p>
-                    
-                    <div className={styles.featureSpecs}>
-                      {feature.benefits.map((benefit, index) => (
-                        <div key={index} className={styles.specItem}>
-                          <p className={styles.specLabel}>{benefit.label}</p>
-                          <p className={styles.specValue}>{benefit.value}</p>
-                        </div>
-                      ))}
-                    </div>
+            {featureData.map((feature) => (
+              <div 
+                key={feature.id}
+                className={`${styles.featureBlock} ${activeFeature === feature.id ? styles.activeFeature : ''}`}
+              >
+                <div className={styles.featureContent}>
+                  <div className={styles.featureTag}>
+                    <span>{feature.categoryName}</span>
                   </div>
-                ))}
-                
-                {/* Placeholder for layout structure */}
-                <div className={styles.placeholderLayout}>
-                  <div className={styles.featureTag}><span>Placeholder</span></div>
-                  <h3 className={styles.featureTitle}>Placeholder</h3>
-                  <p className={styles.featureDescription}>Placeholder description for layout purposes.</p>
+                  
+                  <h3 className={styles.featureTitle}>{feature.title}</h3>
+                  <p className={styles.featureDescription}>{feature.description}</p>
+                  
                   <div className={styles.featureSpecs}>
-                    <div className={styles.specItem}>
-                      <p className={styles.specLabel}>Placeholder</p>
-                      <p className={styles.specValue}>Placeholder</p>
-                    </div>
+                    {feature.benefits.map((benefit, index) => (
+                      <div key={index} className={styles.specItem}>
+                        <p className={styles.specLabel}>{benefit.label}</p>
+                        <p className={styles.specValue}>{benefit.value}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  <div className={styles.ctaButtonContainer}>
+                    <a href="#contact" className={styles.ctaButton}>
+                      Tìm hiểu thêm
+                    </a>
                   </div>
                 </div>
-              </div>
-              
-              <button className={styles.ctaButton}>
-                <span>Tìm hiểu thêm</span>
-              </button>
-            </div>
-            
-            <div className={styles.featureImageWrapper}>
-              {featureData.map((feature) => {
-                // Determine image source - use actual path from data
-                const imgSrc = feature.imageUrl || `/api/placeholder/800/600`;
                 
-                return (
-                  <div 
-                    key={feature.id}
-                    className={`${styles.featureImage} ${
-                      activeFeature === feature.id ? styles.featureImageActive : ''
-                    }`}
-                    aria-hidden={activeFeature !== feature.id}
-                  >
-                    <img 
-                      src={imgSrc} 
-                      alt={feature.imageAlt}
-                      className={styles.image}
-                    />
-                    <div className={styles.imageOverlay}>
-                      {/* <p className={styles.overlayTitle}>{feature.title}</p>
-                      <p className={styles.overlayDetails}>{feature.categoryName}</p> */}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+                <div className={styles.featureImageContainer}>
+                  <img 
+                    src={feature.imageUrl || `/img/placeholder.jpg`}
+                    alt={feature.imageAlt}
+                    className={styles.featureImage}
+                  />
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>
