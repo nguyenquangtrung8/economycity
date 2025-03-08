@@ -59,8 +59,8 @@ const renderSupportItems = (items) => {
         <polyline points="22 4 12 14.01 9 11.01"></polyline>
       </svg>
       <div>
-        <p className={styles.bank__support_title}>{item.title || item.duration}</p>
-        <p className={styles.bank__support_value}>{item.value || item.rate || item.fee}</p>
+        <p className={styles.bank__support_title} style={{color: '#1a202c', fontWeight: 600}}>{item.title || item.duration}</p>
+        <p className={styles.bank__support_value} style={{color: '#1a202c'}}>{item.value || item.rate || item.fee}</p>
       </div>
     </div>
   ));
@@ -113,12 +113,22 @@ const useTabTransition = (initialTab = 'discount') => {
  * Component TabsNav - Phần điều hướng tab ở trên cùng
  */
 const TabsNav = memo(function TabsNav({ activeTab, isTransitioning, onTabChange, tabNames }) {
+  // Inline style cho tab active để đảm bảo hiển thị đúng
+  const activeTabStyle = {
+    color: '#2563eb',
+    fontWeight: 700,
+    backgroundColor: '#ffffff',
+    borderBottom: '3px solid #2563eb',
+    boxShadow: '0 -2px 6px rgba(0, 0, 0, 0.1)'
+  };
+
   return (
     <div className={styles.tabs__list} role="tablist">
       {Object.keys(tabNames).map(tabKey => (
         <button 
           key={tabKey}
-          className={`${styles.tabs__button} ${activeTab === tabKey ? styles.tabs__button__active : ''}`}
+          className={styles.tabs__button}
+          style={activeTab === tabKey ? activeTabStyle : {}}
           onClick={() => onTabChange(tabKey)}
           role="tab"
           aria-selected={activeTab === tabKey}
@@ -126,7 +136,7 @@ const TabsNav = memo(function TabsNav({ activeTab, isTransitioning, onTabChange,
           id={`tab-${tabKey}`}
           disabled={isTransitioning}
         >
-          {tabNames[tabKey]}
+          {activeTab === tabKey && '• '}{tabNames[tabKey]}
         </button>
       ))}
     </div>
@@ -227,6 +237,20 @@ const PaymentTab = memo(function PaymentTab() {
     [activeMethod]
   );
 
+  // Styles cho phương thức thanh toán active
+  const getPaymentMethodStyles = (method) => {
+    if (activeMethod === method.id) {
+      return {
+        backgroundColor: `${method.color}10`,
+        borderColor: method.color,
+        borderWidth: '2px',
+        borderStyle: 'solid',
+        boxShadow: '0 2px 5px rgba(0, 0, 0, 0.05)'
+      };
+    }
+    return {};
+  };
+
   // Tính toán các timeline items
   const timelineItems = useMemo(() => {
     if (!paymentSchedules[activeMethod]) {
@@ -301,10 +325,17 @@ const PaymentTab = memo(function PaymentTab() {
           <button
             key={method.id}
             onClick={() => setActiveMethod(method.id)}
-            className={`${styles.payment__method} ${activeMethod === method.id ? styles.payment__method__active : ''} ${activeMethod === method.id ? styles[`payment__method__${method.id}`] : ''}`}
+            className={styles.payment__method}
+            style={getPaymentMethodStyles(method)}
           >
             <div>
-              <div className={`${styles.payment__method_name} ${activeMethod === method.id ? styles[`payment__method_name__${method.id}`] : ''}`}>
+              <div 
+                className={styles.payment__method_name} 
+                style={{ 
+                  color: activeMethod === method.id ? method.color : '',
+                  fontWeight: activeMethod === method.id ? 700 : 600
+                }}
+              >
                 {method.name}
               </div>
               <div className={styles.payment__method_description}>{method.description}</div>
@@ -351,10 +382,44 @@ const PaymentTab = memo(function PaymentTab() {
  * Component BankTab - Hiển thị tab hỗ trợ tài chính
  */
 const BankTab = memo(function BankTab() {
+  // Style thủ công cho tab bank
+  const bankStyles = {
+    container: {
+      backgroundColor: '#ffffff',
+      color: '#1a202c'
+    },
+    card: {
+      backgroundColor: '#f7fafc',
+      color: '#1a202c'
+    },
+    title: {
+      color: '#1a202c',
+      fontWeight: 600
+    },
+    text: {
+      color: '#1a202c'
+    },
+    rateItem: {
+      backgroundColor: '#f0f5fa',
+      border: '1px solid #e2e8f0',
+      borderRadius: '6px',
+      padding: '10px',
+      color: '#1a202c'
+    },
+    rateValue: {
+      color: '#2b6cb0',
+      fontWeight: 700,
+      backgroundColor: 'rgba(255,255,255,0.6)',
+      padding: '2px 6px',
+      borderRadius: '4px',
+      display: 'inline-block'
+    }
+  };
+
   const renderSupportSection = (title, items) => (
-    <div className={styles.card}>
+    <div className={styles.card} style={bankStyles.card}>
       <div className={styles.card__header}>
-        <h3 className={styles.card__title}>
+        <h3 className={styles.card__title} style={bankStyles.title}>
           <svg className={styles.icon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
             <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
             <line x1="1" y1="10" x2="23" y2="10"></line>
@@ -371,11 +436,11 @@ const BankTab = memo(function BankTab() {
   );
 
   return (
-    <div className={styles.bank}>
+    <div className={styles.bank} style={bankStyles.container}>
       {/* Chính sách hỗ trợ từ VietinBank */}
-      <div className={`${styles.card} ${styles.bank__support_card}`}>
+      <div className={`${styles.card} ${styles.bank__support_card}`} style={bankStyles.card}>
         <div className={styles.card__header}>
-          <h3 className={styles.card__title}>
+          <h3 className={styles.card__title} style={bankStyles.title}>
             <svg className={styles.icon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
               <line x1="1" y1="10" x2="23" y2="10"></line>
@@ -395,16 +460,17 @@ const BankTab = memo(function BankTab() {
         {renderSupportSection('Gói hỗ trợ lãi suất', bankSupport.interestSupport)}
         
         {/* Không tham gia gói HTLS */}
-        <div className={styles.card}>
+        <div className={styles.card} style={bankStyles.card}>
           <div className={styles.card__header}>
-            <h3 className={styles.card__title}>Không tham gia gói HTLS</h3>
+            <h3 className={styles.card__title} style={bankStyles.title}>Không tham gia gói HTLS</h3>
           </div>
           <div className={styles.card__content}>
-            <p className={styles.bank__support_subtitle}>Lãi suất ưu đãi theo thời hạn:</p>
+            <p className={styles.bank__support_subtitle} style={bankStyles.title}>Lãi suất ưu đãi theo thời hạn:</p>
             <div className={styles.bank__rate_grid}>
               {bankSupport.nonParticipation.map((item, index) => (
-                <div key={index} className={styles.bank__rate_item}>
-                  <span className={styles.bank__rate_duration}>{item.duration}:</span> {item.rate}
+                <div key={index} className={styles.bank__rate_item} style={bankStyles.rateItem}>
+                  <span className={styles.bank__rate_duration} style={bankStyles.title}>{item.duration}:</span>{' '}
+                  <span style={bankStyles.rateValue}>{item.rate}</span>
                 </div>
               ))}
             </div>
@@ -413,16 +479,16 @@ const BankTab = memo(function BankTab() {
       </div>
       
       {/* Phí trả nợ trước hạn */}
-      <div className={`${styles.card} ${styles.bank__prepayment_card}`}>
+      <div className={`${styles.card} ${styles.bank__prepayment_card}`} style={bankStyles.card}>
         <div className={styles.card__header}>
-          <h3 className={styles.card__title}>Phí trả nợ trước hạn</h3>
+          <h3 className={styles.card__title} style={bankStyles.title}>Phí trả nợ trước hạn</h3>
         </div>
         <div className={styles.card__content}>
           <div className={styles.bank__fee_grid}>
             {bankSupport.prepaymentFees.map((item, index) => (
-              <div key={index} className={styles.bank__fee_item}>
-                <span className={styles.bank__fee_period}>{item.period}</span>
-                <span className={styles.bank__fee_value}>{item.fee}</span>
+              <div key={index} className={styles.bank__fee_item} style={bankStyles.rateItem}>
+                <span className={styles.bank__fee_period} style={bankStyles.title}>{item.period}</span>
+                <span className={styles.bank__fee_value} style={bankStyles.rateValue}>{item.fee}</span>
               </div>
             ))}
           </div>
@@ -542,7 +608,7 @@ function SalesPolicy() {
   };
   
   return (
-    <section className={styles.sales}>
+    <section id="sales-policy" className={styles.sales}>
       <div className={styles.sales__header}>
         <h2 className={styles.sales__title}>Chính sách bán hàng Economy City Văn Lâm</h2>
         <p className={styles.sales__subtitle}>Lựa chọn phương án thanh toán phù hợp với nhu cầu của bạn</p>

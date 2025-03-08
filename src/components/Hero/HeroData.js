@@ -37,7 +37,7 @@ export const heroData = {
       }
     ],
     backgroundImage: {
-      src: "/img/hero-bg.jpg",
+      src: "/img/hero-bg1.jpg",
       alt: "Economy City Văn Lâm panorama",
       width: 1920,
       height: 1080
