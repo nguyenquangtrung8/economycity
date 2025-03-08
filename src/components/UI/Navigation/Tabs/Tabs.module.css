@@ -2,8 +2,8 @@
 
 .tabsContainer {
   display: flex;
-  flex-direction: column;
   width: 100%;
+  overflow: hidden;
 }
 
 /* Position variants */
@@ -27,6 +27,14 @@
 .tabList {
   display: flex;
   position: relative;
+  flex-shrink: 0;
+  overflow-x: auto;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.tabList::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 .tabList-top, .tabList-bottom {
@@ -65,9 +73,10 @@
   border-radius: 0;
   white-space: nowrap;
   position: relative;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.tab:hover {
+.tab:hover:not(.disabledTab) {
   color: var(--primary-color);
 }
 
@@ -79,14 +88,16 @@
 .disabledTab {
   opacity: 0.5;
   cursor: not-allowed;
+  pointer-events: none;
 }
 
 /* Tab indicator */
 .tabIndicator {
   position: absolute;
   background-color: var(--primary-color);
-  transition: all var(--transition-normal);
+  transition: all var(--transition-normal) ease;
   z-index: 1;
+  pointer-events: none;
 }
 
 .tabList-top .tabIndicator {
@@ -116,22 +127,102 @@
   align-items: center;
 }
 
-/* Tab content panel */
-.tabPanel {
+/* Tab panel container */
+.tabPanelContainer {
   flex: 1;
-  padding: var(--spacing-4);
+  position: relative;
   overflow: hidden;
 }
 
-/* Tab panel animation */
-.tabPanelAnimating {
-  animation: fadeIn var(--transition-normal);
+.panelContainer-top, .panelContainer-bottom {
+  width: 100%;
 }
 
-@keyframes fadeIn {
+.panelContainer-left, .panelContainer-right {
+  height: 100%;
+}
+
+/* Tab content panel */
+.tabPanel {
+  padding: var(--spacing-4);
+  transition: transform var(--transition-normal), opacity var(--transition-normal);
+  width: 100%;
+  height: 100%;
+}
+
+.tabPanelActive {
+  position: relative;
+  opacity: 1;
+  z-index: 2;
+}
+
+.tabPanelInactive {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  z-index: -1;
+  transition: opacity var(--transition-normal), visibility var(--transition-normal);
+}
+
+/* Tab panel transitions */
+.slideHorizontalNext {
+  animation: slideInHorizontalNext var(--transition-normal) forwards;
+}
+
+.slideHorizontalPrev {
+  animation: slideInHorizontalPrev var(--transition-normal) forwards;
+}
+
+.slideVerticalNext {
+  animation: slideInVerticalNext var(--transition-normal) forwards;
+}
+
+.slideVerticalPrev {
+  animation: slideInVerticalPrev var(--transition-normal) forwards;
+}
+
+@keyframes slideInHorizontalNext {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInHorizontalPrev {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInVerticalNext {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInVerticalPrev {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
@@ -187,7 +278,26 @@
 .tab:focus-visible {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
-  z-index: 1;
+  z-index: 3;
+}
+
+.tabPanel:focus {
+  outline: none;
+}
+
+.tabPanel:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+  z-index: 3;
+}
+
+/* Empty state */
+.emptyTabs {
+  padding: var(--spacing-4);
+  color: var(--text-muted);
+  text-align: center;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius);
 }
 
 /* Reduced motion */
@@ -195,12 +305,55 @@
   .tabIndicator {
     transition: none;
   }
-  
-  .tabPanelAnimating {
-    animation: none;
+
+  .tabPanel {
+    transition: none;
   }
-  
+
   .tab {
     transition: none;
+  }
+
+  .slideHorizontalNext,
+  .slideHorizontalPrev,
+  .slideVerticalNext,
+  .slideVerticalPrev {
+    animation: fadeIn 0.1s forwards;
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+    }
+  }
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .tabList-top, .tabList-bottom {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: var(--spacing-1);
+  }
+
+  .tab {
+    padding: var(--spacing-2) var(--spacing-3);
+    font-size: var(--font-size-sm);
+  }
+
+  .tabPanel {
+    padding: var(--spacing-3);
+  }
+}
+
+/* Hover effects only on devices that support hover */
+@media (hover: hover) {
+  .tab:hover:not(.disabledTab) {
+    background-color: rgba(0, 0, 0, 0.03);
+  }
+
+  .variant-card .tab:hover:not(.disabledTab) {
+    background-color: var(--bg-primary);
   }
 }

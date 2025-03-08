@@ -1,43 +1,73 @@
 /* src/components/UI/Layout/Container/Container.module.css */
-.container {
+
+/**
+ * Base container styles
+ */
+ .container {
   width: 100%;
   margin-right: auto;
   margin-left: auto;
-  padding-right: var(--spacing-4);
-  padding-left: var(--spacing-4);
-  max-width: var(--container-xl);
+  padding-left: var(--spacing-4, 1rem); /* Fallback nếu --spacing-4 không tồn tại */
+  padding-right: var(--spacing-4, 1rem);
+  max-width: var(--container-xl, 1280px); /* Fallback nếu --container-xl không tồn tại */
 }
 
+/**
+ * Fluid container (full width)
+ */
 .containerFluid {
-  max-width: 100%;
+  max-width: none; /* Bỏ giới hạn chiều rộng */
 }
 
+/**
+ * Centered content
+ */
 .containerCenter {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Căn giữa nội dung theo chiều ngang */
 }
 
-@media (min-width: 640px) {
+/**
+ * Narrow container (content width)
+ */
+.containerNarrow {
+  max-width: var(--container-narrow, 800px); /* Chiều rộng hẹp hơn cho nội dung text */
+}
+
+/**
+ * Padded container (vertical padding)
+ */
+.containerPadded {
+  padding-top: var(--spacing-6, 1.5rem); /* Fallback nếu --spacing-6 không tồn tại */
+  padding-bottom: var(--spacing-6, 1.5rem);
+}
+
+/**
+ * Responsive breakpoints
+ */
+@media (min-width: var(--breakpoint-sm, 640px)) {
   .container {
-    max-width: var(--container-sm);
+    max-width: var(--container-sm, 640px); /* Chiều rộng tối đa cho breakpoint sm */
   }
 }
 
-@media (min-width: 768px) {
+@media (min-width: var(--breakpoint-md, 768px)) {
   .container {
-    max-width: var(--container-md);
+    max-width: var(--container-md, 768px); /* Chiều rộng tối đa cho breakpoint md */
+    padding-left: var(--spacing-6, 1.5rem); /* Padding lớn hơn trên màn hình lớn */
+    padding-right: var(--spacing-6, 1.5rem);
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: var(--breakpoint-lg, 1024px)) {
   .container {
-    max-width: var(--container-lg);
+    max-width: var(--container-lg, 1024px); /* Chiều rộng tối đa cho breakpoint lg */
   }
 }
 
-@media (min-width: 1280px) {
+@media (min-width: var(--breakpoint-xl, 1280px)) {
   .container {
-    max-width: var(--container-xl);
+    max-width: var(--container-xl, 1280px); /* Chiều rộng tối đa cho breakpoint xl */
   }
 }
