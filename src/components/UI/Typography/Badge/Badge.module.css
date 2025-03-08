@@ -1,156 +1,247 @@
-/* src/components/UI/Typography/Badge/Badge.module.css */
-
+/* Base styles */
 .badge {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: var(--spacing-1) var(--spacing-2);
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius-full);
+  font-family: var(--font-family-body);
   font-weight: var(--font-weight-medium);
   font-size: var(--font-size-xs);
   line-height: 1;
   white-space: nowrap;
-  vertical-align: middle;
   text-transform: uppercase;
   letter-spacing: var(--letter-spacing-wide);
-  transition: all var(--transition-normal);
+  text-align: center;
+  box-sizing: border-box;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Các biến thể */
-.badge-primary {
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
-}
-
-.badge-secondary {
-  background-color: var(--secondary-light);
-  color: var(--secondary-dark);
-}
-
+/* Variant styles - Status */
 .badge-success {
-  background-color: var(--accent-success);
-  color: var(--neutral-white);
+  background-color: var(--badge-success-bg, var(--accent-success, #28a745));
+  color: var(--badge-success-text, white);
 }
 
 .badge-warning {
-  background-color: var(--accent-warning);
-  color: var(--neutral-black);
+  background-color: var(--badge-warning-bg, var(--accent-warning, #ffc107));
+  color: var(--badge-warning-text, var(--neutral-black, #000));
 }
 
 .badge-danger {
-  background-color: var(--accent-danger);
-  color: var(--neutral-white);
+  background-color: var(--badge-danger-bg, var(--accent-danger, #dc3545));
+  color: var(--badge-danger-text, white);
 }
 
 .badge-info {
-  background-color: var(--accent-info);
-  color: var(--neutral-white);
+  background-color: var(--badge-info-bg, var(--accent-info, #17a2b8));
+  color: var(--badge-info-text, white);
 }
 
-/* Kích thước */
-.size-sm {
+/* Variant styles - Promotion */
+.badge-sale {
+  background-color: var(--badge-sale-bg, #ff6b6b);
+  color: var(--badge-sale-text, white);
+}
+
+.badge-promo {
+  background-color: var(--badge-promo-bg, #6b66ff);
+  color: var(--badge-promo-text, white);
+}
+
+.badge-featured {
+  background-color: var(--badge-featured-bg, #fcc419);
+  color: var(--badge-featured-text, var(--neutral-black, #000));
+}
+
+/* Size styles */
+.badge-sm {
+  padding: 2px 8px;
+  font-size: calc(var(--font-size-xs) * 0.85);
+}
+
+.badge-md {
+  padding: 4px 10px;
   font-size: var(--font-size-xs);
-  padding: calc(var(--spacing-1) / 2) var(--spacing-1);
 }
 
-.size-md {
+.badge-lg {
+  padding: 6px 14px;
   font-size: var(--font-size-sm);
+}
+
+/* Position styles for absolute positioning */
+.absolute {
+  position: absolute;
+  z-index: 5;
+}
+
+.position-topLeft {
+  top: var(--spacing-2);
+  left: var(--spacing-2);
+}
+
+.position-topRight {
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+}
+
+.position-bottomLeft {
+  bottom: var(--spacing-2);
+  left: var(--spacing-2);
+}
+
+.position-bottomRight {
+  bottom: var(--spacing-2);
+  right: var(--spacing-2);
+}
+
+/* Ribbon style */
+.ribbon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: var(--spacing-1) var(--spacing-3);
+  transform-origin: top right;
+  transform: translateY(-50%) rotate(45deg) translateX(50%);
+  z-index: 10;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.ribbon-topLeft {
+  top: var(--spacing-2);
+  left: var(--spacing-2);
+  transform-origin: top left;
+  transform: translateY(-50%) rotate(-45deg) translateX(-50%);
+}
+
+.ribbon-edge {
+  border-radius: var(--border-radius-small);
   padding: var(--spacing-1) var(--spacing-2);
+  transform: none;
 }
 
-/* Pill style - hoàn toàn bo tròn */
-.pill {
+/* Dot style */
+.dot {
+  width: 8px;
+  height: 8px;
+  padding: 0;
+  min-width: 0;
   border-radius: var(--border-radius-full);
-  padding-left: var(--spacing-3);
-  padding-right: var(--spacing-3);
+  background-color: currentColor;
 }
 
-/* Outline style */
-.outline {
-  background-color: transparent;
-  border-width: 1px;
-  border-style: solid;
-}
-
-.outline.badge-primary {
-  color: var(--primary-color);
-  border-color: var(--primary-color);
-}
-
-.outline.badge-secondary {
-  color: var(--secondary-color);
-  border-color: var(--secondary-color);
-}
-
-.outline.badge-success {
-  color: var(--accent-success);
-  border-color: var(--accent-success);
-}
-
-.outline.badge-warning {
-  color: var(--accent-warning);
-  border-color: var(--accent-warning);
-}
-
-.outline.badge-danger {
-  color: var(--accent-danger);
-  border-color: var(--accent-danger);
-}
-
-.outline.badge-info {
-  color: var(--accent-info);
-  border-color: var(--accent-info);
-}
-
-/* Với icon */
-.withIcon {
-  padding-left: calc(var(--spacing-1) * 0.75);
-}
-
-.icon {
-  display: inline-flex;
+/* Counter style */
+.count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: flex;
   align-items: center;
-  margin-right: var(--spacing-1);
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  font-size: 10px;
+  line-height: 1;
+  background-color: var(--accent-danger, #dc3545);
+  color: white;
+  border-radius: var(--border-radius-full);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
-/* Hiệu ứng hover */
-.badge:not(.outline):hover {
-  opacity: 0.9;
+/* Close button style */
+.closeButton {
+  margin-left: 4px;
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
 }
 
-.outline:hover {
-  background-color: rgba(0, 0, 0, 0.05);
+.closeButton:hover {
+  opacity: 1;
 }
 
-/* Animation - pulse effect cho badges quan trọng */
-@keyframes pulse {
-  0% {
+/* Animation styles */
+.animation-pulse {
+  animation: badge-pulse 2s infinite;
+}
+
+.animation-glow {
+  animation: badge-glow 2s infinite;
+}
+
+.animation-bounce {
+  animation: badge-bounce 2s infinite;
+}
+
+.animation-shake {
+  animation: badge-shake 2s infinite;
+}
+
+/* Animation keyframes */
+@keyframes badge-pulse {
+  0%, 100% {
     transform: scale(1);
   }
   50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
+    transform: scale(1.1);
   }
 }
 
-.badge-danger:not(.outline) {
-  animation: pulse 2s infinite;
+@keyframes badge-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 15px currentColor;
+  }
 }
 
-/* Nhóm các badge */
-.badge + .badge {
-  margin-left: var(--spacing-2);
+@keyframes badge-bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-5px);
+  }
+  60% {
+    transform: translateY(-3px);
+  }
 }
 
-/* Media query */
-@media (max-width: 480px) {
-  .size-sm {
-    font-size: calc(var(--font-size-xs) * 0.9);
+@keyframes badge-shake {
+  0%, 100% {
+    transform: translateX(0);
   }
-  
-  .size-md {
-    font-size: var(--font-size-xs);
+  10%, 30%, 50%, 70%, 90% {
+    transform: translateX(-2px);
   }
+  20%, 40%, 60%, 80% {
+    transform: translateX(2px);
+  }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .animation-pulse,
+  .animation-glow,
+  .animation-bounce,
+  .animation-shake {
+    animation: none;
+  }
+}
+
+/* Wrapper for children */
+.badgeWrapper {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
