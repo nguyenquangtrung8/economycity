@@ -10,7 +10,7 @@ const config = {
   favicon: 'img/favicon.ico',
 
   // Cập nhật URL thực tế của website sau khi triển khai
-  url: 'https://economycity.vn',
+  url: 'https://economycity-hy.com',
   baseUrl: '/',
 
   // Cập nhật thông tin tổ chức/dự án của bạn
@@ -214,12 +214,12 @@ const config = {
             title: 'Liên hệ',
             items: [
               {
-                label: 'Hotline: 0123.456.789',
-                href: 'tel:0123.456.789',
+                label: 'Hotline: 0988.156.516',
+                href: 'tel:0988.156.516',
               },
               {
-                label: 'Email: sales@economycity.vn',
-                href: 'mailto:sales@economycity.vn',
+                label: 'Email: sales@economycity-hy.com',
+                href: 'mailto:sales@economycity-hy.com',
               },
               {
                 label: 'Văn phòng giao dịch',
