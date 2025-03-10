@@ -46,18 +46,15 @@
   display: flex;
   align-items: stretch;
   justify-content: center;
-  margin-bottom: 0;
+  margin-bottom: 1rem;
   background-color: white;
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
+  border-radius: 0.5rem;
   box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.05);
   padding: 0.25rem;
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
   border-bottom: 1px solid #e2e8f0;
-  position: relative;
-  z-index: 2;
 }
 
 .categoryButton {
@@ -86,7 +83,6 @@
   color: #2b6cb0;
   background-color: #ebf8ff;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  z-index: 3;
 }
 
 .categoryIcon {
@@ -138,53 +134,37 @@
   background-color: #3182ce;
   transition: all 0.3s ease;
   border-radius: 0.125rem;
-  z-index: 2;
 }
 
 .categoryIndicatorActive {
   transform: translateX(-50%) scaleX(1);
 }
 
-/* Feature card - new design */
+/* Feature card */
 .featureCard {
+  display: none;
   background-color: white;
   border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-  margin-top: -1px;
-  position: relative;
-  z-index: 1;
   overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
-/* Feature blocks */
-.featureBlock {
-  display: none; /* Ẩn mặc định */
-  flex-direction: column;
-}
-
-.activeFeature {
-  display: flex; /* Chỉ hiển thị block đang active */
-}
-
-/* Phần nội dung tính năng */
-.featureContent {
-  padding: 1.5rem;
+.activeCard {
   display: flex;
   flex-direction: column;
 }
 
+.hiddenCard {
+  display: none;
+}
+
+/* Feature tag */
 .featureTag {
   display: inline-block;
   background-color: #ebf8ff;
   border-radius: 0.25rem;
   padding: 0.25rem 0.75rem;
   margin-bottom: 1rem;
-  align-self: flex-start;
 }
 
 .featureTag span {
@@ -193,6 +173,7 @@
   font-weight: 600;
 }
 
+/* Feature details */
 .featureTitle {
   font-size: 1.5rem;
   font-weight: 700;
@@ -206,6 +187,7 @@
   line-height: 1.5;
 }
 
+/* Feature specifications */
 .featureSpecs {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -229,35 +211,16 @@
   color: #2d3748;
 }
 
-/* Container cho nút CTA */
-.ctaButtonContainer {
-  margin-top: auto;
-  width: 100%;
-  padding-top: 1rem;
+/* Mobile styles */
+.contentSide {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Nút CTA */
-.ctaButton {
-  display: block;
-  background-color: #3182ce;
-  color: white;
-  text-align: center;
-  font-weight: 500;
-  padding: 0.75rem 1rem;
-  border-radius: 0.375rem;
-  text-decoration: none;
-  transition: background-color 0.3s;
+.imageSide {
   width: 100%;
-}
-
-.ctaButton:hover {
-  background-color: #2c5282;
-}
-
-/* Phần hình ảnh */
-.featureImageContainer {
-  width: 100%;
-  height: 24rem;
+  height: 300px;
   overflow: hidden;
 }
 
@@ -265,45 +228,89 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
-/* Responsive styles */
+/* CTA Button */
+.ctaButtonContainer {
+  margin-top: 0.5rem;
+  width: 100%;
+}
+
+.ctaButton {
+  display: block;
+  width: 100%;
+  background-color: #3182ce;
+  color: white;
+  text-align: center;
+  font-weight: 500;
+  padding: 0.75rem 1rem;
+  border-radius: 0.375rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.ctaButton:hover {
+  background-color: #2c5282;
+}
+
+/* Desktop styles */
 @media (min-width: 768px) {
-  .featureBlock {
+  .featureCard {
+    height: 450px; /* Cố định chiều cao trên desktop */
     flex-direction: row;
   }
   
-  .featureContent {
+  .contentSide {
     flex: 1;
     padding: 2rem;
+    order: 1; /* Nội dung bên trái */
   }
   
-  .featureImageContainer {
+  .imageSide {
     flex: 1;
-    height: auto;
+    height: auto; /* Chiều cao tự động điều chỉnh */
+    order: 2; /* Hình ảnh bên phải */
+  }
+  
+  .featureImage {
+    height: 100%;
+    object-position: center;
+  }
+  
+  /* Điều chỉnh nav cho desktop */
+  .categoryNav {
+    margin-bottom: 2rem;
   }
 }
 
-/* Mobile styles */
-@media (max-width: 640px) {
+/* Mobile responsive fixes */
+@media (max-width: 767px) {
   .categoryNav {
     flex-wrap: wrap;
+    padding: 0.5rem;
   }
   
   .categoryButton {
-    padding: 0.75rem 0.5rem;
+    min-width: 33%;
+    padding: 0.75rem 0.25rem;
   }
   
   .featureSpecs {
     grid-template-columns: 1fr;
+    gap: 1rem;
   }
   
-  .featureBlock {
-    min-height: auto;
+  .imageSide {
+    order: 1; /* Hình ảnh trên cùng trên mobile */
   }
   
-  .featureImageContainer {
-    height: 18rem;
+  .contentSide {
+    order: 2; /* Nội dung phía dưới trên mobile */
+  }
+  
+  .ctaButtonContainer {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
 }

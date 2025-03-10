@@ -16,7 +16,7 @@ const featureData = [
       { label: 'Thời gian về Hà Nội', value: '20-25 phút' },
       { label: 'Tiếp giáp', value: '8 KCN lớn & 30 làng nghề' }
     ],
-    imageUrl: '/img/Liên Kết Vùng.jpg',
+    imageUrl: '/img/Lien-ket-vung.jpg',
     imageAlt: 'Vị trí chiến lược Economy City Văn Lâm - Kết nối giao thông thuận tiện với các trục đường lớn',
     imageWidth: 800,
     imageHeight: 600
@@ -33,7 +33,7 @@ const featureData = [
       { label: 'Clubhouse', value: '2.000m²' },
       { label: 'Số tiện ích', value: '30+ tiện ích đồng bộ' }
     ],
-    imageUrl: '/img/Tiện ích.png',
+    imageUrl: '/img/Tien-ich.png',
     imageAlt: 'Tiện ích đa dạng tại Economy City Văn Lâm - Không gian sống chất lượng và đồng bộ',
     imageWidth: 800,
     imageHeight: 600
@@ -50,7 +50,7 @@ const featureData = [
       { label: 'Pháp lý', value: 'Sổ đỏ lâu dài' },
       { label: 'Tiềm năng', value: 'Văn Lâm lên TP năm 2030' }
     ],
-    imageUrl: '/img/Giá trị.png',
+    imageUrl: '/img/Gia-tri.png',
     imageAlt: 'Cơ hội đầu tư sinh lời tại Economy City Văn Lâm - Tiềm năng tăng giá khi Văn Lâm lên thành phố',
     imageWidth: 800,
     imageHeight: 600
