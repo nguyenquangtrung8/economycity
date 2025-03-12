@@ -5,7 +5,7 @@ export const heroData = {
       "Khu đô thị kiểu mẫu phía Đông Hà Nội",
       "Mua khi thị trấn nhỏ, giàu khi thành phố to"
     ],
-    location: "Thị trấn Như Quỳnh, huyện Văn Lâm, tỉnh Hưng Yên",
+    location: "Thị trấn Như Quỳnh, Văn Lâm, Hưng Yên",
     buttons: [
       {
         text: "Xem sản phẩm",
