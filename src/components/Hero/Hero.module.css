@@ -302,6 +302,12 @@
       margin-bottom: var(--spacing-8, 3rem); /* Khoảng cách lớn hơn */
     }
   }
+  /* === RESPONSIVE DESIGN CHO MOBILE === */
+@media (max-width: 767px) {
+  .subtitle {
+      font-size: 1.2rem; /* Giảm cỡ chữ trên mobile */
+  }
+}
   
   /* Chỉ vô hiệu hóa animation cho người dùng thực sự cần */
   @media (prefers-reduced-motion: reduce) {
