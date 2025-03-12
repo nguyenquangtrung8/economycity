@@ -161,20 +161,23 @@ const PriceList = () => {
       </div>
       
       <div className={styles.actionButtons}>
-        <button className={styles.btnFilter}>
-          <Filter className={styles.buttonIcon} /> Bộ lọc
-        </button>
-        
-        <button className={styles.btnDownload} onClick={() => document.getElementById('contact-form').scrollIntoView({behavior: 'smooth'})}>
-          <Download className={styles.buttonIcon} /> Tải bảng giá
-        </button>
+        <div className={styles.buttonRow}>
+          <button className={styles.btnFilter}>
+            <Filter className={styles.buttonIcon} /> Bộ lọc
+          </button>
+          
+          <button className={styles.btnDownload} onClick={() => document.getElementById('contact-form').scrollIntoView({behavior: 'smooth'})}>
+            <Download className={styles.buttonIcon} /> Tải bảng giá
+          </button>
+        </div>
       </div>
 
       <div className={styles.tableContainer}>
         <table className={styles.priceTable}>
           <thead>
             <tr>
-              <th>Phân khúc</th>
+              {/* Cột Phân khúc sẽ bị ẩn trên mobile */}
+              <th className={styles.colCategory}>Phân khúc</th>
               <th>Loại sản phẩm</th>
               <th className={styles.textCenter}>Diện tích (m²)</th>
               <th className={styles.textCenter}>Mặt tiền (m)</th>
@@ -195,7 +198,8 @@ const PriceList = () => {
             {productsData.filter(p => p.category === 'Nhà phố thương mại').map(product => (
               <React.Fragment key={product.id}>
                 <tr className={styles.productRow}>
-                  <td></td>
+                  {/* Cột Phân khúc sẽ bị ẩn trên mobile */}
+                  <td className={styles.colCategory}></td>
                   <td className={styles.productType}>
                     <div className={styles.productName}>{product.type}</div>
                     {product.hot && <span className={styles.hotTag}>Hot</span>}
@@ -242,7 +246,8 @@ const PriceList = () => {
             {productsData.filter(p => p.category === 'Biệt thự').map(product => (
               <React.Fragment key={product.id}>
                 <tr className={styles.productRow}>
-                  <td></td>
+                  {/* Cột Phân khúc sẽ bị ẩn trên mobile */}
+                  <td className={styles.colCategory}></td>
                   <td className={styles.productType}>
                     <div className={styles.productName}>{product.type}</div>
                     {product.hot && <span className={styles.hotTag}>Hot</span>}
@@ -289,7 +294,8 @@ const PriceList = () => {
             {productsData.filter(p => p.category === 'Căn hộ cao tầng').map(product => (
               <React.Fragment key={product.id}>
                 <tr className={styles.productRow}>
-                  <td></td>
+                  {/* Cột Phân khúc sẽ bị ẩn trên mobile */}
+                  <td className={styles.colCategory}></td>
                   <td className={styles.productType}>
                     <div className={styles.productName}>{product.type}</div>
                     {product.hot && <span className={styles.hotTag}>Hot</span>}
