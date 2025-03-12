@@ -1,4 +1,4 @@
-/* Gallery.module.css - Tối ưu */
+/* Gallery.module.css với thêm mobile slider */
 
 /* Gallery section container */
 .gallerySection {
@@ -50,12 +50,152 @@
   padding: 0 var(--spacing-4);
 }
 
-/* Gallery Layout - Mobile First Approach */
+/* Mobile Slider Styles */
+.mobileSlider {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  margin-bottom: var(--spacing-6);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow);
+}
+
+.slides {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease;
+}
+
+.slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slideImageWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slideImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.slide:hover .slideImage {
+  transform: scale(1.05);
+}
+
+.slideCaption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--spacing-4);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
+  color: var(--neutral-white);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* Slider Navigation */
+.sliderNavigation {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: var(--neutral-white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: background-color 0.3s;
+}
+
+.sliderNavigation:hover,
+.sliderNavigation:focus {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.sliderPrev {
+  left: var(--spacing-2);
+}
+
+.sliderNext {
+  right: var(--spacing-2);
+}
+
+/* AutoPlay Toggle Button */
+.autoPlayToggle {
+  position: absolute;
+  top: var(--spacing-2);
+  right: var(--spacing-2);
+  background: rgba(0, 0, 0, 0.5);
+  border: none;
+  color: var(--neutral-white);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 5;
+  transition: background-color 0.3s;
+}
+
+.autoPlayToggle:hover,
+.autoPlayToggle:focus {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Slider Indicators */
+.indicators {
+  position: absolute;
+  bottom: var(--spacing-3);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-2);
+  z-index: 5;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  padding: 0;
+}
+
+.indicator:hover,
+.indicator:focus {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.activeIndicator {
+  background: var(--neutral-white);
+}
+
+/* Desktop Gallery Layout - Mobile First Approach */
 .galleryLayout {
-  display: grid;
-  grid-template-columns: 1fr;
-  grid-auto-rows: 250px;
-  gap: var(--spacing-3);
+  display: none; /* Ẩn gallery layout trên mobile */
 }
 
 /* Layout position classes - for Grid Areas */
@@ -241,7 +381,10 @@
 
 /* Accessibility improvements for focus states */
 .modalClose:focus-visible,
-.modalNavigation:focus-visible {
+.modalNavigation:focus-visible,
+.sliderNavigation:focus-visible,
+.autoPlayToggle:focus-visible,
+.indicator:focus-visible {
   outline: 2px solid var(--neutral-white);
   outline-offset: 2px;
 }
@@ -295,7 +438,14 @@
     font-size: var(--font-size-3xl);
   }
   
+  /* Ẩn mobile slider trên tablet trở lên */
+  .mobileSlider {
+    display: none;
+  }
+  
+  /* Hiển thị gallery layout từ tablet */
   .galleryLayout {
+    display: grid;
     grid-template-columns: repeat(8, 1fr);
     grid-template-rows: repeat(14, 70px);
     grid-template-areas:

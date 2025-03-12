@@ -5,22 +5,12 @@ import { galleryImages } from '../common/data';
 const Gallery = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  
+  // State cho mobile slider
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
 
-  // 1. Quản lý Side Effects với useEffect
-  useEffect(() => {
-    if (selectedImage) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-
-    // Cleanup function để đảm bảo trạng thái ban đầu khi component unmount
-    return () => {
-      document.body.style.overflow = 'auto';
-    };
-  }, [selectedImage]);
-
-  // 2. Tối ưu hóa ensureImages với useMemo
+  // 1. Tối ưu hóa ensureImages với useMemo - Phải khai báo trước useEffect sử dụng nó
   const displayImages = useMemo(() => {
     // Sao chép mảng gốc để không ảnh hưởng đến dữ liệu ban đầu
     let images = [...galleryImages];
@@ -48,6 +38,56 @@ const Gallery = () => {
     
     return images;
   }, [galleryImages]);
+
+  // 2. Quản lý Side Effects với useEffect - Modal
+  useEffect(() => {
+    if (selectedImage) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+
+    // Cleanup function để đảm bảo trạng thái ban đầu khi component unmount
+    return () => {
+      document.body.style.overflow = 'auto';
+    };
+  }, [selectedImage]);
+
+  // Autoplay effect cho mobile slider
+  useEffect(() => {
+    // Chỉ chạy autoplay khi flag autoplay = true
+    if (!isAutoPlaying) return;
+    
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % displayImages.length);
+    }, 3000);
+    
+    // Cleanup timer khi component unmount hoặc dependencies thay đổi
+    return () => clearInterval(timer);
+  }, [isAutoPlaying, displayImages.length]);
+
+  // Các chức năng điều khiển cho slider mobile
+  const goToSlide = useCallback((index) => {
+    setCurrentSlide(index);
+    // Dừng autoplay khi người dùng tương tác trực tiếp
+    setIsAutoPlaying(false);
+  }, []);
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % displayImages.length);
+    // Dừng autoplay khi người dùng tương tác trực tiếp
+    setIsAutoPlaying(false);
+  }, [displayImages?.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + displayImages.length) % displayImages.length);
+    // Dừng autoplay khi người dùng tương tác trực tiếp
+    setIsAutoPlaying(false);
+  }, [displayImages?.length]);
+
+  const toggleAutoPlay = useCallback(() => {
+    setIsAutoPlaying(prev => !prev);
+  }, []);
 
   const openModal = useCallback((image, index) => {
     setSelectedImage(image);
@@ -113,6 +153,11 @@ const Gallery = () => {
     e.stopPropagation();
     navigateImage(direction);
   }, [navigateImage]);
+  
+  // Mobile slider click handler
+  const handleSlideClick = useCallback((image, index) => {
+    openModal(image, index);
+  }, [openModal]);
 
   return (
     <section id="thu-vien" className={styles.gallerySection}>
@@ -128,6 +173,136 @@ const Gallery = () => {
       </div>
       
       <div className={styles.galleryContainer}>
+        {/* Mobile Slider - Chỉ hiển thị trên màn hình nhỏ */}
+        <div className={styles.mobileSlider}>
+          <div 
+            className={styles.slides}
+            style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+          >
+            {displayImages.map((image, index) => (
+              <div 
+                className={styles.slide} 
+                key={image.id || index}
+                onClick={() => handleSlideClick(image, index)}
+              >
+                <div className={styles.slideImageWrapper}>
+                  <img 
+                    src={`/img/${image.src}`} 
+                    alt={image.alt} 
+                    className={styles.slideImage}
+                    loading="lazy" 
+                  />
+                  <div className={styles.slideCaption}>{image.alt}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          
+          {/* Điều hướng mobile slider */}
+          <button 
+            className={`${styles.sliderNavigation} ${styles.sliderPrev}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              prevSlide();
+            }}
+            aria-label="Ảnh trước"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          
+          <button 
+            className={`${styles.sliderNavigation} ${styles.sliderNext}`}
+            onClick={(e) => {
+              e.stopPropagation();
+              nextSlide();
+            }}
+            aria-label="Ảnh tiếp theo"
+          >
+            <svg 
+              xmlns="http://www.w3.org/2000/svg" 
+              width="24" 
+              height="24" 
+              viewBox="0 0 24 24" 
+              fill="none" 
+              stroke="currentColor" 
+              strokeWidth="2" 
+              strokeLinecap="round" 
+              strokeLinejoin="round"
+            >
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          
+          {/* Nút tạm dừng/tiếp tục */}
+          <button 
+            className={styles.autoPlayToggle}
+            onClick={(e) => {
+              e.stopPropagation();
+              toggleAutoPlay();
+            }}
+            aria-label={isAutoPlaying ? "Tạm dừng trình chiếu" : "Tiếp tục trình chiếu"}
+          >
+            {isAutoPlaying ? (
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <rect x="6" y="4" width="4" height="16"></rect>
+                <rect x="14" y="4" width="4" height="16"></rect>
+              </svg>
+            ) : (
+              <svg 
+                xmlns="http://www.w3.org/2000/svg" 
+                width="24" 
+                height="24" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                strokeLinecap="round" 
+                strokeLinejoin="round"
+              >
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            )}
+          </button>
+          
+          {/* Indicators */}
+          <div className={styles.indicators}>
+            {displayImages.map((_, index) => (
+              <button
+                key={index}
+                className={`${styles.indicator} ${currentSlide === index ? styles.activeIndicator : ''}`}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  goToSlide(index);
+                }}
+                aria-label={`Chuyển đến ảnh ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop Gallery Layout - Hiển thị trên tablet và desktop */}
         <div className={styles.galleryLayout}>
           {displayImages.map((image, index) => (
             <div 
@@ -140,7 +315,7 @@ const Gallery = () => {
                   src={`/img/${image.src}`} 
                   alt={image.alt} 
                   className={`${styles.galleryImage} ${getImagePosition(index)}`}
-                  loading="lazy" // 9. Lazy Loading Images
+                  loading="lazy" // Lazy Loading Images
                 />
                 <div className={styles.galleryOverlay}>
                   <div className={styles.galleryCaption}>{image.alt}</div>
