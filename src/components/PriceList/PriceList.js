@@ -378,7 +378,7 @@ const PriceList = () => {
       
       {/* Footer */}
       <div className={styles.priceFooter}>
-        <div className={styles.hotline}>HOTLINE: 0123.456.789</div>
+        <div className={styles.hotline}>HOTLINE: 0988.156.516</div>
         <div className={styles.address}>Dự án Economy City Văn Lâm - Thị trấn Như Quỳnh, Văn Lâm, Hưng Yên</div>
       </div>
     </div>
