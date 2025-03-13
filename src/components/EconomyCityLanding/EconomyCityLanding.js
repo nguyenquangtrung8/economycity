@@ -3,9 +3,10 @@
 import React, { Suspense } from 'react';
 import styles from './EconomyCityLanding.module.css';
 import Hero from '../Hero/Hero'; // Component Hero không cần lazy loading
-import Features from '../Features/Features'; // Features cũng không cần lazy loading
 
-// Lazy load các component khác
+// Lazy load các component
+const Features = React.lazy(() => import('../Features/Features'));
+const Location = React.lazy(() => import('../Location/Location'));
 const Products = React.lazy(() => import('../Products/Products'));
 const TypicalFloor = React.lazy(() => import('../TypicalFloor/TypicalFloor'));
 const Gallery = React.lazy(() => import('../Gallery/Gallery'));
@@ -22,14 +23,19 @@ const EconomyCityLanding = () => {
       <div id="hero">
         <Hero />
       </div>
-
-      {/* Features cũng không cần lazy loading */}
-      <div id="features">
-        <Features />
-      </div>
-
+      
       {/* Sử dụng Suspense để bọc các component lazy */}
       <Suspense fallback={<div>Loading...</div>}>
+        {/* Location đã được chuyển sang lazy loading */}
+        <div id="location">
+          <Location />
+        </div>
+
+        {/* Features đã được chuyển sang lazy loading */}
+        <div id="features">
+          <Features />
+        </div>
+
         <div id="products">
           <Products />
         </div>

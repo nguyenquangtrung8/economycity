@@ -1,3 +1,5 @@
+/* src/css/variables.css */
+
 /* SalesPolicy.module.css */
 
 /* ------ Sales Policy (Block) ------ */
@@ -136,6 +138,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: 24px;
   contain: layout;
+  grid-auto-rows: 1fr;
 }
 
 .discountCard {
@@ -768,12 +771,22 @@
   .discountCard {
     max-width: 450px;
     margin: 0 auto;
-  }
-  
-  .discountCard {
     padding: 20px 16px;
   }
   
+  /* Thêm lại phần định nghĩa cho .discountCardSpecial */
+  .discountCardSpecial {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 20px 16px;
+  }
+  
+  /* Đảm bảo cả hai loại card có cùng kích thước */
+  .discountCard, .discountCardSpecial {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   .payment__selector {
     flex-direction: column;
     gap: 8px;
