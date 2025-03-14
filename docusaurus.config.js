@@ -218,18 +218,9 @@ const config = {
   },
   themes: ['@docusaurus/theme-mermaid'],
 
-  // Plugins với sitemap và Google Analytics
+  // Plugins: chỉ giữ lại tính năng tìm kiếm và Google Analytics
   plugins: [
     require.resolve('docusaurus-lunr-search'),
-    [
-      '@docusaurus/plugin-sitemap',
-      {
-        changefreq: 'weekly',
-        priority: 0.5,
-        ignorePatterns: ['/tags/**'],
-        filename: 'sitemap.xml',
-      },
-    ],
     [
       '@docusaurus/plugin-google-gtag',
       {
@@ -254,6 +245,13 @@ const config = {
         blog: false, // Giữ nguyên tắt tính năng blog để tránh lỗi
         theme: {
           customCss: './src/css/custom.css',
+        },
+        // Thêm cấu hình sitemap ở đây để tránh trùng lặp plugin
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          ignorePatterns: ['/tags/**'],
+          filename: 'sitemap.xml',
         },
       }),
     ],
