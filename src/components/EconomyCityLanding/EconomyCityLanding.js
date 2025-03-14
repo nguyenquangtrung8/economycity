@@ -3,11 +3,10 @@
 import React, { Suspense } from 'react';
 import styles from './EconomyCityLanding.module.css';
 import Hero from '../Hero/Hero'; // Component Hero không cần lazy loading
+import Features from '../Features/Features'; // Import trực tiếp Features
+import Products from '../Products/Products'; // Import trực tiếp Products
 
-// Lazy load các component
-const Features = React.lazy(() => import('../Features/Features'));
-// const Location = React.lazy(() => import('../Location/Location'));
-const Products = React.lazy(() => import('../Products/Products'));
+// Lazy load các component khác
 const TypicalFloor = React.lazy(() => import('../TypicalFloor/TypicalFloor'));
 const Gallery = React.lazy(() => import('../Gallery/Gallery'));
 const Contact = React.lazy(() => import('../Contact/Contact'));
@@ -24,22 +23,17 @@ const EconomyCityLanding = () => {
         <Hero />
       </div>
       
-      {/* Sử dụng Suspense để bọc các component lazy */}
+      {/* Features và Products không cần Suspense vì đã import trực tiếp */}
+      <div id="features">
+        <Features />
+      </div>
+      
+      <div id="products">
+        <Products />
+      </div>
+      
+      {/* Sử dụng Suspense để bọc các component lazy còn lại */}
       <Suspense fallback={<div>Loading...</div>}>
-        {/* Location đã được chuyển sang lazy loading
-        <div id="location">
-          <Location />
-        </div> */}
-
-        {/* Features đã được chuyển sang lazy loading */}
-        <div id="features">
-          <Features />
-        </div>
-
-        <div id="products">
-          <Products />
-        </div>
-
         <div id="typicalFloor">
           <TypicalFloor />
         </div>
