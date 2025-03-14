@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from 'react';
+import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import styles from './Products.module.css';
 import { productData } from '../common/data';
 
 const Products = () => {
+  // Đặt giá trị mặc định cho activeTab để tránh hydration mismatch
   const [activeTab, setActiveTab] = useState(1);
-  const [isBrowser, setIsBrowser] = useState(false);
   
-  // Kiểm tra xem có đang chạy trên browser không
+  // Auto-rotate products only in browser environment
   useEffect(() => {
-    setIsBrowser(true);
-  }, []);
-  
-  // Auto-rotate products every 4 seconds - chỉ trong browser
-  useEffect(() => {
-    // Chỉ thực hiện trong browser
-    if (!isBrowser) {
+    if (!ExecutionEnvironment.canUseDOM) {
       return;
     }
     
@@ -22,9 +17,8 @@ const Products = () => {
       setActiveTab(current => current === productData.length ? 1 : current + 1);
     }, 4000);
     
-    // Clear interval on component unmount
     return () => clearInterval(interval);
-  }, [isBrowser]);
+  }, []);
 
   return (
     <section className={styles.productsSection} id="products">
@@ -43,7 +37,7 @@ const Products = () => {
           {productData.map((product) => (
             <button 
               key={product.id}
-              onClick={() => setActiveTab(product.id)} 
+              onClick={() => ExecutionEnvironment.canUseDOM && setActiveTab(product.id)} 
               className={`${styles.navDot} ${
                 product.id === 2 ? styles.navDotMiddle : ''
               } ${
