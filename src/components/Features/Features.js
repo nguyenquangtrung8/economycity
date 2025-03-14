@@ -15,7 +15,7 @@ const featureData = [
       { label: 'Thời gian về Hà Nội', value: '20-25 phút' },
       { label: 'Tiếp giáp', value: '8 KCN lớn & 30 làng nghề' }
     ],
-    imageUrl: '/img/Lienketvung.jpg',
+    imageUrl: '/img/Quang truong.jpg',
     imageAlt: 'Vị trí chiến lược Economy City Văn Lâm'
   },
   {
