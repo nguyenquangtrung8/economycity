@@ -1,5 +1,3 @@
-/* src/css/variables.css */
-
 /* SalesPolicy.module.css */
 
 /* ------ Sales Policy (Block) ------ */
@@ -620,42 +618,65 @@
 }
 
 /* ------ Footer (Block) ------ */
+/* Cập nhật CSS cho phần footer để căn giữa văn bản */
 .footer {
   border-top: 1px solid #e2e8f0;
   padding: 24px;
+  background-color: #f9fafb;
 }
 
 .footer__content {
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
 }
 
 .footer__text {
   font-size: 14px;
   color: #718096;
   margin: 0;
+  text-align: center;
 }
 
 .footer__hotline {
-  font-weight: 500;
-  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 4px 0 16px;
+  text-align: center;
 }
 
 .footer__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
   background-color: #3182ce;
   color: white;
   border: none;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 500;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.15s ease;
-  transform: translateZ(0);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .footer__button:hover {
-  background-color: #2b6cb0;
+  background-color: #2563eb;
+  color: white;
+  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.footer__button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 /* ------ Icons (Utility) ------ */
@@ -848,15 +869,10 @@
     padding: 16px;
   }
   
-  .footer__content {
-    flex-direction: column;
-    align-items: flex-start;
-  }
-  
   .footer__button {
-    margin-top: 12px;
     width: 100%;
-    padding: 12px;
+    max-width: 100%;
+    padding: 14px;
   }
 }
 
@@ -909,6 +925,16 @@
   
   .discountValue {
     font-size: 20px;
+  }
+  
+  /* Footer Mobile */
+  .footer__hotline {
+    font-size: 16px;
+  }
+  
+  .footer__button {
+    font-size: 15px;
+    padding: 12px;
   }
 }
 

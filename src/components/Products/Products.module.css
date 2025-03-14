@@ -164,7 +164,7 @@
   flex-direction: column;
 }
 
-/* CTA Button */
+/* CTA Button - Áp dụng hiệu ứng nổi bật, đã loại bỏ hiệu ứng gợn sóng */
 .ctaButtonContainer {
   margin-top: 0.5rem;
   width: 100%;
@@ -176,16 +176,26 @@
   background-color: #3182ce;
   color: white;
   text-align: center;
-  font-weight: 500;
+  font-weight: 600;
   padding: 0.75rem 1rem;
   border-radius: 0.375rem;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease; /* Transition cho tất cả thuộc tính */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow nhẹ ban đầu */
 }
 
 .ctaButton:hover {
-  background-color: #2c5282;
+  background-color: #2563eb;
+  color: white;
+  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ctaButton:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Desktop styles */

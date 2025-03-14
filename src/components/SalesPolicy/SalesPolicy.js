@@ -567,9 +567,9 @@ const Footer = memo(function Footer() {
           <p className={styles.footer__text}>Cần tư vấn chi tiết?</p>
           <p className={styles.footer__hotline}>Hotline: 0988.156.516</p>
         </div>
-        <button className={styles.footer__button}>
-          Liên hệ tư vấn
-        </button>
+        <a href="#contact" className={styles.footer__button}>
+          Nhận thông tin chi tiết
+        </a>
       </div>
     </div>
   );

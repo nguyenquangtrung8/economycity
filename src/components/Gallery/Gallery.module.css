@@ -20,8 +20,8 @@
 
 .badge {
   display: inline-block;
-  background-color: var(--primary-light);
-  color: var(--primary-dark);
+  background-color: #fff8dd;
+  color: #b78f00;
   font-size: var(--font-size-sm);
   font-weight: var(--font-weight-medium);
   padding: var(--spacing-2) var(--spacing-4);

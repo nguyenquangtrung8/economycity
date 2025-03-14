@@ -1,176 +1,190 @@
 /* FAQ.module.css - Style cho component FAQs */
 
 .faqContainer {
-    max-width: 1200px;
-    margin: 0 auto;
-    background-color: #ffffff;
-    border-radius: 0.75rem;
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-  }
-  
-  .header {
-    padding: 2rem 1.5rem;
-    text-align: center;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .title {
-    font-size: 1.875rem;
-    font-weight: 700;
-    color: #1e40af;
-  }
-  
-  .subtitle {
-    margin-top: 0.5rem;
-    color: #4b5563;
-  }
-  
-  .searchContainer {
-    position: relative;
-    max-width: 32rem;
-    margin: 1.5rem auto 0;
-  }
-  
-  .searchInput {
-    width: 100%;
-    padding: 0.75rem 1rem 0.75rem 2.5rem;
-    border: 1px solid #d1d5db;
-    border-radius: 0.5rem;
-    color: #1f2937;
-  }
-  
-  .searchInput:focus {
-    outline: none;
-    border-color: #3b82f6;
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
-  }
-  
-  .searchIcon {
-    position: absolute;
-    left: 0.75rem;
-    top: 0.75rem;
-    color: #9ca3af;
-  }
-  
-  .faqList {
-    padding: 1.5rem 1rem;
-    min-height: 300px;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: #ffffff;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.header {
+  padding: 2rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: #1e40af;
+}
+
+.subtitle {
+  margin-top: 0.5rem;
+  color: #4b5563;
+}
+
+.searchContainer {
+  position: relative;
+  max-width: 32rem;
+  margin: 1.5rem auto 0;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.75rem 1rem 0.75rem 2.5rem;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  color: #1f2937;
+}
+
+.searchInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.searchIcon {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.75rem;
+  color: #9ca3af;
+}
+
+.faqList {
+  padding: 1.5rem 1rem;
+  min-height: 300px;
+}
+
+.faqColumns {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Desktop layout - 2 columns */
+@media (min-width: 768px) {
   .faqColumns {
-    display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    gap: 2rem;
   }
   
-  /* Desktop layout - 2 columns */
-  @media (min-width: 768px) {
-    .faqColumns {
-      flex-direction: row;
-      gap: 2rem;
-    }
-    
-    .faqColumn {
-      flex: 1;
-    }
+  .faqColumn {
+    flex: 1;
   }
-  
-  .noResults {
-    padding: 2rem 0;
-    text-align: center;
-  }
-  
-  .noResultsText {
-    color: #4b5563;
-  }
-  
-  .resetButton {
-    margin-top: 0.75rem;
-    color: #2563eb;
-    font-weight: 500;
-    cursor: pointer;
-    background: none;
-    border: none;
-  }
-  
-  .resetButton:hover {
-    color: #1d4ed8;
-  }
-  
-  .faqItem {
-    padding: 1rem 0;
-    border-bottom: 1px solid #e5e7eb;
-  }
-  
-  .faqItem:last-child {
-    border-bottom: none;
-  }
-  
-  .questionButton {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    text-align: left;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 0;
-  }
-  
-  .questionText {
-    font-size: 1.125rem;
-    font-weight: 500;
-    color: #111827;
-  }
-  
-  .iconExpanded {
-    color: #2563eb;
-  }
-  
-  .iconCollapsed {
-    color: #6b7280;
-  }
-  
-  .answerContainer {
-    margin-top: 0.75rem;
-    padding: 1rem;
-    background-color: #f9fafb;
-    border-radius: 0.5rem;
-    border-left: 4px solid #2563eb;
-  }
-  
-  .answerText {
-    color: #4b5563;
-    line-height: 1.5;
-  }
-  
-  .footer {
-    background-color: #f9fafb;
-    padding: 1rem 1.5rem;
-    text-align: center;
-    border-top: 1px solid #e5e7eb;
-  }
-  
-  .footerText {
-    color: #4b5563;
-  }
-  
-  .contactButton {
-    margin-top: 0.5rem;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1.5rem;
-    background-color: #f97316;
-    color: #ffffff;
-    font-weight: 700;
-    border-radius: 0.5rem;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .contactButton:hover {
-    background-color: #ea580c;
-  }
+}
+
+.noResults {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.noResultsText {
+  color: #4b5563;
+}
+
+.resetButton {
+  margin-top: 0.75rem;
+  color: #2563eb;
+  font-weight: 500;
+  cursor: pointer;
+  background: none;
+  border: none;
+}
+
+.resetButton:hover {
+  color: #1d4ed8;
+}
+
+.faqItem {
+  padding: 1rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.faqItem:last-child {
+  border-bottom: none;
+}
+
+.questionButton {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.questionText {
+  font-size: 1.125rem;
+  font-weight: 500;
+  color: #111827;
+}
+
+.iconExpanded {
+  color: #2563eb;
+}
+
+.iconCollapsed {
+  color: #6b7280;
+}
+
+.answerContainer {
+  margin-top: 0.75rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+  border-left: 4px solid #2563eb;
+}
+
+.answerText {
+  color: #4b5563;
+  line-height: 1.5;
+}
+
+.footer {
+  background-color: #f9fafb;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footerText {
+  color: #4b5563;
+}
+
+.ctaButtonContainer {
+  margin-top: 0.5rem;
+}
+
+.ctaButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1rem;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.ctaButton:hover {
+  background-color: #2563eb;
+  color: white;
+  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.ctaButton:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}

@@ -1,5 +1,5 @@
 // src/components/EconomyCityLanding/TypicalFloor/TypicalFloor.js
-import React, { useState, useMemo, memo } from 'react';
+import React, { useState, useMemo, memo, useCallback } from 'react';
 import styles from './TypicalFloor.module.css';
 import { ChevronLeft, ChevronRight, MapPin, Home, Maximize, Layers, Grid, Activity } from 'lucide-react';
 import { typicalApartments } from './TypicalFloorData';
@@ -98,6 +98,7 @@ const FloorPlan = memo(({ activeFloor, activeApartment, selectedFloorIndex, tota
                   src={activeFloor.image} 
                   alt={`${activeApartment.name} - ${activeFloor.name}`} 
                   className={styles.floorPlanImage}
+                  loading="lazy"
                 />
               </TransformComponent>
             </>
@@ -115,7 +116,7 @@ const FloorPlan = memo(({ activeFloor, activeApartment, selectedFloorIndex, tota
           <ChevronLeft size={20} />
         </button>
         
-        <div className={styles.navLabel} aria-live="polite">
+        <div className={styles.navLabel}>
           {activeFloor.name} ({selectedFloorIndex + 1}/{totalFloors})
         </div>
         
@@ -161,27 +162,35 @@ const TypicalFloor = () => {
     );
   }
   
-  // Event handlers
-  const handleSelectApartment = (id) => {
+  // Event handlers with useCallback
+  const handleSelectApartment = useCallback((id) => {
     setActiveApartmentId(id);
     setSelectedFloorIndex(0); // Reset to first floor when changing apartment type
-  };
+  }, []);
   
-  const goToNextFloor = () => {
+  const goToNextFloor = useCallback(() => {
     if (selectedFloorIndex < activeApartment.floors.length - 1) {
-      setSelectedFloorIndex(selectedFloorIndex + 1);
+      setSelectedFloorIndex(prev => prev + 1);
     }
-  };
+  }, [selectedFloorIndex, activeApartment.floors.length]);
   
-  const goToPrevFloor = () => {
+  const goToPrevFloor = useCallback(() => {
     if (selectedFloorIndex > 0) {
-      setSelectedFloorIndex(selectedFloorIndex - 1);
+      setSelectedFloorIndex(prev => prev - 1);
+    }
+  }, [selectedFloorIndex]);
+  
+  // Function to scroll to contact form
+  const scrollToContactForm = () => {
+    const contactForm = document.getElementById('contact');
+    if (contactForm) {
+      contactForm.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <section id="mat-bang" className={styles.typicalFloor}>
-      <div className={styles.container}>
+      <div className="container">
         <div className={styles.sectionHeader}>
           <h2 className={styles.sectionTitle}>Mặt bằng điển hình</h2>
           <p className={styles.sectionSubtitle}>Khám phá các mẫu thiết kế hiện đại của Economy City Văn Lâm</p>
@@ -230,10 +239,11 @@ const TypicalFloor = () => {
           />
         </div>
         
-        {/* Thêm nút đăng ký tư vấn rộng toàn màn hình */}
+        {/* Nút đăng ký tư vấn với chức năng cuộn đến form */}
         <button 
           className={styles.registerButtonFull}
           aria-label="Đăng ký tư vấn ngay"
+          onClick={scrollToContactForm}
         >
           Đăng ký tư vấn ngay
         </button>

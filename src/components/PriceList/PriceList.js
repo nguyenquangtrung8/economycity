@@ -95,9 +95,9 @@ const PaymentOptions = ({ product, onClose }) => {
       </div>
       
       <div className={styles.paymentCta}>
-        <button className={styles.btnContact} onClick={() => document.getElementById('contact-form').scrollIntoView({behavior: 'smooth'})}>
+        <a href="#contact" className={styles.btnContact}>
           LIÊN HỆ NHẬN BÁO GIÁ CHI TIẾT
-        </button>
+        </a>
       </div>
     </div>
   );
@@ -106,11 +106,6 @@ const PaymentOptions = ({ product, onClose }) => {
 // Component chính
 const PriceList = () => {
   const [expandedRow, setExpandedRow] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    phone: ''
-  });
-  const [formSubmitted, setFormSubmitted] = useState(false);
   
   // Xử lý toggle row
   const toggleRow = (rowId) => {
@@ -119,30 +114,6 @@ const PriceList = () => {
     } else {
       setExpandedRow(rowId);
     }
-  };
-  
-  // Xử lý form input change
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value
-    });
-  };
-  
-  // Xử lý form submit
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    
-    // Xử lý gửi form (có thể gọi API hoặc xử lý local)
-    console.log('Form submitted:', formData);
-    
-    // Reset form và hiển thị thông báo
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({ name: '', phone: '' });
-    }, 3000);
   };
   
   return (
@@ -166,9 +137,9 @@ const PriceList = () => {
             <Filter className={styles.buttonIcon} /> Bộ lọc
           </button>
           
-          <button className={styles.btnDownload} onClick={() => document.getElementById('contact-form').scrollIntoView({behavior: 'smooth'})}>
+          <a href="#contact" className={styles.btnDownload}>
             <Download className={styles.buttonIcon} /> Tải bảng giá
-          </button>
+          </a>
         </div>
       </div>
 
@@ -335,58 +306,24 @@ const PriceList = () => {
         </table>
       </div>
       
-      {/* CTA Section */}
-      <div className={styles.ctaSection} id="contact-form">
-        <h3 className={styles.ctaTitle}>Liên hệ ngay để nhận bảng giá chi tiết và tư vấn miễn phí</h3>
-        <div className={styles.contactFormContainer}>
-          <form className={styles.contactForm} onSubmit={handleFormSubmit}>
-            <input 
-              type="text" 
-              name="name" 
-              placeholder="Họ và tên" 
-              className={styles.formInput}
-              value={formData.name}
-              onChange={handleInputChange}
-              required
-            />
-            <input 
-              type="tel" 
-              name="phone" 
-              placeholder="Số điện thoại" 
-              className={styles.formInput}
-              value={formData.phone}
-              onChange={handleInputChange}
-              required
-            />
-            
-            <button type="submit" className={styles.btnSubmit}>
-              <Phone className={styles.buttonIcon} /> NHẬN TƯ VẤN NGAY
-            </button>
-            
-            {formSubmitted && (
-              <div className={styles.formSuccess}>Đã gửi thông tin thành công! Chúng tôi sẽ liên hệ với bạn sớm nhất.</div>
-            )}
-          </form>
-        </div>
-        
-        <p className={styles.formNotice}>
-          Thông tin chi tiết về quỹ căn và giá chính xác sẽ được tư vấn trực tiếp
+      {/* Rút gọn CTA Section - chỉ hiển thị lời gọi hành động và nút CTA */}
+      <div className={styles.simplifiedCta}>
+        {/* <h3 className={styles.ctaTitle}>Quan tâm đến dự án Economy City Văn Lâm?</h3> */}
+        <p className={styles.ctaDescription}>
+          Nhận ngay bảng giá chi tiết và tư vấn miễn phí từ đội ngũ chuyên viên
         </p>
-        
-        <div className={styles.bankLogosContainer}>
-          <div className={styles.bankLogos}>
-            {bankPartners.map((bank, index) => (
-              <div key={index} className={styles.bankLogo}>{bank}</div>
-            ))}
-          </div>
+        <div className={styles.ctaButtonContainer}>
+          <a href="#contact" className={styles.ctaButton}>
+            <Phone className={styles.buttonIcon} /> Nhận thông tin chi tiết
+          </a>
         </div>
       </div>
       
-      {/* Footer */}
+      {/* Footer
       <div className={styles.priceFooter}>
         <div className={styles.hotline}>HOTLINE: 0988.156.516</div>
         <div className={styles.address}>Dự án Economy City Văn Lâm - Thị trấn Như Quỳnh, Văn Lâm, Hưng Yên</div>
-      </div>
+      </div> */}
     </div>
   );
 };

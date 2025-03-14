@@ -4,7 +4,7 @@
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  background-color: #fff;
+  background-color: #f8f9fa;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -15,7 +15,7 @@
 
 /* Header Styles */
 .priceHeader {
-  background: #fff;
+  background: #f8f9fa;
   color: #333;
   text-align: center;
   padding: 4.5rem 1rem 3rem;
@@ -58,6 +58,7 @@
   line-height: 1.5;
 }
 
+/* Hiệu ứng nhấp nháy nâng cao */
 .limitedOffer {
   display: inline-flex;
   align-items: center;
@@ -70,19 +71,20 @@
   font-weight: 600;
   max-width: max-content;
   margin: 1rem auto 0;
-  animation: pulse 2.5s infinite;
+  animation: enhancedPulse 1.5s infinite; /* Animation nhanh hơn */
   box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
 }
 
-@keyframes pulse {
+@keyframes enhancedPulse {
   0% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.7);
   }
   
-  70% {
-    transform: scale(1);
+  50% {
+    transform: scale(1.05); /* Scale lớn hơn cho hiệu ứng nổi bật */
     box-shadow: 0 0 0 10px rgba(231, 76, 60, 0);
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8); /* Thêm hiệu ứng phát sáng cho text */
   }
   
   100% {
@@ -95,6 +97,16 @@
   margin-right: 0.5rem;
   width: 18px;
   height: 18px;
+  animation: clockPulse 1.5s infinite; /* Thêm animation cho icon đồng hồ */
+}
+
+@keyframes clockPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
 }
 
 .actionButtons {
@@ -418,107 +430,59 @@
   background-color: #e64a19;
 }
 
-/* CTA Section Styles */
-.ctaSection {
+/* CTA Section Rút gọn */
+.simplifiedCta {
   background-color: #f9f9f9;
-  padding: 2rem 1rem 3rem;
+  padding: 3rem 1.5rem;
   text-align: center;
-  width: 100%;
+  margin: 0 1rem 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .ctaTitle {
-  font-size: 1.3rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #333;
+  color: #1a4ca1;
+  margin-bottom: 1rem;
+}
+
+.ctaDescription {
+  font-size: 1.1rem;
+  color: #555;
   margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.contactFormContainer {
-  max-width: 500px;
-  margin: 0 auto;
-  padding: 1.5rem 2rem;
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.05);
-}
-
-.contactForm {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.formInput {
-  padding: 0.9rem 1rem;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  font-size: 1rem;
-  background-color: #fff;
-  color: #333;
-  outline: none;
-}
-
-.formInput::placeholder {
-  color: #999;
-}
-
-.formInput:focus {
-  border-color: #1a4ca1;
-}
-
-.btnSubmit {
-  padding: 0.9rem 1rem;
-  background-color: #ff5722;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-weight: 600;
-  font-size: 1rem;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  display: flex;
+.ctaButton {
+  display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin-top: 0.5rem;
+  padding: 0.75rem 1rem;
+  background-color: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.btnSubmit:hover {
-  background-color: #e64a19;
+.ctaButton:hover {
+  background-color: #2563eb;
+  color: white;
+  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
 }
 
-.formSuccess {
-  margin-top: 1rem;
-  padding: 0.75rem;
-  background-color: #e8f5e9;
-  color: #2e7d32;
-  border-radius: 4px;
-  font-size: 0.9rem;
-}
-
-.formNotice {
-  color: #666;
-  font-size: 0.85rem;
-  margin-top: 1.5rem;
-}
-
-/* Bank Logos */
-.bankLogosContainer {
-  margin-top: 1.5rem;
-  text-align: center;
-}
-
-.bankLogos {
-  display: inline-flex;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: wrap;
-  margin-top: 1rem;
-}
-
-.bankLogo {
-  color: #555;
-  font-size: 0.85rem;
-  font-weight: 600;
+.ctaButton:active {
+  transform: translateY(-1px);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Footer Styles */
@@ -568,6 +532,19 @@
   
   .badge {
     font-size: 0.75rem;
+  }
+  
+  .ctaTitle {
+    font-size: 1.3rem;
+  }
+  
+  .ctaDescription {
+    font-size: 1rem;
+  }
+  
+  .ctaButton {
+    padding: 0.8rem 1.5rem;
+    font-size: 0.9rem;
   }
   
   /* Ẩn cột phân khúc trên mobile */
