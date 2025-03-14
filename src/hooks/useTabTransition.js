@@ -14,19 +14,25 @@ export const useTabTransition = (tabs = [], initialTab = 0, transitionDuration =
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [direction, setDirection] = useState('next'); // 'next' hoặc 'prev'
   const timeoutRef = useRef(null);
+  
+  // Kiểm tra xem có đang chạy trong browser hay không
+  const isBrowser = typeof window !== 'undefined';
 
   // Xử lý chuyển tab
   const changeTab = (index) => {
-    if (index === activeTab || isTransitioning) return;
+    // Nếu không phải browser, hoặc tab không đổi, hoặc đang trong transition, không làm gì cả
+    if (!isBrowser || index === activeTab || isTransitioning) return;
     
-    clearTimeout(timeoutRef.current);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
     
     setPrevActiveTab(activeTab);
     setDirection(index > activeTab ? 'next' : 'prev');
     setIsTransitioning(true);
     setActiveTab(index);
     
-    // Đặt timeout để kết thúc hiệu ứng
+    // Đặt timeout để kết thúc hiệu ứng - chỉ trong browser
     timeoutRef.current = setTimeout(() => {
       setIsTransitioning(false);
     }, transitionDuration);
@@ -35,17 +41,17 @@ export const useTabTransition = (tabs = [], initialTab = 0, transitionDuration =
   // Cleanup timeout khi unmount
   useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
+      if (isBrowser && timeoutRef.current) {
         clearTimeout(timeoutRef.current);
       }
     };
-  }, []);
+  }, [isBrowser]);
 
   return {
     activeTab,
     prevActiveTab,
     changeTab,
-    isTransitioning,
+    isTransitioning: isBrowser ? isTransitioning : false,
     direction,
     transitionDuration
   };
