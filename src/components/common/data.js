@@ -93,7 +93,7 @@ export const productData = [
     floors: "3 tầng",
     price: "Từ 15 tỷ đồng",
     imageRatio: "3/2",
-    imageUrl: "/img/Biet thu.jpg",
+    imageUrl: "/img/Bietthu.jpg",
     imageAlt: "Biệt thự sang trọng tại Economy City Văn Lâm"
   },
   {
@@ -106,7 +106,7 @@ export const productData = [
     floors: "4-5 tầng",
     price: "Từ 10 tỷ đồng",
     imageRatio: "4/3",
-    imageUrl: "/img/Lien ke.png",
+    imageUrl: "/img/Lienke.png",
     imageAlt: "Nhà phố thương mại Economy City Văn Lâm"
   },
   {
@@ -119,7 +119,7 @@ export const productData = [
     floors: "Đa dạng",
     price: "Từ 2.5 tỷ đồng",
     imageRatio: "16/9",
-    imageUrl: "/img/Chung cu demo.jpg",
+    imageUrl: "/img/Chungcu.jpg",
     imageAlt: "Căn hộ cao tầng tại Economy City Văn Lâm"
   }
 ];
@@ -272,17 +272,17 @@ export const galleryImages = [
   },
   { 
     id: 'shophouse', 
-    src: "Lien ke.png", 
+    src: "Lienke.png", 
     alt: "Phối cảnh nhà phố thương mại" 
   },
   { 
     id: 'villa', 
-    src: "Biet thu.jpg", 
+    src: "Bietthu.jpg", 
     alt: "Phối cảnh biệt thự" 
   },
   { 
     id: 'apartment', 
-    src: "Chung cu demo.jpg", 
+    src: "Chungcu.jpg", 
     alt: "Phối cảnh căn hộ cao tầng" 
   },
   { 
