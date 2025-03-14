@@ -170,40 +170,14 @@ html {
   background: var(--neutral-darker);
 }
 
-/* Section styling - MODIFIED FOR SEAMLESS LAYOUT */
-.section {
-  padding: var(--spacing-4) 0; /* Giảm từ var(--spacing-16) xuống var(--spacing-4) */
-  margin: 0;
-}
-
-.section-sm {
-  padding: var(--spacing-2) 0; /* Giảm từ var(--spacing-8) xuống var(--spacing-2) */
-  margin: 0;
-}
-
-.section-lg {
-  padding: var(--spacing-8) 0; /* Giảm từ var(--spacing-24) xuống var(--spacing-8) */
-  margin: 0;
-}
-
-/* Loại bỏ khoảng cách giữa các section */
-section + section {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-/* Giảm margin của tiêu đề section */
-.section-header {
-  margin-bottom: var(--spacing-4); /* Giảm từ var(--spacing-8) */
-}
-
+/* Section styling */
 .section-title {
   position: relative;
   display: inline-block;
   font-size: var(--font-size-2xl);
   font-weight: var(--font-weight-bold);
   color: var(--primary-dark);
-  margin-bottom: var(--spacing-4); /* Giảm từ var(--spacing-6) */
+  margin-bottom: var(--spacing-6);
   padding-bottom: var(--spacing-2);
 }
 
@@ -225,7 +199,7 @@ section + section {
 .section-subtitle {
   font-size: var(--font-size-md);
   color: var(--text-secondary);
-  margin-bottom: var(--spacing-4); /* Giảm từ var(--spacing-8) */
+  margin-bottom: var(--spacing-8);
   max-width: 800px;
 }
 
@@ -239,7 +213,7 @@ section + section {
   border-radius: var(--border-radius-full);
   background-color: var(--primary-light);
   color: var(--neutral-white);
-  margin-bottom: var(--spacing-2); /* Giảm từ var(--spacing-4) */
+  margin-bottom: var(--spacing-4);
 }
 
 /* Fix for docusaurus anchor links and fixed header */
@@ -293,26 +267,25 @@ input:focus, textarea:focus, select:focus {
   color: var(--neutral-dark);
 }
 
-/* Footer styling - MODIFIED FOR SEAMLESS LAYOUT */
+/* Footer styling - NEW */
 .footer {
   background-color: var(--neutral-darkest);
   color: var(--text-light);
-  padding-top: var(--spacing-8); /* Giảm từ var(--spacing-12) */
-  padding-bottom: var(--spacing-4); /* Giảm từ var(--spacing-8) */
-  margin-top: 0;
+  padding-top: var(--spacing-12);
+  padding-bottom: var(--spacing-8);
 }
 
 .footer__title {
   font-weight: var(--font-weight-bold);
   font-size: var(--font-size-lg);
   color: white;
-  margin-bottom: var(--spacing-2); /* Giảm từ var(--spacing-4) */
+  margin-bottom: var(--spacing-4);
   font-family: var(--font-family-heading);
 }
 
 .footer__item {
-  margin-top: var(--spacing-1); /* Giảm từ var(--spacing-2) */
-  margin-bottom: var(--spacing-1); /* Giảm từ var(--spacing-2) */
+  margin-top: var(--spacing-2);
+  margin-bottom: var(--spacing-2);
 }
 
 .footer__link-item {
@@ -329,7 +302,7 @@ input:focus, textarea:focus, select:focus {
 .footer__copyright {
   font-size: var(--font-size-sm);
   color: var(--neutral-light);
-  margin-top: var(--spacing-4); /* Giảm từ var(--spacing-8) */
+  margin-top: var(--spacing-8);
 }
 
 /* Footer Contact Box */
@@ -408,45 +381,10 @@ input:focus, textarea:focus, select:focus {
   animation: pulse 2s infinite;
 }
 
-/* NEW CLASSES FOR SEAMLESS LAYOUT */
-.seamless-container {
-  display: flex;
-  flex-direction: column;
-}
-
-.seamless-container > * {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
-}
-
-.seamless-section {
-  padding-top: 0;
-  padding-bottom: 0;
-  margin-top: 0;
-  margin-bottom: 0;
-}
-
-.seamless-section + .seamless-section {
-  margin-top: 0;
-  padding-top: 0;
-}
-
-.no-margin {
-  margin: 0 !important;
-}
-
-.no-padding {
-  padding: 0 !important;
-}
-
-.no-gap {
-  gap: 0 !important;
-}
-
 /* Responsive adjustments for footer */
 @media (max-width: 996px) {
   .footer__col {
-    margin-bottom: var(--spacing-4); /* Giảm từ var(--spacing-6) */
+    margin-bottom: var(--spacing-6);
   }
   
   .footer-contact-button {
@@ -454,27 +392,13 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
-/* Responsive adjustments for seamless layout */
 @media (max-width: 768px) {
-  .section {
-    padding: var(--spacing-2) 0; /* Giảm padding cho màn hình nhỏ */
-  }
-  
-  .section-header {
-    margin-bottom: var(--spacing-2);
-  }
-  
-  .section + section {
-    margin-top: 0;
-    padding-top: 0;
-  }
-  
   .footer__links {
-    row-gap: var(--spacing-2); /* Giảm từ var(--spacing-4) */
+    row-gap: var(--spacing-4);
   }
   
   .footer__title {
-    margin-bottom: var(--spacing-1); /* Giảm từ var(--spacing-2) */
+    margin-bottom: var(--spacing-2);
   }
   
   .footer__item {
@@ -493,18 +417,12 @@ input:focus, textarea:focus, select:focus {
   }
 }
 
-@media (max-width: 480px) {
-  .section {
-    padding: var(--spacing-1) 0; /* Giảm padding thêm cho mobile */
-  }
-}
-
 /* Enhanced footer columns arrangement on mobile */
 @media (max-width: 575px) {
   .footer__links {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-2); /* Giảm từ var(--spacing-4) */
+    gap: var(--spacing-4);
   }
   
   .footer__col:last-child {
@@ -537,37 +455,4 @@ input:focus, textarea:focus, select:focus {
   .footer-contact-button {
     animation: none !important;
   }
-}
-
-/* Đảm bảo hiển thị nội dung tab */
-.tab-content,
-[role="tabpanel"],
-.tab-pane {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-  height: auto !important;
-  min-height: 200px !important;
-  overflow: visible !important;
-  position: relative !important;
-  z-index: 1;
-}
-
-/* Đảm bảo hiển thị đúng cho các component có tab */
-#tiện-ích-đa-dạng .content,
-.tiện-ích-đa-dạng .content,
-.tabContent,
-.activeTab .content {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-
-/* Fix hiển thị tab cụ thể */
-[class*="tabpane"],
-[class*="tab-content"],
-[class*="tabContent"] {
-  display: block !important;
-  opacity: 1 !important;
-  visibility: visible !important;
 }
