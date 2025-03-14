@@ -52,16 +52,27 @@ const featureData = [
 
 const Features = () => {
   const [activeFeature, setActiveFeature] = useState(1);
+  const [isBrowser, setIsBrowser] = useState(false);
   
-  // Auto-rotate features every 5 seconds
+  // Xác định khi nào code chạy trong browser
   useEffect(() => {
+    setIsBrowser(true);
+  }, []);
+  
+  // Auto-rotate features every 5 seconds - chỉ trong browser
+  useEffect(() => {
+    // Chỉ thực hiện trong browser
+    if (!isBrowser) {
+      return;
+    }
+    
     const interval = setInterval(() => {
       setActiveFeature(current => current === featureData.length ? 1 : current + 1);
     }, 5000);
     
     // Clear interval on component unmount
     return () => clearInterval(interval);
-  }, []);
+  }, [isBrowser]);
 
   return (
     <section className={styles.featuresSection} id="features">

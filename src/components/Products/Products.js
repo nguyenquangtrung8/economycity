@@ -4,16 +4,27 @@ import { productData } from '../common/data';
 
 const Products = () => {
   const [activeTab, setActiveTab] = useState(1);
+  const [isBrowser, setIsBrowser] = useState(false);
   
-  // Auto-rotate products every 4 seconds
+  // Kiểm tra xem có đang chạy trên browser không
   useEffect(() => {
+    setIsBrowser(true);
+  }, []);
+  
+  // Auto-rotate products every 4 seconds - chỉ trong browser
+  useEffect(() => {
+    // Chỉ thực hiện trong browser
+    if (!isBrowser) {
+      return;
+    }
+    
     const interval = setInterval(() => {
       setActiveTab(current => current === productData.length ? 1 : current + 1);
     }, 4000);
     
     // Clear interval on component unmount
     return () => clearInterval(interval);
-  }, []);
+  }, [isBrowser]);
 
   return (
     <section className={styles.productsSection} id="products">
