@@ -11,7 +11,7 @@ const featureData = [
     description: 'Tọa lạc tại trung tâm thị trấn Như Quỳnh, huyện Văn Lâm, cách trung tâm Hà Nội 18km, cách Ocean Park 5km với kết nối trực tiếp đến Quốc lộ 5A, Vành đai 3.5 và Vành đai 4.',
     benefits: [
       { label: 'Vị trí', value: 'Trung tâm thị trấn' },
-      { label: 'Kết nối', value: 'Quốc lộ 5A, Vành đai 3.5, 4' },
+      { label: 'Kết nối', value: 'Quốc lộ 5A, Vành đai 3.5, Vanh dai 4 4' },
       { label: 'Thời gian về Hà Nội', value: '20-25 phút' },
       { label: 'Tiếp giáp', value: '8 KCN lớn & 30 làng nghề' }
     ],
