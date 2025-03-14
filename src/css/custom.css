@@ -538,3 +538,36 @@ input:focus, textarea:focus, select:focus {
     animation: none !important;
   }
 }
+
+/* Đảm bảo hiển thị nội dung tab */
+.tab-content,
+[role="tabpanel"],
+.tab-pane {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  height: auto !important;
+  min-height: 200px !important;
+  overflow: visible !important;
+  position: relative !important;
+  z-index: 1;
+}
+
+/* Đảm bảo hiển thị đúng cho các component có tab */
+#tiện-ích-đa-dạng .content,
+.tiện-ích-đa-dạng .content,
+.tabContent,
+.activeTab .content {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
+
+/* Fix hiển thị tab cụ thể */
+[class*="tabpane"],
+[class*="tab-content"],
+[class*="tabContent"] {
+  display: block !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+}
