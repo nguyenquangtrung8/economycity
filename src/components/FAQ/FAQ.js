@@ -132,9 +132,11 @@ const FAQ = () => {
       {/* Footer */}
       <div className={styles.footer}>
         <p className={styles.footerText}>Chưa tìm thấy câu trả lời bạn cần?</p>
-        <button className={styles.contactButton}>
-          Liên hệ tư vấn ngay
-        </button>
+        <div className={styles.ctaButtonContainer}>
+          <a href="#contact" className={styles.ctaButton}>
+            Liên hệ tư vấn ngay
+          </a>
+        </div>
       </div>
     </div>
   );

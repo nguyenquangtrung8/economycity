@@ -113,7 +113,7 @@
 }
 
 .activeTab {
-  background-color: var(--primary-color);
+  background-color: #60a5fa;
   color: white;
   font-weight: 700;
 }
@@ -124,9 +124,9 @@
   bottom: -1px;
   left: 50%;
   transform: translateX(-50%);
-  width: 20px;
+  width: 125px;
   height: 3px;
-  background-color: var(--primary-light);
+  background-color: #056ff1;
 }
 
 /* Phần đối tượng phù hợp và đánh giá */
@@ -234,8 +234,8 @@
 }
 
 .activeFloor {
-  background-color: var(--primary-color);
-  border-color: var(--primary-color);
+  background-color: #3182ce;
+  border-color: #3182ce;
   color: white;
 }
 
@@ -310,7 +310,7 @@
 .floorPlanImage {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: contain; /* Đảm bảo ảnh hiển thị đúng tỷ lệ */
   display: block;
 }
 
@@ -402,30 +402,57 @@
   color: var(--text-color);
 }
 
-/* Nút đăng ký tư vấn */
+/* Nút đăng ký tư vấn - ĐÃ THÊM HIỆU ỨNG HOVER NỔI BẬT */
 .registerButtonFull {
   width: 100%;
   padding: var(--spacing-lg) var(--spacing-lg);
-  background-color: var(--primary-color);
+  background-color: #3182ce;
   color: white;
   border: none;
   border-radius: var(--radius-md);
   font-size: var(--font-md);
   font-weight: 600;
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: all 0.3s ease; /* Transition cho tất cả thuộc tính */
   text-align: center;
   margin-bottom: var(--spacing-xl);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow nhẹ ban đầu */
+  position: relative;
+  overflow: hidden; /* Để chứa hiệu ứng gợn sóng */
+}
+
+.registerButtonFull:hover {
+  background-color: #2563eb;
+  transform: translateY(-3px); /* Nổi lên một chút */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow đậm hơn */
+  letter-spacing: 0.5px; /* Giãn chữ nhẹ */
+}
+
+.registerButtonFull:active {
+  transform: translateY(-1px); /* Hiệu ứng nhấn */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Thêm hiệu ứng thay đổi màu nền từ trái sang phải khi hover */
+.registerButtonFull::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.7s ease;
+}
+
+.registerButtonFull:hover::before {
+  left: 100%;
 }
 
 /* 6. Thêm focus styles - Đề xuất 6 */
 .registerButtonFull:focus {
   outline: 3px solid var(--primary-light);
   outline-offset: 2px;
-}
-
-.registerButtonFull:hover {
-  background-color: var(--primary-dark);
 }
 
 /* Style cho phần hiển thị lỗi */
@@ -511,7 +538,7 @@
   }
 }
 
-/* Mobile portrait - ĐÃ ĐƯỢC CHỈNH SỬA */
+/* Mobile portrait */
 @media (max-width: 480px) {
   .propertyDetails {
     grid-template-columns: repeat(2, 1fr); /* Giữ nguyên 2 cột thay vì 1 cột */
