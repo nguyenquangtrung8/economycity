@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef, useCallback } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import styles from './Products.module.css';
 import productData from './ProductsData';
@@ -11,28 +11,42 @@ import useTabTransition from '../../hooks/useTabTransition';
  * @returns {JSX.Element} Products component
  */
 const Products = () => {
+  // State theo dõi lỗi hình ảnh cho từng sản phẩm
+  const [imageErrors, setImageErrors] = useState({});
+  
   const {
     activeTab,
     changeTab,
     isMounted
   } = useTabTransition(productData, 0, 300, true, 5000);
   
-  // Ref cho việc quản lý focus
-  const activeCardRef = useRef(null);
+  // Tạo mảng refs để quản lý focus cho từng sản phẩm
+  const cardRefs = useRef(productData.map(() => React.createRef()));
 
   // Focus vào thẻ sản phẩm đang active khi chuyển tab
   useEffect(() => {
-    if (activeCardRef.current) {
-      activeCardRef.current.focus();
+    if (cardRefs.current[activeTab]?.current) {
+      cardRefs.current[activeTab].current.focus();
     }
   }, [activeTab]);
+
+  // Handler cho việc xử lý lỗi hình ảnh
+  const handleImageError = useCallback((index, imageUrl) => {
+    console.error(`Failed to load image: ${imageUrl}`);
+    setImageErrors(prev => ({...prev, [index]: true}));
+  }, []);
+  
+  // Handler cho việc chuyển tab - được memoize để tránh tạo lại
+  const handleTabChange = useCallback((index) => {
+    changeTab(index);
+  }, [changeTab]);
 
   // Memoize việc render danh sách sản phẩm để tránh re-render không cần thiết
   const memoizedProductCards = useMemo(() => {
     return productData.map((product, index) => (
       <div
         key={index}
-        ref={activeTab === index ? activeCardRef : null}
+        ref={cardRefs.current[index]}
         className={`${styles.productCard} ${activeTab === index ? styles.activeCard : ''}`}
         tabIndex={activeTab === index ? 0 : -1}
         aria-hidden={activeTab !== index}
@@ -45,11 +59,14 @@ const Products = () => {
             alt={product.imageAlt || `${product.categoryName} - ${product.title}`}
             className={styles.productImage}
             loading="lazy"
-            onError={(e) => {
-              console.error(`Failed to load image: ${product.imageUrl}`);
-              e.target.src = '/img/placeholder.jpg';
-            }}
+            onError={() => handleImageError(index, product.imageUrl)}
           />
+          
+          {imageErrors[index] && (
+            <div className={styles.imageError}>
+              <p>Không thể tải hình ảnh. Vui lòng thử lại sau.</p>
+            </div>
+          )}
           
           {product.statusTag && (
             <div 
@@ -121,7 +138,7 @@ const Products = () => {
         </div>
       </div>
     ));
-  }, [productData, activeTab]);
+  }, [productData, activeTab, imageErrors, handleImageError]);
 
   // Xử lý trường hợp không có dữ liệu
   if (!productData || productData.length === 0) {
@@ -161,7 +178,7 @@ const Products = () => {
             <button
               key={index}
               className={`${styles.indicatorDot} ${activeTab === index ? styles.activeDot : ''}`}
-              onClick={() => changeTab(index)}
+              onClick={() => handleTabChange(index)}
               aria-label={`Chuyển đến sản phẩm ${index + 1}`}
               aria-selected={activeTab === index}
               role="tab"
@@ -175,4 +192,4 @@ const Products = () => {
   );
 };
 
-export default React.memo(Products);
+export default Products;
