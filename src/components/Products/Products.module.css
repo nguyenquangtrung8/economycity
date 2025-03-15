@@ -42,26 +42,26 @@
   font-size: clamp(0.9rem, 4vw, 1rem);
 }
 
-/* Product cards container - containing block for absolute positioned cards */
+/* Product cards container - simplified layout */
 .productCardsContainer {
-  position: relative;
   width: 100%;
-  height: 600px; /* Chiều cao cố định để tránh layout shift */
-  margin-bottom: 1rem;
-  overflow: hidden; /* Ẩn nội dung bị tràn */
+  margin-bottom: 2rem;
 }
 
-/* Product card - all positioned absolute */
+/* Product cards */
 .productCard {
-  /* positioning is applied via inline styles */
+  display: none; /* Ẩn tất cả card */
   background-color: white;
   border-radius: 0.5rem;
   overflow: hidden;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
   flex-direction: column;
-  height: 100%;
+  margin-bottom: 1.5rem;
   transition: all 300ms ease;
+}
+
+.activeCard {
+  display: flex; /* Chỉ hiển thị card đang active */
 }
 
 .productCard:focus {
@@ -362,10 +362,6 @@
 }
 
 @media (min-width: 768px) {
-  .productCardsContainer {
-    height: 450px; /* Chiều cao thấp hơn trên desktop */
-  }
-  
   .productCard {
     flex-direction: row;
   }
