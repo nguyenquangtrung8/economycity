@@ -3,6 +3,15 @@ import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import styles from './Products.module.css';
 import productData from './ProductsData';
 import useTabTransition from '../../hooks/useTabTransition';
+// Import icons từ lucide-react
+import { 
+  SquareIcon, 
+  Eye, 
+  Home, 
+  DollarSign, 
+  Store,
+  GraduationCap
+} from 'lucide-react';
 
 /**
  * Products Component - Hiển thị sản phẩm của dự án
@@ -58,6 +67,26 @@ const Products = () => {
     };
   }, [activeTab]);
 
+  // Lấy icon phù hợp dựa trên label
+  const getSpecIcon = useCallback((label) => {
+    switch(label) {
+      case "Diện tích":
+        return <SquareIcon size={16} className={styles.specIconSvg} />;
+      case "Tầm nhìn":
+        return <Eye size={16} className={styles.specIconSvg} />;
+      case "Thiết kế":
+        return <Home size={16} className={styles.specIconSvg} />;
+      case "Giá bán":
+        return <DollarSign size={16} className={styles.specIconSvg} />;
+      case "Mặt tiền":
+        return <Store size={16} className={styles.specIconSvg} />;
+      case "Công năng":
+        return <GraduationCap size={16} className={styles.specIconSvg} />;
+      default:
+        return <SquareIcon size={16} className={styles.specIconSvg} />;
+    }
+  }, []);
+
   // Memoize việc render danh sách sản phẩm để tránh re-render không cần thiết
   const memoizedProductCards = useMemo(() => {
     return productData.map((product, index) => (
@@ -106,34 +135,9 @@ const Products = () => {
           
           <div className={styles.productSpecs}>
             {product.specs.map((spec, idx) => (
-              <div key={idx} className={styles.specItem}>
+              <div key={idx} className={styles.specGroup}>
                 <div className={styles.specIcon}>
-                  {/* Biểu tượng dựa trên loại thông số */}
-                  {spec.label === "Diện tích" && (
-                    <svg viewBox="0 0 24 24" className={styles.specIconSvg} aria-hidden="true">
-                      <path d="M17 15h2v2h-2zm0-4h2v2h-2zm0-4h2v2h-2zm-3.5 0H15v2h-1.5zM11 13h1.5v2H11zm8-8H5v14h14V5zm2 16H3V3h18v16z" />
-                    </svg>
-                  )}
-                  {spec.label === "Tầm nhìn" && (
-                    <svg viewBox="0 0 24 24" className={styles.specIconSvg} aria-hidden="true">
-                      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-                    </svg>
-                  )}
-                  {spec.label === "Thiết kế" && (
-                    <svg viewBox="0 0 24 24" className={styles.specIconSvg} aria-hidden="true">
-                      <path d="M12 3L1 9l4 2.18v6L12 21l7-3.82v-6l2-1.09V17h2V9L12 3zm6.82 6L12 12.72 5.18 9 12 5.28 18.82 9zM17 15.99l-5 2.73-5-2.73v-3.72L12 15l5-2.73v3.72z" />
-                    </svg>
-                  )}
-                  {spec.label === "Giá bán" && (
-                    <svg viewBox="0 0 24 24" className={styles.specIconSvg} aria-hidden="true">
-                      <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
-                    </svg>
-                  )}
-                  {spec.label === "Mặt tiền" && (
-                    <svg viewBox="0 0 24 24" className={styles.specIconSvg} aria-hidden="true">
-                      <path d="M3 9h4V5H3v4zm0 5h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zM8 9h4V5H8v4zm5-4v4h4V5h-4zm5 9h4v-4h-4v4zM3 19h4v-4H3v4zm5 0h4v-4H8v4zm5 0h4v-4h-4v4zm5 0h4v-4h-4v4zm0-14v4h4V5h-4z" />
-                    </svg>
-                  )}
+                  {getSpecIcon(spec.label)}
                 </div>
                 <div className={styles.specContent}>
                   <p className={styles.specLabel}>{spec.label}</p>
@@ -161,7 +165,7 @@ const Products = () => {
         </div>
       </div>
     ));
-  }, [productData, activeTab, imageErrors, handleImageError, getCardStyle]);
+  }, [productData, activeTab, imageErrors, handleImageError, getCardStyle, getSpecIcon]);
 
   // Xử lý trường hợp không có dữ liệu
   if (!productData || productData.length === 0) {
