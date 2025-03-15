@@ -41,13 +41,31 @@ const Products = () => {
     changeTab(index);
   }, [changeTab]);
 
+  // Hàm để tính toán các inline styles dựa trên trạng thái active
+  const getCardStyle = useCallback((index) => {
+    const isActive = activeTab === index;
+    
+    // Absolute positioning để hoạt động với CSS mới
+    return {
+      position: 'absolute',
+      left: isActive ? '0' : '-9999px',
+      top: isActive ? '0' : '0',
+      opacity: isActive ? '1' : '0',
+      width: '100%',
+      visibility: isActive ? 'visible' : 'hidden',
+      transition: 'opacity 300ms ease',
+      zIndex: isActive ? '1' : '0',
+    };
+  }, [activeTab]);
+
   // Memoize việc render danh sách sản phẩm để tránh re-render không cần thiết
   const memoizedProductCards = useMemo(() => {
     return productData.map((product, index) => (
       <div
         key={index}
         ref={cardRefs.current[index]}
-        className={`${styles.productCard} ${activeTab === index ? styles.activeCard : ''}`}
+        className={styles.productCard}
+        style={getCardStyle(index)}
         tabIndex={activeTab === index ? 0 : -1}
         aria-hidden={activeTab !== index}
         role="tabpanel"
@@ -138,7 +156,7 @@ const Products = () => {
         </div>
       </div>
     ));
-  }, [productData, activeTab, imageErrors, handleImageError]);
+  }, [productData, activeTab, imageErrors, handleImageError, getCardStyle]);
 
   // Xử lý trường hợp không có dữ liệu
   if (!productData || productData.length === 0) {
@@ -165,7 +183,7 @@ const Products = () => {
           Đa dạng sản phẩm đáp ứng mọi nhu cầu: từ ở thực đến kinh doanh và đầu tư sinh lời
         </p>
         
-        {/* Product Cards Container - Simplified Layout */}
+        {/* Product Cards Container - Absolute Positioning Layout */}
         {isMounted && (
           <div className={styles.productCardsContainer} role="tablist">
             {memoizedProductCards}
