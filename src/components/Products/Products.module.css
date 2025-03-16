@@ -365,7 +365,7 @@
   
   .contentSide {
     flex: 1.2; /* Tăng từ 1 lên 1.2 để phần nội dung nhiều không gian hơn */
-    max-width: 55%; /* Giới hạn chiều rộng tối đa */
+    max-width: 50%; /* Giới hạn chiều rộng tối đa */
     padding: 2.5rem;
     padding-bottom: 7rem; /* Đảm bảo đủ không gian cho nút CTA */
     order: 1; /* Nội dung bên trái */
@@ -373,7 +373,7 @@
   
   .imageSide {
     flex: 0.8; /* Giảm từ 1 xuống 0.8 để cân bằng */
-    max-width: 45%; /* Giới hạn chiều rộng tối đa */
+    max-width: 50%; /* Giới hạn chiều rộng tối đa */
     height: 100%; /* Chiều cao 100% trên desktop */
     min-height: 450px;
     order: 2; /* Hình ảnh bên phải */
@@ -401,10 +401,6 @@
     bottom: 1rem; /* Giảm từ 1.5rem xuống 1rem */
   }
   
-  /* Ẩn indicator dots trên desktop */
-  .indicatorDots {
-    display: none;
-  }
 }
 
 /* Prefers reduced motion */

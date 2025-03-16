@@ -2,9 +2,9 @@
 
 .priceTableContainer {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1250px;
   margin: 0 auto;
-  background-color: #f8f9fa;
+  background-color: white;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
@@ -15,7 +15,7 @@
 
 /* Header Styles */
 .priceHeader {
-  background: #f8f9fa;
+  background: white;
   color: #333;
   text-align: center;
   padding: 4.5rem 1rem 3rem;
@@ -111,7 +111,7 @@
 
 .actionButtons {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1250px;
   padding: 0 1rem;
   margin: 1.5rem auto 1rem;
   position: relative;
@@ -173,7 +173,7 @@
 .tableContainer {
   width: 100%;
   padding: 0 1rem;
-  overflow-x: auto;
+  overflow-x: auto; /* Giữ lại để đảm bảo responsive trên màn hình nhỏ */
 }
 
 .priceTable {
@@ -181,7 +181,7 @@
   border-collapse: collapse;
   box-shadow: 0 0 0 1px #e0e0e0;
   margin: 0 auto 2rem;
-  table-layout: fixed;
+  table-layout: auto; /* Thay đổi từ fixed thành auto để tự điều chỉnh */
 }
 
 .priceTable th {
@@ -190,8 +190,8 @@
   font-size: 0.85rem;
   font-weight: 600;
   color: #333;
-  background-color: #f7f7f7;
-  border: 1px solid #e0e0e0;
+  background-color: white;
+  border: 0.5px solid #e0e0e0;
 }
 
 .textCenter {
@@ -203,7 +203,7 @@
   font-weight: 700;
   color: #1a4ca1;
   font-size: 1rem;
-  background-color: #e6f2ff;
+  background-color: white;
   border: 1px solid #e0e0e0;
 }
 
@@ -212,7 +212,7 @@
 }
 
 .productRow:hover {
-  background-color: #f9f9f9;
+  background-color: white;
 }
 
 .priceTable td {
@@ -264,38 +264,51 @@
   background-color: #143b82;
 }
 
-/* Column Widths */
+/* Sử dụng chiều rộng cố định cụ thể thay vì % để đảm bảo tổng chiều rộng chính xác */
 .priceTable th:nth-child(1),
 .priceTable td:nth-child(1) {
-  width: 10%;
+  width: 157px; /* Cột phân khúc */
 }
 
 .priceTable th:nth-child(2),
 .priceTable td:nth-child(2) {
-  width: 20%;
+  width: 260px; /* Cột loại sản phẩm */
 }
 
 .priceTable th:nth-child(3),
-.priceTable td:nth-child(3),
+.priceTable td:nth-child(3) {
+  width: 130px; /* Diện tích */
+}
+
 .priceTable th:nth-child(4),
-.priceTable td:nth-child(4),
+.priceTable td:nth-child(4) {
+  width: 130px; /* Mặt tiền */
+}
+
 .priceTable th:nth-child(5),
-.priceTable td:nth-child(5),
+.priceTable td:nth-child(5) {
+  width: 130px; /* Số tầng */
+}
+
 .priceTable th:nth-child(6),
-.priceTable td:nth-child(6),
+.priceTable td:nth-child(6) {
+  width: 130px; /* Giá từ */
+}
+
 .priceTable th:nth-child(7),
 .priceTable td:nth-child(7) {
-  width: 10%;
+  width: 130px; /* Giá/m² */
 }
 
 .priceTable th:nth-child(8),
 .priceTable td:nth-child(8) {
-  width: 10%;
+  width: 150px; /* Phương án */
+  text-align: center;
 }
 
 /* Expanded Row Styles */
 .expandedRow {
-  background-color: #f8f8f8;
+  background-color: white;
 }
 
 .expandedContent {
@@ -432,12 +445,12 @@
 
 /* CTA Section Rút gọn */
 .simplifiedCta {
-  background-color: #f9f9f9;
+  background-color: white;
   padding: 3rem 1.5rem;
   text-align: center;
   margin: 0 1rem 2rem;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  /* box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); */
 }
 
 .ctaTitle {
@@ -507,10 +520,6 @@
 
 /* Responsive Adjustments */
 @media (max-width: 992px) {
-  .priceTable {
-    table-layout: auto;
-  }
-  
   .priceTitle {
     font-size: 1.8rem;
   }

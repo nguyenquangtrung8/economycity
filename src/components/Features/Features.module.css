@@ -152,7 +152,7 @@
 .featureCardsContainer {
   width: 100%;
   height: auto; /* Tự động điều chỉnh theo nội dung */
-  min-height: 600px; /* Đặt chiều cao tối thiểu */
+  min-height: 550px; /* Điều chỉnh chiều cao tối thiểu */
   position: relative;
   border-radius: 0 0 1rem 1rem; /* Chỉ bo tròn ở dưới trên mobile */
   overflow: hidden;
@@ -221,8 +221,8 @@
 .featureDetails {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.5rem; /* Giảm gap */
-  margin-bottom: 0.75rem; /* Giảm margin */
+  gap: 0.25rem; /* Giảm gap */
+  margin-bottom: 0.25rem; /* Giảm margin */
 }
 
 .detailItem {
@@ -246,7 +246,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-right: 0.75rem;
+  margin-right: 0.25rem;
   color: white;
 }
 
@@ -273,7 +273,7 @@
   width: 100%;
   height: 300px; /* Tăng chiều cao */
   overflow: hidden;
-  background-color: #f7fafc;
+  background-color: white;
   order: 1;
   display: block;
   border-radius: 0; /* Loại bỏ border-radius */
@@ -359,7 +359,8 @@
   }
 
   .featureCardsContainer {
-    height: 400px; /* Chiều cao cố định trên desktop */
+    min-height: 0; /* Bỏ min-height trên desktop */
+    height: 450px; /* Giảm chiều cao từ 400px xuống 350px */
     border-radius: 1rem; /* Khôi phục border-radius đầy đủ */
     margin-left: 0; /* Bỏ margin âm */
     margin-right: 0; /* Bỏ margin âm */
@@ -385,16 +386,16 @@
   /* DESKTOP: ĐIỀU CHỈNH TỶ LỆ NỘI DUNG/HÌNH ẢNH */
   .contentSide {
     flex: 0.9; /* Giảm phần nội dung */
-    padding: 2rem;
+    padding: 1.75rem; /* Giảm padding */
     padding-right: 2.5rem;
-    padding-bottom: 7rem;
+    padding-bottom: 4.5rem; /* Giảm padding-bottom từ 7rem xuống 4.5rem */
     order: 1; /* Content on the left */
   }
   
   /* DESKTOP: TĂNG KHÔNG GIAN HIỂN THỊ HÌNH ẢNH */
   .imageSide {
     flex: 1.1; /* Tăng phần hình ảnh */
-    height: 100%;
+    height: 100%; /* Đảm bảo chiều cao 100% so với container cha */
     order: 2; /* Image on the right */
     border-radius: 0 1rem 1rem 0; /* Bo tròn bên phải */
   }
@@ -402,8 +403,8 @@
   /* DESKTOP: BOX SPECS 2 CỘT VỚI KHOẢNG CÁCH LỚN HƠN */
   .featureDetails {
     grid-template-columns: repeat(2, 1fr);
-    gap: 1.25rem;
-    margin-bottom: 3rem; /* TẠO KHOẢNG CÁCH LỚN HƠN VỚI NÚT CTA */
+    gap: 0.85rem; /* Giảm gap từ 1.25rem xuống 0.85rem */
+    margin-bottom: 1.75rem; /* Giảm khoảng cách với CTA */
   }
   
   /* DESKTOP: FONT SIZE LỚN HƠN CHO CHI TIẾT */
@@ -419,7 +420,7 @@
   .ctaButtonWrapper {
     padding: 0 2rem;
     text-align: center;
-    bottom: 2rem;
+    bottom: 1.25rem; /* Giảm từ 2rem xuống 1.25rem */
   }
   
   /* DESKTOP: NÚT CTA RỘNG HƠN */
@@ -439,13 +440,13 @@
   }
 
   .featureDescription {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem; /* Giảm từ 1.5rem */
   }
 
   /* DESKTOP: KHÔI PHỤC OBJECT-FIT */
   .featureImage {
     object-fit: contain; /* Khôi phục sang contain trên desktop */
-    padding: 1rem; /* Khôi phục padding */
+    padding: 0.75rem; /* Giảm padding từ 1rem xuống 0.75rem */
   }
 }
 

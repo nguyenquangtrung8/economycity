@@ -19,8 +19,8 @@
   --accent-info: #118ab2;    /* Light Blue */
   
   /* Neutral Colors */
-  --neutral-white: #FAFAFA;
-  --neutral-lightest: #f8f9fa;
+  --neutral-white: white;
+  --neutral-lightest: white;
   --neutral-lighter: #e9ecef;
   --neutral-light: #dee2e6;
   --neutral: #ced4da;
