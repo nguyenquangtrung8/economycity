@@ -801,10 +801,12 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-template-rows: repeat(2, auto);
-    gap: 2px;
-    padding: 2px;
+    gap: 1px;
+    padding: 1px;
     border-bottom: none;
     background-color: #f7fafc;
+    max-width: 93%;
+    margin: 10px auto 0;
   }
   
   .tabs__button {
@@ -813,12 +815,12 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    padding: 6px 4px;
+    padding: 6px 2px;
     font-size: 14px;
     text-align: center;
     border: 1px solid #e2e8f0;
-    border-radius: 4px;
-    margin: 2px;
+    border-radius: 8px;
+    margin: 1px;
     background-color: white;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
@@ -1021,7 +1023,8 @@
   /* Maintain the 2x2 grid for really small devices */
   .tabs__button {
     height: 45px;
-    padding: 5px 3px;
+    padding: 5px 1px;
     font-size: 13px;
+    margin: 1px;
   }
 }
