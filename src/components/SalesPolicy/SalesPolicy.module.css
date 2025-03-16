@@ -18,6 +18,23 @@
   margin-bottom: 40px;
 }
 
+.badge {
+  display: inline-block;
+  background-color: #ebf8ff;
+  color: #3182ce;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  margin-bottom: var(--spacing-4);
+  border-radius: 9999px;
+}
+
+.badge:hover {
+  background-color: var(--secondary-dark);
+  color: var(--neutral-white);
+  transform: translateY(-1px);
+}
+
 .sales__title {
   font-size: 32px;
   font-weight: 700;
@@ -64,6 +81,11 @@
   transition: all 0.2s ease-in-out;
   text-align: center;
   border-bottom: 3px solid transparent;
+}
+
+.tabs__button_text {
+  position: relative;
+  z-index: 1;
 }
 
 .tabs__button:hover {
@@ -774,15 +796,58 @@
     padding: 16px;
   }
   
+  /* MOBILE GRID 2x2 FOR TABS - KEY CHANGES HERE */
   .tabs__list {
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, auto);
+    gap: 2px;
+    padding: 2px;
+    border-bottom: none;
+    background-color: #f7fafc;
   }
   
   .tabs__button {
-    flex-basis: 50%;
-    padding: 12px 8px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 6px 4px;
     font-size: 14px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    border-radius: 4px;
+    margin: 2px;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    transition: all 0.2s ease;
   }
+  
+  .tabs__button:active {
+    transform: scale(0.98);
+  }
+  
+  .tabs__button[aria-selected="true"] {
+    background-color: #ebf8ff;
+    border-color: #63b3ed;
+    color: #2b6cb0;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tabs__button_text {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    line-height: 1.2;
+    font-weight: 500;
+  }
+  /* END OF MOBILE GRID 2x2 FOR TABS */
   
   /* Discount tab responsive */
   .discountGrid {
@@ -878,9 +943,10 @@
 
 /* Small mobile devices */
 @media (max-width: 480px) {
-  .tabs__button {
+  /* Remove the 100% flex-basis to keep the 2x2 grid */
+  /* .tabs__button {
     flex-basis: 100%;
-  }
+  } */
   
   .bank__fee_grid {
     grid-template-columns: 1fr;
@@ -950,5 +1016,12 @@
   
   .card__title {
     font-size: 15px;
+  }
+  
+  /* Maintain the 2x2 grid for really small devices */
+  .tabs__button {
+    height: 45px;
+    padding: 5px 3px;
+    font-size: 13px;
   }
 }

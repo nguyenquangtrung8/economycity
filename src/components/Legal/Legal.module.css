@@ -12,16 +12,13 @@
 
 .badge {
   display: inline-block;
-  background-color: var(--secondary-light);
-  color: var(--secondary-dark);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  padding: var(--spacing-1) var(--spacing-3);
-  border-radius: var(--border-radius-full);
+  background-color: #ebf8ff;
+  color: #3182ce;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
   margin-bottom: var(--spacing-4);
-  text-transform: uppercase;
-  letter-spacing: var(--letter-spacing-wide);
-  transition: all 0.2s ease;
+  border-radius: 9999px;
 }
 
 .badge:hover {

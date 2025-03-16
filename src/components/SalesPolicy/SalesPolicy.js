@@ -1,4 +1,4 @@
-// SalesPolicy.js - Component đã tối ưu với tất cả các subcomponent trong cùng một file
+// SalesPolicy.js - Component với navigation grid 2x2 trên mobile
 import React, { useState, useEffect, useMemo, memo } from 'react';
 import styles from './SalesPolicy.module.css';
 import { discountPolicies, paymentSchedules, bankSupport, loanDocuments } from './salesPolicyData';
@@ -111,8 +111,12 @@ const useTabTransition = (initialTab = 'discount') => {
 
 /**
  * Component TabsNav - Phần điều hướng tab ở trên cùng
+ * Đã tối ưu cho mobile với bố cục 2x2
  */
 const TabsNav = memo(function TabsNav({ activeTab, isTransitioning, onTabChange, tabNames }) {
+  // Mảng các key của tabs để dễ dàng xử lý layout
+  const tabKeys = Object.keys(tabNames);
+  
   // Inline style cho tab active để đảm bảo hiển thị đúng
   const activeTabStyle = {
     color: '#2563eb',
@@ -124,7 +128,7 @@ const TabsNav = memo(function TabsNav({ activeTab, isTransitioning, onTabChange,
 
   return (
     <div className={styles.tabs__list} role="tablist">
-      {Object.keys(tabNames).map(tabKey => (
+      {tabKeys.map(tabKey => (
         <button 
           key={tabKey}
           className={styles.tabs__button}
@@ -136,7 +140,9 @@ const TabsNav = memo(function TabsNav({ activeTab, isTransitioning, onTabChange,
           id={`tab-${tabKey}`}
           disabled={isTransitioning}
         >
-          {activeTab === tabKey && '• '}{tabNames[tabKey]}
+          <span className={styles.tabs__button_text}>
+            {activeTab === tabKey && '• '}{tabNames[tabKey]}
+          </span>
         </button>
       ))}
     </div>
@@ -610,6 +616,7 @@ function SalesPolicy() {
   return (
     <section id="sales-policy" className={styles.sales}>
       <div className={styles.sales__header}>
+        <span className={styles.badge}>CHÍNH SÁCH BÁN HÀNG LINH HOẠT</span>
         <h2 className={styles.sales__title}>Chính sách bán hàng Economy City Văn Lâm</h2>
         <p className={styles.sales__subtitle}>Lựa chọn phương án thanh toán phù hợp với nhu cầu của bạn</p>
       </div>

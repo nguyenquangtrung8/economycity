@@ -20,12 +20,12 @@
 
 .badge {
   display: inline-block;
-  background-color: #fff8dd;
-  color: #b78f00;
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  padding: var(--spacing-2) var(--spacing-4);
-  border-radius: var(--border-radius-full);
+  background-color: #ebf8ff;
+  color: #3182ce;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
 }
 
 .sectionTitle {

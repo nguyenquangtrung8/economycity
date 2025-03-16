@@ -62,7 +62,22 @@
   text-align: center;
   margin-bottom: var(--spacing-xl);
 }
+.badge {
+  display: inline-block;
+  background-color: #ebf8ff;
+  color: #3182ce;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  margin-bottom: var(--spacing-4);
+  border-radius: 9999px;
+}
 
+.badge:hover {
+  background-color: var(--secondary-dark);
+  color: var(--neutral-white);
+  transform: translateY(-1px);
+}
 /* 5. Sử dụng rem thay vì px - Đề xuất 5 */
 .sectionTitle {
   font-size: var(--font-2xl);
@@ -203,14 +218,16 @@
   font-size: var(--font-md);
   font-weight: 600;
   color: var(--text-color);
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: var(--spacing-md);
   border-left: 3px solid var(--primary-color);
   padding-left: var(--spacing-sm);
 }
 
+/* CẢI TIẾN: Khu vực chọn tầng */
 .floorButtonRow {
   display: flex;
   gap: var(--spacing-sm);
+  flex-wrap: nowrap; /* Đảm bảo không xuống dòng */
 }
 
 .floorButton {
@@ -224,7 +241,20 @@
   cursor: pointer;
   transition: var(--transition-fast);
   text-align: center;
-  white-space: nowrap;
+  min-width: 0; /* Cho phép co lại khi cần */
+  overflow: hidden; /* Ẩn nội dung tràn */
+  white-space: nowrap; /* Không xuống dòng trong button */
+  position: relative;
+}
+
+/* Text của nút hiển thị đầy đủ trên desktop */
+.floorButtonText {
+  display: inline-block;
+}
+
+/* Text rút gọn cho mobile (ẩn mặc định) */
+.floorButtonShortText {
+  display: none;
 }
 
 /* 6. Thêm focus styles - Đề xuất 6 */
@@ -484,7 +514,7 @@
   align-items: center !important;
 }
 
-/* 3. Responsive chưa tối ưu - Đề xuất 3 */
+/* 3. Responsive chưa tối ưu - CẢI TIẾN RESPONSIVE */
 /* Tablet landscape - Giữa mobile và desktop */
 @media (min-width: 641px) and (max-width: 991px) {
   .propertyDetails {
@@ -526,19 +556,16 @@
   }
   
   .floorButtonRow {
-    flex-wrap: wrap;
+    flex-wrap: nowrap; /* Đảm bảo không xuống dòng */
   }
   
   .floorButton {
-    flex-basis: calc(33.33% - 8px);
-  }
-  
-  .sectionTitle {
-    font-size: var(--font-xl);
+    padding: 5px 4px; /* Giảm padding */
+    font-size: 11px; /* Giảm kích thước font */
   }
 }
 
-/* Mobile portrait */
+/* Mobile portrait - CẢI TIẾN CHÍNH CHO NÚT CHỌN TẦNG */
 @media (max-width: 480px) {
   .propertyDetails {
     grid-template-columns: repeat(2, 1fr); /* Giữ nguyên 2 cột thay vì 1 cột */
@@ -563,13 +590,32 @@
     font-size: 0.75rem; /* Giảm kích thước font */
   }
   
+  /* CẢI TIẾN: Các nút chọn tầng fit trong 1 hàng */
   .floorButtonRow {
-    flex-wrap: wrap;
+    gap: 3px; /* Giảm khoảng cách giữa các nút */
   }
   
   .floorButton {
-    flex-basis: calc(50% - 4px);
-    font-size: var(--font-xs);
+    padding: 4px 2px; /* Giảm padding */
+    min-width: 0; /* Cho phép button co lại nhỏ hơn content */
+    border-radius: 4px; /* Border radius nhỏ hơn */
+  }
+  
+  /* Hiển thị text ngắn gọn trên mobile */
+  .floorButtonText {
+    font-size: 10px; /* Font size nhỏ hơn */
+  }
+  
+  /* Rút gọn text cho màn hình siêu nhỏ */
+  @media (max-width: 360px) {
+    .floorButtonText {
+      display: none;
+    }
+    
+    .floorButtonShortText {
+      display: inline-block; 
+      font-size: 10px;
+    }
   }
   
   .sectionTitle {

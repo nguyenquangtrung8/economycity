@@ -53,7 +53,7 @@ const PropertyDetails = memo(({ details }) => {
   );
 });
 
-// Memoized FloorSelector component
+// Memoized FloorSelector component với một số cải tiến
 const FloorSelector = memo(({ floors, selectedFloorIndex, onSelectFloor }) => {
   return (
     <div className={styles.floorSelector}>
@@ -66,7 +66,8 @@ const FloorSelector = memo(({ floors, selectedFloorIndex, onSelectFloor }) => {
             onClick={() => onSelectFloor(index)}
             aria-label={`Chọn ${floor.name}`}
           >
-            {floor.name}
+            <span className={styles.floorButtonText}>{floor.name}</span>
+            <span className={styles.floorButtonShortText}>T{floor.name.split(' ')[1]}</span>
           </button>
         ))}
       </div>
@@ -192,6 +193,7 @@ const TypicalFloor = () => {
     <section id="mat-bang" className={styles.typicalFloor}>
       <div className="container">
         <div className={styles.sectionHeader}>
+          <span className={styles.badge}>MẶT BẰNG ĐA DẠNG CHO MỌI NHU CẦU</span>
           <h2 className={styles.sectionTitle}>Mặt bằng điển hình</h2>
           <p className={styles.sectionSubtitle}>Khám phá các mẫu thiết kế hiện đại của Economy City Văn Lâm</p>
         </div>
