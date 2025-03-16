@@ -1,29 +1,164 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import ExecutionEnvironment from '@docusaurus/ExecutionEnvironment';
 import styles from './Features.module.css';
 import featureData from './FeaturesData';
 
+// Custom hook để xử lý chuyển đổi tab
+const useTabTransition = (activeFeature, isClient) => {
+  const [visibleFeature, setVisibleFeature] = useState(activeFeature);
+  const [transitioning, setTransitioning] = useState(false);
+  
+  useEffect(() => {
+    if (!isClient) return;
+    
+    if (activeFeature !== visibleFeature) {
+      setTransitioning(true);
+      const timer = setTimeout(() => {
+        setVisibleFeature(activeFeature);
+        setTransitioning(false);
+      }, 300); // Phải khớp với thời gian transition trong CSS
+      
+      return () => clearTimeout(timer);
+    }
+  }, [activeFeature, visibleFeature, isClient]);
+  
+  return { visibleFeature, transitioning };
+};
+
 const Features = () => {
   const [activeFeature, setActiveFeature] = useState(1);
+  const [isClient, setIsClient] = useState(false);
+  const intervalRef = useRef(null);
+  const featureRefs = useRef(featureData.map(() => React.createRef()));
   
-  // Auto-rotate features only in browser environment
+  // Sử dụng custom hook để xử lý hiệu ứng chuyển tab
+  const { visibleFeature, transitioning } = useTabTransition(activeFeature, isClient);
+  
+  // Đánh dấu khi component đã mount trên client
   useEffect(() => {
-    if (!ExecutionEnvironment.canUseDOM) {
-      return;
+    if (ExecutionEnvironment.canUseDOM) {
+      setIsClient(true);
     }
     
-    const interval = setInterval(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
+  
+  // Bắt đầu auto-rotate chỉ sau khi đã xác nhận đang ở client
+  useEffect(() => {
+    if (!isClient) return;
+    
+    // Clear interval cũ nếu có
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    
+    // Tạo interval mới
+    intervalRef.current = setInterval(() => {
       setActiveFeature(current => current === featureData.length ? 1 : current + 1);
     }, 5000);
     
-    return () => clearInterval(interval);
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+    };
+  }, [isClient]);
+
+  // Xử lý click chọn feature
+  const handleFeatureClick = useCallback((id) => {
+    if (!isClient) return;
+    
+    setActiveFeature(id);
+    
+    // Reset interval khi người dùng click
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+    }
+    
+    intervalRef.current = setInterval(() => {
+      setActiveFeature(current => current === featureData.length ? 1 : current + 1);
+    }, 5000);
+    
+    // Focus vào nội dung tính năng cho accessibility
+    if (featureRefs.current[id-1]?.current) {
+      featureRefs.current[id-1].current.focus();
+    }
+  }, [isClient]);
+
+  // Xử lý phím mũi tên để điều hướng
+  const handleKeyDown = useCallback((e, id) => {
+    if (e.key === 'ArrowRight') {
+      const nextId = id === featureData.length ? 1 : id + 1;
+      handleFeatureClick(nextId);
+      e.preventDefault();
+    } else if (e.key === 'ArrowLeft') {
+      const prevId = id === 1 ? featureData.length : id - 1;
+      handleFeatureClick(prevId);
+      e.preventDefault();
+    }
+  }, [handleFeatureClick]);
+
+  // Lấy icon dựa trên loại danh mục
+  const getFeatureIcon = useCallback((categoryId) => {
+    switch (categoryId) {
+      case 'location':
+        return (
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        );
+      case 'amenities':
+        return (
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+          </svg>
+        );
+      case 'investment':
+        return (
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+            <polyline points="17 6 23 6 23 12"></polyline>
+          </svg>
+        );
+      default:
+        return (
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+        );
+    }
   }, []);
+
+  // Tạo style cho card dựa trên trạng thái active
+  const getCardStyle = useCallback((id) => {
+    const isActive = visibleFeature === id;
+    const isTransitioning = transitioning && activeFeature === id;
+    
+    return {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      width: '100%',
+      height: '100%',
+      opacity: isActive ? 1 : isTransitioning ? 0 : 0,
+      visibility: isActive || isTransitioning ? 'visible' : 'hidden',
+      zIndex: isActive ? 2 : isTransitioning ? 1 : 0,
+      pointerEvents: isActive ? 'auto' : 'none'
+    };
+  }, [visibleFeature, transitioning, activeFeature]);
 
   return (
     <section className={styles.featuresSection} id="features">
       <div className={styles.container}>
         <div className={styles.tagWrapper}>
-          <span className={styles.tag}>TẠI SAO CHỌN ECONOMY CITY</span>
+          <span className={styles.tag}>TÍNH NĂNG NỔI BẬT</span>
         </div>
         
         <h2 className={styles.heading}>Giá trị vượt trội tại Economy City Văn Lâm</h2>
@@ -31,82 +166,93 @@ const Features = () => {
           Tận hưởng cuộc sống đẳng cấp với vị trí đắc địa, tiện ích hoàn hảo và cơ hội đầu tư sinh lời
         </p>
         
-        {/* Category Navigation */}
-        <div className={styles.categoryNav}>
+        {/* Tab Navigation với SVG icons - SẮP XẾP NGANG TRÊN MOBILE */}
+        <div className={styles.featuresTabsContainer} role="tablist" aria-label="Tính năng nổi bật">
           {featureData.map((feature) => (
             <button 
               key={feature.id}
-              onClick={() => ExecutionEnvironment.canUseDOM && setActiveFeature(feature.id)}
-              className={`${styles.categoryButton} ${activeFeature === feature.id ? styles.categoryButtonActive : ''}`}
-              aria-pressed={activeFeature === feature.id}
+              id={`tab-${feature.id}`}
+              role="tab"
+              aria-selected={activeFeature === feature.id}
+              aria-controls={`panel-${feature.id}`}
+              tabIndex={activeFeature === feature.id ? 0 : -1}
+              onClick={() => handleFeatureClick(feature.id)}
+              onKeyDown={(e) => handleKeyDown(e, feature.id)}
+              className={`${styles.featureTab} ${activeFeature === feature.id ? styles.featureTabActive : ''}`}
             >
-              <div className={styles.categoryIcon}>
-                {feature.categoryId === 'location' && (
-                  <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
-                    <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                  </svg>
-                )}
-                {feature.categoryId === 'amenities' && (
-                  <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
-                    <path d="M8.1 13.34l2.83-2.83L3.91 3.5c-1.56 1.56-1.56 4.09 0 5.66l4.19 4.18zm6.78-1.81c1.53.71 3.68.21 5.27-1.38 1.91-1.91 2.28-4.65.81-6.12-1.46-1.46-4.2-1.1-6.12.81-1.59 1.59-2.09 3.74-1.38 5.27L3.7 19.87l1.41 1.41L12 14.41l6.88 6.88 1.41-1.41L13.41 13l1.47-1.47z" />
-                  </svg>
-                )}
-                {feature.categoryId === 'investment' && (
-                  <svg viewBox="0 0 24 24" className={styles.icon} aria-hidden="true">
-                    <path d="M11.8 10.9c-2.27-.59-3-1.2-3-2.15 0-1.09 1.01-1.85 2.7-1.85 1.78 0 2.44.85 2.5 2.1h2.21c-.07-1.72-1.12-3.3-3.21-3.81V3h-3v2.16c-1.94.42-3.5 1.68-3.5 3.61 0 2.31 1.91 3.46 4.7 4.13 2.5.6 3 1.48 3 2.41 0 .69-.49 1.79-2.7 1.79-2.06 0-2.87-.92-2.98-2.1h-2.2c.12 2.19 1.76 3.42 3.68 3.83V21h3v-2.15c1.95-.37 3.5-1.5 3.5-3.55 0-2.84-2.43-3.81-4.7-4.4z" />
-                  </svg>
-                )}
+              <div className={styles.featureTabIcon}>
+                {getFeatureIcon(feature.categoryId)}
               </div>
-              <div className={styles.categoryText}>
+              <div className={styles.featureTabText}>
                 <span>{feature.categoryName}</span>
               </div>
-              
-              <div className={`${styles.categoryIndicator} ${activeFeature === feature.id ? styles.categoryIndicatorActive : ''}`}></div>
             </button>
           ))}
         </div>
         
-        {/* Feature cards */}
-        {featureData.map((feature) => (
-          <div
-            key={feature.id}
-            className={`${styles.featureCard} ${activeFeature === feature.id ? styles.activeCard : styles.hiddenCard}`}
-          >
-            <div className={styles.contentSide}>
-              <div className={styles.featureTag}>
-                <span>{feature.categoryName}</span>
+        {/* Feature cards container */}
+        <div className={styles.featureCardsContainer}>
+          {featureData.map((feature) => (
+            <div
+              key={feature.id}
+              id={`panel-${feature.id}`}
+              role="tabpanel"
+              aria-labelledby={`tab-${feature.id}`}
+              tabIndex={-1}
+              ref={featureRefs.current[feature.id-1]}
+              className={styles.featureCard}
+              style={getCardStyle(feature.id)}
+            >
+              <div className={styles.contentSide}>
+                <div className={styles.featureTag}>
+                  <span>{feature.categoryName}</span>
+                </div>
+                
+                <h3 className={styles.featureTitle}>{feature.title}</h3>
+                <p className={styles.featureDescription}>{feature.description}</p>
+                
+                {/* LAYOUT 2x2 CHO CÁC CHI TIẾT & ĐẶC ĐIỂM */}
+                <div className={styles.featureDetails}>
+                  {feature.benefits.map((benefit, index) => (
+                    <div key={index} className={styles.detailItem}>
+                      <div className={styles.detailIcon}>
+                        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="20 6 9 17 4 12"></polyline>
+                        </svg>
+                      </div>
+                      <div className={styles.detailContent}>
+                        <p className={styles.detailLabel}>{benefit.label}</p>
+                        <p className={styles.detailValue}>{benefit.value}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+                
+                {/* CĂN GIỮA NÚT CTA */}
+                <div className={styles.ctaButtonWrapper}>
+                  <a href="#contact" className={styles.ctaButton}>
+                    Tìm hiểu thêm
+                  </a>
+                </div>
               </div>
               
-              <h3 className={styles.featureTitle}>{feature.title}</h3>
-              <p className={styles.featureDescription}>{feature.description}</p>
-              
-              <div className={styles.featureSpecs}>
-                {feature.benefits.map((benefit, index) => (
-                  <div key={index} className={styles.specItem}>
-                    <p className={styles.specLabel}>{benefit.label}</p>
-                    <p className={styles.specValue}>{benefit.value}</p>
-                  </div>
-                ))}
-              </div>
-              
-              <div className={styles.ctaButtonContainer}>
-                <a href="#contact" className={styles.ctaButton}>
-                  Tìm hiểu thêm
-                </a>
+              <div className={styles.imageSide}>
+                <img 
+                  src={feature.imageUrl}
+                  alt={feature.imageAlt || `Hình ảnh ${feature.title}`}
+                  className={styles.featureImage}
+                  width={feature.imageWidth || 600}
+                  height={feature.imageHeight || 400}
+                  loading="lazy"
+                  onError={(e) => {
+                    console.error(`Failed to load image: ${feature.imageUrl}`);
+                    e.target.src = '/img/placeholder.jpg';
+                  }}
+                />
               </div>
             </div>
-            
-            <div className={styles.imageSide}>
-              <img 
-                src={feature.imageUrl}
-                alt={feature.imageAlt}
-                className={styles.featureImage}
-                width={feature.imageWidth}
-                height={feature.imageHeight}
-              />
-            </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
     </section>
   );

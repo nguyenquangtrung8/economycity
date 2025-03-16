@@ -35,7 +35,7 @@ const Products = () => {
   // Focus vào thẻ sản phẩm đang active khi chuyển tab
   useEffect(() => {
     if (cardRefs.current[activeTab]?.current) {
-      cardRefs.current[activeTab].current.focus();
+      cardRefs.current[activeTab].current.focus({ preventScroll: true });
     }
   }, [activeTab]);
 
