@@ -242,7 +242,21 @@ const config = {
           // Xóa editUrl vì không cần chức năng chỉnh sửa từ người dùng
           editUrl: undefined,
         },
-        blog: false, // Giữ nguyên tắt tính năng blog để tránh lỗi
+        blog: {
+          showReadingTime: true,
+          blogSidebarTitle: 'Bài viết gần đây',
+          blogSidebarCount: 6,
+          postsPerPage: 9,
+          blogTitle: 'Blog Bất Động Sản',
+          blogDescription: 'Cập nhật thông tin thị trường, phân tích đầu tư và tin tức mới nhất về dự án Economy City Văn Lâm',
+          feedOptions: {
+            type: 'all',
+            title: 'Blog Economy City Văn Lâm',
+            description: 'Cập nhật thông tin thị trường, phân tích đầu tư và tin tức mới nhất về dự án Economy City Văn Lâm',
+            copyright: `Copyright © ${new Date().getFullYear()} Economy City Văn Lâm. Tất cả quyền được bảo lưu.`,
+            language: 'vi',
+          },
+        },
         theme: {
           customCss: './src/css/custom.css',
         },
@@ -365,6 +379,12 @@ const config = {
             className: 'navbar-center-item',
           },
           {
+            to: '/blog',
+            label: 'Blog',
+            position: 'left',
+            className: 'navbar-center-item',
+          },
+          {
             href: '/#FAQs',
             label: 'FAQs',
             position: 'left',
@@ -440,6 +460,10 @@ const config = {
               {
                 label: 'Phương thức thanh toán',
                 href: '/#salesPolicy',
+              },
+              {
+                label: 'Blog',
+                to: '/blog',
               },
               {
                 label: 'Câu hỏi thường gặp',

@@ -1,0 +1,562 @@
+/* ProjectLayout.module.css */
+.projectLayoutContainer {
+    font-family: var(--font-family-body);
+    margin: var(--spacing-8) 0;
+  }
+  
+  .projectLayoutHeader {
+    text-align: center;
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .projectTitle {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+    color: var(--primary-dark);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .projectDescription {
+    font-size: var(--font-size-md);
+    color: var(--text-secondary);
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .viewModeToggle {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .viewModeButton {
+    background-color: transparent;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: var(--spacing-2) var(--spacing-4);
+    cursor: pointer;
+    font-size: var(--font-size-base);
+    transition: all 0.3s ease;
+  }
+  
+  .viewModeButton:first-child {
+    border-radius: var(--border-radius) 0 0 var(--border-radius);
+  }
+  
+  .viewModeButton:last-child {
+    border-radius: 0 var(--border-radius) var(--border-radius) 0;
+  }
+  
+  .activeMode {
+    background-color: var(--primary-color);
+    color: white;
+  }
+  
+  .viewModeButton:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .projectLayoutContent {
+    display: grid;
+    grid-template-columns: 60% 40%;
+    gap: var(--spacing-6);
+  }
+  
+  /* Map View */
+  .mapView {
+    position: sticky;
+    top: var(--spacing-6);
+    background-color: var(--neutral-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-4);
+    height: calc(100vh - 200px);
+    min-height: 600px;
+    overflow: hidden;
+  }
+  
+  .mapControls {
+    position: absolute;
+    top: var(--spacing-4);
+    right: var(--spacing-4);
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-2);
+  }
+  
+  .zoomButton, .resetButton {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: white;
+    box-shadow: var(--shadow-md);
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .zoomButton:hover, .resetButton:hover {
+    background-color: var(--primary-light);
+    color: var(--primary-dark);
+  }
+  
+  .svgMapContainer {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    background-color: var(--neutral-100);
+  }
+  
+  .projectMap {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+  
+  .zonePolygon {
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .zonePolygon:hover {
+    filter: brightness(1.2);
+    transform: translate(-2px, -2px);
+  }
+  
+  .zoneLabel {
+    font-size: 14px;
+    font-weight: bold;
+    pointer-events: none;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  }
+  
+  .amenityLabel {
+    font-size: 12px;
+    pointer-events: none;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+  }
+  
+  .amenityPolygon {
+    pointer-events: none;
+  }
+  
+  .zoomIndicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: bold;
+    z-index: 100;
+    pointer-events: none;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translate(-50%, -50%) scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1);
+    }
+  }
+  
+  .mapLegend {
+    position: absolute;
+    bottom: var(--spacing-4);
+    left: var(--spacing-4);
+    background-color: white;
+    border-radius: var(--border-radius-sm);
+    padding: var(--spacing-2);
+    box-shadow: var(--shadow-sm);
+  }
+  
+  .legendItem {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .legendItem:last-child {
+    margin-bottom: 0;
+  }
+  
+  .legendColor {
+    width: 20px;
+    height: 20px;
+    margin-right: var(--spacing-2);
+    border-radius: var(--border-radius-sm);
+  }
+  
+  .colorSelling {
+    background-color: rgba(82, 183, 136, 0.7);
+  }
+  
+  .colorComingSoon {
+    background-color: rgba(249, 199, 79, 0.7);
+  }
+  
+  .colorSoldOut {
+    background-color: rgba(108, 117, 125, 0.7);
+  }
+  
+  .legendText {
+    font-size: var(--font-size-sm);
+  }
+  
+  /* Info Panel */
+  .infoPanel {
+    background-color: var(--neutral-white);
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    padding: var(--spacing-4);
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+  }
+  
+  /* Overview Mode */
+  .overviewMode {
+    height: 100%;
+  }
+  
+  .sectionTitle {
+    font-family: var(--font-family-heading);
+    font-size: var(--font-size-lg);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-4);
+    border-left: 4px solid var(--primary-color);
+    padding-left: var(--spacing-2);
+  }
+  
+  .zoneGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: var(--spacing-4);
+  }
+  
+  .zoneCard {
+    background-color: white;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+  
+  .zoneCard:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+  }
+  
+  .zoneCardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-3);
+    background-color: var(--neutral-50);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+  
+  .zoneName {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    margin: 0;
+  }
+  
+  .zoneCardBody {
+    padding: var(--spacing-3);
+  }
+  
+  .zoneInfo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--spacing-2);
+  }
+  
+  .infoItem {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .infoLabel {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .infoValue {
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .statusBadge {
+    display: inline-block;
+    padding: var(--spacing-1) var(--spacing-2);
+    border-radius: var(--border-radius-full);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .statusSelling {
+    background-color: rgba(82, 183, 136, 0.2);
+    color: rgb(32, 133, 86);
+  }
+  
+  .statusComingSoon {
+    background-color: rgba(249, 199, 79, 0.2);
+    color: rgb(199, 149, 29);
+  }
+  
+  .statusSoldOut {
+    background-color: rgba(108, 117, 125, 0.2);
+    color: rgb(58, 67, 75);
+  }
+  
+  .statusUnknown {
+    background-color: rgba(173, 181, 189, 0.2);
+    color: rgb(73, 81, 89);
+  }
+  
+  /* Detail Mode */
+  .detailMode {
+    height: 100%;
+  }
+  
+  .detailHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: var(--spacing-4);
+  }
+  
+  .backButton {
+    display: flex;
+    align-items: center;
+    background: none;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    padding: var(--spacing-1) var(--spacing-2);
+    margin-right: var(--spacing-3);
+  }
+  
+  .backButton span {
+    margin-left: var(--spacing-1);
+  }
+  
+  .backButton:hover {
+    text-decoration: underline;
+  }
+  
+  .detailTitle {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+    margin: 0;
+    flex-grow: 1;
+  }
+  
+  .zoneImage {
+    margin-bottom: var(--spacing-4);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+  }
+  
+  .zoneImage img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .zoneDescription {
+    margin-bottom: var(--spacing-4);
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+  
+  .infoGrid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-3);
+    margin-bottom: var(--spacing-6);
+  }
+  
+  .infoBlock {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--neutral-50);
+    padding: var(--spacing-3);
+    border-radius: var(--border-radius);
+  }
+  
+  .productsSummary {
+    margin-top: var(--spacing-6);
+  }
+  
+  .productsList {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .productItem {
+    margin-bottom: var(--spacing-4);
+    padding-bottom: var(--spacing-4);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+  
+  .productItem:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+  
+  .productType {
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-semibold);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-2);
+  }
+  
+  .productDetails {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-3);
+  }
+  
+  .detailItem {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .detailLabel {
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-1);
+  }
+  
+  .detailValue {
+    font-weight: var(--font-weight-medium);
+  }
+  
+  .noProducts {
+    font-style: italic;
+    color: var(--text-secondary);
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1023px) {
+    .projectLayoutContent {
+      grid-template-columns: 1fr;
+    }
+    
+    .mapView {
+      height: 500px;
+      position: relative;
+      top: 0;
+      min-height: auto;
+    }
+    
+    .infoPanel {
+      max-height: none;
+    }
+    
+    .mapControls {
+      top: var(--spacing-3);
+      right: var(--spacing-3);
+    }
+    
+    .zoomButton, .resetButton {
+      width: 32px;
+      height: 32px;
+    }
+    
+    .zoneLabel {
+      font-size: 12px;
+    }
+    
+    .amenityLabel {
+      font-size: 10px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    .projectTitle {
+      font-size: var(--font-size-xl);
+    }
+    
+    .projectDescription {
+      font-size: var(--font-size-base);
+    }
+    
+    .mapView {
+      height: 400px;
+    }
+    
+    .mapControls {
+      top: var(--spacing-2);
+      right: var(--spacing-2);
+    }
+    
+    .zoomButton, .resetButton {
+      width: 28px;
+      height: 28px;
+    }
+    
+    .mapLegend {
+      bottom: var(--spacing-2);
+      left: var(--spacing-2);
+      padding: var(--spacing-1);
+    }
+    
+    .legendItem {
+      margin-bottom: var(--spacing-1);
+    }
+    
+    .legendColor {
+      width: 16px;
+      height: 16px;
+      margin-right: var(--spacing-1);
+    }
+    
+    .legendText {
+      font-size: 10px;
+    }
+    
+    .infoGrid {
+      grid-template-columns: 1fr;
+    }
+    
+    .productDetails {
+      grid-template-columns: 1fr;
+    }
+    
+    .zoneGrid {
+      grid-template-columns: 1fr;
+    }
+    
+    .zoomIndicator {
+      padding: 6px 12px;
+      font-size: 14px;
+    }
+    
+    .zoneLabel {
+      font-size: 10px;
+    }
+    
+    .amenityLabel {
+      font-size: 8px;
+    }
+  }
