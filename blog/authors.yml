@@ -6,7 +6,7 @@ phong-kinh-doanh:
   page: true
   socials:
     facebook: EconomyCityVanLam
-    
+
 yangshun:
   name: Yangshun Tay
   title: Front End Engineer @ Facebook
@@ -30,3 +30,14 @@ slorber:
     linkedin: sebastienlorber
     github: slorber
     newsletter: https://thisweekinreact.com
+
+thinh-vu:
+  name: Thịnh Vũ
+  title: Founder @ Vnstock & Learn Anything
+  url: https://github.com/thinh-vu
+  image_url: https://learn-anything.vn/img/thinhvu_avatar_square.jpg
+  page: true
+  socials:
+    linkedin: thinh-vu
+    github: thinh-vu
+    newsletter: "https://vnstocks.com"
