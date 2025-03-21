@@ -6,6 +6,7 @@ phong-kinh-doanh:
   page: true
   socials:
     facebook: EconomyCityVanLam
+    
 yangshun:
   name: Yangshun Tay
   title: Front End Engineer @ Facebook
