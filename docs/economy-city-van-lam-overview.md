@@ -237,8 +237,8 @@ Hệ thống này không chỉ bảo vệ tài sản mà còn xây dựng cộng
 ### Thông tin liên hệ
 
 - **Hotline**: 0988.156.516 (Hỗ trợ 24/7)
-- **Website**: [www.economycity.vn](http://www.economycity.vn)
-- **Email**: sales@economycity.vn
+- **Website**: [www.economycity-hy.com](http://www.economycity-hy.com)
+- **Email**: sales@economycity-hy.com
 
 ::: Đăng ký tham quan dự án
 Liên hệ ngay để được tư vấn chi tiết và sắp xếp lịch tham quan dự án Economy City Văn Lâm!

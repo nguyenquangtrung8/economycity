@@ -4,8 +4,8 @@ phong-kinh-doanh:
   url: https://economycity-hy.com/contact
   image_url: /img/logo.jpg
   page: true
-  socials:
-    facebook: EconomyCityVanLam
+  # socials:
+  #   facebook: EconomyCityVanLam
 
 yangshun:
   name: Yangshun Tay
