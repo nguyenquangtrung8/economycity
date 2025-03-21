@@ -216,14 +216,20 @@ html {
   margin-bottom: var(--spacing-4);
 }
 
-/* Fix for docusaurus anchor links and fixed header */
-.anchor {
+/* Fix cho các anchor links mà không ẩn tiêu đề */
+.anchor::before {
+  content: "";
   display: block;
   position: relative;
   top: -80px;
   visibility: hidden;
+  pointer-events: none;
 }
 
+/* Đảm bảo các tiêu đề luôn hiển thị */
+h1.anchor, h2.anchor, h3.anchor, h4.anchor, h5.anchor, h6.anchor {
+  visibility: visible !important;
+}
 /* Common badge styles */
 .badge {
   display: inline-block;

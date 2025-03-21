@@ -1,19 +1,104 @@
-facebook:
-  label: Facebook
-  permalink: /facebook
-  description: Facebook tag description
+economy-city-van-lam:
+  label: Economy City Văn Lâm
+  permalink: /tags/economy-city-van-lam
+  description: Thông tin chính thức về dự án khu đô thị Economy City Văn Lâm - không gian sống hiện đại phía Đông Hà Nội
 
-hello:
-  label: Hello
-  permalink: /hello
-  description: Hello tag description
+economy-city-chu-dau-tu:
+  label: Economy City Chủ đầu tư
+  permalink: /tags/economy-city-chu-dau-tu
+  description: Thông tin về chủ đầu tư Hoàng Vương của dự án Economy City Văn Lâm và các dự án đã triển khai
 
-docusaurus:
-  label: Docusaurus
-  permalink: /docusaurus
-  description: Docusaurus tag description
+economy-city-vi-tri:
+  label: Economy City Vị trí
+  permalink: /tags/economy-city-vi-tri
+  description: Phân tích lợi thế vị trí dự án Economy City Văn Lâm tại trung tâm thị trấn Như Quỳnh, cách Hà Nội 18km
 
-hola:
-  label: Hola
-  permalink: /hola
-  description: Hola tag description
+economy-city-quy-mo:
+  label: Economy City Quy mô
+  permalink: /tags/economy-city-quy-mo
+  description: Thông tin chi tiết về quy mô 37 ha của dự án Economy City Văn Lâm với 1.044 sản phẩm thấp tầng và 8 tòa chung cư
+
+economy-city-mat-bang:
+  label: Economy City Mặt bằng
+  permalink: /tags/economy-city-mat-bang
+  description: Mặt bằng tổng thể và quy hoạch chi tiết các phân khu chức năng tại dự án Economy City Văn Lâm
+
+economy-city-tien-ich:
+  label: Economy City Tiện ích
+  permalink: /tags/economy-city-tien-ich
+  description: Hệ thống 30+ tiện ích nội khu tại Economy City Văn Lâm bao gồm quảng trường, hồ điều hòa, clubhouse và không gian xanh
+
+economy-city-nha-pho:
+  label: Economy City Nhà phố
+  permalink: /tags/economy-city-nha-pho
+  description: Thông tin chi tiết về nhà phố thương mại tại Economy City Văn Lâm với diện tích 75-120m², thiết kế 4-5 tầng
+
+economy-city-biet-thu:
+  label: Economy City Biệt thự
+  permalink: /tags/economy-city-biet-thu
+  description: Biệt thự cao cấp Economy City Văn Lâm với diện tích 200-300m², thiết kế hiện đại và không gian riêng tư
+
+economy-city-can-ho:
+  label: Economy City Căn hộ
+  permalink: /tags/economy-city-can-ho
+  description: Căn hộ cao tầng tại Economy City Văn Lâm với diện tích 45-120m², tầm nhìn toàn cảnh và tiện ích đầy đủ
+
+economy-city-gia-ban:
+  label: Economy City Giá bán
+  permalink: /tags/economy-city-gia-ban
+  description: Bảng giá và phân tích chi tiết các sản phẩm tại Economy City Văn Lâm với giá từ 107 triệu/m², thấp hơn 35% so với khu vực
+
+economy-city-phap-ly:
+  label: Economy City Pháp lý
+  permalink: /tags/economy-city-phap-ly
+  description: Thông tin pháp lý minh bạch về dự án Economy City Văn Lâm với bảo lãnh từ PVCOMBANK và sổ đỏ sở hữu lâu dài
+
+economy-city-chinh-sach:
+  label: Economy City Chính sách
+  permalink: /tags/economy-city-chinh-sach
+  description: Các chương trình ưu đãi, chiết khấu và phương thức thanh toán tại dự án Economy City Văn Lâm
+
+economy-city-vay-ngan-hang:
+  label: Economy City Vay ngân hàng
+  permalink: /tags/economy-city-vay-ngan-hang
+  description: Thông tin về gói vay 0% lãi suất trong 18 tháng và hỗ trợ tài chính từ VietinBank, BIDV, Vietcombank cho khách hàng
+
+economy-city-tien-do:
+  label: Economy City Tiến độ
+  permalink: /tags/economy-city-tien-do
+  description: Cập nhật mới nhất về tiến độ xây dựng dự án Economy City Văn Lâm - theo dõi quá trình hoàn thiện từng giai đoạn
+
+economy-city-ban-giao:
+  label: Economy City Bàn giao
+  permalink: /tags/economy-city-ban-giao
+  description: Kế hoạch bàn giao các phân khu và sản phẩm tại dự án Economy City Văn Lâm trong 180 ngày kể từ ký hợp đồng
+
+economy-city-loi-the:
+  label: Economy City Lợi thế
+  permalink: /tags/economy-city-loi-the
+  description: Phân tích lợi thế cạnh tranh của Economy City Văn Lâm so với các dự án khác trong khu vực, bao gồm vị trí và giá bán
+
+economy-city-nhu-quynh:
+  label: Economy City Như Quỳnh
+  permalink: /tags/economy-city-nhu-quynh
+  description: Thông tin về thị trấn Như Quỳnh - vị trí của dự án Economy City Văn Lâm và tiềm năng phát triển khu vực
+
+economy-city-hung-yen:
+  label: Economy City Hưng Yên
+  permalink: /tags/economy-city-hung-yen
+  description: Thông tin về huyện Văn Lâm, Hưng Yên - nơi phát triển dự án Economy City và định hướng lên thành phố năm 2030
+
+economy-city-tang-gia:
+  label: Economy City Tăng giá
+  permalink: /tags/economy-city-tang-gia
+  description: Phân tích tiềm năng tăng giá bất động sản tại Economy City Văn Lâm nhờ vị trí đắc địa và quy hoạch phát triển
+
+economy-city-hinh-anh:
+  label: Economy City Hình ảnh
+  permalink: /tags/economy-city-hinh-anh
+  description: Bộ sưu tập hình ảnh thực tế, tiến độ xây dựng và phối cảnh 3D của dự án Economy City Văn Lâm
+
+economy-city-thu-tuc:
+  label: Economy City Thủ tục
+  permalink: /tags/economy-city-thu-tuc
+  description: Hướng dẫn chi tiết các thủ tục mua bán, pháp lý và quy trình nhận nhà tại dự án Economy City Văn Lâm

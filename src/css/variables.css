@@ -69,21 +69,26 @@
   
   /* ===== TYPOGRAPHY ===== */
   /* Font Families */
-  --font-family-heading: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
+  --font-family-heading: 'Playfair Display', 'Montserrat', Georgia, serif;
+  --font-family-subheading: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
   --font-family-body: 'Open Sans', 'Segoe UI', Roboto, sans-serif;
+  --font-family-accent: 'Raleway', 'Arial', sans-serif;
+  --font-family-monospace: 'Roboto Mono', monospace;
   
   /* Font Sizes */
-  --font-size-xs: 0.75rem;  /* 12px */
-  --font-size-sm: 0.875rem; /* 14px */
-  --font-size-base: 1rem;   /* 16px */
-  --font-size-md: 1.125rem; /* 18px */
-  --font-size-lg: 1.25rem;  /* 20px */
-  --font-size-xl: 1.5rem;   /* 24px */
+  --font-size-xs: 0.75rem;   /* 12px */
+  --font-size-sm: 0.875rem;  /* 14px */
+  --font-size-base: 1rem;    /* 16px */
+  --font-size-md: 1.125rem;  /* 18px */
+  --font-size-lg: 1.25rem;   /* 20px */
+  --font-size-xl: 1.5rem;    /* 24px */
   --font-size-2xl: 1.875rem; /* 30px */
   --font-size-3xl: 2.25rem;  /* 36px */
   --font-size-4xl: 3rem;     /* 48px */
+  --font-size-5xl: 3.75rem;  /* 60px */
   
   /* Font Weights */
+  --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 500;
   --font-weight-semibold: 600;
@@ -104,6 +109,10 @@
   --letter-spacing-wide: 0.025em;
   --letter-spacing-wider: 0.05em;
   --letter-spacing-widest: 0.1em;
+  
+  /* Paragraph */
+  --paragraph-margin-bottom: var(--spacing-4);
+  --paragraph-max-width: 70ch;
   
   /* ===== SPACING ===== */
   --spacing-0: 0;
@@ -223,6 +232,15 @@
   --nav-text: var(--text-primary);
   --nav-hover: var(--primary-color);
   --nav-active: var(--primary-color);
+  
+  /* Headings */
+  --heading-margin-top: var(--spacing-8);
+  --heading-margin-bottom: var(--spacing-4);
+  --heading-font-family: var(--font-family-heading);
+  --heading-font-weight: var(--font-weight-bold);
+  --heading-line-height: var(--line-height-tight);
+  --heading-letter-spacing: var(--letter-spacing-tight);
+  --heading-color: var(--primary-dark);
 }
 
 /* Media query cho dark mode */
