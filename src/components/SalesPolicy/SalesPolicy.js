@@ -1,7 +1,7 @@
 // SalesPolicy.js - Component với navigation grid 2x2 trên mobile
 import React, { useState, useEffect, useMemo, memo } from 'react';
 import styles from './SalesPolicy.module.css';
-import { discountPolicies, paymentSchedules, bankSupport, loanDocuments } from './salesPolicyData';
+import { discountPolicies, paymentSchedules } from './salesPolicyData';
 
 // ==================== UTILITY FUNCTIONS ====================
 
@@ -46,33 +46,6 @@ const createSummaryInfo = (activeMethod) => {
   }
   
   return baseInfo;
-};
-
-/**
- * Render danh sách mục hỗ trợ
- */
-const renderSupportItems = (items) => {
-  return items.map((item, index) => (
-    <div key={index} className={styles.bank__support_item}>
-      <svg className={styles.checkIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-      </svg>
-      <div>
-        <p className={styles.bank__support_title} style={{color: '#1a202c', fontWeight: 600}}>{item.title || item.duration}</p>
-        <p className={styles.bank__support_value} style={{color: '#1a202c'}}>{item.value || item.rate || item.fee}</p>
-      </div>
-    </div>
-  ));
-};
-
-/**
- * Render danh sách tài liệu
- */
-const renderDocList = (docs) => {
-  return docs.map((docItem, index) => (
-    <li key={index}>{docItem}</li>
-  ));
 };
 
 // ==================== CUSTOM HOOK ====================
@@ -385,184 +358,6 @@ const PaymentTab = memo(function PaymentTab() {
 });
 
 /**
- * Component BankTab - Hiển thị tab hỗ trợ tài chính
- */
-const BankTab = memo(function BankTab() {
-  // Style thủ công cho tab bank
-  const bankStyles = {
-    container: {
-      backgroundColor: '#ffffff',
-      color: '#1a202c'
-    },
-    card: {
-      backgroundColor: '#f7fafc',
-      color: '#1a202c'
-    },
-    title: {
-      color: '#1a202c',
-      fontWeight: 600
-    },
-    text: {
-      color: '#1a202c'
-    },
-    rateItem: {
-      backgroundColor: '#f0f5fa',
-      border: '1px solid #e2e8f0',
-      borderRadius: '6px',
-      padding: '10px',
-      color: '#1a202c'
-    },
-    rateValue: {
-      color: '#2b6cb0',
-      fontWeight: 700,
-      backgroundColor: 'rgba(255,255,255,0.6)',
-      padding: '2px 6px',
-      borderRadius: '4px',
-      display: 'inline-block'
-    }
-  };
-
-  const renderSupportSection = (title, items) => (
-    <div className={styles.card} style={bankStyles.card}>
-      <div className={styles.card__header}>
-        <h3 className={styles.card__title} style={bankStyles.title}>
-          <svg className={styles.icon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-            <line x1="1" y1="10" x2="23" y2="10"></line>
-          </svg>
-          {title}
-        </h3>
-      </div>
-      <div className={styles.card__content}>
-        <div className={styles.bank__support_grid}>
-          {renderSupportItems(items)}
-        </div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className={styles.bank} style={bankStyles.container}>
-      {/* Chính sách hỗ trợ từ VietinBank */}
-      <div className={`${styles.card} ${styles.bank__support_card}`} style={bankStyles.card}>
-        <div className={styles.card__header}>
-          <h3 className={styles.card__title} style={bankStyles.title}>
-            <svg className={styles.icon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
-              <line x1="1" y1="10" x2="23" y2="10"></line>
-            </svg>
-            Chính sách hỗ trợ từ VietinBank
-          </h3>
-        </div>
-        <div className={styles.card__content}>
-          <div className={styles.bank__support_grid}>
-            {renderSupportItems(bankSupport.mainSupport)}
-          </div>
-        </div>
-      </div>
-      
-      <div className={styles.bank__options_grid}>
-        {/* Gói hỗ trợ lãi suất */}
-        {renderSupportSection('Gói hỗ trợ lãi suất', bankSupport.interestSupport)}
-        
-        {/* Không tham gia gói HTLS */}
-        <div className={styles.card} style={bankStyles.card}>
-          <div className={styles.card__header}>
-            <h3 className={styles.card__title} style={bankStyles.title}>Không tham gia gói HTLS</h3>
-          </div>
-          <div className={styles.card__content}>
-            <p className={styles.bank__support_subtitle} style={bankStyles.title}>Lãi suất ưu đãi theo thời hạn:</p>
-            <div className={styles.bank__rate_grid}>
-              {bankSupport.nonParticipation.map((item, index) => (
-                <div key={index} className={styles.bank__rate_item} style={bankStyles.rateItem}>
-                  <span className={styles.bank__rate_duration} style={bankStyles.title}>{item.duration}:</span>{' '}
-                  <span style={bankStyles.rateValue}>{item.rate}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      {/* Phí trả nợ trước hạn */}
-      <div className={`${styles.card} ${styles.bank__prepayment_card}`} style={bankStyles.card}>
-        <div className={styles.card__header}>
-          <h3 className={styles.card__title} style={bankStyles.title}>Phí trả nợ trước hạn</h3>
-        </div>
-        <div className={styles.card__content}>
-          <div className={styles.bank__fee_grid}>
-            {bankSupport.prepaymentFees.map((item, index) => (
-              <div key={index} className={styles.bank__fee_item} style={bankStyles.rateItem}>
-                <span className={styles.bank__fee_period} style={bankStyles.title}>{item.period}</span>
-                <span className={styles.bank__fee_value} style={bankStyles.rateValue}>{item.fee}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-});
-
-/**
- * Component DocumentTab - Hiển thị tab hồ sơ vay vốn
- */
-const DocumentTab = memo(function DocumentTab() {
-  return (
-    <div className={styles.document}>
-      <div className={styles.card}>
-        <div className={styles.card__header}>
-          <h3 className={styles.card__title}>Hồ sơ vay vốn đơn giản</h3>
-          <p className={styles.card__description}>Các loại giấy tờ cần chuẩn bị khi vay vốn ngân hàng</p>
-        </div>
-        <div className={styles.card__content}>
-          <div className={styles.document__section}>
-            <h4 className={styles.document__section_title}>
-              <span className={styles.document__section_number}>1</span>
-              Hồ sơ pháp lý
-            </h4>
-            <ul className={styles.document__list}>
-              {renderDocList(loanDocuments.legalDocs)}
-            </ul>
-          </div>
-          
-          <div className={styles.document__section}>
-            <h4 className={styles.document__section_title}>
-              <span className={styles.document__section_number}>2</span>
-              Hồ sơ TSBĐ
-            </h4>
-            <ul className={styles.document__list}>
-              {renderDocList(loanDocuments.collateralDocs)}
-            </ul>
-          </div>
-          
-          <div className={styles.document__section}>
-            <h4 className={styles.document__section_title}>
-              <span className={styles.document__section_number}>3</span>
-              Hồ sơ chứng minh tài chính
-            </h4>
-            <div className={styles.document__financial_grid}>
-              {loanDocuments.financialProof.map((item, index) => (
-                <div key={index} className={styles.card}>
-                  <div className={styles.card__header}>
-                    <h5 className={styles.document__financial_title}>Thu nhập {item.type}</h5>
-                  </div>
-                  <div className={styles.card__content}>
-                    <ul className={styles.document__list}>
-                      {renderDocList(item.docs)}
-                    </ul>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-});
-
-/**
  * Component Footer - Hiển thị phần footer chung
  */
 const Footer = memo(function Footer() {
@@ -590,9 +385,7 @@ function SalesPolicy() {
   // Tên hiển thị của các tab
   const TAB_NAMES = {
     'discount': 'Ưu đãi',
-    'payment': 'Phương thức thanh toán',
-    'bank': 'Hỗ trợ tài chính',
-    'document': 'Hồ sơ vay vốn'
+    'payment': 'Phương thức thanh toán'
   };
 
   const { activeTab, isTransitioning, handleTabChange } = useTabTransition('discount');
@@ -604,10 +397,6 @@ function SalesPolicy() {
         return <DiscountTab />;
       case 'payment':
         return <PaymentTab />;
-      case 'bank':
-        return <BankTab />;
-      case 'document':
-        return <DocumentTab />;
       default:
         return <DiscountTab />;
     }

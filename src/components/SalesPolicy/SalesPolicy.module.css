@@ -475,172 +475,7 @@
   font-weight: 500;
 }
 
-/* ------ Bank Tab (Block) ------ */
-.bank {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  contain: content;
-  background-color: #ffffff;
-}
-
-.bank__support_card {
-  border-left: 4px solid #3182ce;
-  background-color: #f7fafc;
-}
-
-.bank__options_grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
-  contain: layout;
-}
-
-.bank__support_grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.bank__support_item {
-  display: flex;
-  align-items: flex-start;
-  margin-bottom: 12px;
-}
-
-.bank__support_title {
-  font-weight: 600;
-  margin: 0 0 4px;
-  color: #1a202c;
-}
-
-.bank__support_value {
-  color: #1a202c;
-  margin: 0;
-}
-
-.bank__support_subtitle {
-  font-weight: 600;
-  margin-bottom: 12px;
-  color: #1a202c;
-}
-
-.bank__support_list {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.bank__rate_grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
-  contain: layout;
-}
-
-.bank__rate_item {
-  background-color: #f0f5fa;
-  padding: 10px;
-  border-radius: 6px;
-  font-size: 14px;
-  color: #1a202c;
-  border: 1px solid #e2e8f0;
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-}
-
-.bank__rate_duration {
-  font-weight: 600;
-  color: #2c5282;
-  display: block;
-  margin-bottom: 4px;
-}
-
-.bank__prepayment_card {
-  background-color: #f7fafc;
-}
-
-.bank__fee_grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 8px;
-  contain: layout;
-}
-
-.bank__fee_item {
-  background-color: #f0f5fa;
-  padding: 12px;
-  border-radius: 6px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-  text-align: center;
-  border: 1px solid #e2e8f0;
-  color: #1a202c;
-}
-
-.bank__fee_period {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 4px;
-  color: #2c5282;
-}
-
-.bank__fee_value {
-  font-weight: 700;
-  color: #2b6cb0;
-}
-
-/* ------ Document Tab (Block) ------ */
-.document {
-  padding: 0;
-  contain: content;
-}
-
-.document__section {
-  margin-bottom: 24px;
-}
-
-.document__section_title {
-  display: flex;
-  align-items: center;
-  font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 16px;
-}
-
-.document__section_number {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  background-color: #ebf8ff;
-  color: #3182ce;
-  border-radius: 50%;
-  margin-right: 8px;
-  font-size: 14px;
-}
-
-.document__list {
-  list-style-type: disc;
-  padding-left: 24px;
-  color: #4a5568;
-}
-
-.document__financial_grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 16px;
-  contain: layout;
-}
-
-.document__financial_title {
-  font-size: 14px;
-  font-weight: 600;
-  margin: 0;
-}
-
 /* ------ Footer (Block) ------ */
-/* Cập nhật CSS cho phần footer để căn giữa văn bản */
 .footer {
   border-top: 1px solid #e2e8f0;
   padding: 24px;
@@ -761,10 +596,6 @@
     font-size: 18px;
   }
   
-  .document__financial_grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
   .card__title {
     font-size: 16px;
   }
@@ -800,7 +631,7 @@
   .tabs__list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(2, auto);
+    grid-template-rows: repeat(1, auto); /* Changed from 2 rows to 1 row since we now only have 2 tabs */
     gap: 1px;
     padding: 1px;
     border-bottom: none;
@@ -920,17 +751,6 @@
     align-self: flex-start;
   }
   
-  /* Card layouts */
-  .bank__options_grid,
-  .bank__support_grid,
-  .document__financial_grid {
-    grid-template-columns: 1fr;
-  }
-  
-  .bank__fee_grid {
-    grid-template-columns: 1fr 1fr;
-  }
-  
   /* Footer */
   .footer {
     padding: 16px;
@@ -945,15 +765,6 @@
 
 /* Small mobile devices */
 @media (max-width: 480px) {
-  /* Remove the 100% flex-basis to keep the 2x2 grid */
-  /* .tabs__button {
-    flex-basis: 100%;
-  } */
-  
-  .bank__fee_grid {
-    grid-template-columns: 1fr;
-  }
-  
   .payment__summary {
     padding: 12px;
   }
@@ -1020,7 +831,7 @@
     font-size: 15px;
   }
   
-  /* Maintain the 2x2 grid for really small devices */
+  /* Maintain the grid for really small devices */
   .tabs__button {
     height: 45px;
     padding: 5px 1px;

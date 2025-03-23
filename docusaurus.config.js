@@ -221,13 +221,13 @@ const config = {
   // Plugins: chỉ giữ lại tính năng tìm kiếm và Google Analytics
   plugins: [
     require.resolve('docusaurus-lunr-search'),
-    [
-      '@docusaurus/plugin-google-gtag',
-      {
-        trackingID: 'G-XXXXXXXXXX', // Thay bằng ID Google Analytics thực tế
-        anonymizeIP: true,
-      },
-    ],
+    // [
+    //   '@docusaurus/plugin-google-gtag',
+    //   {
+    //     trackingID: 'G-XXXXXXXXXX', // Thay bằng ID Google Analytics thực tế
+    //     anonymizeIP: true,
+    //   },
+    // ],
   ],
   
   presets: [
