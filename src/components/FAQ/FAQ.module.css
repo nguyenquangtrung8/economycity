@@ -1,4 +1,4 @@
-/* FAQ.module.css - Style cho component FAQs */
+/* FAQ.module.css - Style tối ưu cho mobile và desktop */
 
 .faqContainer {
   max-width: 1250px;
@@ -7,6 +7,7 @@
   border-radius: 0.75rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   overflow: hidden;
+  position: relative;
 }
 
 .header {
@@ -53,17 +54,205 @@
   color: #9ca3af;
 }
 
+.searchResultsCount {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+/* Tab styling - thành phần mới */
+.tabsContainer {
+  display: flex;
+  overflow-x: auto;
+  padding: 1rem;
+  gap: 0.5rem;
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Sticky tab cho mobile */
+.stickyTabs {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-top: 1px solid #e5e7eb;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Cuộn ngang cho tab trên thiết bị nhỏ */
+@media (max-width: 767px) {
+  .tabsContainer {
+    padding: 0.75rem;
+    gap: 0.25rem;
+  }
+  
+  .tabButton {
+    min-width: auto;
+    padding: 0.5rem 0.75rem;
+  }
+  
+  .tabText {
+    display: none; /* Ẩn text trên mobile, chỉ hiện icon */
+  }
+  
+  /* Hiển thị text cho tab đang active */
+  .activeTab .tabText {
+    display: inline;
+  }
+}
+
+.tabButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background-color: white;
+  color: #4b5563;
+  font-weight: 500;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-width: max-content;
+}
+
+.tabButton:hover {
+  background-color: #f9fafb;
+  color: #1e40af;
+  border-color: #c7d2fe;
+}
+
+.tabIcon {
+  display: flex;
+  align-items: center;
+  color: #6b7280;
+}
+
+.activeTab {
+  background-color: #1e40af;
+  color: white;
+  border-color: #1e40af;
+}
+
+.activeTab .tabIcon {
+  color: white;
+}
+
+.activeTab:hover {
+  background-color: #1e3a8a;
+  color: white;
+  border-color: #1e3a8a;
+}
+
+/* Styling theo category */
+.category-general .questionButton:hover .questionText {
+  color: #1e40af;
+}
+
+.category-location .questionButton:hover .questionText {
+  color: #b91c1c;
+}
+
+.category-products .questionButton:hover .questionText {
+  color: #047857;
+}
+
+.category-legal .questionButton:hover .questionText {
+  color: #4f46e5;
+}
+
+.category-payment .questionButton:hover .questionText {
+  color: #0369a1;
+}
+
+/* FAQ List styling */
 .faqList {
   padding: 1.5rem 1rem;
   min-height: 300px;
 }
 
+/* Mobile accordion styles */
+.mobileAccordion {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.categoryAccordion {
+  margin-bottom: 0.5rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.categoryButton {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-weight: 600;
+  position: relative;
+}
+
+.categoryIcon {
+  display: flex;
+  align-items: center;
+  margin-right: 0.5rem;
+  color: #4b5563;
+}
+
+.categoryName {
+  flex: 1;
+}
+
+.categoryCount {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e5e7eb;
+  color: #4b5563;
+  border-radius: 9999px;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  margin-right: 0.5rem;
+}
+
+.categoryActive {
+  background-color: #1e40af;
+  color: white;
+}
+
+.categoryActive .categoryIcon,
+.categoryActive .categoryCount {
+  color: white;
+}
+
+.categoryActive .categoryCount {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.categoryQuestions {
+  padding: 0.5rem;
+  background-color: white;
+}
+
+/* Desktop layout - 2 columns */
 .faqColumns {
   display: flex;
   flex-direction: column;
 }
 
-/* Desktop layout - 2 columns */
 @media (min-width: 768px) {
   .faqColumns {
     flex-direction: row;
@@ -122,6 +311,17 @@
   font-size: 1.125rem;
   font-weight: 500;
   color: #111827;
+  transition: color 0.2s ease;
+}
+
+@media (max-width: 767px) {
+  .questionText {
+    font-size: 1rem;
+  }
+}
+
+.questionButton:hover .questionText {
+  color: #2563eb;
 }
 
 .iconExpanded {
@@ -138,6 +338,27 @@
   background-color: #f9fafb;
   border-radius: 0.5rem;
   border-left: 4px solid #2563eb;
+}
+
+/* Màu của answerContainer theo category */
+.category-general .answerContainer {
+  border-left-color: #1e40af;
+}
+
+.category-location .answerContainer {
+  border-left-color: #b91c1c;
+}
+
+.category-products .answerContainer {
+  border-left-color: #047857;
+}
+
+.category-legal .answerContainer {
+  border-left-color: #4f46e5;
+}
+
+.category-payment .answerContainer {
+  border-left-color: #0369a1;
 }
 
 .answerText {
@@ -174,6 +395,7 @@
   cursor: pointer;
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-decoration: none;
 }
 
 .ctaButton:hover {
@@ -187,4 +409,39 @@
 .ctaButton:active {
   transform: translateY(-1px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Back to Top Button */
+.backToTopButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  background-color: #1e40af;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.2s ease;
+  z-index: 50;
+}
+
+.backToTopButton:hover {
+  background-color: #1e3a8a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+@media (max-width: 767px) {
+  .backToTopButton {
+    bottom: 1rem;
+    right: 1rem;
+    width: 2.5rem;
+    height: 2.5rem;
+  }
 }
