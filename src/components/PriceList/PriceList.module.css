@@ -1,4 +1,140 @@
-/* CSS Module cho component PriceList */
+/* Nút xem giá */
+.btnShowPrice {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnShowPrice:hover {
+  background-color: #e64a19;
+}
+
+/* Modal nhập mật khẩu */
+.passwordModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.passwordModalContent {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1002;
+  transform: translateZ(0); /* Force hardware acceleration */
+}
+
+.passwordModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.passwordModalTitle {
+  margin: 0;
+  font-size: 1.2rem;
+  color: #1a4ca1;
+  font-weight: 600;
+}
+
+.passwordModalBody {
+  padding: 1.5rem 1rem;
+}
+
+.passwordModalText {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  color: #555;
+}
+
+.passwordInputWrapper {
+  width: 100%;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 1002;
+}
+
+.passwordInput {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  -webkit-appearance: none; /* Cải thiện hiển thị trên iOS */
+  transform: translateZ(0); /* Force hardware acceleration */
+  will-change: transform; /* Optimize for animations */
+  background-color: white;
+  position: relative;
+  z-index: 1002;
+}
+
+.passwordInput:focus {
+  border-color: #1a4ca1;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(26, 76, 161, 0.2);
+}
+
+.passwordInput:focus {
+  border-color: #1a4ca1;
+  outline: none;
+}
+
+.btnSubmitPassword {
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #1a4ca1;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btnSubmitPassword:hover {
+  background-color: #143b82;
+}
+
+.passwordModalFooter {
+  padding: 1rem;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.passwordModalNote {
+  font-size: 0.85rem;
+  color: #666;
+  margin: 0;
+}
+
+.phoneLink {
+  color: #1a4ca1;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.phoneLink:hover {
+  text-decoration: underline;
+}/* CSS Module cho component PriceList */
 
 /* Container chính bọc toàn bộ component */
 .priceTableSection {

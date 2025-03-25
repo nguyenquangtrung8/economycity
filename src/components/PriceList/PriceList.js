@@ -113,8 +113,8 @@ const PaymentOptions = ({ product, onClose }) => {
                 <div className={styles.paymentValue}>{loanFirstPayment} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
-                <div className={styles.paymentLabel}>Giá gốc sau CK:</div>
-                <div className={styles.paymentValue}>{loanPrice.toFixed(3)} tỷ</div>
+                <div className={styles.paymentLabel}>Giá CN sau CK:</div>
+                <div className={styles.paymentValue}>{loanTransfer.toFixed(3)} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
                 <div className={styles.paymentLabel}>Các đợt tiếp theo:</div>
@@ -147,8 +147,8 @@ const PaymentOptions = ({ product, onClose }) => {
                 <div className={styles.paymentValue}>{noLoanFirstPayment} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
-                <div className={styles.paymentLabel}>Giá gốc sau CK:</div>
-                <div className={styles.paymentValue}>{noLoanPrice.toFixed(3)} tỷ</div>
+                <div className={styles.paymentLabel}>Giá CN sau CK:</div>
+                <div className={styles.paymentValue}>{noLoanTransfer.toFixed(3)} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
                 <div className={styles.paymentLabel}>Các đợt tiếp theo:</div>
@@ -181,8 +181,8 @@ const PaymentOptions = ({ product, onClose }) => {
                 <div className={styles.paymentValue}>{firstPayment70} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
-                <div className={styles.paymentLabel}>Giá gốc sau CK:</div>
-                <div className={styles.paymentValue}>{price70.toFixed(3)} tỷ</div>
+                <div className={styles.paymentLabel}>Giá CN sau CK:</div>
+                <div className={styles.paymentValue}>{transfer70.toFixed(3)} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
                 <div className={styles.paymentLabel}>Đợt 2 (30 ngày):</div>
@@ -215,8 +215,8 @@ const PaymentOptions = ({ product, onClose }) => {
                 <div className={styles.paymentValue}>{firstPayment95} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
-                <div className={styles.paymentLabel}>Giá gốc sau CK:</div>
-                <div className={styles.paymentValue}>{price95.toFixed(3)} tỷ</div>
+                <div className={styles.paymentLabel}>Giá CN sau CK:</div>
+                <div className={styles.paymentValue}>{transfer95.toFixed(3)} tỷ</div>
               </div>
               <div className={styles.paymentItem}>
                 <div className={styles.paymentLabel}>Đợt 2 (30 ngày):</div>
@@ -250,6 +250,9 @@ const PriceList = () => {
   const [expandedRow, setExpandedRow] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [mobileProductDetails, setMobileProductDetails] = useState(null);
+  const [showPriceModal, setShowPriceModal] = useState(false);
+  const [password, setPassword] = useState('');
+  const [showAllPrices, setShowAllPrices] = useState(false);
   
   // Kiểm tra thiết bị là mobile hay desktop
   React.useEffect(() => {
@@ -291,6 +294,26 @@ const PriceList = () => {
   // Đóng modal trên mobile
   const closeMobileModal = () => {
     setMobileProductDetails(null);
+  };
+  
+  // Xử lý nhập mật khẩu
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
+  
+  // Kiểm tra mật khẩu và hiển thị giá
+  const handleCheckPassword = () => {
+    if (password === 'visionland') {
+      setShowAllPrices(true);
+      setShowPriceModal(false);
+      setPassword('');
+    } else {
+      alert('Mật khẩu không đúng!');
+    }
+  };
+  
+  const handleShowPriceClick = () => {
+    setShowPriceModal(true);
   };
   
   return (
@@ -367,7 +390,17 @@ const PriceList = () => {
                         {/* Cột sẽ bị ẩn trên mobile */}
                         <td className={`${styles.colContractPrice} ${styles.productPrice}`}>{product.contractPrice}</td>
                         <td className={styles.textCenter}>{calculatePricePerM2(product.transferPrice, product.area)}</td>
-                        <td className={`${styles.textCenter} ${styles.transferPrice}`}>{product.transferPrice}</td>
+                        <td className={`${styles.textCenter} ${styles.transferPrice}`}>
+                          {(showAllPrices || productsData.filter(p => p.category === category).indexOf(product) < 2) ? 
+                            product.transferPrice : 
+                            <button
+                              className={styles.btnShowPrice}
+                              onClick={handleShowPriceClick}
+                            >
+                              Xem giá
+                            </button>
+                          }
+                        </td>
                         <td className={styles.textCenter}>
                           <button 
                             className={styles.btnView}
@@ -411,6 +444,54 @@ const PriceList = () => {
             </a>
           </div>
         </div>
+        
+        
+        {/* Modal nhập mật khẩu để xem giá */}
+        {showPriceModal && (
+          <div className={styles.passwordModal} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.passwordModalContent} onClick={(e) => e.stopPropagation()}>
+              <div className={styles.passwordModalHeader}>
+                <h3 className={styles.passwordModalTitle}>Nhập mật khẩu để xem giá</h3>
+                <button 
+                  className={styles.modalClose} 
+                  onClick={() => setShowPriceModal(false)}
+                >
+                  <X size={24} />
+                </button>
+              </div>
+              <div className={styles.passwordModalBody}>
+                <p className={styles.passwordModalText}>Vui lòng nhập mật khẩu để xem giá chi tiết tất cả các căn.</p>
+                <div className={styles.passwordInputWrapper} onClick={(e) => e.stopPropagation()}>
+                  <input
+                    type="text"
+                    className={styles.passwordInput}
+                    value={password}
+                    onChange={handlePasswordChange}
+                    placeholder="Nhập mật khẩu"
+                    autoFocus
+                    autoComplete="off"
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter') {
+                        handleCheckPassword();
+                      }
+                    }}
+                  />
+                </div>
+                <button 
+                  className={styles.btnSubmitPassword}
+                  onClick={handleCheckPassword}
+                >
+                  Xác nhận
+                </button>
+              </div>
+              <div className={styles.passwordModalFooter}>
+                <p className={styles.passwordModalNote}>
+                  Hoặc liên hệ hotline <a href="tel:0988156516" className={styles.phoneLink}>0988.156.516</a> để được tư vấn chi tiết.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
         
         {/* Modal hiển thị chi tiết trên mobile */}
         {isMobile && mobileProductDetails && (
