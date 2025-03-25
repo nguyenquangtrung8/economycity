@@ -11,7 +11,7 @@ const productData = [
       title: 'Nhà phố thương mại',
       description: 'Không gian kinh doanh kết hợp sinh sống tiện nghi, vị trí đắc địa tại trung tâm thị trấn Như Quỳnh, thiết kế hiện đại 4-5 tầng, phù hợp kinh doanh đa ngành nghề.',
       specs: [
-        { label: 'Diện tích', value: '75-120m²' },
+        { label: 'Diện tích', value: '64 - 308m²' },
         { label: 'Mặt tiền', value: '5-7m' },
         { label: 'Thiết kế', value: '4-5 tầng' },
         { label: 'Giá bán', value: 'Từ 8 tỷ đồng' }
@@ -32,7 +32,7 @@ const productData = [
       title: 'Biệt thự sang trọng',
       description: 'Không gian sống riêng tư đẳng cấp, thiết kế hiện đại với diện tích lớn, khuôn viên rộng rãi, phù hợp cho gia đình nhiều thế hệ, đảm bảo an ninh và sự riêng tư tuyệt đối.',
       specs: [
-        { label: 'Diện tích', value: '200-300m²' },
+        { label: 'Diện tích', value: '112-284m²' },
         { label: 'Thiết kế', value: 'Hiện đại, sang trọng' },
         { label: 'Không gian', value: 'Riêng tư, an ninh' },
         { label: 'Giá bán', value: 'Từ 15 tỷ đồng' }

@@ -14,6 +14,7 @@ const Contact = React.lazy(() => import('../Contact/Contact'));
 const Legal = React.lazy(() => import('../Legal/Legal'));
 const SalesPolicy = React.lazy(() => import('../SalesPolicy/SalesPolicy'));
 const LoanPolicy = React.lazy(() => import('../LoanPolicy/LoanPolicy'));
+const ProjectLayout = React.lazy(() => import('../ProjectLayout/ProjectLayout'));
 const PriceList = React.lazy(() => import('../PriceList/PriceList'));
 const FAQ = React.lazy(() => import('../FAQ/FAQ'));
 
@@ -54,6 +55,10 @@ const EconomyCityLanding = () => {
 
         <div id="LoanPolicy">
           <LoanPolicy />
+        </div>
+
+        <div id="ProjectLayout">
+          <ProjectLayout />
         </div>
 
         <div id="gallery">

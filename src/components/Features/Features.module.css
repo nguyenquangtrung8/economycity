@@ -221,14 +221,14 @@
 .featureDetails {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 0.25rem; /* Giảm gap */
-  margin-bottom: 0.25rem; /* Giảm margin */
+  gap: 0.01rem; /* Giảm gap */
+  margin-bottom: 0.15rem; /* Giảm margin */
 }
 
 .detailItem {
   display: flex;
   align-items: flex-start;
-  padding: 0.25rem; /* Giảm padding */
+  padding: 0.15rem; /* Giảm padding */
   border-radius: 0.5rem;
   transition: all 0.3s ease;
   background-color: transparent;
@@ -239,8 +239,8 @@
 }
 
 .detailIcon {
-  min-width: 24px;
-  height: 24px;
+  min-width: 20px;
+  height: 20px;
   border-radius: 50%;
   background-color: #3182ce;
   display: flex;
@@ -264,7 +264,7 @@
 .detailValue {
   font-weight: 600;
   color: #2d3748;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
 }
 
 /* Image side - SÁT VIỀN TRÊN MOBILE */

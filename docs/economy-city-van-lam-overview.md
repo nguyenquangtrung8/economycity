@@ -42,7 +42,7 @@ Economy City Văn Lâm nổi bật với quy hoạch thông minh, chia thành **
 - **Đặc điểm**: Gìn giữ văn hóa Hưng Yên qua sản phẩm thủ công như gốm sứ, đồ gỗ
 - **Giá trị**: Kết hợp sinh sống và kinh doanh, thu hút du khách khám phá văn hóa địa phương
 
-![Phân khu Phú Quý](/img/phan-khu-hung-thinh.png)
+![Phân khu Hưng Thịnh](/img/phan-khu-hung-thinh.png)
 
 ### 4. Phân khu Cát Tường – Khu phố tài chính
 
@@ -50,7 +50,7 @@ Economy City Văn Lâm nổi bật với quy hoạch thông minh, chia thành **
 - **Đặc điểm**: Trung tâm kinh tế với dịch vụ tài chính, ngân hàng, văn phòng hiện đại
 - **Lợi thế**: Phù hợp cho doanh nghiệp nhỏ, chuyên gia muốn kết hợp sống và làm việc
 
-![Phân khu Phú Quý](/img/Phan-khu-cat-tuong.png)
+![Phân khu Cáy Tường](/img/Phan-khu-cat-tuong.png)
 
 Sự phân chia này tạo nên hệ sinh thái kinh tế đa dạng, giúp **Economy City Văn Lâm** trở thành điểm đến lý tưởng cho cư dân và nhà đầu tư tại phía Đông Hà Nội.
 
