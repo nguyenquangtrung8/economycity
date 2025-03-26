@@ -4,6 +4,7 @@ import React, { Suspense } from 'react';
 import styles from './EconomyCityLanding.module.css';
 import Hero from '../Hero/Hero'; // Component Hero không cần lazy loading
 import Location from '../Location/Location'; // Import trực tiếp Location
+import SixFeatures from '../SixFeatures/SixFeatures'; // Import trực tiếp SixFeatures
 import Features from '../Features/Features'; // Import trực tiếp Features
 import Products from '../Products/Products'; // Import trực tiếp Products
 
@@ -31,6 +32,10 @@ const EconomyCityLanding = () => {
         <Location />  
       </div>
       
+      <div id="6features">
+        <SixFeatures />
+      </div>
+
       {/* Features và Products không cần Suspense vì đã import trực tiếp */}
       <div id="features">
         <Features />

@@ -275,11 +275,11 @@ export const bankSupport = {
     prepaymentFees: [
       {
         period: 'Năm thứ 1-2',
-        fee: '1% trên số tiền trả nợ trước hạn'
+        fee: '1%'
       },
       {
         period: 'Năm thứ 3-5',
-        fee: '0.5% trên số tiền trả nợ trước hạn'
+        fee: '0.5%'
       },
       {
         period: 'Từ năm thứ 6',
