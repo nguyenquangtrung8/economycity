@@ -1,817 +1,1208 @@
+/* LoanPolicy.module.css - Phiên bản cải tiến */
+  
+/* ===== BIẾN TOÀN CỤC CHO MÀU SẮC NGÂN HÀNG ===== */
+:root {
+  /* Màu chủ đạo của từng ngân hàng */
+  --vietinbank-color: #1a4996;
+  --bidv-color: #00a79d;
+  --pvcombank-color: #f0c141;
+  --vietcombank-color: #1a873a;
+  
+  /* Màu nền nhạt tương ứng */
+  --vietinbank-bg: #eef2fa;
+  --bidv-bg: #e6f6f5;
+  --pvcombank-bg: #fffaf2;
+  --vietcombank-bg: #e8f4ef;
+  
+  /* Màu trung tính cho tiêu đề */
+  --neutral-title: #2d3748;
+  --neutral-text: #4a5568;
+}
+
+/* ------ Loan Policy (Block) ------ */
+.loan {
+  padding: 60px 0;
+  background-color: white;
+  width: 100%; /* Đảm bảo chiều rộng đầy đủ */
+}
+
+/* Đảm bảo tất cả container có chiều rộng 100% */
+* {
+  box-sizing: border-box;
+}
+
+.loan__container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%; /* Đảm bảo container lấp đầy không gian */
+}
+
+/* Section header styling */
+.loan__header {
+  text-align: center;
+  margin-bottom: var(--spacing-6, 1.5rem);
+  padding: 0 var(--spacing-4, 1rem);
+}
+
+.badgeContainer {
+  margin-bottom: var(--spacing-8, 2rem); /* Tăng khoảng cách từ 1rem lên 2rem */
+}
+
+.badge {
+  display: inline-block;
+  background-color: #ebf8ff;
+  color: #3182ce;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.5rem 1.25rem;
+  border-radius: 9999px;
+  margin-bottom: 10px;
+}
+
+.loan__title {
+  font-size: var(--font-size-2xl, 2rem);
+  font-weight: var(--font-weight-bold, 700);
+  color: var(--neutral-black, #1a202c);
+  margin-bottom: var(--spacing-2, 0.5rem);
+}
+
+.loan__subtitle {
+  font-size: var(--font-size-md, 1rem);
+  color: var(--neutral-darker, #4a5568);
+  max-width: 800px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* Đảm bảo tab container và content có cùng width - LOẠI BỎ BORDER NGOÀI CÙNG */
+.tabs {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 0;
+  overflow: visible;
+}
+
+/* Nút tab trên cùng - màu xanh dương VietinBank */
+.tabs__list {
+  display: flex;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Đường gạch dưới tab - xóa phiên bản cũ */
+.tabs__list::after {
+  display: none; /* Xóa đường gạch dưới mặc định */
+}
+
+.tabs__button {
+  flex: 1;
+  padding: 16px 12px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  color: #4a5568;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease-in-out;
+  text-align: center;
+  border-bottom: 3px solid transparent;
+}
+
+.tabs__button_text {
+  position: relative;
+  z-index: 1;
+}
+
+.tabs__button:hover {
+  color: #2b6cb0;
+  background-color: rgba(235, 248, 255, 0.8);
+}
+
+/* Thêm focus styles cho accessibility */
+.tabs__button:focus {
+  outline: 2px solid #1a4996;
+  outline-offset: 2px;
+  color: #1a4996;
+}
+
+.tabs__button_active {
+  color: #2563eb;
+  background-color: #ffffff;
+  font-weight: 700;
+  border-radius: 5px;
+  border-bottom: 3px solid #2563eb;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Màu tab được chọn sẽ thay đổi theo ngân hàng */
+.vietinbank .tabs__button_active {
+  color: var(--vietinbank-color);
+  border-bottom-color: var(--vietinbank-color);
+}
+
+.bidv .tabs__button_active {
+  color: var(--bidv-color);
+  border-bottom-color: var(--bidv-color);
+}
+
+.pvcombank .tabs__button_active {
+  color: var(--pvcombank-color);
+  border-bottom-color: var(--pvcombank-color);
+}
+
+.vietcombank .tabs__button_active {
+  color: var(--vietcombank-color);
+  border-bottom-color: var(--vietcombank-color);
+}
+
+/* Đảm bảo tab content lấp đầy không gian - LOẠI BỎ BORDER-TOP */
+.tabs__content {
+  padding: 24px 0;
+  will-change: opacity;
+  transition: opacity 0.2s ease;
+  overscroll-behavior: contain;
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 100%;
+  border-top: none;
+}
+
+/* CSS Transition Group animations */
+.tab_enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.tab_enter_active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 200ms, transform 200ms;
+}
+
+.tab_exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.tab_exit_active {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 200ms, transform 200ms;
+}
+
+/* Desktop Bank Selector */
+.desktop_bank_selector {
+  display: block;
+}
+
+.mobile_bank_selector {
+  display: none;
+}
+
+/* Bank Selector */
+.bank_selector {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 16px;
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  background-color: white;
+  padding: 8px 0;
+  flex-wrap: wrap;
+  width: 100%; /* Đảm bảo chiều rộng đầy đủ */
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.bank_option {
+  flex: 1;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: white;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+  min-width: 200px;
+}
+
+/* Thêm focus styles cho bank_option */
+.bank_option:focus {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+}
+
+.bank_option_active {
+  border-width: 2px;
+  border-style: solid;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+  background-color: rgba(26, 73, 150, 0.02);
+}
+
+.bank_option:hover {
+  background-color: #f9fafb;
+}
+
+.bank_name {
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #2d3748;
+}
+
+.bank_description {
+  font-size: 14px;
+  color: #718096;
+}
+
+/* Mobile Bank Select Dropdown */
+.mobile_bank_selector {
+  display: none;
+  margin: 0 0 16px 0;
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Custom Dropdown Button */
+.custom_dropdown_button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  background-color: white;
+  border: 2px solid; /* Dynamic border color will be applied via inline style */
+  border-radius: 8px;
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.custom_dropdown_button:focus {
+  outline: 2px solid #3182ce;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+}
+
+.custom_dropdown_button:hover {
+  background-color: #f7fafc;
+}
+
+.custom_dropdown_selected {
+  display: flex;
+  flex-direction: column;
+}
+
+.custom_dropdown_bankname {
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 2px;
+}
+
+.custom_dropdown_description {
+  font-size: 12px;
+  color: #718096;
+}
+
+.custom_dropdown_arrow {
+  width: 16px;
+  height: 16px;
+  color: #4a5568;
+  transition: transform 0.2s ease;
+}
+
+.custom_dropdown_arrow_open {
+  transform: rotate(180deg);
+}
+
+/* Custom Dropdown Menu */
+.custom_dropdown_menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  z-index: 20;
+  margin: 0;
+  padding: 4px;
+  background-color: white;
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  list-style: none;
+  max-height: 250px;
+  overflow-y: auto;
+  animation: dropdownFadeIn 0.2s ease;
+}
+
+@keyframes dropdownFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.custom_dropdown_item {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 16px;
+  cursor: pointer;
+  border-radius: 6px;
+  margin-bottom: 2px;
+  border-left: 3px solid transparent;
+  transition: all 0.15s ease;
+}
+
+.custom_dropdown_item:last-child {
+  margin-bottom: 0;
+}
+
+.custom_dropdown_item:hover {
+  background-color: #f7fafc;
+}
+
+.custom_dropdown_item:focus {
+  outline: none;
+  background-color: #f7fafc;
+  box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
+}
+
+.custom_dropdown_item_active {
+  background-color: #e8f4ef; /* Light green for Vietcombank */
+  border-left-width: 3px;
+  border-left-style: solid;
+}
+
+/* Cập nhật màu nền cho dropdown item theo ngân hàng */
+.vietinbank .custom_dropdown_item_active {
+  background-color: var(--vietinbank-bg);
+}
+
+.bidv .custom_dropdown_item_active {
+  background-color: var(--bidv-bg);
+}
+
+.pvcombank .custom_dropdown_item_active {
+  background-color: var(--pvcombank-bg);
+}
+
+.vietcombank .custom_dropdown_item_active {
+  background-color: var(--vietcombank-bg);
+}
+
+.custom_dropdown_item_name {
+  font-weight: 600;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+
+.custom_dropdown_item_desc {
+  font-size: 12px;
+  color: #718096;
+}
+
+/* ------ Card (Block) ------ */
+.card {
+  background-color: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  margin-bottom: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.card:hover {
+  border-color: #d1d9e6;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.card__header {
+  padding: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.card__title {
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 0;
+}
+
+.card__description {
+  font-size: 14px;
+  color: #718096;
+  margin: 4px 0 0;
+}
+
+.card__content {
+  padding: 16px;
+}
+
+/* ------ Bank Tab (Block) ------ */
+.bank {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  background-color: #ffffff;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bank__support_card {
+  border-left: 4px solid;
+  background-color: #f7fafc;
+}
+
+/* THÊM BORDER CHO PHẦN GOI HO TRO LAI SUAT */
+.bank__options_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+  margin-bottom: 24px;
+}
+
+.bank__support_grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bank__support_item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+}
+
+.bank__support_title {
+  font-weight: 600;
+  margin: 0 0 4px;
+  color: #1a202c;
+}
+
+.bank__support_value {
+  color: #1a202c;
+  margin: 0;
+}
+
+.bank__support_subtitle {
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: #1a202c;
+}
+
+.bank__support_list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Grid linh hoạt cho interest rate cards - 4 card trên 1 dòng desktop */
+.bank__rate_grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.bank__rate_item {
+  background-color: #f5f8fc;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #1a202c;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+}
+
+/* Tiêu đề thời hạn giữ màu trung tính */
+.bank__rate_duration {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 4px;
+  color: var(--neutral-title);
+}
+
+.bank__rate_value {
+  font-weight: 700;
+  display: inline-block;
+  /* Loại bỏ nền, padding và border-radius */
+}
+
+/* Giá trị theo màu ngân hàng */
+.vietinbank .bank__rate_value {
+  color: var(--vietinbank-color);
+}
+
+.bidv .bank__rate_value {
+  color: var(--bidv-color);
+}
+
+.pvcombank .bank__rate_value {
+  color: var(--pvcombank-color);
+}
+
+.vietcombank .bank__rate_value {
+  color: var(--vietcombank-color);
+}
+
+.bank__prepayment_card {
+  background-color: #f7fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  transition: transform 0.15s ease, border-color 0.15s ease;
+  margin-bottom: 24px;
+}
+
+.bank__prepayment_card:hover {
+  border-color: #d1d9e6;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+/* Sử dụng auto-fit và minmax để tạo grid linh hoạt */
+.bank__fee_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.bank__fee_item {
+  background-color: #f5f8fc;
+  padding: 12px;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  color: #1a202c;
+}
+
+/* Tiêu đề để màu trung tính */
+.bank__fee_period {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: var(--neutral-title);
+}
+
+.bank__fee_value {
+  font-weight: 700;
+  display: inline-block;
+  /* Loại bỏ nền, padding và border-radius */
+}
+
+/* Chỉ đồng bộ màu giá trị theo ngân hàng */
+.vietinbank .bank__fee_value {
+  color: var(--vietinbank-color);
+}
+
+.bidv .bank__fee_value {
+  color: var(--bidv-color);
+}
+
+.pvcombank .bank__fee_value {
+  color: var(--pvcombank-color);
+}
+
+.vietcombank .bank__fee_value {
+  color: var(--vietcombank-color);
+}
+
+/* THÊM BORDER CHO PHẦN KHÔNG THAM GIA GÓI HTLS */
+.tabs__content > div > div:not(.bank__options_grid, .bank__support_card) {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 16px;
+  background-color: white;
+  margin-bottom: 24px;
+}
+
+/* ------ Document Tab (Block) ------ */
+.document {
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.document__section {
+  margin-bottom: 24px;
+}
+
+.document__section_title {
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  color: var(--neutral-title);
+}
+
+.document__section_number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  margin-right: 8px;
+  font-size: 14px;
+}
+
+/* Đồng bộ màu document__section_number theo ngân hàng */
+.vietinbank .document__section_number {
+  background-color: var(--vietinbank-bg);
+  color: var(--vietinbank-color);
+}
+
+.bidv .document__section_number {
+  background-color: var(--bidv-bg);
+  color: var(--bidv-color);
+}
+
+.pvcombank .document__section_number {
+  background-color: var(--pvcombank-bg);
+  color: var(--pvcombank-color);
+}
+
+.vietcombank .document__section_number {
+  background-color: var(--vietcombank-bg);
+  color: var(--vietcombank-color);
+}
+
+.document__list {
+  list-style-type: disc;
+  padding-left: 24px;
+  color: #4a5568;
+}
+
+/* Sử dụng auto-fit và minmax để tạo grid linh hoạt */
+.document__financial_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.document__financial_title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--neutral-title);
+}
+
+/* ------ Footer (Block) ------ */
+.footer {
+  border-top: 1px solid #e2e8f0;
+  padding: 24px;
+  background-color: white;
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.footer__text {
+  font-size: 14px;
+  color: #718096;
+  margin: 0;
+  text-align: center;
+}
+
+.footer__hotline {
+  font-size: 18px;
+  font-weight: 600;
+  color: #2d3748;
+  margin: 4px 0 16px;
+  text-align: center;
+}
+
+/* Footer button với màu sắc rõ ràng */
+.footer__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  background-color: #3182ce; /* Màu mặc định nếu không có class ngân hàng */
+  color: #ffffff;
+}
+
+/* Đồng bộ màu footer__button theo ngân hàng */
+.vietinbank .footer__button {
+  background-color: var(--vietinbank-color);
+  color: white;
+}
+
+.bidv .footer__button {
+  background-color: var(--bidv-color);
+  color: white;
+}
+
+.pvcombank .footer__button {
+  background-color: var(--pvcombank-color);
+  color: #333; /* Màu chữ tối cho PVCombank do nền vàng */
+}
+
+.vietcombank .footer__button {
+  background-color: var(--vietcombank-color);
+  color: white;
+}
+
+/* Thêm focus styles cho footer__button */
+.footer__button:focus {
+  outline: 2px solid white;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.3);
+}
+
+.footer__button:hover {
+  color: white;
+  text-decoration: none;
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Hover color theo ngân hàng */
+.vietinbank .footer__button:hover {
+  background-color: #143a7d; /* Đậm hơn */
+}
+
+.bidv .footer__button:hover {
+  background-color: #00917f; /* Đậm hơn */
+}
+
+.pvcombank .footer__button:hover {
+  background-color: #e8b725; /* Đậm hơn */
+}
+
+.vietcombank .footer__button:hover {
+  background-color: #146e2f; /* Đậm hơn */
+}
+
+.footer__button:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* ------ Icons (Utility) ------ */
+.icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+/* Đồng bộ màu icon theo ngân hàng */
+.vietinbank .icon {
+  color: var(--vietinbank-color);
+}
+
+.bidv .icon {
+  color: var(--bidv-color);
+}
+
+.pvcombank .icon {
+  color: var(--pvcombank-color);
+}
+
+.vietcombank .icon {
+  color: var(--vietcombank-color);
+}
+
+.checkIcon {
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+/* Màu icon check thay đổi theo ngân hàng active */
+.vietinbank .checkIcon {
+  color: var(--vietinbank-color);
+}
+
+.bidv .checkIcon {
+  color: var(--bidv-color);
+}
+
+.pvcombank .checkIcon {
+  color: var(--pvcombank-color);
+}
+
+.vietcombank .checkIcon {
+  color: var(--vietcombank-color);
+}
+
+.infoIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+/* Màu infoIcon theo ngân hàng */
+.vietinbank .infoIcon {
+  color: var(--vietinbank-color);
+}
+
+.bidv .infoIcon {
+  color: var(--bidv-color);
+}
+
+.pvcombank .infoIcon {
+  color: var(--pvcombank-color);
+}
+
+.vietcombank .infoIcon {
+  color: var(--vietcombank-color);
+}
+
 /* Ghi chú đặc biệt */
 .special_note {
-    margin-top: 16px;
-    padding: 12px 16px;
-    background-color: #ebf8ff;
-    border-radius: 8px;
-    display: flex;
-    align-items: flex-start;
-    border-left: 3px solid #3182ce;
-    color: #2c5282;
-    font-size: 14px;
-    line-height: 1.5;
-  }
-  
-  .special_note strong {
-    font-weight: 600;
-    margin-right: 4px;
-  }/* LoanPolicy.module.css */
-  
-  /* ------ Loan Policy (Block) ------ */
-  .loan {
-    padding: 60px 0;
-    background-color: white;
-    /* Chỉ sử dụng will-change cho phần tử cần animation */
-  }
-  
-  .loan__container {
-    max-width: 1300px;
-    margin: 0 auto;
-    padding: 0 20px;
-  }
-  
-  .loan__header {
-    text-align: center;
-    margin-bottom: 40px;
-  }
-  
-  .badge {
-    display: inline-block;
-    background-color: #ebf8ff;
-    color: #3182ce;
-    font-size: 0.875rem;
-    font-weight: 600;
-    padding: 0.5rem 1.25rem;
-    margin-bottom: var(--spacing-4);
-    border-radius: 9999px;
-    transition: all 0.2s ease-in-out;
-  }
-  
-  .badge:hover {
-    background-color: var(--secondary-dark);
-    color: var(--neutral-white);
-    transform: translateY(-1px);
-  }
-  
+  margin-top: 16px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  display: flex;
+  align-items: flex-start;
+  border-left: 3px solid;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+/* Màu nền và viền special_note theo ngân hàng */
+.vietinbank .special_note {
+  background-color: var(--vietinbank-bg);
+  border-left-color: var(--vietinbank-color);
+  color: var(--vietinbank-color);
+}
+
+.bidv .special_note {
+  background-color: var(--bidv-bg);
+  border-left-color: var(--bidv-color);
+  color: var(--bidv-color);
+}
+
+.pvcombank .special_note {
+  background-color: var(--pvcombank-bg);
+  border-left-color: var(--pvcombank-color);
+  color: #8b7427; /* Màu tối hơn cho chữ trên nền vàng */
+}
+
+.vietcombank .special_note {
+  background-color: var(--vietcombank-bg);
+  border-left-color: var(--vietcombank-color);
+  color: var(--vietcombank-color);
+}
+
+.special_note strong {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+/* Màu chữ strong trong special_note theo ngân hàng */
+.vietinbank .special_note strong {
+  color: var(--vietinbank-color);
+}
+
+.bidv .special_note strong {
+  color: var(--bidv-color);
+}
+
+.pvcombank .special_note strong {
+  color: var(--pvcombank-color);
+}
+
+.vietcombank .special_note strong {
+  color: var(--vietcombank-color);
+}
+
+/* ==============================
+   Responsive Design
+   ============================== */
+
+/* Tablet and smaller desktops */
+@media (max-width: 1024px) {
   .loan__title {
-    font-size: 32px;
-    font-weight: 700;
-    color: #1a202c;
-    margin-bottom: 8px;
+    font-size: 28px;
   }
   
   .loan__subtitle {
-    font-size: 18px;
-    color: #4a5568;
+    font-size: 16px;
   }
   
-  /* ------ Tabs Container (Block) ------ */
-  .tabs {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    overflow: hidden;
-  }
-  
-  .tabs__list {
-    display: flex;
-    background-color: white;
-    padding: 0;
-    margin: 0;
-    border-bottom: 1px solid #e2e8f0;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-  }
-  
-  .tabs__button {
-    flex: 1;
-    padding: 16px 12px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    font-size: 15px;
-    font-weight: 500;
-    color: #4a5568;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.2s ease-in-out;
-    text-align: center;
-    border-bottom: 3px solid transparent;
-  }
-  
-  .tabs__button_text {
-    position: relative;
-    z-index: 1;
-  }
-  
-  .tabs__button:hover {
-    color: #2b6cb0;
-    background-color: rgba(235, 248, 255, 0.8);
-  }
-  
-  /* Thêm focus styles cho accessibility */
-  .tabs__button:focus {
-    outline: 2px solid #2563eb;
-    outline-offset: 2px;
-    color: #2b6cb0;
-  }
-  
-  .tabs__button_active {
-    color: #2563eb;
-    background-color: #ffffff;
-    font-weight: 700;
-    border-bottom: 3px solid #2563eb;
-    box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.1);
+  .loan__container {
+    padding: 0 16px;
   }
   
   .tabs__content {
-    padding: 24px;
-    will-change: opacity; /* Chỉ sử dụng will-change cho phần tử cần animation */
-    transition: opacity 0.2s ease;
-    overscroll-behavior: contain;
+    padding: 20px 0;
   }
   
-  /* CSS Transition Group animations */
-  .tab_enter {
-    opacity: 0;
-    transform: translateY(10px);
+  .card__title {
+    font-size: 16px;
   }
   
-  .tab_enter_active {
-    opacity: 1;
-    transform: translateY(0);
-    transition: opacity 200ms, transform 200ms;
+  .card__description {
+    font-size: 13px;
   }
   
-  .tab_exit {
-    opacity: 1;
-    transform: translateY(0);
+  .bank__options_grid {
+    grid-template-columns: 1fr;
+    padding: 12px;
   }
   
-  .tab_exit_active {
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: opacity 200ms, transform 200ms;
+  .bank__support_grid {
+    grid-template-columns: 1fr;
   }
   
-  /* Desktop Bank Selector */
-  .desktop_bank_selector {
-    display: block;
-  }
-  
-  .mobile_bank_selector {
-    display: none;
-  }
-  
-  /* Bank Selector */
   .bank_selector {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 16px;
-    position: sticky;
-    top: 0;
-    z-index: 5;
-    background-color: white;
-    padding: 8px 0;
     flex-wrap: wrap;
   }
   
   .bank_option {
-    flex: 1;
+    min-width: 150px;
+    flex: 1 0 45%;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .loan {
+    padding: 40px 0;
+  }
+  
+  .loan__title {
+    font-size: 24px;
+  }
+  
+  /* Container chính - thêm padding */
+  .loan__container {
+    padding: 0 16px;
+  }
+  
+  /* Điều chỉnh tabs content - thêm padding */
+  .tabs__content {
     padding: 16px;
-    border-radius: 8px;
-    background-color: white;
-    border: 1px solid #e2e8f0;
-    cursor: pointer;
-    transition: all 0.15s ease;
-    text-align: left;
-    min-width: 200px;
   }
-  
-  /* Thêm focus styles cho bank_option */
-  .bank_option:focus {
-    outline: 2px solid #3182ce;
-    outline-offset: 2px;
-  }
-  
-  .bank_option_active {
-    border-width: 2px;
-    border-style: solid;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    background-color: rgba(49, 130, 206, 0.05);
-  }
-  
-  .bank_option:hover {
-    background-color: #f9fafb;
-  }
-  
-  .bank_name {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #2d3748;
-  }
-  
-  .bank_description {
-    font-size: 14px;
-    color: #718096;
-  }
-  
-  /* Mobile Bank Select Dropdown */
+
+  /* Phần ngân hàng - thêm padding */
   .mobile_bank_selector {
-    display: none;
+    padding: 0 16px;
     margin: 0 0 16px 0;
-    position: relative;
   }
   
-  /* Custom Dropdown Button */
-  .custom_dropdown_button {
-    width: 100%;
+  /* Phần nội dung chính sách - thêm padding */
+  .bank, .document {
+    padding: 1px 6px 0 0;
+  }
+  
+  /* Điều chỉnh card trong bank - thêm margin */
+  .bank__support_card,
+  .bank__options_grid,
+  .tabs__content > div > div:not(.bank__options_grid, .bank__support_card),
+  .card {
+    margin-left: 1px;
+    margin-right: 1px;
+  }
+  
+  /* Phần tabs hiển thị ở giữa - điều chỉnh margin */
+  .tabs__list {
+    max-width: 95%;
+    margin: 1px auto;
+  }
+
+  /* Điều chỉnh padding cho các phần tử con trên mobile */
+  .bank__options_grid,
+  .tabs__content > div > div:not(.bank__options_grid, .bank__support_card) {
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 6px;
+  }
+
+  /* Thêm padding cho phần chính sách hỗ trợ */
+  .bank__support_card,
+  .bank__prepayment_card {
+    padding: 16px;
+    margin-left: 4px;
+    margin-right: 4px;
+  }
+  
+  /* Chặn negative margin cho mobile */
+  .bank__options_grid,
+  .tabs__content > div > div:not(.bank__options_grid, .bank__support_card) {
+    margin-left: 0;
+    margin-right: 0;
+    width: calc(100% - 8px);
+    margin: 0 auto 16px;
+  }
+  
+  /* Chỉnh lại grid thành 2x2 trên mobile */
+  .bank__rate_grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  /* MOBILE GRID 2x2 FOR TABS */
+  .tabs__list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(1, auto);
+    gap: 1px;
+    padding: 1px;
+    border-bottom: none;
+    background-color: #f7fafc;
+    max-width: 93%;
+    margin: 10px auto 0;
+  }
+  
+  .tabs__button {
+    height: 50px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 14px 16px;
-    background-color: white;
-    border: 2px solid #3182ce;
+    justify-content: center;
+    flex-direction: column;
+    padding: 6px 2px;
+    font-size: 14px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
     border-radius: 8px;
-    cursor: pointer;
-    text-align: left;
+    margin: 1px;
+    background-color: white;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     transition: all 0.2s ease;
   }
   
-  .custom_dropdown_button:focus {
-    outline: 2px solid #3182ce;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+  /* Switch to mobile selector on mobile devices */
+  .desktop_bank_selector {
+    display: none;
   }
   
-  .custom_dropdown_button:hover {
-    background-color: #f7fafc;
-  }
-  
-  .custom_dropdown_selected {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .custom_dropdown_bankname {
-    font-weight: 600;
-    font-size: 16px;
-    margin-bottom: 2px;
-  }
-  
-  .custom_dropdown_description {
-    font-size: 12px;
-    color: #718096;
-  }
-  
-  .custom_dropdown_arrow {
-    width: 16px;
-    height: 16px;
-    color: #4a5568;
-    transition: transform 0.2s ease;
-  }
-  
-  .custom_dropdown_arrow_open {
-    transform: rotate(180deg);
-  }
-  
-  /* Custom Dropdown Menu */
-  .custom_dropdown_menu {
-    position: absolute;
-    top: calc(100% + 4px);
-    left: 0;
-    right: 0;
-    z-index: 20;
-    margin: 0;
-    padding: 4px;
-    background-color: white;
-    border-radius: 8px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    list-style: none;
-    max-height: 250px;
-    overflow-y: auto;
-    animation: dropdownFadeIn 0.2s ease;
-  }
-  
-  @keyframes dropdownFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .custom_dropdown_item {
-    display: flex;
-    flex-direction: column;
-    padding: 12px 16px;
-    cursor: pointer;
-    border-radius: 6px;
-    margin-bottom: 2px;
-    border-left: 3px solid transparent;
-    transition: all 0.15s ease;
-  }
-  
-  .custom_dropdown_item:last-child {
-    margin-bottom: 0;
-  }
-  
-  .custom_dropdown_item:hover {
-    background-color: #f7fafc;
-  }
-  
-  .custom_dropdown_item:focus {
-    outline: none;
-    background-color: #f7fafc;
-    box-shadow: 0 0 0 2px rgba(49, 130, 206, 0.2);
-  }
-  
-  .custom_dropdown_item_active {
-    background-color: #ebf8ff;
-    border-left-width: 3px;
-    border-left-style: solid;
-  }
-  
-  .custom_dropdown_item_name {
-    font-weight: 600;
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-  
-  .custom_dropdown_item_desc {
-    font-size: 12px;
-    color: #718096;
-  }
-  
-  /* ------ Card (Block) ------ */
-  .card {
-    background-color: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    transition: transform 0.15s ease, border-color 0.15s ease;
-    margin-bottom: 24px;
-  }
-  
-  .card:hover {
-    border-color: #90cdf4;
-    transform: translateY(-2px);
-  }
-  
-  .card__header {
-    padding: 16px;
-    border-bottom: 1px solid #e2e8f0;
-  }
-  
-  .card__title {
-    display: flex;
-    align-items: center;
-    font-size: 18px;
-    font-weight: 600;
-    color: #2d3748;
-    margin: 0;
-  }
-  
-  .card__description {
-    font-size: 14px;
-    color: #718096;
-    margin: 4px 0 0;
-  }
-  
-  .card__content {
-    padding: 16px;
-  }
-  
-  /* ------ Bank Tab (Block) ------ */
-  .bank {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    background-color: #ffffff;
-  }
-  
-  .bank__support_card {
-    border-left: 4px solid #3182ce;
-    background-color: #f7fafc;
-  }
-  
-  .bank__options_grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-  
-  .bank__support_grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-  
-  .bank__support_item {
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 12px;
-  }
-  
-  .bank__support_title {
-    font-weight: 600;
-    margin: 0 0 4px;
-    color: #1a202c;
-  }
-  
-  .bank__support_value {
-    color: #1a202c;
-    margin: 0;
-  }
-  
-  .bank__support_subtitle {
-    font-weight: 600;
-    margin-bottom: 12px;
-    color: #1a202c;
-  }
-  
-  .bank__support_list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-  
-  /* Sử dụng auto-fit và minmax để tạo grid linh hoạt */
-  .bank__rate_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px;
-  }
-  
-  .bank__rate_item {
-    background-color: #f0f5fa;
-    padding: 10px;
-    border-radius: 6px;
-    font-size: 14px;
-    color: #1a202c;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  }
-  
-  .bank__rate_duration {
-    font-weight: 600;
-    color: #2c5282;
+  .mobile_bank_selector {
     display: block;
-    margin-bottom: 4px;
+    margin: 0 0 16px 0;
   }
   
-  .bank__rate_value {
-    font-weight: 700;
-    color: #2b6cb0;
-    background-color: rgba(255,255,255,0.6);
-    padding: 2px 6px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-  
-  .bank__prepayment_card {
-    background-color: #f7fafc;
-  }
-  
-  /* Sử dụng auto-fit và minmax để tạo grid linh hoạt */
-  .bank__fee_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 8px;
-  }
-  
-  .bank__fee_item {
-    background-color: #f0f5fa;
-    padding: 12px;
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    text-align: center;
-    border: 1px solid #e2e8f0;
-    color: #1a202c;
-  }
-  
-  .bank__fee_period {
-    display: block;
-    font-weight: 600;
-    margin-bottom: 4px;
-    color: #2c5282;
-  }
-  
-  .bank__fee_value {
-    font-weight: 700;
-    color: #2b6cb0;
-    background-color: rgba(255,255,255,0.6);
-    padding: 2px 6px;
-    border-radius: 4px;
-    display: inline-block;
-  }
-  
-  /* ------ Document Tab (Block) ------ */
-  .document {
-    padding: 0;
-  }
-  
-  .document__section {
-    margin-bottom: 24px;
-  }
-  
-  .document__section_title {
-    display: flex;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 16px;
-  }
-  
-  .document__section_number {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    background-color: #ebf8ff;
-    color: #3182ce;
-    border-radius: 50%;
-    margin-right: 8px;
-    font-size: 14px;
-  }
-  
-  .document__list {
-    list-style-type: disc;
-    padding-left: 24px;
-    color: #4a5568;
-  }
-  
-  /* Sử dụng auto-fit và minmax để tạo grid linh hoạt */
-  .document__financial_grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-top: 16px;
-  }
-  
-  .document__financial_title {
-    font-size: 14px;
-    font-weight: 600;
-    margin: 0;
-  }
-  
-  /* ------ Footer (Block) ------ */
+  /* Footer */
   .footer {
-    border-top: 1px solid #e2e8f0;
-    padding: 24px;
-    background-color: white;
-  }
-  
-  .footer__content {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    max-width: 900px;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  .footer__text {
-    font-size: 14px;
-    color: #718096;
-    margin: 0;
-    text-align: center;
-  }
-  
-  .footer__hotline {
-    font-size: 18px;
-    font-weight: 600;
-    color: #2d3748;
-    margin: 4px 0 16px;
-    text-align: center;
+    padding: 16px;
   }
   
   .footer__button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0.75rem 1rem;
-    background-color: #3182ce;
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 100%;
+    padding: 14px;
+  }
+}
+
+/* Small mobile devices */
+@media (max-width: 480px) {
+  .card__content {
+    padding: 12px;
   }
   
-  /* Thêm focus styles cho footer__button */
-  .footer__button:focus {
-    outline: 2px solid white;
-    outline-offset: 2px;
-    box-shadow: 0 0 0 4px rgba(49, 130, 206, 0.3);
+  .card__header {
+    padding: 12px;
   }
   
-  .footer__button:hover {
-    background-color: #2563eb;
-    color: white;
-    text-decoration: none;
-    transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  /* Container chính - giảm padding */
+  .loan__container {
+    padding: 0 12px;
   }
   
-  .footer__button:active {
-    transform: translateY(0);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  /* Điều chỉnh tabs content - giảm padding */
+  .tabs__content {
+    padding: 12px;
   }
   
-  /* ------ Icons (Utility) ------ */
-  .icon {
-    width: 20px;
-    height: 20px;
-    margin-right: 8px;
-    color: #3182ce;
+  /* Phần ngân hàng - giảm padding */
+  .mobile_bank_selector {
+    padding: 0 12px;
+  }
+
+  /* Thêm padding cho phần chính sách hỗ trợ */
+  .bank__support_card,
+  .bank__prepayment_card {
+    padding: 12px;
   }
   
-  .checkIcon {
-    width: 18px;
-    height: 18px;
-    margin-right: 8px;
-    margin-top: 2px;
-    color: #38a169;
-    flex-shrink: 0;
+  /* Footer Mobile */
+  .footer__hotline {
+    font-size: 16px;
   }
   
-  .infoIcon {
-    width: 16px;
-    height: 16px;
-    margin-right: 4px;
-    color: #3182ce;
-    flex-shrink: 0;
+  .footer__button {
+    font-size: 15px;
+    padding: 12px;
+  }
+}
+
+/* Avoid small text */
+@media (max-width: 360px) {
+  .loan__title {
+    font-size: 20px;
   }
   
-  /* ==============================
-     Responsive Design
-     ============================== */
-  
-  /* Tablet and smaller desktops */
-  @media (max-width: 1024px) {
-    .loan__title {
-      font-size: 28px;
-    }
-    
-    .loan__subtitle {
-      font-size: 16px;
-    }
-    
-    .loan__container {
-      padding: 0 16px;
-    }
-    
-    .tabs__content {
-      padding: 20px;
-    }
-    
-    .card__title {
-      font-size: 16px;
-    }
-    
-    .card__description {
-      font-size: 13px;
-    }
-    
-    .bank__options_grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .bank__support_grid {
-      grid-template-columns: 1fr;
-    }
-    
-    .bank_selector {
-      flex-wrap: wrap;
-    }
-    
-    .bank_option {
-      min-width: 150px;
-      flex: 1 0 45%;
-    }
+  .loan__subtitle {
+    font-size: 14px;
   }
   
-  /* Mobile */
-  @media (max-width: 768px) {
-    .loan {
-      padding: 40px 0;
-    }
-    
-    .loan__title {
-      font-size: 24px;
-    }
-    
-    .loan__container {
-      padding: 0 12px;
-    }
-    
-    .tabs__content {
-      padding: 16px;
-    }
-    
-    /* MOBILE GRID 2x2 FOR TABS */
-    .tabs__list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      grid-template-rows: repeat(1, auto);
-      gap: 1px;
-      padding: 1px;
-      border-bottom: none;
-      background-color: #f7fafc;
-      max-width: 93%;
-      margin: 10px auto 0;
-    }
-    
-    .tabs__button {
-      height: 50px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      padding: 6px 2px;
-      font-size: 14px;
-      text-align: center;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      margin: 1px;
-      background-color: white;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-      transition: all 0.2s ease;
-    }
-    
-    /* Switch to mobile selector on mobile devices */
-    .desktop_bank_selector {
-      display: none;
-    }
-    
-    .mobile_bank_selector {
-      display: block;
-      margin: 0 0 16px 0;
-    }
-    
-    /* Footer */
-    .footer {
-      padding: 16px;
-    }
-    
-    .footer__button {
-      width: 100%;
-      max-width: 100%;
-      padding: 14px;
-    }
+  .card__title {
+    font-size: 15px;
   }
   
-  /* Small mobile devices */
-  @media (max-width: 480px) {
-    .card__content {
-      padding: 12px;
-    }
-    
-    .card__header {
-      padding: 12px;
-    }
-    
-    /* Footer Mobile */
-    .footer__hotline {
-      font-size: 16px;
-    }
-    
-    .footer__button {
-      font-size: 15px;
-      padding: 12px;
-    }
+  /* Maintain the grid for really small devices */
+  .tabs__button {
+    height: 45px;
+    padding: 5px 1px;
+    font-size: 13px;
+    margin: 1px;
   }
-  
-  /* Avoid small text */
-  @media (max-width: 360px) {
-    .loan__title {
-      font-size: 20px;
-    }
-    
-    .loan__subtitle {
-      font-size: 14px;
-    }
-    
-    .card__title {
-      font-size: 15px;
-    }
-    
-    /* Maintain the grid for really small devices */
-    .tabs__button {
-      height: 45px;
-      padding: 5px 1px;
-      font-size: 13px;
-      margin: 1px;
-    }
-  }
+}

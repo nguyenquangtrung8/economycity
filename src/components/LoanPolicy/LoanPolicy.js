@@ -1,4 +1,4 @@
-// LoanPolicy.js
+{/* Xóa đoạn code gây lỗi này */}// LoanPolicy.js
 import React, { useState, useMemo, useCallback, memo, useEffect, useRef } from 'react';
 import { CSSTransition, SwitchTransition } from 'react-transition-group';
 import styles from './LoanPolicy.module.css';
@@ -111,7 +111,7 @@ const BankTab = memo(function BankTab({ bankId }) {
   return (
     <div className={styles.bank}>
       {/* Chính sách hỗ trợ từ ngân hàng */}
-      <div className={`${styles.card} ${styles.bank__support_card}`} style={{ borderLeft: `4px solid ${currentBank.color}` }}>
+      <div className={`${styles.card} ${styles.bank__support_card} ${styles[bankId]}`} style={{ borderLeft: `4px solid ${currentBank.color}` }}>
         <div className={styles.card__header}>
           <h3 className={styles.card__title} style={{ color: currentBank.color }}>
             <svg className={styles.icon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke={currentBank.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
@@ -169,13 +169,13 @@ const BankTab = memo(function BankTab({ bankId }) {
           {/* Hiển thị nội dung đặc biệt dưới dạng note */}
           {bankSupport[bankId].prepaymentFees.some(item => item.period.includes('Đặc biệt')) && (
             <div className={styles.special_note}>
-              <svg className={styles.infoIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg className={styles.infoIcon} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke={currentBank.color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="16" x2="12" y2="12"></line>
                 <line x1="12" y1="8" x2="12.01" y2="8"></line>
               </svg>
               <span>
-                <strong>Đặc biệt:</strong> {bankSupport[bankId].prepaymentFees.find(item => item.period.includes('Đặc biệt')).fee}
+                <strong style={{color: currentBank.color}}>Đặc biệt:</strong> {bankSupport[bankId].prepaymentFees.find(item => item.period.includes('Đặc biệt')).fee}
               </span>
             </div>
           )}
@@ -429,7 +429,7 @@ function LoanPolicy() {
       </div>
       
       <div className={styles.loan__container}>
-        <div className={styles.tabs}>
+        <div className={`${styles.tabs} ${styles[activeTab]}`}>
           {/* Desktop Bank tabs navigation */}
           <div className={styles.desktop_bank_selector}>
             <div className={styles.bank_selector} role="tablist">
