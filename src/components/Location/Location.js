@@ -1,402 +1,203 @@
-// src/components/Location/Location.js
-import React, { useEffect, useRef, useState, useCallback, memo } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './Location.module.css';
 import { locationData } from './LocationData';
+import { FaMapMarkerAlt, FaBuilding, FaRoad, FaClock, FaMapPin, FaPlane, FaStore } from 'react-icons/fa';
+
+// Fallback data để tránh lỗi nếu locationData không được import đúng
+const defaultData = {
+  badge: "VỊ TRÍ",
+  title: "VỊ TRÍ DỰ ÁN",
+  description: "Mô tả vị trí dự án",
+  mapImage: { src: "", alt: "Bản đồ vị trí" },
+  mapLegend: [],
+  connectionsTitle: "Kết nối",
+  connectionGroups: [],
+  travelTimes: { title: "Thời gian di chuyển", items: [] }
+};
+
+// Mapping giữa tiêu đề gốc và tiêu đề hiển thị trên tab
+const tabMapping = {
+  'Tiện ích nội khu': 'under1km',
+  'Tiện ích ngoại khu': 'under5km',
+  'Kết nối giao thông': 'transport'
+};
+
+// Mapping ngược lại để hiển thị tab
+const tabNameMapping = {
+  'under1km': 'Dưới 1Km',
+  'under5km': 'Dưới 5Km',
+  'transport': 'Kết nối giao thông'
+};
+
+// Icon mapping for tabs
+const tabIconMapping = {
+  'under1km': <FaBuilding />,
+  'under5km': <FaMapMarkerAlt />,
+  'transport': <FaRoad />
+};
 
 /**
- * Location Component - Hiển thị vị trí chiến lược của dự án
- * Desktop: 2 cột xen kẽ
- * Mobile: Full view từng section
+ * Location Component - Hiển thị thông tin vị trí của dự án Economy City
  */
 const Location = () => {
-  // Refs
-  const locationSectionRef = useRef(null);
-  const mobileContentRef = useRef(null);
-  const sectionRefs = useRef([]);
+  // Sử dụng default data nếu locationData không tồn tại hoặc thiếu thuộc tính
+  const data = {...defaultData, ...locationData};
   
-  // State management - phân chia rõ ràng theo mục đích
-  const [activeSection, setActiveSection] = useState('');
-  const [isMobile, setIsMobile] = useState(false);
-
-  // Khởi tạo refs cho sections - chỉ chạy 1 lần
-  useEffect(() => {
-    sectionRefs.current = Array(locationData.sections.length)
-      .fill()
-      .map((_, i) => sectionRefs.current[i] || React.createRef());
-  }, []);
-
-  // Media query handler với throttling
-  useEffect(() => {
-    const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
-    
-    // Initial check
-    checkMobile();
-    
-    // Thêm event listener với throttle để tối ưu hiệu suất
-    let resizeTimer;
-    const handleResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(checkMobile, 100);
-    };
-    
-    window.addEventListener('resize', handleResize);
-    
-    // Cleanup event listeners
-    return () => {
-      clearTimeout(resizeTimer);
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  // State để quản lý tab đang được chọn
+  const [activeTabIndex, setActiveTabIndex] = useState(0);
   
-  // Thiết lập active section đầu tiên mặc định
+  // Tự động chuyển tab sau mỗi 5 giây
   useEffect(() => {
-    if (locationData.sections.length > 0) {
-      setActiveSection(locationData.sections[0].id);
-    }
-  }, []);
-
-  // Scroll handler với debounce để tối ưu hiệu suất
-  useEffect(() => {
-    if (!isMobile || !mobileContentRef.current) return;
-
-    // Debounce scroll handler
-    let scrollTimeout;
-    let lastScrollTop = 0;
+    const interval = setInterval(() => {
+      setActiveTabIndex((prevIndex) => (prevIndex + 1) % data.connectionGroups.length);
+    }, 5000);
     
-    const handleScroll = () => {
-      const container = mobileContentRef.current;
-      if (!container) return;
-      
-      const scrollTop = container.scrollTop;
-      
-      // Tối ưu xử lý - chỉ khi scroll đủ xa
-      if (Math.abs(scrollTop - lastScrollTop) < 10) return;
-      lastScrollTop = scrollTop;
-      
-      // Clear timeout trước đó
-      clearTimeout(scrollTimeout);
-      
-      // Đặt timeout mới
-      scrollTimeout = setTimeout(() => {
-        updateActiveSection(scrollTop);
-      }, 50);
-    };
-    
-    // Logic xác định section active
-    const updateActiveSection = (scrollTop) => {
-      const container = mobileContentRef.current;
-      if (!container) return;
-      
-      const viewportHeight = container.clientHeight;
-      
-      // Biến theo dõi section hiển thị
-      let currentSectionIndex = -1;
-      let maxVisibility = 0;
-      
-      // Duyệt qua từng section để xác định
-      sectionRefs.current.forEach((ref, index) => {
-        if (!ref.current) return;
-        
-        const section = ref.current;
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionBottom = sectionTop + sectionHeight;
-        
-        // Section top nằm trong viewport - ưu tiên này
-        if (scrollTop <= sectionTop && sectionTop < scrollTop + viewportHeight / 2) {
-          currentSectionIndex = index;
-          return; // Exit early
-        }
-        
-        // Tính % hiển thị của section
-        const visibleTop = Math.max(sectionTop, scrollTop);
-        const visibleBottom = Math.min(sectionBottom, scrollTop + viewportHeight);
-        const visibleHeight = Math.max(0, visibleBottom - visibleTop);
-        const visibilityPercentage = visibleHeight / viewportHeight;
-        
-        if (visibilityPercentage > maxVisibility) {
-          maxVisibility = visibilityPercentage;
-          
-          // Nếu chưa có section priority
-          if (currentSectionIndex === -1) {
-            currentSectionIndex = index;
-          }
-        }
-      });
-      
-      // Cập nhật active section nếu thay đổi
-      if (currentSectionIndex !== -1) {
-        const sectionId = locationData.sections[currentSectionIndex].id;
-        if (activeSection !== sectionId) {
-          setActiveSection(sectionId);
-        }
-      }
-    };
-    
-    const container = mobileContentRef.current;
-    if (container) {
-      container.addEventListener('scroll', handleScroll);
-    }
-    
-    // Cleanup
-    return () => {
-      clearTimeout(scrollTimeout);
-      if (container) {
-        container.removeEventListener('scroll', handleScroll);
-      }
-    };
-  }, [isMobile, activeSection]);
-
-  // Memoized scroll handler để tối ưu re-renders
-  const scrollToSection = useCallback((index) => {
-    if (!isMobile || !mobileContentRef.current) return;
-    
-    const sectionRef = sectionRefs.current[index];
-    if (!sectionRef.current) return;
-    
-    mobileContentRef.current.scrollTo({
-      top: sectionRef.current.offsetTop,
-      behavior: 'smooth'
-    });
-    
-    // Set active section mới
-    setActiveSection(locationData.sections[index].id);
-  }, [isMobile]);
-
-  // Render component con - sử dụng memo để tránh re-render không cần thiết
-  const MobileNavIcons = memo(({ sections }) => (
-    <div className={styles.mobileNavContainer}>
-      {sections.map((section, index) => (
-        <div 
-          key={section.id}
-          className={`${styles.navIcon} ${activeSection === section.id ? styles.active : ''}`}
-          onClick={() => scrollToSection(index)}
-          aria-label={`Đến phần ${section.title}`}
-        >
-          <img src={section.iconSrc} alt={section.iconAlt} className={styles.navIconImage} />
-        </div>
-      ))}
-    </div>
-  ));
+    return () => clearInterval(interval);
+  }, [data.connectionGroups.length]);
   
-  MobileNavIcons.displayName = 'MobileNavIcons';
-
-  // Render header - sử dụng memo để tối ưu
-  const SectionHeader = memo(({ title, description, badge }) => (
-    <div className={styles.sectionHeader}>
-      {badge && <div className={styles.badgeContainer}>
-        <span className={styles.badge}>{badge}</span>
-      </div>}
-      <h2 className={styles.sectionTitle}>{title}</h2>
-      {description && <p className={styles.sectionDescription}>{description}</p>}
-    </div>
-  ));
+  // Lấy nội dung của tab hiện tại
+  const currentTabGroup = data.connectionGroups[activeTabIndex] || { items: [] };
   
-  SectionHeader.displayName = 'SectionHeader';
-
-  // Render Mobile View
-  if (isMobile) {
-    return (
-      <section id="location" className={styles.locationSectionMobile} ref={locationSectionRef}>
-        {/* Header */}
-        <div className={styles.mobileHeader}>
-          <SectionHeader 
-            title={locationData.title} 
-            description={locationData.description}
-            badge={locationData.badge}
-          />
-          
-          {/* Nav Icons - Sticky */}
-          <MobileNavIcons sections={locationData.sections} />
-        </div>
-        
-        {/* Scrollable content container */}
-        <div className={styles.mobileContentContainer} ref={mobileContentRef}>
-          {locationData.sections.map((section, index) => (
-            <div
-              key={section.id}
-              id={`mobile-section-${index}`}
-              ref={sectionRefs.current[index]}
-              className={`${styles.mobileSection} ${
-                activeSection === section.id ? styles.active : ''
-              }`}
-            >
-              <h3 className={styles.locationItemTitle}>
-                {section.title}
-              </h3>
-              
-              <div className={styles.locationItemImageContainer}>
-                <img 
-                  src={section.image.src} 
-                  alt={section.image.alt} 
-                  className={styles.locationItemImage}
-                  loading="lazy"
-                />
-              </div>
-              
-              <div className={styles.locationItemContent}>
-                <p className={styles.locationItemDescription}>
-                  {section.description}
-                </p>
-                
-                {section.highlights && section.highlights.length > 0 && (
-                  <ul className={styles.highlightsList}>
-                    {section.highlights.map((highlight, idx) => (
-                      <li key={idx} className={styles.highlightItem}>
-                        <span className={styles.highlightIcon} aria-hidden="true">✓</span>
-                        <span className={styles.highlightText}>{highlight}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-                
-                {section.details && section.details.length > 0 && (
-                  <div className={styles.detailsList}>
-                    {section.details.map((detail, idx) => (
-                      <div key={idx} className={styles.detailItem}>
-                        <span className={styles.detailLabel}>{detail.label}:</span>
-                        <span className={styles.detailValue}>{detail.value}</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            </div>
-          ))}
-          
-          {/* CTA Button */}
-          <div className={styles.ctaContainer}>
-            <a 
-              href={locationData.ctaUrl} 
-              className={styles.ctaButton}
-              aria-label={`${locationData.ctaText} về vị trí dự án`}
-            >
-              {locationData.ctaText}
-            </a>
+  return (
+    <section id="location" className={styles.location}>
+      <div className={styles.container}>
+        {/* Header section */}
+        <div className={styles.headerContainer}>
+          <div className={styles.tagWrapper}>
+            <span className={styles.tag}>VỊ TRÍ CHIẾN LƯỢC</span>
+          </div>
+          <h2 className={styles.heading}>Trái Tim Thành Phố Tương Lai</h2>
+          <div className={styles.seoDescription}>
+            <p className={styles.seoParagraph}>
+              Tọa lạc tại <strong>vị trí đắc địa</strong> trung tâm thị trấn Như Quỳnh, huyện Văn Lâm, tỉnh Hưng Yên, <strong>Economy City</strong> sở hữu lợi thế kết nối vượt trội khi đối diện trực tiếp với Huyện ủy và UBND huyện. Với vai trò là <strong>trung tâm hành chính, kinh tế, văn hóa, xã hội</strong> của khu vực, vị trí này không chỉ mang đến sự thuận tiện tối ưu cho cư dân khi tiếp cận các cơ quan công quyền mà còn nâng tầm giá trị đầu tư và tiềm năng phát triển dài hạn của dự án.
+            </p>
+            <p className={styles.seoParagraph}>
+              Với <strong>khoảng cách chỉ 20km từ Hà Nội</strong>, <strong>Economy City</strong> thiết lập hệ thống kết nối giao thông đồng bộ và hiện đại đến các trung tâm kinh tế quan trọng khu vực phía Bắc. Dự án được hưởng lợi từ hệ thống hạ tầng giao thông hoàn thiện bao gồm các tuyến đường huyết mạch như <strong>cao tốc Hà Nội - Hải Phòng, Vành đai 3.5, Vành đai 4</strong> , mở ra cơ hội phát triển không giới hạn cho cư dân và nhà đầu tư.
+            </p>
           </div>
         </div>
-      </section>
-    );
-  }
 
-  // Desktop View - 2 cột xen kẽ
-  return (
-    <section id="location" className={styles.locationSectionDesktop}>
-      <div className="container">
-        {/* Header */}
-        <SectionHeader 
-          title={locationData.title} 
-          description={locationData.description}
-          badge={locationData.badge}
-        />
-
-        {/* Location Items - Desktop layout với layout xen kẽ */}
-        {locationData.sections.map((section, index) => (
-          <div
-            key={section.id}
-            id={section.id}
-            className={styles.desktopLocationItem}
-          >
-            <div className={styles.desktopLocationItemContent}>
-              {/* Layout xen kẽ: chẵn = ảnh trái, lẻ = ảnh phải */}
-              {index % 2 === 0 ? (
-                <>
-                  <div className={styles.desktopImageContainer}>
-                    <img 
-                      src={section.image.src} 
-                      alt={section.image.alt} 
-                      className={styles.locationItemImage}
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className={styles.desktopTextContainer}>
-                    <h3 className={styles.locationItemTitle}>
-                      {section.title}
-                    </h3>
-                    <p className={styles.locationItemDescription}>
-                      {section.description}
-                    </p>
-                    
-                    {section.highlights && section.highlights.length > 0 && (
-                      <ul className={styles.highlightsList}>
-                        {section.highlights.map((highlight, idx) => (
-                          <li key={idx} className={styles.highlightItem}>
-                            <span className={styles.highlightIcon} aria-hidden="true">✓</span>
-                            <span className={styles.highlightText}>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    
-                    {section.details && section.details.length > 0 && (
-                      <div className={styles.detailsList}>
-                        {section.details.map((detail, idx) => (
-                          <div key={idx} className={styles.detailItem}>
-                            <span className={styles.detailLabel}>{detail.label}:</span>
-                            <span className={styles.detailValue}>{detail.value}</span>
-                          </div>
-                        ))}
-                      </div>
+        {/* Main content */}
+        <div className={styles.mainContentWrapper}>
+          {/* Cột bên trái: Danh sách kết nối */}
+          <div className={styles.leftColumn}>
+            <h2 className={styles.sectionTitle}>Kết nối đa chiều, thuận tiện di chuyển</h2>
+            
+            {/* Tab Navigation */}
+            <div className={styles.tabContainer}>
+              <div className={styles.tabHeader}>
+                {data.connectionGroups.map((group, index) => (
+                  <button 
+                    key={index}
+                    className={`${styles.tabButton} ${activeTabIndex === index ? styles.active : ''}`}
+                    onClick={() => setActiveTabIndex(index)}
+                  >
+                    <span className={styles.tabIcon}>
+                      {tabIconMapping[tabMapping[group.title]] || <FaMapPin />}
+                    </span>
+                    <span className={styles.tabText}>
+                      {tabNameMapping[tabMapping[group.title]] || group.title}
+                    </span>
+                  </button>
+                ))}
+              </div>
+              
+              {/* Tab Content */}
+              <div className={styles.tabContent}>
+                {currentTabGroup.items && currentTabGroup.items.map((item, idx) => (
+                  <div key={idx} className={styles.tabItem}>
+                    <div className={styles.tabItemIcon}>
+                      {item.icon}
+                    </div>
+                    {item.text.includes(" ") ? (
+                      <>
+                        <h3 className={styles.tabItemTitle}>
+                          {item.text.split(" ")[0]}
+                          {item.text.includes("KCN") && item.text.split(" ")[1] ? " " + item.text.split(" ")[1] : ""}
+                        </h3>
+                        <p className={styles.tabItemSubtitle}>
+                          {item.text.includes("KCN") 
+                            ? item.text.split(" ").slice(2).join(" ")
+                            : item.text.split(" ").slice(1).join(" ")
+                          }
+                        </p>
+                      </>
+                    ) : (
+                      <h3 className={styles.tabItemTitle}>{item.text}</h3>
                     )}
                   </div>
-                </>
+                ))}
+              </div>
+              
+              {/* Indicator dots */}
+              <div className={styles.indicator}>
+                {data.connectionGroups.map((_, index) => (
+                  <div 
+                    key={index}
+                    className={`${styles.indicatorDot} ${activeTabIndex === index ? styles.active : ''}`}
+                    onClick={() => setActiveTabIndex(index)}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Cột bên phải: Bản đồ và thời gian di chuyển */}
+          <div className={styles.rightColumn}>
+            <div className={styles.mapContainer}>
+              {data.mapImage && data.mapImage.src ? (
+                <img 
+                  src={data.mapImage.src} 
+                  alt={data.mapImage.alt || 'Bản đồ vị trí'} 
+                  className={styles.mapImage}
+                />
               ) : (
-                <>
-                  <div className={styles.desktopTextContainer}>
-                    <h3 className={styles.locationItemTitle}>
-                      {section.title}
-                    </h3>
-                    <p className={styles.locationItemDescription}>
-                      {section.description}
-                    </p>
-                    
-                    {section.highlights && section.highlights.length > 0 && (
-                      <ul className={styles.highlightsList}>
-                        {section.highlights.map((highlight, idx) => (
-                          <li key={idx} className={styles.highlightItem}>
-                            <span className={styles.highlightIcon} aria-hidden="true">✓</span>
-                            <span className={styles.highlightText}>{highlight}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    )}
-                    
-                    {section.details && section.details.length > 0 && (
-                      <div className={styles.detailsList}>
-                        {section.details.map((detail, idx) => (
-                          <div key={idx} className={styles.detailItem}>
-                            <span className={styles.detailLabel}>{detail.label}:</span>
-                            <span className={styles.detailValue}>{detail.value}</span>
-                          </div>
-                        ))}
-                      </div>
-                    )}
-                  </div>
-                  <div className={styles.desktopImageContainer}>
-                    <img 
-                      src={section.image.src} 
-                      alt={section.image.alt} 
-                      className={styles.locationItemImage}
-                      loading="lazy"
-                    />
-                  </div>
-                </>
+                <p>Ảnh bản đồ vị trí sẽ được hiển thị ở đây</p>
               )}
             </div>
+            
+            {/* Phần thời gian di chuyển */}
+            <div className={styles.footerCharts}>
+              {data.travelTimes?.items && data.travelTimes.items.map((item, index) => {
+                // Tính phần trăm cho biểu đồ hình tròn dựa trên thời gian
+                const timeStr = item.duration.split('-')[1] || item.duration;
+                const minutes = parseInt(timeStr.match(/\d+/)[0], 10);
+                // Chuyển đổi phút thành độ (360 độ = vòng tròn đầy đủ)
+                const degrees = Math.min(360, (minutes / 45) * 360);
+                
+                // Default icons for common destinations
+                let iconComponent = <FaClock />;
+                if (item.destination.includes("Hà Nội")) {
+                  iconComponent = <FaBuilding />;
+                } else if (item.destination.includes("KCN")) {
+                  iconComponent = <FaBuilding />;
+                } else if (item.destination.includes("Sân bay")) {
+                  iconComponent = <FaPlane />;
+                } else if (item.destination.includes("Park") || item.destination.includes("thương mại")) {
+                  iconComponent = <FaStore />;
+                }
+                
+                return (
+                  <div key={index} className={styles.donutChart}>
+                    <div 
+                      className={styles.donutChartContainer}
+                      style={{
+                        '--progress': `${degrees}deg`
+                      }}
+                    >
+                      <div className={styles.donutHole}>
+                        <div className={styles.donutIcon}>
+                          {item.icon || iconComponent}
+                        </div>
+                      </div>
+                    </div>
+                    <div className={styles.chartLabel}>{item.destination}</div>
+                    <div className={styles.chartTime}>{item.duration}</div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        ))}
-        
-        {/* CTA Button */}
-        <div className={styles.ctaContainer}>
-          <a 
-            href={locationData.ctaUrl} 
-            className={styles.ctaButton}
-            aria-label={`${locationData.ctaText} về vị trí dự án`}
-          >
-            {locationData.ctaText}
-          </a>
         </div>
       </div>
     </section>
