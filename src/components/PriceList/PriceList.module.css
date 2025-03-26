@@ -147,7 +147,7 @@
 
 .priceTableContainer {
   width: 100%;
-  max-width: 1200px; /* Đã điều chỉnh max-width để đồng nhất với các component khác */
+  max-width: 1250px; /* Đã điều chỉnh max-width để đồng nhất với các component khác */
   margin: 0 auto;
   background-color: white;
   border-radius: 10px;
