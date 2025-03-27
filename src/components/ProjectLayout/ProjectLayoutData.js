@@ -18,7 +18,9 @@
 export const projectLayoutData = {
   id: "economy-city",
   name: "Economy City Văn Lâm",
-  totalArea: 37,
+  totalArea: 370000,
+  totalBuildingDensity: 1044,
+
   // Metadata cho SEO
   metaTitle: "Economy City Văn Lâm - Mặt bằng tổng thể dự án",
   metaDescription: "Khám phá mặt bằng tổng thể dự án Economy City Văn Lâm với tổng diện tích 37ha, bao gồm 4 phân khu chức năng với mật độ xây dựng thấp và nhiều không gian xanh.",
@@ -31,7 +33,7 @@ export const projectLayoutData = {
       name: "Phân khu Phú Quý",
       area: 95000,
       buildingDensity: 226,
-      status: "selling", // đang mở bán
+      status: "coming-soon", // đang mở bán
       description: "Phân khu phía Đông với không gian sống hiện đại, nhiều tiện ích và không gian xanh. Gần trục đường chính và dễ dàng kết nối với khu vực trung tâm.",
       products: [
         {
@@ -54,11 +56,11 @@ export const projectLayoutData = {
       name: "Phân khu Cát Tường",
       area: 85000,
       buildingDensity: 296,
-      status: "coming-soon", // sắp mở bán
+      status: "selling", // sắp mở bán
       description: "Phân khu trung tâm với nhiều tiện ích cao cấp, bao gồm shophouse và nhà phố thương mại. Vị trí đắc địa, phù hợp cho cả ở và kinh doanh.",
       products: [
         {
-          type: "Nhà phố thương mại",
+          type: "Liền kề",
           count: 296,
           areaRange: [85, 120],
           priceRange: [9000000000, 15000000000]
@@ -71,7 +73,7 @@ export const projectLayoutData = {
       name: "Phân khu Hưng Thịnh",
       area: 75000,
       buildingDensity: 256,
-      status: "sold-out", // đã bán hết
+      status: "selling", // đã bán hết
       description: "Phân khu đầu tiên của dự án đã bán hết, bao gồm nhà phố và liền kề. Môi trường sống đã hình thành, nhiều cư dân đã chuyển đến sinh sống.",
       products: [
         {

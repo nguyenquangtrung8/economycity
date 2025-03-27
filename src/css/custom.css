@@ -14,16 +14,30 @@
   padding: 0;
 }
 
-html, body {
+html {
+  height: 100%;
+  scroll-behavior: smooth;
+  min-height: 100%;
+}
+
+body {
   height: 100%;
   width: 100%;
   font-family: var(--font-family-body);
   font-size: var(--font-size-base);
   line-height: var(--line-height-normal);
   color: var(--text-primary);
-  background-color: var(--bg-primary);
+  background: #EFF6FF;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+}
+
+/* Main wrapper tweaks to work with the gradient */
+.main-wrapper {
+  background: transparent;
+  position: relative;
+  z-index: 1;
 }
 
 /* Navbar styling */
@@ -140,11 +154,6 @@ html, body {
     flex: 0 0 auto !important;
     margin-left: var(--spacing-8) !important;
   }
-}
-
-/* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
 }
 
 /* Adjust spacing when scrolling to sections */
@@ -279,6 +288,8 @@ input:focus, textarea:focus, select:focus {
   color: var(--text-light);
   padding-top: var(--spacing-12);
   padding-bottom: var(--spacing-8);
+  position: relative;
+  z-index: 2;
 }
 
 .footer__title {
@@ -461,4 +472,10 @@ input:focus, textarea:focus, select:focus {
   .footer-contact-button {
     animation: none !important;
   }
+}
+
+/* Khắc phục các hiệu ứng chuyển tiếp cho các card và container trong gradient */
+.card, .container, section {
+  position: relative;
+  z-index: 1;
 }

@@ -1,6 +1,6 @@
 /* === SECTION CONTAINER === */
 .featuresSection {
-  background: linear-gradient(to bottom, #EFF6FF, #DBEAFE);
+  background: #EFF6FF;
   padding: 4rem 0 6rem; /* Padding top/bottom cho section */
   overflow: hidden; /* Ngăn nội dung tràn ra ngoài */
   position: relative;
@@ -253,7 +253,7 @@
 
   /* Điều chỉnh padding content cho card desktop */
   .featureCard:not(.mobileCard) .cardContent {
-    padding: 1.5rem 1.5rem 1.5rem; /* Padding top/ngang/bottom cho desktop */
+    padding: 1rem 1rem 0.725rem; /* Padding top/ngang/bottom cho desktop */
   }
 
    /* Điều chỉnh icon container desktop nếu cần */
@@ -330,7 +330,7 @@
 .dot:focus-visible { /* Cải thiện accessibility */
    outline: 2px solid #3b82f6;
    outline-offset: 2px;
-   background-color: #9ca3af;
+   background-color: white;
 }
 .activeDot {
   width: 2rem; /* Dot active dài hơn */

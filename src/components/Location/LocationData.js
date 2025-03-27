@@ -4,7 +4,7 @@ import React from 'react';
 export const locationData = {
   badge: "Vị Trí Chiến Lược",
   title: "Trái Tim Thành Phố Tương Lai",
-  description: "Nằm tại trung tâm thị trấn Như Quỳnh, huyện Văn Lâm, tỉnh Hưng Yên, **Economy City Văn Lâm** nổi bật với vị trí đắc địa, đối diện Huyện ủy và UBND huyện – nơi tập trung trung tâm hành chính, kinh tế, văn hóa, xã hội của khu vực. Điều này không chỉ mang lại sự thuận tiện tối đa cho cư dân trong việc tiếp cận các cơ quan công quyền mà còn khẳng định giá trị chiến lược của dự án. Trong bán kính chỉ 1km, cư dân có thể dễ dàng tiếp cận các tiện ích thiết yếu như trường học chất lượng cao, bệnh viện hiện đại và khu mua sắm sầm uất, đáp ứng đầy đủ nhu cầu sống và nâng cao chất lượng cuộc sống hàng ngày.\n\nChỉ cách Hà Nội 20km, tương đương 30 phút di chuyển, **Economy City Văn Lâm** sở hữu hệ thống giao thông đồng bộ và hiện đại, kết nối trực tiếp với thủ đô và các trung tâm kinh tế trọng điểm phía Bắc thông qua các tuyến đường huyết mạch như cao tốc Hà Nội - Hải Phòng, Vành đai 3.5, Vành đai 4 và cầu Mễ Sở sắp hoàn thiện. Với tầm nhìn trở thành thành phố tương lai vào năm 2030, dự án không chỉ là nơi an cư lý tưởng mà còn là điểm đến đầu tư hấp dẫn, kết hợp hài hòa giữa không gian sống tiện nghi, môi trường làm việc năng động và phát triển bền vững, góp phần định hình diện mạo đô thị vệ tinh phía đông Hà Nội.",
+  description: "Economy City nằm tại trung tâm thị trấn Như Quỳnh, Văn Lâm, Hưng Yên, đối diện Huyện ủy và UBND, sở hữu lợi thế kết nối nổi bật và tiềm năng đầu tư cao. Cách Hà Nội 20km, dự án kết nối đồng bộ qua cao tốc Hà Nội - Hải Phòng, Vành đai 3.5, Vành đai 4, mang đến cơ hội phát triển bền vững cho cư dân và nhà đầu tư.",
 
   mapImage: {
     src: "/img/Lienketvung.jpg",

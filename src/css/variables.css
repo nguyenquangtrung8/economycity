@@ -37,7 +37,7 @@
   --text-light: #f8f9fa;
   
   /* Background Colors */
-  --bg-primary: var(--neutral-white);
+  --bg-primary: linear-gradient(to bottom, #EFF6FF, #DBEAFE);;
   --bg-secondary: var(--neutral-lightest);
   --bg-tertiary: var(--neutral-lighter);
   --bg-primary-light: rgba(42, 111, 151, 0.05); /* Light primary background */

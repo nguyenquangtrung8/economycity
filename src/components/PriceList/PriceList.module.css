@@ -141,7 +141,7 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background-color: var(--background-color, #f9fafb);
+  background-color: #EFF6FF;
   padding: 3rem 1rem;
 }
 
@@ -174,31 +174,33 @@
   left: 0;
   right: 0;
   text-align: center;
-  margin-top: 45px;
+  margin-top: 35px;
 }
 
 .badge {
   display: inline-block;
-  background-color: #ebf8ff;
-  color: #3182ce;
+  padding: 0.25rem 1rem;
+  border-radius: 9999px; /* Border radius hình tròn cho icon/button */
+  background: linear-gradient(to right, #1d4ed8, #3b82f6);
+  color: white;
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.5rem 1.25rem;
-  border-radius: 9999px;
+  margin-bottom: 1rem;
 }
 
 .priceTitle {
   font-size: 2.25rem;
-  font-weight: 700;
-  margin: 0.5rem 0;
-  color: #333;
+  font-weight: 700; /* Bold theo yêu cầu */
+  text-align: center; /* Center-align theo yêu cầu */
+  color: #1e3a8a;
+  margin-bottom: 0.75rem;
 }
 
 .priceSubtitle {
-  color: #666;
+  color: #64748b;
   margin: 1rem auto 1.5rem;
   font-size: 1.1rem;
-  max-width: 650px;
+  max-width: 700px;
   line-height: 1.5;
 }
 
@@ -767,7 +769,7 @@
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1rem;
-  background-color: #3182ce;
+  background: linear-gradient(to right, #f59e0b, #fbbf24);
   color: white;
   border: none;
   border-radius: 10px;

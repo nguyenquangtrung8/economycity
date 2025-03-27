@@ -1,107 +1,59 @@
 /* src/components/EconomyCityLanding/TypicalFloor/TypicalFloor.module.css */
 
-/* 1. CSS Variables - Đề xuất 1 */
-:root {
-  /* Colors */
-  --primary-color: #1e40af;
-  --primary-light: #60a5fa;
-  --primary-dark: #1e3a8a;
-  --secondary-color: #64748b;
-  --text-color: #1e293b;
-  --text-light: #475569;
-  --text-lighter: #94a3b8;
-  --bg-color: white;
-  --bg-light: white;
-  --bg-lighter: #f1f5f9;
-  --error-color: #ef4444;
-  
-  /* Borders */
-  --border-color: #e5e7eb;
-  --border-light: #e2e8f0;
-  --border-active: #1e40af;
-  
-  /* Sizes */
-  --spacing-xs: 0.25rem;   /* 4px */
-  --spacing-sm: 0.5rem;    /* 8px */
-  --spacing-md: 0.75rem;   /* 12px */
-  --spacing-lg: 1rem;      /* 16px */
-  --spacing-xl: 1.5rem;    /* 24px */
-  --spacing-2xl: 2rem;     /* 32px */
-  
-  /* Typography */
-  --font-xs: 0.75rem;      /* 12px */
-  --font-sm: 0.875rem;     /* 14px */
-  --font-md: 1rem;         /* 16px */
-  --font-lg: 1.125rem;     /* 18px */
-  --font-xl: 1.5rem;       /* 24px */
-  --font-2xl: 2rem;        /* 32px */
-  
-  /* Borders & Shadows - Đề xuất 7 */
-  --radius-sm: 4px;
-  --radius-md: 6px;
-  --radius-lg: 8px;
-  --radius-xl: 10px;
-  --radius-round: 50%;
-  
-  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-md: 0 2px 5px rgba(0, 0, 0, 0.05);
-  --shadow-lg: 0 4px 10px rgba(0, 0, 0, 0.1);
-  
-  /* Transitions */
-  --transition-fast: all 0.2s ease;
-  --transition-normal: all 0.3s ease;
-}
-
 .container {
-  max-width: 1200px;
+  max-width: 80rem; /* 1280px như yêu cầu */
   margin: 0 auto;
-  padding: 0 var(--spacing-lg);
+  padding: 0 1rem; /* Padding mobile: 1rem */
+  overflow: visible;
+  position: relative;
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: var(--spacing-xl);
+  margin-bottom: 1.5rem;
 }
+
 .badge {
   display: inline-block;
-  background-color: #ebf8ff;
-  color: #3182ce;
+  padding: 0.25rem 1rem;
+  border-radius: 9999px; /* Border radius hình tròn cho icon/button */
+  background: linear-gradient(to right, #1d4ed8, #3b82f6);
+  color: white;
   font-size: 0.875rem;
   font-weight: 600;
-  padding: 0.5rem 1.25rem;
-  margin-bottom: var(--spacing-4);
-  border-radius: 9999px;
+  margin-bottom: 1rem;
 }
 
 .badge:hover {
-  background-color: var(--secondary-dark);
-  color: var(--neutral-white);
+  background-color: #64748b;
+  color: white;
   transform: translateY(-1px);
 }
-/* 5. Sử dụng rem thay vì px - Đề xuất 5 */
+
 .sectionTitle {
-  font-size: var(--font-2xl);
-  font-weight: 700;
-  color: var(--text-color);
-  margin-bottom: var(--spacing-sm);
+  font-size: 2rem;
+  font-weight: 700; /* Bold theo yêu cầu */
+  text-align: center; /* Center-align theo yêu cầu */
+  color: #1e3a8a;
+  margin-bottom: 0.75rem;
 }
 
 .sectionSubtitle {
-  font-size: var(--font-md);
-  color: var(--secondary-color);
+  color: #64748b;
+  margin: 1rem auto 1.5rem;
+  font-size: 1.1rem;
   max-width: 700px;
-  margin: 0 auto;
+  line-height: 1.5;
 }
 
-/* Tab chọn loại căn hộ */
 .apartmentTabs {
   display: flex;
-  background-color: var(--bg-color);
-  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
-  box-shadow: var(--shadow-md);
+  background-color: white;
+  border-radius: 10px 10px 0 0;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
   margin-bottom: 0;
   overflow: hidden;
-  border-bottom: 2px solid var(--border-color);
+  border-bottom: 2px solid #e5e7eb;
   position: relative;
 }
 
@@ -110,19 +62,18 @@
   padding: 1.125rem 1.25rem;
   background: transparent;
   border: none;
-  color: var(--secondary-color);
+  color: #64748b;
   font-weight: 600;
-  font-size: var(--font-lg);
+  font-size: 1.125rem;
   text-align: center;
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: all 0.2s ease;
   position: relative;
   letter-spacing: 0.2px;
 }
 
-/* 6. Thêm focus styles - Đề xuất 6 */
 .apartmentTab:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid #1e40af;
   outline-offset: 2px;
   z-index: 1;
 }
@@ -144,49 +95,47 @@
   background-color: #056ff1;
 }
 
-/* Phần đối tượng phù hợp và đánh giá */
 .overviewSection {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 1rem;
 }
 
 .overviewTitle {
-  font-size: var(--font-md);
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: var(--spacing-md);
-  border-left: 3px solid var(--primary-color);
-  padding-left: var(--spacing-sm);
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+  border-left: 3px solid #1e40af;
+  padding-left: 0.5rem;
 }
 
 .overviewList {
   list-style-type: none;
   padding: 0;
-  margin: 0 0 var(--spacing-xl) 0;
+  margin: 0 0 1.5rem 0;
 }
 
 .overviewList li {
-  padding: var(--spacing-xs) 0 var(--spacing-xs) 1.5rem;
+  padding: 0.25rem 0 0.25rem 1.5rem;
   position: relative;
-  color: var(--text-light);
-  font-size: var(--font-sm);
+  color: #475569;
+  font-size: 0.875rem;
 }
 
 .overviewList li:before {
   content: '✓';
   position: absolute;
   left: 0;
-  color: var(--primary-color);
+  color: #1e40af;
   font-weight: bold;
 }
 
-/* Container chính */
 .mainContainer {
   display: flex;
-  background-color: var(--bg-color);
-  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  background-color: white;
+  border-radius: 0 0 10px 10px;
   overflow: hidden;
-  box-shadow: var(--shadow-md);
-  margin-bottom: var(--spacing-xl);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
   border-top: none;
   position: relative;
 }
@@ -198,68 +147,62 @@
   left: 0;
   right: 0;
   height: 1px;
-  background-color: var(--border-color);
+  background-color: #e5e7eb;
   z-index: 2;
 }
 
-/* Cột bên trái */
 .leftColumn {
   flex: 0.4;
-  padding: var(--spacing-xl);
-  border-right: 1px solid var(--border-light);
+  padding: 1.5rem;
+  border-right: 1px solid #e2e8f0;
 }
 
-/* Chọn tầng */
 .floorSelector {
-  margin-bottom: var(--spacing-lg);
+  margin-bottom: 1rem;
 }
 
 .floorSelectorTitle {
-  font-size: var(--font-md);
+  font-size: 1rem;
   font-weight: 600;
-  color: var(--text-color);
-  margin-bottom: var(--spacing-md);
-  border-left: 3px solid var(--primary-color);
-  padding-left: var(--spacing-sm);
+  color: #1e293b;
+  margin-bottom: 0.75rem;
+  border-left: 3px solid #1e40af;
+  padding-left: 0.5rem;
 }
 
-/* CẢI TIẾN: Khu vực chọn tầng */
 .floorButtonRow {
   display: flex;
-  gap: var(--spacing-sm);
-  flex-wrap: nowrap; /* Đảm bảo không xuống dòng */
+  gap: 0.5rem;
+  flex-wrap: nowrap;
 }
 
 .floorButton {
   flex: 1;
-  padding: var(--spacing-sm) var(--spacing-xs);
-  background-color: var(--bg-lighter);
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-md);
-  font-size: var(--font-sm);
-  color: var(--secondary-color);
+  padding: 0.5rem 0.25rem;
+  background-color: #f1f5f9;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  color: #64748b;
   cursor: pointer;
-  transition: var(--transition-fast);
+  transition: all 0.2s ease;
   text-align: center;
-  min-width: 0; /* Cho phép co lại khi cần */
-  overflow: hidden; /* Ẩn nội dung tràn */
-  white-space: nowrap; /* Không xuống dòng trong button */
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
   position: relative;
 }
 
-/* Text của nút hiển thị đầy đủ trên desktop */
 .floorButtonText {
   display: inline-block;
 }
 
-/* Text rút gọn cho mobile (ẩn mặc định) */
 .floorButtonShortText {
   display: none;
 }
 
-/* 6. Thêm focus styles - Đề xuất 6 */
 .floorButton:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid #1e40af;
   outline-offset: 2px;
 }
 
@@ -269,46 +212,44 @@
   color: white;
 }
 
-/* Thông tin chi tiết */
 .propertyDetails {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-lg);
-  margin-bottom: var(--spacing-sm);
+  gap: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .detailItem {
   display: flex;
   align-items: center;
-  margin-bottom: var(--spacing-xs);
+  margin-bottom: 0.25rem;
 }
 
 .detailIcon {
   width: 32px;
   height: 32px;
-  background-color: var(--bg-lighter);
-  border-radius: var(--radius-round);
+  background-color: #f1f5f9;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--primary-color);
-  margin-right: var(--spacing-sm);
+  color: #1e40af;
+  margin-right: 0.5rem;
 }
 
 .detailLabel {
-  font-size: var(--font-xs);
-  color: var(--secondary-color);
+  font-size: 0.75rem;
+  color: #64748b;
   margin-bottom: 1px;
 }
 
 .detailValue {
-  font-size: var(--font-sm);
+  font-size: 0.875rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: #1e293b;
   line-height: 1.2;
 }
 
-/* Cột bên phải */
 .rightColumn {
   flex: 0.6;
   position: relative;
@@ -318,40 +259,38 @@
 
 .floorPlanLabel {
   position: absolute;
-  top: var(--spacing-sm);
-  right: var(--spacing-sm);
-  font-size: var(--font-xs);
-  color: var(--secondary-color);
+  top: 0.5rem;
+  right: 0.5rem;
+  font-size: 0.75rem;
+  color: #64748b;
   background-color: rgba(255, 255, 255, 0.8);
-  padding: 4px var(--spacing-sm);
-  border-radius: var(--radius-sm);
+  padding: 4px 0.5rem;
+  border-radius: 4px;
   z-index: 10;
 }
 
-/* 4. Hiệu suất render ảnh - ĐÃ CHỈNH SỬA */
 .floorPlanWrapper {
   position: relative;
-  height: 300px; /* Giảm từ 400px xuống 300px */
+  height: 300px;
   width: 100%;
   overflow: hidden;
-  padding: var(--spacing-xs) 0; /* Thêm padding nhỏ trên dưới */
+  padding: 0.25rem 0;
 }
 
 .floorPlanImage {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Đảm bảo ảnh hiển thị đúng tỷ lệ */
+  object-fit: contain;
   display: block;
 }
 
-/* Chức năng zoom */
 .zoomControls {
   position: absolute;
-  top: var(--spacing-sm);
-  left: var(--spacing-sm);
+  top: 0.5rem;
+  left: 0.5rem;
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-xs);
+  gap: 0.25rem;
   z-index: 10;
 }
 
@@ -359,42 +298,41 @@
   width: 30px;
   height: 30px;
   background-color: white;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-sm);
+  border: 1px solid #e2e8f0;
+  border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: var(--font-md);
+  font-size: 1rem;
   font-weight: bold;
-  color: var(--primary-color);
+  color: #1e40af;
   cursor: pointer;
-  box-shadow: var(--shadow-sm);
-  transition: var(--transition-fast);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
 }
 
-/* 6. Thêm focus styles - Đề xuất 6 */
 .zoomButton:focus {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid #1e40af;
   outline-offset: 2px;
 }
 
 .zoomButton:hover {
-  background-color: var(--bg-lighter);
+  background-color: #f1f5f9;
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .zoomButton:active {
   transform: translateY(0);
-  box-shadow: var(--shadow-sm);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
 .floorPlanNavigation {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--spacing-sm) 0;
-  background-color: var(--bg-color);
+  padding: 0.5rem 0;
+  background-color: white;
   position: relative;
   z-index: 5;
 }
@@ -406,64 +344,63 @@
   align-items: center;
   justify-content: center;
   background-color: white;
-  border: 1px solid var(--border-light);
-  border-radius: var(--radius-round);
-  color: var(--primary-color);
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  color: #1e40af;
   cursor: pointer;
-  transition: var(--transition-fast);
-  margin: 0 var(--spacing-sm);
+  transition: all 0.2s ease;
+  margin: 0 0.5rem;
 }
 
-/* 6. Thêm focus styles - Đề xuất 6 */
 .navButton:focus:not(.disabled) {
-  outline: 2px solid var(--primary-color);
+  outline: 2px solid #1e40af;
   outline-offset: 2px;
 }
 
 .navButton.disabled {
   opacity: 0.5;
   cursor: not-allowed;
-  color: var(--text-lighter);
+  color: #94a3b8;
 }
 
 .navLabel {
-  font-size: var(--font-sm);
+  font-size: 0.875rem;
   font-weight: 500;
-  color: var(--text-color);
+  color: #1e293b;
 }
 
-/* Nút đăng ký tư vấn - ĐÃ THÊM HIỆU ỨNG HOVER NỔI BẬT */
 .registerButtonFull {
   width: 100%;
-  padding: var(--spacing-lg) var(--spacing-lg);
-  background-color: #3182ce;
+  padding: 1rem;
+  background: linear-gradient(to right, #f59e0b, #fbbf24);
   color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  font-size: var(--font-md);
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease; /* Transition cho tất cả thuộc tính */
+  font-weight: 700;
   text-align: center;
-  margin-bottom: var(--spacing-xl);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Shadow nhẹ ban đầu */
+  padding: 0.75rem 1rem;
+  border-radius: 0.75rem; /* 12px theo yêu cầu */
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  border: none;
+  box-shadow:none;
   position: relative;
-  overflow: hidden; /* Để chứa hiệu ứng gợn sóng */
+  overflow: hidden;
 }
 
 .registerButtonFull:hover {
   background-color: #2563eb;
-  transform: translateY(-3px); /* Nổi lên một chút */
-  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Shadow đậm hơn */
-  letter-spacing: 0.5px; /* Giãn chữ nhẹ */
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  letter-spacing: 0.5px;
 }
 
 .registerButtonFull:active {
-  transform: translateY(-1px); /* Hiệu ứng nhấn */
+  transform: translateY(-1px);
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Thêm hiệu ứng thay đổi màu nền từ trái sang phải khi hover */
 .registerButtonFull::before {
   content: "";
   position: absolute;
@@ -479,28 +416,25 @@
   left: 100%;
 }
 
-/* 6. Thêm focus styles - Đề xuất 6 */
 .registerButtonFull:focus {
-  outline: 3px solid var(--primary-light);
+  outline: 3px solid #60a5fa;
   outline-offset: 2px;
 }
 
-/* Style cho phần hiển thị lỗi */
 .error {
   padding: 2.5rem 1.25rem;
   text-align: center;
-  background-color: var(--bg-color);
-  border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-md);
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
 }
 
 .error p {
-  color: var(--error-color);
-  font-size: var(--font-md);
+  color: #ef4444;
+  font-size: 1rem;
   font-weight: 500;
 }
 
-/* Ghi đè một số style của thư viện react-zoom-pan-pinch */
 :global(.react-transform-component) {
   width: 100% !important;
   height: 100% !important;
@@ -514,25 +448,22 @@
   align-items: center !important;
 }
 
-/* 3. Responsive chưa tối ưu - CẢI TIẾN RESPONSIVE */
-/* Tablet landscape - Giữa mobile và desktop */
 @media (min-width: 641px) and (max-width: 991px) {
   .propertyDetails {
     grid-template-columns: repeat(2, 1fr);
-    gap: var(--spacing-md);
+    gap: 0.75rem;
   }
   
   .floorPlanWrapper {
-    height: 280px; /* Giảm từ 350px xuống 280px */
+    height: 280px;
   }
   
   .apartmentTab {
     padding: 0.75rem 1rem;
-    font-size: var(--font-md);
+    font-size: 1rem;
   }
 }
 
-/* Tablet portrait */
 @media (max-width: 992px) {
   .mainContainer {
     flex-direction: column;
@@ -545,106 +476,103 @@
   
   .leftColumn {
     border-right: none;
-    border-bottom: 1px solid var(--border-light);
+    border-bottom: 1px solid #e2e8f0;
   }
 }
 
-/* Mobile landscape */
 @media (min-width: 481px) and (max-width: 640px) {
   .propertyDetails {
     grid-template-columns: repeat(2, 1fr);
   }
   
   .floorButtonRow {
-    flex-wrap: nowrap; /* Đảm bảo không xuống dòng */
+    flex-wrap: nowrap;
   }
   
   .floorButton {
-    padding: 5px 4px; /* Giảm padding */
-    font-size: 11px; /* Giảm kích thước font */
+    padding: 5px 4px;
+    font-size: 11px;
   }
 }
 
-/* Mobile portrait - CẢI TIẾN CHÍNH CHO NÚT CHỌN TẦNG */
 @media (max-width: 480px) {
   .propertyDetails {
-    grid-template-columns: repeat(2, 1fr); /* Giữ nguyên 2 cột thay vì 1 cột */
-    gap: var(--spacing-sm); /* Giảm khoảng cách giữa các phần tử */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
   }
   
   .detailItem {
-    margin-bottom: var(--spacing-xs);
+    margin-bottom: 0.25rem;
   }
   
   .detailIcon {
-    width: 28px; /* Giảm kích thước icon */
+    width: 28px;
     height: 28px;
-    margin-right: var(--spacing-xs);
+    margin-right: 0.25rem;
   }
   
   .detailLabel {
-    font-size: 0.65rem; /* Giảm kích thước font */
+    font-size: 0.65rem;
   }
   
   .detailValue {
-    font-size: 0.75rem; /* Giảm kích thước font */
+    font-size: 0.75rem;
   }
   
-  /* CẢI TIẾN: Các nút chọn tầng fit trong 1 hàng */
   .floorButtonRow {
-    gap: 3px; /* Giảm khoảng cách giữa các nút */
+    gap: 3px;
   }
   
   .floorButton {
-    padding: 4px 2px; /* Giảm padding */
-    min-width: 0; /* Cho phép button co lại nhỏ hơn content */
-    border-radius: 4px; /* Border radius nhỏ hơn */
+    padding: 4px 2px;
+    min-width: 0;
+    border-radius: 4px;
   }
   
-  /* Hiển thị text ngắn gọn trên mobile */
   .floorButtonText {
-    font-size: 10px; /* Font size nhỏ hơn */
-  }
-  
-  /* Rút gọn text cho màn hình siêu nhỏ */
-  @media (max-width: 360px) {
-    .floorButtonText {
-      display: none;
-    }
-    
-    .floorButtonShortText {
-      display: inline-block; 
-      font-size: 10px;
-    }
+    font-size: 10px;
   }
   
   .sectionTitle {
-    font-size: var(--font-xl);
+    font-size: 1.5rem;
   }
   
   .sectionSubtitle {
-    font-size: var(--font-sm);
+    font-size: 0.875rem;
   }
   
   .apartmentTab {
     padding: 0.625rem 0.5rem;
-    font-size: var(--font-sm);
+    font-size: 0.875rem;
   }
   
   .floorPlanWrapper {
-    height: 220px; /* Giảm từ 300px xuống 220px */
+    height: 220px;
   }
   
   .floorPlanNavigation {
-    padding: var(--spacing-xs) 0; /* Giảm padding */
+    padding: 0.25rem 0;
   }
   
   .overviewList li {
-    font-size: var(--font-xs);
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .floorButtonText {
+    display: none;
+  }
+  
+  .floorButtonShortText {
+    display: inline-block; 
+    font-size: 10px;
   }
 }
 
 .typicalFloor {
-  padding: 3.75rem 0;
-  background-color: var(--bg-light);
+  background: #EFF6FF;
+  padding: 4rem 0 8rem;
+  overflow: visible;
+  position: relative;
 }

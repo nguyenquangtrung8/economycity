@@ -18,28 +18,24 @@
   }
   
   .projectTitle {
-    font-family: var(--font-family-heading, 'Montserrat', sans-serif);
-    font-size: var(--font-size-2xl, 28px);
-    font-weight: var(--font-weight-bold, 700);
-    color: var(--primary-dark, #1a365d);
-    margin-bottom: var(--spacing-3, 12px);
-    letter-spacing: -0.02em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    font-size: 2rem;
+    font-weight: 700; /* Bold theo yêu cầu */
+    text-align: center; /* Center-align theo yêu cầu */
+    color: #1e3a8a;
+    margin-bottom: 0.75rem;
   }
   
   .titleIcon {
     margin-right: 8px;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
   }
   
   .projectDescription {
-    font-size: var(--font-size-md, 16px);
-    line-height: 1.6;
-    color: var(--text-secondary, #4a5568);
+    color: #64748b;
+    margin: 1rem auto 1.5rem;
+    font-size: 1.1rem;
     max-width: 800px;
-    margin: 0 auto;
+    line-height: 1.5;
   }
   
   /* =========================
@@ -61,7 +57,7 @@
   .viewModeButton {
     background-color: transparent;
     border: none;
-    color: var(--text-secondary, #4a5568);
+    color: #1e3a8a;
     padding: 10px 20px;
     cursor: pointer;
     font-size: var(--font-size-base, 14px);
@@ -77,13 +73,13 @@
   }
   
   .viewModeButton:focus-visible {
-    outline: 2px solid var(--primary-color, #3182ce);
+    outline: 2px solid #1e3a8a;
     outline-offset: 2px;
   }
   
   .activeMode {
     background-color: white;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   }
   
@@ -174,7 +170,7 @@
     font-weight: var(--font-weight-medium, 500);
     min-width: 48px;
     text-align: center;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     margin-right: 10px;
   }
   
@@ -196,7 +192,7 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: var(--primary-color, #3182ce);
+    background: #1e3a8a;
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -207,7 +203,7 @@
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--primary-color, #3182ce);
+    background: #1e3a8a;
     cursor: pointer;
     border: 2px solid white;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -228,7 +224,7 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     border: none;
     margin-left: 10px;
     transition: all 0.2s ease;
@@ -236,7 +232,7 @@
   }
   
   .resetIcon {
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
   }
   
   .resetButton:hover {
@@ -353,7 +349,7 @@
   }
   
   .infoIcon {
-    color: var(--primary-color, #3182ce);
+    color: var(--primary-color, #1e3a8a;);
   }
   
   /* Ẩn icon thứ cấp */
@@ -369,16 +365,16 @@
   }
   
   .infoCardTitle {
-    font-size: 13px; /* Giảm font size */
-    color: var(--text-secondary, #718096);
+    font-size: 16px; /* Giảm font size */
+    color:  #1e3a8a;
     margin: 0 0 2px 0; /* Giảm margin */
-    font-weight: 500;
+    font-weight: 600;
     line-height: 1.2;
   }
   
   .infoCardValue {
-    font-size: 16px; /* Giảm font size giá trị */
-    font-weight: var(--font-weight-bold, 700);
+    font-size: 15px; /* Giảm font size giá trị */
+    font-weight: 600;
     color: var(--text-primary, #2d3748);
     margin: 0;
     line-height: 1.1; /* Giảm line height */
@@ -406,10 +402,10 @@
   .sectionTitle {
     font-family: var(--font-family-heading, 'Montserrat', sans-serif);
     font-size: var(--font-size-lg, 18px);
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     margin-bottom: 12px; /* Giảm margin để hiển thị nhiều hơn */
     padding-bottom: 6px; /* Giảm padding */
-    border-bottom: 2px solid var(--primary-light, #ebf8ff);
+    border-bottom: 2px solid #1e3a8a;
     font-weight: 600;
     display: flex;
     align-items: center;
@@ -460,7 +456,7 @@
     font-size: var(--font-size-md, 16px);
     font-weight: var(--font-weight-semibold, 600);
     margin: 0;
-    color: var(--primary-dark, #2c5282);
+    color: #1e3a8a;
     flex-grow: 1;
     min-width: 0;
     overflow: hidden;
@@ -496,7 +492,7 @@
   
   .infoItemIcon {
     margin-right: 6px;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     flex-shrink: 0;
   }
   
@@ -577,7 +573,7 @@
     align-items: center;
     background: none;
     border: none;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     cursor: pointer;
     padding: 8px 12px;
     margin-right: var(--spacing-3, 12px);
@@ -592,7 +588,7 @@
   }
   
   .backButton:hover {
-    background-color: var(--primary-light, #ebf8ff);
+    background-color: var(--primary-light, #fffdeb);
   }
   
   .detailTitle {
@@ -600,7 +596,7 @@
     font-weight: var(--font-weight-bold, 700);
     margin: 0;
     flex-grow: 1;
-    color: var(--primary-dark, #2c5282);
+    color: #1e3a8a;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -629,7 +625,7 @@
   
   .descriptionIcon {
     margin-right: 10px;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     flex-shrink: 0;
   }
   
@@ -656,7 +652,7 @@
   
   .infoBlockIcon {
     margin-right: 6px;
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
   }
   
   .infoBlock:hover {
@@ -680,13 +676,13 @@
     display: flex;
     align-items: center;
     margin-bottom: 12px; /* Giảm margin */
-    color: var(--primary-dark, #2c5282);
+    color: #1e3a8a;
     border-bottom: 1px solid var(--neutral-200, #e2e8f0);
     padding-bottom: 6px; /* Giảm padding */
   }
   
   .sectionHeaderIcon {
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     margin-right: var(--spacing-2, 8px);
     flex-shrink: 0;
   }
@@ -697,7 +693,7 @@
     border: none;
     font-size: var(--font-size-lg, 18px);
     font-weight: var(--font-weight-bold, 700);
-    color: var(--primary-dark, #2c5282);
+    color: #1e3a8a;
   }
   
   .productsList {
@@ -739,7 +735,7 @@
   }
   
   .productTypeIcon {
-    color: var(--primary-color, #3182ce);
+    color: #1e3a8a;
     margin-right: 8px;
     flex-shrink: 0;
   }
@@ -747,7 +743,7 @@
   .productTypeName {
     font-size: var(--font-size-md, 16px);
     font-weight: var(--font-weight-semibold, 600);
-    color: var(--primary-dark, #2c5282);
+    color: #1e3a8a;
   }
   
   .productDetailsGrid {
@@ -828,26 +824,27 @@
   }
   
   .ctaButton {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--primary-color, #3182ce);
+    padding: 0.75rem 1rem;
+    background: linear-gradient(to right, #f59e0b, #fbbf24);
     color: white;
     border: none;
-    border-radius: 8px;
-    font-size: var(--font-size-lg, 18px);
-    font-weight: var(--font-weight-bold, 700);
-    padding: 16px 32px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
     cursor: pointer;
     transition: all 0.3s ease;
-    text-decoration: none;
-    box-shadow: 0 4px 12px rgba(49, 130, 206, 0.3);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   }
   
   .ctaButton:hover {
-    background-color: var(--primary-dark, #2c5282);
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(49, 130, 206, 0.4);
+    background-color: #2563eb;
+    color: white;
+    text-decoration: none;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
   }
   
   .ctaButton:active {
@@ -859,9 +856,6 @@
     outline-offset: 4px;
   }
   
-  .ctaIcon {
-    margin-right: 10px;
-  }
   
   /* =========================
      RESPONSIVE STYLES
