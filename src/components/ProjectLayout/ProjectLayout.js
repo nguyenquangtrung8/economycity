@@ -81,7 +81,6 @@ const getProductCount = (products) => {
   return products.reduce((total, product) => total + (product.count || 0), 0);
 };
 
-// --- MODIFIED SECTION ---
 /**
  * Lấy danh sách các loại sản phẩm unique (trimmed)
  * @param {Array} products - Danh sách sản phẩm
@@ -89,15 +88,16 @@ const getProductCount = (products) => {
  */
 const getProductTypes = (products) => {
   if (!products || !Array.isArray(products) || products.length === 0) return 'Chưa có thông tin';
+  
   // Trim whitespace, filter empty strings, then get unique types using Set
   const types = [...new Set(
     products
       .map(product => product.type?.trim()) // Trim whitespace
       .filter(Boolean) // Remove falsy values (null, undefined, empty strings)
   )];
+  
   return types.length > 0 ? types.join(', ') : 'Chưa có thông tin';
 };
-// --- END MODIFIED SECTION ---
 
 /**
  * Component hiển thị thông tin dự án dạng card
@@ -164,9 +164,11 @@ const ProjectLayout = React.memo(() => {
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
 
-  // Hiển thị chỉ số zoom
+  // Hiển thị chỉ số zoom và thanh điều khiển
   const [showZoomIndicator, setShowZoomIndicator] = useState(false);
+  const [showZoomControls, setShowZoomControls] = useState(false);
   const zoomIndicatorTimeout = useRef(null);
+  const zoomControlsTimeout = useRef(null);
 
   // Touch states
   const [touchDistance, setTouchDistance] = useState(null);
@@ -189,7 +191,6 @@ const ProjectLayout = React.memo(() => {
     resetView();
   }, [viewMode, selectedZoneId]);
 
-
   // Áp dụng class tương ứng theo viewMode
   useEffect(() => {
     const contentElement = document.querySelector(`.${styles.projectLayoutContent}`);
@@ -198,11 +199,11 @@ const ProjectLayout = React.memo(() => {
     }
   }, [viewMode]);
 
-  // Xử lý zoom với biên độ ±10% mỗi bước và giới hạn ±50%
+  // Xử lý zoom với biên độ ±10% mỗi bước 
   const handleZoom = useCallback((increment, clientX, clientY) => {
     setZoomLevel(prevZoom => {
       const zoomStep = 0.1;
-      const newZoom = Math.max(0.5, Math.min(1.5, prevZoom + (increment * zoomStep)));
+      const newZoom = Math.max(0.9, Math.min(6, prevZoom + (increment * zoomStep)));
 
       if (clientX !== undefined && clientY !== undefined && mapContainerRef.current) {
         const rect = mapContainerRef.current.getBoundingClientRect();
@@ -212,11 +213,21 @@ const ProjectLayout = React.memo(() => {
         });
       }
 
+      // Hiển thị chỉ số zoom
       setShowZoomIndicator(true);
       clearTimeout(zoomIndicatorTimeout.current);
       zoomIndicatorTimeout.current = setTimeout(() => {
         setShowZoomIndicator(false);
       }, 1500);
+
+      // Hiển thị thanh điều khiển zoom
+      setShowZoomControls(true);
+      clearTimeout(zoomControlsTimeout.current);
+      zoomControlsTimeout.current = setTimeout(() => {
+        if (newZoom === 1) {
+          setShowZoomControls(false);
+        }
+      }, 3000);
 
       return newZoom;
     });
@@ -239,6 +250,12 @@ const ProjectLayout = React.memo(() => {
     setZoomLevel(1);
     setPanPosition({ x: 0, y: 0 });
     setZoomCenter({ x: 0, y: 0 });
+    
+    // Ẩn thanh điều khiển zoom sau khi reset
+    clearTimeout(zoomControlsTimeout.current);
+    zoomControlsTimeout.current = setTimeout(() => {
+      setShowZoomControls(false);
+    }, 1500);
   }, []);
 
   // Tính khoảng cách giữa 2 ngón tay
@@ -285,8 +302,17 @@ const ProjectLayout = React.memo(() => {
       y: (e.clientY - dragStart.y)
     });
 
+    // Hiển thị thanh điều khiển zoom khi người dùng kéo ảnh
+    if (zoomLevel !== 1) {
+      setShowZoomControls(true);
+      clearTimeout(zoomControlsTimeout.current);
+      zoomControlsTimeout.current = setTimeout(() => {
+        setShowZoomControls(false);
+      }, 3000);
+    }
+
     e.preventDefault();
-  }, [isDragging, dragStart]);
+  }, [isDragging, dragStart, zoomLevel]);
 
   const handleMouseUp = useCallback(() => {
     setIsDragging(false);
@@ -323,6 +349,9 @@ const ProjectLayout = React.memo(() => {
         y: (touchY - rect.top) / zoomLevel - panPosition.y
       });
       setZoomLevel(1.3);
+      
+      // Hiển thị thanh điều khiển zoom
+      setShowZoomControls(true);
     } else {
       resetView();
     }
@@ -357,8 +386,17 @@ const ProjectLayout = React.memo(() => {
       y: (e.touches[0].clientY - dragStart.y)
     });
 
+    // Hiển thị thanh điều khiển zoom khi người dùng kéo ảnh
+    if (zoomLevel !== 1) {
+      setShowZoomControls(true);
+      clearTimeout(zoomControlsTimeout.current);
+      zoomControlsTimeout.current = setTimeout(() => {
+        setShowZoomControls(false);
+      }, 3000);
+    }
+
     e.preventDefault();
-  }, [isDragging, dragStart]);
+  }, [isDragging, dragStart, zoomLevel]);
 
   // Touch event handlers
   const handleTouchStart = useCallback((e) => {
@@ -403,6 +441,9 @@ const ProjectLayout = React.memo(() => {
       if (zoomIndicatorTimeout.current) {
         clearTimeout(zoomIndicatorTimeout.current);
       }
+      if (zoomControlsTimeout.current) {
+        clearTimeout(zoomControlsTimeout.current);
+      }
     };
   }, []);
 
@@ -433,20 +474,21 @@ const ProjectLayout = React.memo(() => {
     handleTouchStart, handleTouchMove, handleTouchEnd
   ]);
 
-  // --- MODIFIED SECTION ---
-  // Render project summary cards - Overall Project Info (Unique Product Types)
+  // Render project summary cards - Sử dụng dữ liệu từ file data
   const renderProjectSummary = () => {
+    // Sử dụng giá trị trực tiếp từ projectLayoutData thay vì tính toán
     const totalArea = projectLayoutData.totalArea || 0;
-    const overallDensity = projectLayoutData.overallBuildingDensity || 0;
-    const totalUnits = projectLayoutData.zones?.reduce((sum, zone) => sum + getProductCount(zone.products), 0) || 'N/A';
+    const totalUnits = projectLayoutData.totalBuildingDensity || 0; // Sử dụng totalBuildingDensity từ data
+    const overallDensity = projectLayoutData.overallBuildingDensity || 0; // Mật độ xây dựng lấy từ data
 
-    // Aggregate unique product types from all zones, ensuring trimming and filtering
+    // Tổng hợp các loại sản phẩm duy nhất từ tất cả các phân khu
     const allProductTypes = projectLayoutData.zones?.flatMap(zone =>
-        zone.products?.map(p => p.type?.trim()).filter(Boolean) || [] // Trim and filter
+        zone.products?.map(p => p.type?.trim()).filter(Boolean) || [] // Trim và lọc
     ) || [];
-    const uniqueProductTypes = [...new Set(allProductTypes)]; // Get unique types
+    
+    // Sử dụng Set để lấy giá trị duy nhất và tránh trùng lặp
+    const uniqueProductTypes = [...new Set(allProductTypes)];
     const productTypesString = uniqueProductTypes.length > 0 ? uniqueProductTypes.join(', ') : 'N/A';
-
 
     return (
       <div className={styles.infoCardsContainer}>
@@ -464,17 +506,14 @@ const ProjectLayout = React.memo(() => {
         />
         <ProjectInfoCard
           title="Loại sản phẩm"
-          value={productTypesString} // Use the unique, joined string
+          value={productTypesString}
         />
       </div>
     );
   };
-  // --- END MODIFIED SECTION ---
 
   // Render product summary list
   const renderProductSummary = (products) => {
-    // (No changes needed here based on the latest request)
-    // ... (rest of the function remains the same) ...
     if (!products || !Array.isArray(products) || products.length === 0) {
       return <p className={styles.noProducts}>Chưa có thông tin sản phẩm</p>;
     }
@@ -544,8 +583,6 @@ const ProjectLayout = React.memo(() => {
 
   // Render overview mode
   const renderOverviewMode = () => {
-    // (Uses the updated getProductTypes implicitly via the map loop)
-    // ... (rest of the function remains the same) ...
     const zones = projectLayoutData.zones || [];
     if (zones.length === 0) {
       return <div className={styles.noData}>Không có dữ liệu phân khu</div>;
@@ -592,7 +629,6 @@ const ProjectLayout = React.memo(() => {
                         <Home size={16} className={styles.infoItemIcon} />
                         Loại sản phẩm:
                       </span>
-                      {/* This now uses the corrected getProductTypes */}
                       <span className={styles.infoValue}>{getProductTypes(validZone.products)}</span>
                     </div>
                     <div className={styles.infoItem} data-type="product-count">
@@ -604,7 +640,6 @@ const ProjectLayout = React.memo(() => {
                         {getProductCount(validZone.products)}
                       </span>
                     </div>
-                    {/* Area/Density for individual zones remain removed */}
                   </div>
                 </div>
               </div>
@@ -617,8 +652,6 @@ const ProjectLayout = React.memo(() => {
 
   // Render detail mode
   const renderDetailMode = () => {
-    // (Uses the updated getProductTypes implicitly)
-    // ... (rest of the function remains the same) ...
     if (!selectedZone) return null;
 
     return (
@@ -642,7 +675,6 @@ const ProjectLayout = React.memo(() => {
         </div>
 
         <div className={styles.infoGrid}>
-            {/* Area/Density blocks remain removed */}
           <div className={styles.infoBlock}>
             <span className={styles.infoLabel} data-type="product-count">
               <Users size={16} className={styles.infoBlockIcon} />
@@ -657,7 +689,6 @@ const ProjectLayout = React.memo(() => {
               <Home size={16} className={styles.infoBlockIcon} />
               Loại sản phẩm
             </span>
-             {/* This now uses the corrected getProductTypes */}
             <span className={styles.infoValue}>
               {getProductTypes(selectedZone.products)}
             </span>
@@ -671,8 +702,6 @@ const ProjectLayout = React.memo(() => {
 
   // Render Map View
   const renderMapView = () => {
-    // (No changes needed here based on the latest request)
-    // ... (rest of the function remains the same) ...
     const transformStyle = {
       transform: `scale(${zoomLevel}) translate(${panPosition.x}px, ${panPosition.y}px)`,
       transformOrigin: 'center center'
@@ -702,26 +731,28 @@ const ProjectLayout = React.memo(() => {
             />
         </div>
 
-        <div className={styles.zoomSliderContainer}>
-          <span className={styles.zoomValue}>{Math.round(zoomLevel * 100)}%</span>
-          <input
-            type="range"
-            min="0.5"
-            max="1.5"
-            step="0.1"
-            value={zoomLevel}
-            onChange={handleSliderChange}
-            className={styles.zoomSlider}
-            aria-label="Điều chỉnh tỷ lệ zoom"
-          />
-          <button
-            className={styles.resetButton}
-            onClick={resetView}
-            aria-label="Đặt lại góc nhìn bản đồ"
-          >
-            <RefreshCw size={16} className={styles.resetIcon} />
-          </button>
-        </div>
+        {showZoomControls && (
+          <div className={styles.zoomSliderContainer}>
+            <span className={styles.zoomValue}>{Math.round(zoomLevel * 100)}%</span>
+            <input
+              type="range"
+              min="0.95"
+              max="6"
+              step="0.1"
+              value={zoomLevel}
+              onChange={handleSliderChange}
+              className={styles.zoomSlider}
+              aria-label="Điều chỉnh tỷ lệ zoom"
+            />
+            <button
+              className={styles.resetButton}
+              onClick={resetView}
+              aria-label="Đặt lại góc nhìn bản đồ"
+            >
+              <RefreshCw size={16} className={styles.resetIcon} />
+            </button>
+          </div>
+        )}
 
         {showZoomIndicator && (
           <div className={styles.zoomIndicator} role="status" aria-live="polite">

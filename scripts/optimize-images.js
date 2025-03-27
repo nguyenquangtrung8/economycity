@@ -1,20 +1,44 @@
 /**
  * optimize-images.js - Tối ưu hóa hình ảnh cho dự án Economy City
- * Sử dụng Sharp để nén và chuyển đổi hình ảnh
+ * Tự động chạy khi build hoặc start dự án
+ * Nguồn: /static/imgbase -> Đích: /static/img
+ * Chuyển đổi tên file thành không dấu, không dấu cách
+ * Chỉ xuất ra định dạng WebP
  */
 
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
-const chokidar = require('chokidar');
 
 // Đường dẫn thư mục
-const INPUT_DIR = path.join(__dirname, '../static/img');
-const OUTPUT_DIR = path.join(__dirname, '../static/img-optimized');
+const INPUT_DIR = path.join(__dirname, '../static/imgbase');
+const OUTPUT_DIR = path.join(__dirname, '../static/img');
 
-// Parse arguments
-const args = process.argv.slice(2);
-const WATCH_MODE = args.includes('--watch') || args.includes('-w');
+// Hàm chuyển đổi tiếng Việt có dấu thành không dấu
+function convertToNonAccentVietnamese(str) {
+  str = str.toLowerCase();
+  str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+  str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+  str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+  str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+  str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+  str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+  str = str.replace(/đ/g, "d");
+  
+  // Xóa ký tự đặc biệt
+  str = str.replace(/[^a-z0-9\s]/gi, "");
+  
+  // Thay thế dấu cách bằng dấu gạch ngang
+  str = str.replace(/\s+/g, "-");
+  
+  // Xóa các dấu gạch ngang liên tiếp
+  str = str.replace(/-+/g, "-");
+  
+  // Xóa dấu gạch ngang ở đầu và cuối
+  str = str.replace(/^-+|-+$/g, "");
+  
+  return str;
+}
 
 // Hàm đọc tất cả các file hình ảnh
 function getAllImageFiles(dir) {
@@ -42,16 +66,13 @@ function getAllImageFiles(dir) {
 
 // Xử lý một hình ảnh
 async function processImage(imagePath) {
-  // Bỏ qua nếu là trong thư mục đã tối ưu
-  if (imagePath.includes(OUTPUT_DIR)) {
-    return;
-  }
-
   // Lấy đường dẫn tương đối so với thư mục input
   const relativePath = path.relative(INPUT_DIR, imagePath);
   const outputDirectory = path.dirname(path.join(OUTPUT_DIR, relativePath));
-  const fileName = path.parse(imagePath).name;
-  const extension = path.parse(imagePath).ext.toLowerCase();
+  
+  // Chuyển đổi tên file thành không dấu, không dấu cách
+  const originalFileName = path.parse(imagePath).name;
+  const fileName = convertToNonAccentVietnamese(originalFileName);
 
   // Tạo thư mục đầu ra nếu chưa tồn tại
   if (!fs.existsSync(outputDirectory)) {
@@ -60,6 +81,10 @@ async function processImage(imagePath) {
 
   try {
     console.log(`🔄 Đang xử lý: ${relativePath}`);
+    
+    if (originalFileName !== fileName) {
+      console.log(`✏️ Tên file cũ: "${originalFileName}" -> Tên file mới: "${fileName}"`);
+    }
 
     // Lấy thông tin hình ảnh
     const metadata = await sharp(imagePath).metadata();
@@ -77,7 +102,14 @@ async function processImage(imagePath) {
     // Chỉ resize nếu vượt quá giới hạn kích thước file hoặc kích thước ảnh
     const shouldResize = shouldResizeBySize || shouldResizeByDimensions;
 
-    // 1. Tạo phiên bản WebP (nén tốt nhất cho web)
+    // Tạo phiên bản WebP (nén tốt nhất cho web)
+    const webpOutputPath = path.join(outputDirectory, `${fileName}.webp`);
+    const webpFileExists = fs.existsSync(webpOutputPath);
+    
+    if (webpFileExists) {
+      console.log(`ℹ️ Ghi đè file WebP hiện có: ${webpOutputPath}`);
+    }
+    
     await sharp(imagePath)
       // Resize nếu quá lớn (giữ nguyên tỷ lệ)
       .resize({
@@ -86,82 +118,26 @@ async function processImage(imagePath) {
         withoutEnlargement: true,
         fit: 'inside' // Giữ nguyên tỷ lệ
       })
-      // Chuyển sang WebP với chất lượng tốt hơn
+      // Chuyển sang WebP với chất lượng tốt
       .webp({
-        quality: 85, // Tăng chất lượng lên 85
+        quality: 85, // Chất lượng 85%
         effort: 6,
         smartSubsample: true,
         reductionEffort: 6
       })
       // Lưu file
-      .toFile(path.join(outputDirectory, `${fileName}.webp`));
-
-    // 2. Xử lý phiên bản nén của file gốc (dự phòng cho trình duyệt cũ)
-    if (extension === '.jpg' || extension === '.jpeg') {
-      // Nén JPEG
-      await sharp(imagePath)
-        .resize({
-          width: shouldResize ? maxWidth : null,
-          height: shouldResize ? maxHeight : null,
-          withoutEnlargement: true,
-          fit: 'inside'
-        })
-        .jpeg({
-          quality: 90, // Tăng chất lượng lên 90
-          progressive: true,
-          chromaSubsampling: '4:2:0',
-          trellisQuantisation: true,
-          overshootDeringing: true,
-          optimizeScans: true
-        })
-        .toFile(path.join(outputDirectory, `${fileName}.jpg`));
-
-    } else if (extension === '.png') {
-      // Nén PNG
-      await sharp(imagePath)
-        .resize({
-          width: shouldResize ? maxWidth : null,
-          height: shouldResize ? maxHeight : null,
-          withoutEnlargement: true,
-          fit: 'inside'
-        })
-        .png({
-          progressive: true,
-          compressionLevel: 9,
-          adaptiveFiltering: true,
-          palette: true
-        })
-        .toFile(path.join(outputDirectory, `${fileName}.png`));
-
-    } else if (extension === '.gif') {
-      // GIFs không được Sharp hỗ trợ tốt để tối ưu, nên chỉ copy
-      fs.copyFileSync(imagePath, path.join(outputDirectory, path.basename(imagePath)));
-    }
-
-    // 3. Tạo placeholder cho lazy loading
-    await sharp(imagePath)
-      .resize(20)
-      .blur(5)
-      .toBuffer()
-      .then(data => {
-        const base64 = `data:image/jpeg;base64,${data.toString('base64')}`;
-        fs.writeFileSync(path.join(outputDirectory, `${fileName}.placeholder.txt`), base64);
-      });
+      .toFile(webpOutputPath);
 
     console.log(`✅ Đã xử lý: ${relativePath}`);
 
     // Tính toán mức giảm kích thước
     const originalSize = fs.statSync(imagePath).size;
-    const webpPath = path.join(outputDirectory, `${fileName}.webp`);
+    const webpSize = fs.statSync(webpOutputPath).size;
+    const compressionRatio = (1 - webpSize / originalSize) * 100;
 
-    if (fs.existsSync(webpPath)) {
-      const webpSize = fs.statSync(webpPath).size;
-      const compressionRatio = (1 - webpSize / originalSize) * 100;
-
-      console.log(
-        `📊 Giảm ${compressionRatio.toFixed(1)}% kích thước (WebP: ${formatFileSize(webpSize)} | Gốc: ${formatFileSize(originalSize)})`
-      );
-    }
+    console.log(
+      `📊 Giảm ${compressionRatio.toFixed(1)}% kích thước (WebP: ${formatFileSize(webpSize)} | Gốc: ${formatFileSize(originalSize)})`
+    );
   } catch (error) {
     console.error(`❌ Lỗi khi xử lý ${relativePath}:`, error.message);
   }
@@ -174,19 +150,76 @@ function formatFileSize(bytes) {
   return (bytes / (1024 * 1024)).toFixed(1) + ' MB';
 }
 
+// Tạo bảng ánh xạ tên file
+function createFilenameMap(imageFiles) {
+  const filenameMap = {};
+  
+  for (const imagePath of imageFiles) {
+    const originalName = path.parse(imagePath).name;
+    const convertedName = convertToNonAccentVietnamese(originalName);
+    
+    if (originalName !== convertedName) {
+      filenameMap[originalName] = convertedName;
+    }
+  }
+  
+  return filenameMap;
+}
+
 // Hàm chính
 async function optimizeImages() {
-  console.log('🔍 Đang quét tất cả hình ảnh...');
+  console.log('🎨 Bắt đầu tối ưu hóa hình ảnh...');
+  console.log(`📂 Thư mục nguồn: ${INPUT_DIR}`);
+  console.log(`📂 Thư mục đích: ${OUTPUT_DIR}`);
+  console.log(`ℹ️ Định dạng đầu ra: chỉ WebP`);
+
+  // Kiểm tra thư mục đầu vào
+  if (!fs.existsSync(INPUT_DIR)) {
+    console.warn(`⚠️ Thư mục nguồn ${INPUT_DIR} không tồn tại! Đang tạo...`);
+    fs.mkdirSync(INPUT_DIR, { recursive: true });
+    console.log(`✅ Đã tạo thư mục nguồn. Vui lòng thêm hình ảnh vào ${INPUT_DIR}`);
+    return;
+  }
 
   // Tạo thư mục output nếu chưa tồn tại
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
+    console.log(`✅ Đã tạo thư mục đích ${OUTPUT_DIR}`);
+  } else {
+    console.log(`ℹ️ Thư mục đích ${OUTPUT_DIR} đã tồn tại, sẽ ghi đè các file khi cần thiết.`);
   }
 
   // Lấy tất cả file hình ảnh
   const imageFiles = getAllImageFiles(INPUT_DIR);
 
+  if (imageFiles.length === 0) {
+    console.log('ℹ️ Không tìm thấy hình ảnh nào để xử lý.');
+    return;
+  }
+
   console.log(`🖼️ Tìm thấy ${imageFiles.length} hình ảnh để xử lý...`);
+  
+  // Tạo bảng ánh xạ tên file và lưu vào file nếu có sự thay đổi tên
+  const filenameMap = createFilenameMap(imageFiles);
+  if (Object.keys(filenameMap).length > 0) {
+    console.log('📝 Danh sách tên file được chuyển đổi:');
+    for (const [original, converted] of Object.entries(filenameMap)) {
+      console.log(`  • "${original}" -> "${converted}"`);
+    }
+    
+    // Lưu bảng ánh xạ tên file vào JSON để tham khảo sau này
+    const mapFilePath = path.join(OUTPUT_DIR, 'filename-map.json');
+    
+    if (fs.existsSync(mapFilePath)) {
+      console.log(`ℹ️ Ghi đè file ánh xạ tên hiện có: ${mapFilePath}`);
+    }
+    
+    fs.writeFileSync(
+      mapFilePath, 
+      JSON.stringify(filenameMap, null, 2),
+      'utf8'
+    );
+  }
 
   // Xử lý từng hình ảnh
   for (const imagePath of imageFiles) {
@@ -194,37 +227,7 @@ async function optimizeImages() {
   }
 
   console.log('✨ Quá trình tối ưu hóa hình ảnh hoàn tất!');
-
-  // Nếu ở chế độ theo dõi, bắt đầu chokidar
-  if (WATCH_MODE) {
-    startWatcher();
-  }
-}
-
-// Khởi động chế độ theo dõi file
-function startWatcher() {
-  console.log('👀 Đang theo dõi thay đổi trong thư mục hình ảnh...');
-
-  // Theo dõi tất cả hình ảnh trong thư mục input
-  const watcher = chokidar.watch(['**/*.jpg', '**/*.jpeg', '**/*.png', '**/*.gif'], {
-    cwd: INPUT_DIR,
-    ignoreInitial: true
-  });
-
-  // Xử lý hình ảnh khi có thêm hoặc thay đổi
-  watcher.on('add', filePath => {
-    const fullPath = path.join(INPUT_DIR, filePath);
-    console.log(`🆕 Phát hiện hình ảnh mới: ${filePath}`);
-    processImage(fullPath);
-  });
-
-  watcher.on('change', filePath => {
-    const fullPath = path.join(INPUT_DIR, filePath);
-    console.log(`🔄 Phát hiện hình ảnh thay đổi: ${filePath}`);
-    processImage(fullPath);
-  });
-
-  console.log('💡 Mẹo: Nhấn Ctrl+C để dừng chế độ theo dõi');
+  console.log('🚀 Các hình ảnh đã được tối ưu hóa thành WebP, đổi tên và sao chép vào thư mục /static/img');
 }
 
 // Chạy script
@@ -240,11 +243,6 @@ function startWatcher() {
 
     // Bắt đầu quá trình tối ưu hóa
     await optimizeImages();
-
-    // Thoát nếu không ở chế độ watch
-    if (!WATCH_MODE) {
-      process.exit(0);
-    }
   } catch (error) {
     console.error('❌ Lỗi:', error);
     process.exit(1);

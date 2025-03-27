@@ -19,7 +19,8 @@ export const projectLayoutData = {
   id: "economy-city",
   name: "Economy City Văn Lâm",
   totalArea: 370000,
-  totalBuildingDensity: 1044,
+  totalBuildingDensity: 1044, // Tổng số căn trên toàn dự án
+  overallBuildingDensity: 32.3, // Thêm mật độ xây dựng tổng thể cho dự án
 
   // Metadata cho SEO
   metaTitle: "Economy City Văn Lâm - Mặt bằng tổng thể dự án",
@@ -77,7 +78,7 @@ export const projectLayoutData = {
       description: "Phân khu đầu tiên của dự án đã bán hết, bao gồm nhà phố và liền kề. Môi trường sống đã hình thành, nhiều cư dân đã chuyển đến sinh sống.",
       products: [
         {
-          type: "Biêt thự",
+          type: "Biệt thự",
           count: 32,
           areaRange: [80, 110],
           priceRange: [8500000000, 12000000000]
