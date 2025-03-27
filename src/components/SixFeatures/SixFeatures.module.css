@@ -1,145 +1,188 @@
 /* === SECTION CONTAINER === */
 .featuresSection {
   background: linear-gradient(to bottom, #EFF6FF, #DBEAFE);
-  padding: 4rem 0 6rem;
-  overflow: hidden; /* Ngăn thanh cuộn ngang không mong muốn trên body */
+  padding: 4rem 0 6rem; /* Padding top/bottom cho section */
+  overflow: hidden; /* Ngăn nội dung tràn ra ngoài */
   position: relative;
 }
 
+/* === CONTAINER CHÍNH === */
 .container {
-  max-width: 80rem;
-  margin: 0 auto;
-  padding: 0 1rem;
-  position: relative;
+  max-width: 80rem; /* 1280px */
+  margin: 0 auto; /* Căn giữa container chính */
+  padding: 0 1rem; /* Padding tối thiểu 2 bên (Mobile) */
+  position: relative; /* Cho các phần tử con định vị tuyệt đối */
 }
+@media (min-width: 640px) {
+  .container { padding: 0 1.5rem; } /* Tăng padding cho tablet nhỏ */
+}
+@media (min-width: 1024px) {
+  .container { padding: 0 2rem; } /* Tăng padding cho desktop */
+}
+
+
+/* === CONTAINER PHỤ CHO TEXT HEADER (Mới thêm) === */
+.textContainer {
+  /* Không cần style đặc biệt cho mobile */
+}
+/* Áp dụng cho Desktop (và Tablet nếu muốn dùng chung breakpoint) */
+@media (min-width: 768px) { /* Hoặc 1024px nếu chỉ muốn cho desktop lớn */
+  .textContainer {
+    max-width: 60rem; /* Giới hạn chiều rộng khối text (VD: 960px), nhỏ hơn 80rem */
+    margin-left: auto;  /* Căn giữa khối text */
+    margin-right: auto; /* bên trong .container chính */
+    /* Có thể thêm margin-bottom nếu muốn đẩy carousel xuống xa hơn */
+    /* margin-bottom: 1rem; */
+  }
+}
+
 
 /* === SECTION HEADER === */
 .sectionHeader {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 3rem; /* Khoảng cách dưới header trước khi tới carousel/mobile view */
+}
+/* Điều chỉnh margin bottom của header bên trong textContainer nếu cần */
+@media (min-width: 768px) {
+  .textContainer .sectionHeader {
+     /* margin-bottom: 2.5rem; */ /* Ví dụ: giảm nhẹ nếu .textContainer đã có margin-bottom */
+  }
 }
 
+
 .sectionSubtitle {
-  color: #4b5563;
+  color: #4b5563; /* Gray-600 */
   font-size: 1rem;
   margin-top: 0.5rem;
   margin-bottom: 1rem;
+  /* Không cần giới hạn width ở đây vì .textContainer đã xử lý */
 }
 
 .badge {
   display: inline-block;
   padding: 0.25rem 1rem;
   border-radius: 9999px;
-  background: linear-gradient(to right, #1d4ed8, #3b82f6);
+  background: linear-gradient(to right, #1d4ed8, #3b82f6); /* Blue gradient */
   color: white;
-  font-size: 0.875rem;
+  font-size: 0.875rem; /* 14px */
   font-weight: 600;
   margin-bottom: 1rem;
 }
 
 .sectionTitle {
-  font-size: 1.75rem; /* Sẽ được ghi đè trên màn hình lớn hơn */
+  font-size: 1.75rem; /* Mobile title size */
   font-weight: 700;
-  color: #1e3a8a;
+  color: #1e3a8a; /* Indigo-900 */
   margin-bottom: 1rem;
-  line-height: 1.3; /* Thêm line-height */
+  line-height: 1.3;
 }
 
 .titleDivider {
   width: 6rem;
   height: 0.25rem;
-  background: linear-gradient(to right, #f59e0b, #fbbf24);
-  margin: 1rem auto 0; /* Thêm margin-top */
+  background: linear-gradient(to right, #f59e0b, #fbbf24); /* Amber gradient */
+  margin: 1rem auto 0;
 }
 
 /* === CARD CONTENT (Chung cho Mobile & Desktop) === */
+.cardContent {
+  padding: 1.5rem 1.5rem 1.5rem; /* Padding mặc định (có thể bị ghi đè bởi mobile/desktop specific) */
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1; /* Cho phép content chiếm không gian còn lại */
+  align-items: center; /* Căn giữa icon, title, description */
+}
+
 .iconContainer {
-  width: 3rem;
-  height: 3rem;
+  width: 3.25rem; /* 52px */
+  height: 3.25rem;
+  margin-bottom: 1.25rem; /* Khoảng cách dưới icon */
   border-radius: 9999px;
-  background: linear-gradient(to right, #2563eb, #1d4ed8);
+  background: linear-gradient(to right, #2563eb, #1d4ed8); /* Blue gradient */
+  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
-  margin-bottom: 1rem;
-  transition: background 0.3s ease, transform 0.3s ease; /* Đổi transition */
   flex-shrink: 0;
+  transition: background 0.3s ease;
+}
+.iconContainer svg {
+  width: 1.5rem; /* 24px */
+  height: 1.5rem;
 }
 
 .featureTitle {
-  font-size: 1.125rem;
+  font-size: 1.125rem; /* 18px */
   font-weight: 700;
-  color: #1e3a8a;
-  margin-bottom: 0.75rem;
-  transition: color 0.3s ease; /* Đổi transition */
-  line-height: 1.3;
+  color: #1e3a8a; /* Indigo-900 */
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  text-align: center;
+  transition: color 0.3s ease;
 }
 
 .featureDescription {
-  color: #4b5563;
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
-  flex-grow: 1;
-  line-height: 1.5;
+  color: #4b5563; /* Gray-600 */
+  font-size: 0.875rem; /* 14px */
+  margin-bottom: 1rem; /* Khoảng cách dưới description */
+  line-height: 1.6;
+  text-align: center;
+  flex-grow: 1; /* Cho description chiếm không gian nếu title ngắn */
 }
 
 .featureImageContainer {
   width: 100%;
-  border-radius: 0.5rem;
+  border-bottom-left-radius: 0.75rem; /* Bo góc dưới cho khớp card */
+  border-bottom-right-radius: 0.75rem;
   overflow: hidden;
   position: relative;
-  margin-top: auto; /* Đẩy ảnh xuống dưới cùng */
-  aspect-ratio: 16/9;
+  margin-top: auto; /* Đẩy ảnh xuống dưới cùng của card */
+  aspect-ratio: 16/9; /* Tỷ lệ khung hình ảnh */
+  flex-shrink: 0; /* Ngăn ảnh bị co lại */
 }
-
+/* Fallback cho trình duyệt không hỗ trợ aspect-ratio */
 @supports not (aspect-ratio: 16/9) {
   .featureImageContainer {
-    height: 0;
-    padding-top: 56.25%; /* Fallback 16:9 */
+    padding-top: 56.25%; /* 9 / 16 * 100% */
+  }
+  .featureImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 
 .featureImage {
-  position: absolute;
-  top: 0;
-  left: 0;
+  display: block; /* Loại bỏ khoảng trắng dưới ảnh */
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: cover; /* Đảm bảo ảnh che phủ container */
   transition: transform 0.5s ease;
 }
 
-.readMore {
-   color: #3b82f6;
-   font-weight: 600;
-   font-size: 0.875rem;
-   margin-top: 0.5rem;
-   display: none; /* Chỉ hiển thị khi cần (JS) */
-   background: none; /* Reset style button */
-   border: none;
-   padding: 0;
-   cursor: pointer;
-   text-align: left;
-}
-
-
-/* === DESKTOP CAROUSEL STYLES (Hiển thị mặc định, ẩn trên mobile < 768px) === */
+/* === DESKTOP CAROUSEL STYLES === */
 .carouselContainer {
   position: relative;
-  overflow: visible;
-  padding: 2rem 3rem; /* Padding cho nút điều hướng */
-  min-height: 500px;
+  /* overflow: visible; */ /* Có thể để hidden nếu không muốn thấy card ngoài rìa */
+  padding: 2rem 0; /* Padding trên dưới cho carousel */
+  min-height: 500px; /* Chiều cao tối thiểu để chứa card */
+  display: none; /* Mặc định ẩn, hiện ở media query */
 }
+@media (min-width: 768px) {
+   .carouselContainer { display: block; } /* Hiện trên tablet/desktop */
+}
+
 
 .autoPlayIndicator {
   position: absolute;
-  bottom: -1.5rem;
+  bottom: -1rem; /* Đặt dưới dots */
   left: 50%;
   transform: translateX(-50%);
   width: 100px;
   height: 4px;
-  background-color: rgba(29, 78, 216, 0.1);
+  background-color: rgba(29, 78, 216, 0.1); /* Màu nền mờ */
   border-radius: 2px;
   overflow: hidden;
   z-index: 10;
@@ -147,69 +190,75 @@
 
 .autoPlayProgress {
   height: 100%;
-  width: 0%; /* JS sẽ điều khiển width hoặc animation */
-  background-color: #1d4ed8;
-  /* animation được đặt inline bằng JS để reset */
+  width: 0%;
+  background-color: #1d4ed8; /* Màu chính */
+  /* Animation được đặt inline trong JSX */
 }
-
-/* Keyframes cho desktop progress bar (có thể đặt inline bằng style jsx) */
-/* @keyframes autoPlayProgress {
-  from { width: 0%; }
-  to { width: 100%; }
-} */
 
 .cardsWrapper {
   position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center; /* Căn giữa các card theo chiều dọc */
-  min-height: 450px; /* Đảm bảo chiều cao */
-  overflow: visible;
+  display: flex; /* Cho phép translateX hoạt động */
+  justify-content: center; /* Căn giữa nhóm card */
+  align-items: stretch; /* Card cao bằng nhau */
+  min-height: 480px; /* Đảm bảo wrapper đủ cao */
+  /* overflow: visible; */ /* Để thấy hiệu ứng scale/translate */
+  /* Không cần padding ở đây vì translateX sẽ xử lý vị trí */
 }
 
-/* Feature card chung - sẽ được style cụ thể hơn cho desktop và mobile */
+/* Feature card chung (Áp dụng cho cả mobile và desktop ban đầu) */
 .featureCard {
   background-color: white;
-  border-radius: 0.75rem;
+  border-radius: 0.75rem; /* 12px */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 1.5rem;
   display: flex;
   flex-direction: column;
   transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  overflow: hidden; /* Đảm bảo nội dung không tràn khỏi border-radius */
 }
 
-/* Desktop-specific card styles */
+/* Desktop-specific card styles (Ghi đè/bổ sung) */
 @media (min-width: 768px) {
-  .featureCard:not(.mobileCard) { /* Chỉ áp dụng cho card desktop/tablet */
-    position: absolute;
-    width: 90%;
-    max-width: 350px;
-    min-height: 400px; /* Đồng bộ chiều cao */
+  .featureCard:not(.mobileCard) { /* Chỉ áp dụng cho card desktop */
+    position: absolute; /* Để xếp chồng và di chuyển bằng transform */
+    width: 380px; /* Chiều rộng tối đa */
+    height: 284px; /* Chiều cao tối đa */
     opacity: 0.7;
-    transform: scale(0.9);
+    transform: scale(0.9); /* Thu nhỏ card không active */
     z-index: 1;
+    min-height: 465px; /* Chiều cao tối thiểu desktop */
+    will-change: transform, opacity; /* Tối ưu hiệu năng transition */
   }
 
-  .featureCard:not(.mobileCard):hover {
+  .featureCard:not(.mobileCard):hover { /* Hover trên card không active */
     box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-    /* Không cần thay đổi transform/opacity khi hover */
+    /* Có thể thêm hiệu ứng nhẹ khác nếu muốn */
   }
 
-  /* Active card styling (Desktop/Tablet) */
   .activeCard {
-    transform: translateX(0) scale(1) !important; /* Scale về 1, không phóng to thêm */
+    /* Style được đặt inline trong JSX để dễ quản lý vị trí */
+    transform: translateX(0) scale(1) !important;
     opacity: 1 !important;
     box-shadow: 0 15px 30px -5px rgba(0, 0, 0, 0.1), 0 10px 15px -3px rgba(0, 0, 0, 0.05);
-    border: 2px solid #3b82f6;
-    z-index: 20 !important;
+    border: 2px solid #3b82f6; /* Blue-500 */
+    z-index: 20 !important; /* Nổi lên trên cùng */
   }
 
   .activeCard .iconContainer {
-    background: linear-gradient(to right, #1e40af, #3b82f6);
+    background: linear-gradient(to right, #1e40af, #3b82f6); /* Darker blue gradient */
   }
 
   .activeCard .featureTitle {
-    color: #1e40af;
+    color: #1e40af; /* Indigo-800 */
+  }
+
+  /* Điều chỉnh padding content cho card desktop */
+  .featureCard:not(.mobileCard) .cardContent {
+    padding: 1.5rem 1.5rem 1.5rem; /* Padding top/ngang/bottom cho desktop */
+  }
+
+   /* Điều chỉnh icon container desktop nếu cần */
+  .featureCard:not(.mobileCard) .iconContainer {
+     /* margin-top: 0.75rem; */ /* Có thể thêm nếu muốn đẩy icon xuống */
   }
 }
 
@@ -218,7 +267,7 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 3rem;
+  width: 3rem; /* 48px */
   height: 3rem;
   border-radius: 9999px;
   background-color: white;
@@ -226,139 +275,125 @@
   display: none; /* Ẩn mặc định */
   align-items: center;
   justify-content: center;
-  color: #1e40af;
-  z-index: 30;
+  color: #1e40af; /* Indigo-800 */
+  z-index: 30; /* Nổi trên card */
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
 }
 @media (min-width: 768px) {
-  .navButton { display: flex; } /* Hiện trên desktop/tablet */
+  .navButton { display: flex; } /* Hiện trên tablet/desktop */
 }
 
 .navButton:hover {
-  background-color: #1e40af;
+  background-color: #1e40af; /* Indigo-800 */
   color: white;
 }
+.navButton:focus-visible { /* Cải thiện accessibility */
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
 
-.prevButton { left: 0.5rem; }
-.nextButton { right: 0.5rem; }
+.prevButton { left: -1.5rem; } /* Đặt nút ra ngoài lề card một chút */
+.nextButton { right: -1.5rem; }
+/* Điều chỉnh vị trí nút nếu container chính có padding lớn */
+@media (min-width: 1024px) {
+  .prevButton { left: -2.5rem; }
+  .nextButton { right: -2.5rem; }
+}
+
 
 /* Dots Indicator (Desktop/Tablet) */
 .dotsContainer {
   display: none; /* Ẩn mặc định */
   justify-content: center;
-  gap: 0.5rem;
-  margin-top: 2rem;
+  gap: 0.5rem; /* Khoảng cách giữa các dot */
+  margin-top: 2.5rem; /* Khoảng cách trên dots */
   position: relative;
   z-index: 5;
 }
 @media (min-width: 768px) {
-  .dotsContainer { display: flex; } /* Hiện trên desktop/tablet */
+  .dotsContainer { display: flex; } /* Hiện trên tablet/desktop */
 }
 
 .dot {
-  width: 0.75rem;
+  width: 0.75rem; /* 12px */
   height: 0.75rem;
   border-radius: 9999px;
-  background-color: #d1d5db;
+  background-color: #d1d5db; /* Gray-300 */
   transition: all 0.3s ease;
   border: none;
   padding: 0;
   cursor: pointer;
 }
-
-.dot:hover { background-color: #9ca3af; }
-
-.activeDot {
-  width: 2rem;
-  background-color: #1d4ed8;
+.dot:hover { background-color: #9ca3af; } /* Gray-400 */
+.dot:focus-visible { /* Cải thiện accessibility */
+   outline: 2px solid #3b82f6;
+   outline-offset: 2px;
+   background-color: #9ca3af;
 }
+.activeDot {
+  width: 2rem; /* Dot active dài hơn */
+  background-color: #1d4ed8; /* Blue-700 */
+}
+
 
 /* ----- MOBILE OPTIMIZED STYLES ----- */
 
-/* Ẩn Desktop Carousel trên mobile (< 768px) */
-@media (max-width: 767px) {
-  .carouselContainer {
-    display: none;
-  }
-}
-
-/* Hiển thị Mobile Container chỉ trên mobile */
+/* Container cho toàn bộ view mobile (ẩn trên desktop) */
 .mobileViewContainer {
-  display: none; /* Mặc định ẩn */
-  position: relative;
-  margin-bottom: 2rem;
-  overflow: visible;
+  display: none; /* Ẩn mặc định */
+  position: relative; /* Cho indicator */
+  margin-bottom: 2rem; /* Khoảng cách dưới trước khi tới CTA */
+  overflow: visible; /* Để thấy shadow của card */
 }
-
-@media (max-width: 767px) {
-  .mobileViewContainer {
-    display: block; /* Hiển thị trên mobile */
-  }
-
-  /* Điều chỉnh section & header trên mobile */
-  .featuresSection {
-    padding: 3rem 0 4rem;
-  }
-  .sectionHeader {
-    margin-bottom: 2rem;
-  }
-  .sectionTitle {
-    font-size: 1.5rem; /* Nhỏ hơn nữa */
-  }
-  .sectionSubtitle {
-    font-size: 0.9rem;
-  }
-  .badge {
-    font-size: 0.8rem;
-    padding: 0.2rem 0.8rem;
-  }
-  .titleDivider {
-      width: 5rem;
-  }
+@media (max-width: 767px) { /* Chỉ hiện trên mobile */
+  .mobileViewContainer { display: block; }
+  .featuresSection { padding: 3rem 0 4rem; } /* Giảm padding section trên mobile */
+  .sectionHeader { margin-bottom: 2rem; } /* Giảm margin dưới header mobile */
+  .sectionTitle { font-size: 1.5rem; } /* Giảm font size title mobile */
+  .sectionSubtitle { font-size: 0.9rem; } /* Giảm font size subtitle mobile */
+  .badge { font-size: 0.8rem; padding: 0.2rem 0.8rem; } /* Badge nhỏ hơn */
+  .titleDivider { width: 5rem; } /* Divider ngắn hơn */
 }
 
 /* Mobile Scroll Indicator */
 .mobileScrollIndicator {
   position: absolute;
-  top: 40%; /* Điều chỉnh vị trí */
+  top: 40%; /* Điều chỉnh vị trí dọc */
   left: 50%;
   transform: translate(-50%, -50%);
-  z-index: 40;
-  display: flex; /* JS sẽ kiểm soát việc hiển thị/ẩn */
+  z-index: 40; /* Nổi trên cùng */
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.95);
   border-radius: 0.75rem;
-  padding: 0.8rem 1rem; /* Nhỏ hơn */
+  padding: 0.8rem 1rem;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
   animation: fadeInOut 3s ease-in-out forwards;
-  pointer-events: none;
+  pointer-events: none; /* Không bắt sự kiện click */
   opacity: 0; /* Bắt đầu ẩn */
-  font-size: 0.8rem; /* Chữ nhỏ hơn */
-  color: #374151; /* Màu chữ */
+  font-size: 0.8rem;
+  color: #374151; /* Gray-700 */
 }
 
 @keyframes fadeInOut {
-  0%, 100% { opacity: 0; visibility: hidden; } /* Thêm visibility */
+  0%, 100% { opacity: 0; visibility: hidden; }
   10% { opacity: 1; visibility: visible; }
   90% { opacity: 1; visibility: visible; }
 }
 
 .swipeIcon {
-  color: #3b82f6;
-  margin-bottom: 0.3rem; /* Giảm margin */
+  color: #3b82f6; /* Blue-500 */
+  margin-bottom: 0.3rem;
   animation: swipe 1.5s ease-in-out infinite;
 }
-
-/* Icon SVG đơn giản hơn */
 .swipeIcon svg {
    width: 20px;
    height: 20px;
 }
-
 @keyframes swipe {
   0%, 100% { transform: translateX(-4px); }
   50% { transform: translateX(4px); }
@@ -369,129 +404,133 @@
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
-  padding: 0 1rem; /* Padding hai bên để card không dính mép */
-  margin: 0 -1rem; /* Bù lại padding của container cha */
+  scroll-snap-type: x mandatory; /* Bắt buộc snap */
+  -webkit-overflow-scrolling: touch; /* Mượt trên iOS */
+  scrollbar-width: none; /* Ẩn scrollbar trên Firefox */
+  -ms-overflow-style: none; /* Ẩn scrollbar trên IE/Edge */
+  /* margin: 0 -1rem; */ /* Bù padding của .container */
+  /* Thêm padding để card đầu/cuối có thể snap vào giữa */
+  /* Tính toán padding dựa trên card width và gap */
+  /* Ví dụ: card width 80vw, gap 1rem */
+  /* padding: 0 calc(10vw + 0.5rem); */
+  padding-left: calc(50% - (80vw / 2)); /* Căn card đầu tiên */
+  padding-right: calc(50% - (80vw / 2)); /* Căn card cuối cùng */
 }
-
 .mobileScrollView::-webkit-scrollbar {
-  display: none; /* Chrome, Safari, Opera */
+  display: none; /* Ẩn scrollbar trên Chrome/Safari */
 }
 
 .mobileCardsContainer {
   display: flex;
-  /* Khoảng cách giữa các card - dùng gap hoặc margin */
-   gap: 1rem;
-  /* Hoặc dùng margin: */
-  /* .mobileCard { margin-right: 1rem; } */
-  /* .mobileCard:last-child { margin-right: 0; } */
-  padding: 0.5rem 0 1.5rem; /* Giảm padding dưới */
-  align-items: stretch; /* Làm các card cao bằng nhau */
+  gap: 1rem; /* Khoảng cách giữa các card mobile */
+  padding-bottom: 1.5rem; /* Khoảng trống dưới card trước dots */
+  align-items: stretch; /* Card cao bằng nhau */
 }
 
 /* Mobile Feature Cards */
 .mobileCard {
-  /* Kế thừa style từ .featureCard */
-  position: relative; /* Cần cho scroll-snap-align */
-  scroll-snap-align: center;
+  position: relative; /* Cho các phần tử con nếu cần */
+  scroll-snap-align: center; /* Căn card vào giữa khi dừng cuộn */
   flex-shrink: 0;
   width: 80vw; /* Chiếm 80% viewport width */
-  max-width: 280px; /* Giới hạn chiều rộng tối đa */
-  border: 1px solid #e2e8f0;
-  overflow: hidden; /* Ẩn nội dung tràn */
-  cursor: pointer; /* Thêm cursor pointer */
+  max-width: 300px; /* Giới hạn chiều rộng tối đa */
+  border: 1px solid #e2e8f0; /* Slate-200 */
+  cursor: grab; /* Thay đổi con trỏ khi kéo */
+  min-height: 430px; /* Chiều cao tối thiểu Mobile */
+  /* Kế thừa display: flex, flex-direction: column từ .featureCard */
+}
+.mobileCard:active {
+   cursor: grabbing; /* Con trỏ khi đang kéo */
 }
 
 .activeMobileCard {
-  border-color: #3b82f6;
+  border-color: #3b82f6; /* Blue-500 */
   box-shadow: 0 6px 12px -2px rgba(59, 130, 246, 0.15), 0 3px 7px -3px rgba(59, 130, 246, 0.1);
-  /* Không cần scale trên mobile, border là đủ */
 }
 
 .activeMobileCard .iconContainer {
-  background: linear-gradient(to right, #1e40af, #3b82f6);
+  background: linear-gradient(to right, #1e40af, #3b82f6); /* Darker blue gradient */
 }
 
 /* Styles cụ thể cho nội dung card trên mobile */
 @media (max-width: 767px) {
   .mobileCard .cardContent {
-    padding: 1rem; /* Padding nhất quán */
+     padding: 2rem 1.5rem 1rem; /* Giảm padding ngang mobile */
   }
+
   .mobileCard .iconContainer {
-    width: 2.5rem; /* Nhỏ hơn nữa */
-    height: 2.5rem;
-    margin-bottom: 0.75rem;
+    width: 3rem; /* 48px */
+    height: 3rem;
+    margin-bottom: 1rem;
   }
-   .mobileCard .iconContainer svg { /* Scale icon bên trong nếu cần */
-      width: 20px;
-      height: 20px;
+   .mobileCard .iconContainer svg {
+      width: 1.4rem; /* ~22px */
+      height: 1.4rem;
    }
 
   .mobileCard .featureTitle {
-    font-size: 1rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.05rem; /* ~17px */
+    margin-bottom: 0.4rem;
+    line-height: 1.35;
   }
 
   .mobileCard .featureDescription {
-    font-size: 0.8rem;
-    max-height: 4.8rem; /* Khoảng 4 dòng */
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    text-overflow: ellipsis;
-    margin-bottom: 0.75rem; /* Giảm margin bottom */
+    font-size: 0.825rem; /* ~13px */
+    line-height: 1.55;
+    margin-bottom: 0.8rem;
   }
 
+  /* Điều chỉnh tỷ lệ ảnh mobile nếu cần */
   .mobileCard .featureImageContainer {
-    aspect-ratio: 16/8; /* Ảnh thấp hơn (2:1) */
+    aspect-ratio: 16/8; /* Hoặc giữ 16/9 */
   }
   @supports not (aspect-ratio: 16/8) {
     .mobileCard .featureImageContainer {
-      padding-top: 50%; /* Fallback 2:1 */
+      padding-top: 50%; /* 8 / 16 * 100% */
     }
   }
 }
 
 /* Mobile Dots Indicator */
 .mobileDotsContainer {
-  display: flex;
+  display: flex; /* Hiện trên mobile (block trong mobileViewContainer) */
   justify-content: center;
   align-items: center;
-  gap: 0.6rem; /* Tăng gap một chút */
-  margin-top: 1rem; /* Tăng margin top */
+  gap: 0.6rem; /* Khoảng cách dots mobile */
+  margin-top: 1rem; /* Khoảng cách trên dots mobile */
   position: relative;
   z-index: 5;
 }
-/* Chỉ hiển thị mobile dots trên mobile */
 @media (min-width: 768px) {
-   .mobileDotsContainer { display: none; }
+   .mobileDotsContainer { display: none; } /* Ẩn trên desktop */
 }
 
 .mobileDot {
-  width: 0.5rem;
+  width: 0.5rem; /* 8px */
   height: 0.5rem;
   border-radius: 9999px;
-  background-color: #d1d5db;
+  background-color: #d1d5db; /* Gray-300 */
   transition: all 0.3s ease;
   border: none;
   padding: 0;
   cursor: pointer;
 }
+.mobileDot:focus-visible { /* Cải thiện accessibility */
+   outline: 2px solid #3b82f6;
+   outline-offset: 2px;
+   background-color: #9ca3af;
+}
 
 .activeMobileDot {
-  width: 1.5rem;
-  background-color: #3b82f6;
+  width: 1.5rem; /* Dot active dài hơn */
+  background-color: #3b82f6; /* Blue-500 */
 }
 
 
 /* === CTA SECTION === */
 .ctaContainer {
   text-align: center;
-  margin-top: 3rem; /* Giảm margin top */
+  margin-top: 3rem; /* Khoảng cách trên nút CTA */
   position: relative;
   z-index: 10;
 }
@@ -500,12 +539,12 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.9rem 1.8rem; /* Điều chỉnh padding */
-  background: linear-gradient(to right, #f59e0b, #fbbf24);
+  padding: 0.9rem 1.8rem;
+  background: linear-gradient(to right, #f59e0b, #fbbf24); /* Amber gradient */
   color: white;
   font-weight: 700;
-  font-size: 0.95rem; /* Điều chỉnh font size */
-  border-radius: 0.5rem;
+  font-size: 0.95rem; /* ~15px */
+  border-radius: 0.5rem; /* 8px */
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   transition: all 0.3s ease;
   text-decoration: none;
@@ -516,6 +555,10 @@
 .ctaButton:hover {
   transform: translateY(-0.25rem);
   box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2), 0 4px 6px -2px rgba(245, 158, 11, 0.1);
+}
+.ctaButton:focus-visible { /* Cải thiện accessibility */
+  outline: 2px solid #f59e0b;
+  outline-offset: 2px;
 }
 
 .ctaArrow {
@@ -528,47 +571,31 @@
 /* Điều chỉnh CTA cho mobile */
 @media (max-width: 767px) {
   .ctaContainer {
-    margin-top: 2.5rem;
+    margin-top: 2.5rem; /* Giảm khoảng cách trên CTA mobile */
   }
   .ctaButton {
     padding: 0.8rem 1.5rem;
-    font-size: 0.9rem;
+    font-size: 0.9rem; /* ~14px */
   }
 }
 
-/* === RESPONSIVE ADJUSTMENTS (Cho màn hình lớn hơn) === */
-@media (min-width: 640px) {
-  .container {
-    padding: 0 1.5rem;
-  }
-}
 
+/* === RESPONSIVE ADJUSTMENTS (Font size lớn hơn cho Desktop) === */
 @media (min-width: 768px) {
-  /* Tăng font-size chỉ trên desktop/tablet */
   .sectionTitle {
-    font-size: 2.25rem;
+    font-size: 2rem; /* Tăng size title tablet/desktop nhỏ */
   }
-   /* Đảm bảo mobile scroll view được ẩn */
-   .mobileViewContainer {
-      display: none;
-   }
-   /* Đảm bảo desktop carousel được hiển thị */
-   .carouselContainer {
-     display: block;
-   }
+  .sectionSubtitle {
+     font-size: 1.05rem; /* Tăng nhẹ subtitle */
+  }
 }
 
 @media (min-width: 1024px) {
-  .container {
-    padding: 0 2rem;
-  }
   .sectionTitle {
-    font-size: 2.5rem;
+    font-size: 2.25rem; /* Tăng size title desktop lớn */
   }
-  /* Tăng chiều cao card desktop trên màn lớn */
-  .featureCard:not(.mobileCard) {
-     min-height: 420px;
-     max-width: 380px; /* Có thể tăng max-width */
+   .sectionSubtitle {
+     font-size: 1.1rem;
   }
 }
 
@@ -582,8 +609,11 @@
   .dot,
   .mobileDot,
   .ctaButton,
-  .ctaArrow {
-    transition: none !important; /* Dùng !important để chắc chắn ghi đè */
+  .ctaArrow,
+  .mobileScrollView {
+    transition: none !important;
+    animation: none !important;
+    scroll-behavior: auto !important; /* Tắt smooth scroll */
   }
 
   .autoPlayProgress,
@@ -591,9 +621,8 @@
   .mobileScrollIndicator {
     animation: none !important;
   }
-   /* Đảm bảo indicator ẩn nếu animation bị tắt và không cần thiết */
-  .mobileScrollIndicator {
-     opacity: 0;
-     visibility: hidden;
+  .mobileScrollIndicator { /* Ẩn luôn nếu giảm chuyển động */
+     opacity: 0 !important;
+     visibility: hidden !important;
   }
 }
