@@ -34,7 +34,7 @@ export const projectLayoutData = {
       name: "Phân khu Phú Quý",
       area: 95000,
       buildingDensity: 226,
-      status: "coming-soon", // đang mở bán
+      status: "coming-soon", // sắp mở bán
       description: "Phân khu phía Đông với không gian sống hiện đại, nhiều tiện ích và không gian xanh. Gần trục đường chính và dễ dàng kết nối với khu vực trung tâm.",
       products: [
         {
@@ -57,7 +57,7 @@ export const projectLayoutData = {
       name: "Phân khu Cát Tường",
       area: 85000,
       buildingDensity: 296,
-      status: "selling", // sắp mở bán
+      status: "selling", // đang mở bán
       description: "Phân khu trung tâm với nhiều tiện ích cao cấp, bao gồm shophouse và nhà phố thương mại. Vị trí đắc địa, phù hợp cho cả ở và kinh doanh.",
       products: [
         {
@@ -74,8 +74,8 @@ export const projectLayoutData = {
       name: "Phân khu Hưng Thịnh",
       area: 75000,
       buildingDensity: 256,
-      status: "selling", // đã bán hết
-      description: "Phân khu đầu tiên của dự án đã bán hết, bao gồm nhà phố và liền kề. Môi trường sống đã hình thành, nhiều cư dân đã chuyển đến sinh sống.",
+      status: "selling", // đang mở bán
+      description: "Phân khu phía Tây với thiết kế đa dạng, bao gồm nhà phố và liền kề. Môi trường sống xanh, gần các tiện ích thể thao và giải trí.",
       products: [
         {
           type: "Biệt thự",
@@ -134,5 +134,57 @@ export const projectLayoutData = {
   }
 };
 
-// Cũng xuất ra mặc định để linh hoạt hơn
-export default projectLayoutData;
+/**
+ * Dữ liệu chi tiết các khu vực đang mở bán
+ * Thông tin này sẽ được sử dụng trong tab "Đang mở bán"
+ */
+export const sellingLayoutData = {
+  "zone-b": { // Phân khu Cát Tường
+    detailLayoutImage: "/img/cat-tuong-selling-layout.jpeg", // Ảnh layout chi tiết các căn đang bán
+    sellingAreas: [
+      {
+        name: "Dãy D1 - D2",
+        description: "Tọa lạc tại vị trí đẹp nhất phân khu, gồm các căn biệt thự và liền kề sang trọng, view hồ trung tâm.",
+        availableCount: 34,
+        totalCount: 48,
+        priceRange: [10500000000, 15800000000]
+      },
+      {
+        name: "Dãy T5",
+        description: "Nằm ở trục đường nội khu, phù hợp kinh doanh, gồm các căn liền kề có thiết kế hiện đại.",
+        availableCount: 22,
+        totalCount: 30,
+        priceRange: [9000000000, 12000000000]
+      }
+    ]
+  },
+  "zone-c": { // Phân khu Hưng Thịnh
+    detailLayoutImage: "/img/hung-thinh-selling-layout.jpeg", // Ảnh layout chi tiết các căn đang bán
+    sellingAreas: [
+      {
+        name: "Dãy BT3 - BT4",
+        description: "Khu biệt thự cao cấp gồm các căn góc và giữa, tiêu chuẩn thiết kế tân cổ điển.",
+        availableCount: 18,
+        totalCount: 22,
+        priceRange: [25000000000, 32000000000]
+      },
+      {
+        name: "Dãy L7 - L9",
+        description: "Liền kề shophouse kết hợp ở và kinh doanh, mặt tiền rộng, phù hợp làm văn phòng.",
+        availableCount: 27,
+        totalCount: 42,
+        priceRange: [15500000000, 19800000000]
+      },
+      {
+        name: "Dãy L12",
+        description: "Liền kề thương mại nằm trên trục đường chính, thiết kế hiện đại.",
+        availableCount: 15,
+        totalCount: 20,
+        priceRange: [13200000000, 18500000000]
+      }
+    ]
+  }
+};
+
+// Xuất projectLayoutData và sellingLayoutData
+export default { projectLayoutData, sellingLayoutData };

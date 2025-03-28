@@ -1,7 +1,7 @@
-/* ProjectLayout.module.css - Phiên bản cải tiến đơn giản */
+/* ProjectLayout.module.css - Phiên bản đầy đủ đã sửa lỗi */
 
 /* =========================
-   CONTAINER CHÍNH
+   CONTAINER CHÍNH & TYPOGRAPHY
    ========================= */
    .projectLayoutContainer {
     font-family: var(--font-family-body, 'Inter', 'Segoe UI', sans-serif);
@@ -15,6 +15,64 @@
   .projectLayoutHeader {
     text-align: center;
     margin-bottom: var(--spacing-6, 24px);
+    position: relative;
+  }
+  
+  /* Ẩn tất cả các gạch ngang dưới tiêu đề */
+  .projectLayoutHeader::after,
+  h1::after,
+  h2::after,
+  h3::after,
+  h4::after,
+  .projectTitle::after,
+  .pageTitle::after,
+  .sectionTitle::after,
+  h2.projectTitle::after,
+  h2.headingWithLine::after,
+  .headingWithLine::after,
+  h2.projectSectionsTitle::after,
+  .projectSectionsTitle::after,
+  .sellingAreasTitle::after,
+  .sectionHeader::after {
+    display: none !important;
+  }
+  
+  /* Xóa đường viền dưới của tiêu đề */
+  h1, h2, h3, h4, 
+  .projectTitle, 
+  .pageTitle, 
+  .sectionTitle {
+    border-bottom: none !important;
+  }
+  
+  /* Xóa gạch chân trang trí nếu là một phần tử riêng biệt */
+  .underline,
+  .title-underline,
+  .title-decoration,
+  .title-bar {
+    display: none !important;
+  }
+  
+  /* Ẩn border-bottom trên các container */
+  .title-container,
+  .heading-container {
+    border-bottom: none !important;
+  }
+  
+  /* Xử lý trường hợp tiêu đề có thẻ u hoặc border-bottom inline */
+  h1 u, h2 u, h3 u, h4 u,
+  .projectTitle u, 
+  .pageTitle u, 
+  .sectionTitle u {
+    text-decoration: none !important;
+  }
+  
+  /* Target cụ thể cho tiêu đề "Mặt bằng tổng thể dự án" */
+  h1 + hr, 
+  h2 + hr,
+  .projectTitle + hr,
+  .sectionTitle + hr {
+    display: none !important;
   }
   
   .projectTitle {
@@ -23,11 +81,22 @@
     text-align: center;
     color: #1e3a8a;
     margin-bottom: 0.75rem;
+    letter-spacing: -0.5px;
+    position: relative;
+    display: inline-block;
+    border-bottom: none !important;
   }
   
   .titleIcon {
     margin-right: 8px;
-    color: #1e3a8a;
+    color: #3b82f6;
+    animation: pulse 2s infinite;
+    display: none; /* Ẩn icon */
+  }
+  
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
   }
   
   .projectDescription {
@@ -36,83 +105,169 @@
     font-size: 1.1rem;
     max-width: 800px;
     line-height: 1.5;
+    font-weight: 400;
   }
   
   /* =========================
-     TAB INTERFACE
+     TAB INTERFACE - ĐÃ SỬA LỖI
      ========================= */
   .tabsContainer {
     display: flex;
-    justify-content: center;
+    width: 100%;
+    max-width: 100%;
     margin-bottom: var(--spacing-6, 24px);
-    background: var(--neutral-50, #f8fafc);
-    padding: 4px;
-    border-radius: 8px;
-    width: fit-content;
-    margin-left: auto;
-    margin-right: auto;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    overflow: hidden;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+    z-index: 2;
   }
-  
+
   .tabButton {
+    flex: 1;
     background-color: transparent;
     border: none;
-    color: #1e3a8a;
-    padding: 10px 20px;
+    color: #64748b;
+    padding: 14px 20px;
     cursor: pointer;
-    font-size: var(--font-size-base, 14px);
+    font-size: 14px;
     font-weight: 500;
-    transition: all 0.2s ease;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    position: relative;
-  }
-  
-  .tabIcon {
-    margin-right: 6px;
-  }
-  
-  .tabButton:focus-visible {
-    outline: 2px solid #1e3a8a;
-    outline-offset: 2px;
-  }
-  
-  .activeTab {
-    background-color: white;
-    color: #1e3a8a;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  }
-  
-  .countBadge {
-    position: absolute;
-    top: -8px;
-    right: -8px;
-    background-color: #10b981;
-    color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 11px;
-    font-weight: bold;
+    position: relative;
+    border-radius: 0;
+  }
+  
+  .tabButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(30, 58, 138, 0.05);
+    transform: scale(0);
+    opacity: 0;
+    transition: transform 0.3s, opacity 0.3s;
+    z-index: -1;
+  }
+  
+  .tabButton:hover::before {
+    transform: scale(1);
+    opacity: 1;
+  }
+  
+  /* Tab đang active */
+.activeTab {
+  background-color: #f8fafc;
+  color: #1e3a8a;
+  font-weight: 600;
+  position: relative;
+}
+
+.activeTab::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #1e40af;
+}
+
+/* Icon trong tab - đặt màu giống màu tiêu đề */
+.tabIcon {
+  margin-right: 8px;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+  color: #1e40af; /* Đặt màu giống với màu chữ tiêu đề */
+}
+
+.tabButton:hover .tabIcon {
+  transform: translateY(-2px);
+}
+
+/* Sửa lỗi Badge số lượng */
+.countBadge {
+  position: absolute;
+  top: 6px; /* Điều chỉnh vị trí lên phía trên */
+  right: 10px; /* Điều chỉnh vị trí sang phải */
+  background: #10b981;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
+  border: 2px solid white;
+  z-index: 5; /* Tăng z-index để hiển thị phía trên */
+}
+  
+  @keyframes badgePulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4);
+    }
+    50% {
+      box-shadow: 0 0 0 6px rgba(16, 185, 129, 0);
+    }
   }
   
   /* =========================
-     GRID LAYOUT CHÍNH - TỶ LỆ 60/40
+     TIÊU ĐỀ VỚI GẠCH NGANG - ĐÃ SỬA LỖI
+     ========================= */
+  .sectionTitle, 
+  h2.projectTitle,
+  .sectionHeader {
+    position: relative;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    font-weight: 600;
+    color: #1e3a8a;
+    border-bottom: none !important;
+  }
+  
+  h2.headingWithLine,
+  .headingWithLine {
+    position: relative;
+    padding-bottom: 10px;
+    border-bottom: none !important;
+  }
+  
+  h2.projectSectionsTitle,
+  .projectSectionsTitle {
+    color: #1e40af;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    position: relative;
+    border-bottom: none !important;
+  }
+  
+  /* =========================
+     GRID LAYOUT CHÍNH
      ========================= */
   .projectLayoutContent {
     display: grid;
     grid-template-columns: 60% 40%;
     gap: var(--spacing-6, 24px);
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06), 
+                0 1px 2px rgba(0, 0, 0, 0.04),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.6);
     height: 700px;
     max-height: 700px;
+    transition: height 0.3s ease;
+    position: relative;
   }
   
   /* Tùy chỉnh theo chế độ xem */
@@ -129,13 +284,13 @@
      ========================= */
   .mapView {
     position: relative;
-    background-color: var(--neutral-white, #ffffff);
+    background-color: #ffffff;
     border-radius: 12px;
-    padding: 0;
     height: 100%;
     overflow: hidden;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.15);
   }
   
   .svgMapContainer {
@@ -143,14 +298,15 @@
     height: 100%;
     position: relative;
     overflow: hidden;
-    background-color: var(--neutral-100, #f1f5f9);
+    background: linear-gradient(120deg, #f0f9ff 0%, #e0f2fe 100%);
+    transition: all 0.3s ease;
   }
   
   .mapImage {
     width: 100%;
     height: 100%;
     transform-origin: center center;
-    transition: transform 0.1s ease-out;
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
   }
   
@@ -159,6 +315,7 @@
     height: 100%;
     object-fit: contain;
     display: block;
+    filter: drop-shadow(0 5px 15px rgba(0, 0, 0, 0.08));
   }
   
   /* Hiệu ứng khi ở chế độ xem "Đang mở bán" */
@@ -175,6 +332,12 @@
     bottom: 0;
     pointer-events: none;
     background: radial-gradient(circle at center, transparent 30%, rgba(16, 185, 129, 0.05) 100%);
+    animation: overlayPulse 3s infinite alternate;
+  }
+  
+  @keyframes overlayPulse {
+    0% { opacity: 0.5; }
+    100% { opacity: 0.8; }
   }
   
   /* Zoom controls */
@@ -188,19 +351,30 @@
     background-color: white;
     border-radius: 30px;
     padding: 8px 14px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08), 
+                0 1px 3px rgba(0, 0, 0, 0.05),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.5);
     z-index: 10;
     min-width: 240px;
-    transition: opacity 0.3s ease-in-out;
+    transition: all 0.3s ease;
+  }
+  
+  .zoomSliderContainer:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 
+                0 1px 3px rgba(0, 0, 0, 0.08);
+    transform: translateX(-50%) translateY(-2px);
   }
   
   .zoomValue {
     font-size: var(--font-size-sm, 14px);
-    font-weight: var(--font-weight-medium, 500);
+    font-weight: 500;
     min-width: 48px;
     text-align: center;
     color: #1e3a8a;
     margin-right: 10px;
+    background: #f0f9ff;
+    padding: 4px 8px;
+    border-radius: 6px;
   }
   
   .zoomSlider {
@@ -208,7 +382,7 @@
     height: 4px;
     -webkit-appearance: none;
     appearance: none;
-    background: rgba(226, 232, 240, 0.5);
+    background: linear-gradient(to right, #dbeafe, #bfdbfe);
     border-radius: 2px;
     outline: none;
     margin: 0;
@@ -221,34 +395,34 @@
     width: 14px;
     height: 14px;
     border-radius: 50%;
-    background: #1e3a8a;
+    background: linear-gradient(135deg, #3b82f6, #1e3a8a);
     cursor: pointer;
     border: 2px solid white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1px 3px rgba(30, 58, 138, 0.3);
     margin-top: -5px;
+    transition: all 0.15s ease;
+  }
+  
+  .zoomSlider::-webkit-slider-thumb:hover {
+    transform: scale(1.1);
   }
   
   .zoomSlider::-moz-range-thumb {
-    width: 10px;
-    height: 10px;
+    width: 14px;
+    height: 14px;
     border-radius: 50%;
-    background: #1e3a8a;
+    background: linear-gradient(135deg, #3b82f6, #1e3a8a);
     cursor: pointer;
     border: 2px solid white;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-  }
-  
-  .zoomSlider::-webkit-slider-runnable-track {
-    height: 2px;
-    border-radius: 1px;
-    background: rgba(226, 232, 240, 0.5);
+    box-shadow: 0 1px 3px rgba(30, 58, 138, 0.3);
+    transition: all 0.15s ease;
   }
   
   .resetButton {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -257,15 +431,23 @@
     border: none;
     margin-left: 10px;
     transition: all 0.2s ease;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05),
+                inset 0 0 0 1px rgba(255, 255, 255, 0.7);
   }
   
   .resetIcon {
     color: #1e3a8a;
+    font-size: 16px;
+    transition: all 0.2s ease;
   }
   
   .resetButton:hover {
-    background-color: var(--primary-light, #ebf8ff);
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    transform: rotate(15deg);
+  }
+  
+  .resetButton:hover .resetIcon {
+    transform: rotate(-15deg);
   }
   
   .zoomIndicator {
@@ -273,7 +455,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
+    background: rgba(30, 58, 138, 0.9);
     color: white;
     padding: 10px 20px;
     border-radius: 30px;
@@ -281,7 +463,9 @@
     font-weight: bold;
     z-index: 100;
     pointer-events: none;
-    animation: fadeIn 0.3s ease-in-out;
+    animation: fadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   }
   
   @keyframes fadeIn {
@@ -299,7 +483,7 @@
      INFO PANEL
      ========================= */
   .infoPanel {
-    background-color: var(--neutral-white, #ffffff);
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 12px;
     padding: var(--spacing-4, 16px) var(--spacing-5, 20px) var(--spacing-4, 16px) var(--spacing-4, 16px);
     height: 100%;
@@ -311,6 +495,8 @@
     flex-direction: column;
     width: 100%;
     box-sizing: border-box;
+    box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.15);
+    position: relative;
   }
   
   /* Scrollbar styling */
@@ -319,24 +505,24 @@
   }
   
   .infoPanel::-webkit-scrollbar-thumb {
-    background: var(--neutral-300, #cbd5e0);
+    background: #cbd5e0;
     border-radius: 8px;
     transition: background 0.2s ease;
   }
   
   .infoPanel::-webkit-scrollbar-thumb:hover {
-    background: var(--neutral-400, #a0aec0);
+    background: #a0aec0;
   }
   
   .infoPanel::-webkit-scrollbar-track {
-    background: var(--neutral-100, #f1f5f9);
+    background: #f1f5f9;
     border-radius: 8px;
   }
   
   /* Firefox scrollbar */
   .infoPanel {
     scrollbar-width: thin;
-    scrollbar-color: var(--neutral-300, #cbd5e0) var(--neutral-100, #f1f5f9);
+    scrollbar-color: #cbd5e0 #f1f5f9;
   }
   
   /* =========================
@@ -344,11 +530,22 @@
      ========================= */
   .tabContent {
     width: 100%;
-    animation: fadeIn 0.3s ease;
+    animation: fadeInUp 0.3s ease;
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
   
   .sellingInfoBox {
-    background-color: rgba(16, 185, 129, 0.1);
+    background: linear-gradient(to right, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.03));
     border-left: 4px solid #10b981;
     padding: 12px 16px;
     border-radius: 8px;
@@ -357,15 +554,38 @@
     font-size: 15px;
     display: flex;
     align-items: center;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .sellingInfoBox::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+    opacity: 0.5;
+    animation: rotateGradient 12s linear infinite;
+  }
+  
+  @keyframes rotateGradient {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
   }
   
   .sellingInfoBox p {
     margin: 0;
+    position: relative;
+    z-index: 1;
   }
   
   .sellingInfoBox strong {
     font-weight: 600;
     margin: 0 4px;
+    color: #047857;
   }
   
   /* =========================
@@ -382,18 +602,38 @@
   .infoCard {
     display: flex;
     align-items: center;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
     padding: 10px 14px;
     border-radius: 12px;
-    border: 1px solid var(--neutral-200, #e2e8f0);
-    transition: all 0.2s ease;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    transition: all 0.3s ease;
     min-height: 56px;
     box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .infoCard::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+    opacity: 0;
+    transition: all 0.3s ease;
   }
   
   .infoCard:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+    border-color: rgba(59, 130, 246, 0.3);
+  }
+  
+  .infoCard:hover::after {
+    opacity: 1;
   }
   
   .infoCardIcon {
@@ -404,10 +644,28 @@
     flex-shrink: 0;
     width: 22px;
     height: 22px;
+    background: linear-gradient(135deg, #dbeafe, #eff6ff);
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .infoCard:hover .infoCardIcon {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #bfdbfe, #dbeafe);
   }
   
   .infoIcon {
-    color: var(--primary-color, #1e3a8a);
+    color: #1e3a8a;
+    font-size: 16px;
+    transition: all 0.3s ease;
+  }
+  
+  .infoCard:hover .infoIcon {
+    transform: scale(1.1);
+    color: #3b82f6;
   }
   
   .infoCardContent {
@@ -415,25 +673,34 @@
     display: flex;
     flex-direction: column;
     min-width: 0;
+    position: relative;
+    z-index: 2;
   }
   
   .infoCardTitle {
-    font-size: 16px;
-    color: #1e3a8a;
+    font-size: 12px;
+    color: #64748b;
     margin: 0 0 2px 0;
-    font-weight: 600;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
     line-height: 1.2;
   }
   
   .infoCardValue {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
-    color: var(--text-primary, #2d3748);
+    color: #1e3a8a;
     margin: 0;
-    line-height: 1.1;
+    line-height: 1.2;
     overflow-wrap: break-word;
     word-wrap: break-word;
     word-break: break-word;
+    transition: all 0.3s ease;
+  }
+  
+  .infoCard:hover .infoCardValue {
+    color: #3b82f6;
   }
   
   /* =========================
@@ -448,22 +715,41 @@
   }
   
   .zoneCard {
-    background-color: white;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: 1px solid rgba(226, 232, 240, 0.8);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
     width: 100%;
     max-width: 100%;
     margin-bottom: 0;
+    position: relative;
+  }
+  
+  .zoneCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, #3b82f6, #1e3a8a);
+    transition: height 0.3s ease;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    z-index: 1;
+  }
+  
+  .zoneCard:hover::before {
+    height: 100%;
   }
   
   .zoneCard:hover {
     transform: translateY(-4px);
-    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.1);
-    border-color: var(--primary-light, #bee3f8);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.03);
+    border-color: rgba(59, 130, 246, 0.3);
   }
   
   .zoneCardHeader {
@@ -471,14 +757,16 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
     border-bottom: 1px solid rgba(226, 232, 240, 0.8);
     flex-wrap: nowrap;
+    position: relative;
+    z-index: 2;
   }
   
   .zoneName {
     font-size: var(--font-size-md, 16px);
-    font-weight: var(--font-weight-semibold, 600);
+    font-weight: 600;
     margin: 0;
     color: #1e3a8a;
     flex-grow: 1;
@@ -486,10 +774,19 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    transition: all 0.3s ease;
+  }
+  
+  .zoneCard:hover .zoneName {
+    color: #3b82f6;
+    transform: translateX(4px);
   }
   
   .zoneCardBody {
     padding: 8px 10px;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(to bottom, transparent, rgba(248, 250, 252, 0.5));
   }
   
   .zoneInfo {
@@ -503,31 +800,50 @@
     flex-direction: column;
     margin-bottom: 6px;
     min-width: 0;
+    padding: 8px;
+    background: linear-gradient(to right, rgba(241, 245, 249, 0.8), transparent);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .zoneCard:hover .infoItem {
+    background: linear-gradient(to right, rgba(219, 234, 254, 0.3), transparent);
   }
   
   .infoLabel {
     font-size: var(--font-size-sm, 14px);
-    color: var(--text-secondary, #718096);
+    color: #718096;
     margin-bottom: 2px;
     font-weight: 500;
     display: flex;
     align-items: center;
+    opacity: 0.9;
   }
   
   .infoItemIcon {
     margin-right: 6px;
-    color: #1e3a8a;
+    color: #3b82f6;
     flex-shrink: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .zoneCard:hover .infoItemIcon {
+    transform: translateY(-2px);
   }
   
   .infoValue {
     font-weight: var(--font-weight-medium, 500);
-    color: var(--text-primary, #2d3748);
+    color: #2d3748;
     font-size: var(--font-size-base, 16px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     line-height: 1.2;
+    transition: all 0.3s ease;
+  }
+  
+  .zoneCard:hover .infoValue {
+    color: #3b82f6;
   }
   
   /* =========================
@@ -541,19 +857,37 @@
   }
   
   .sellingZoneCard {
-    background-color: white;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 12px;
     overflow: hidden;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
-    border: 1px solid var(--neutral-200, #e2e8f0);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+  }
+  
+  .sellingZoneCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #10b981, #059669);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+  
+  .sellingZoneCard:hover::before {
+    opacity: 1;
   }
   
   .sellingZoneCard:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: #10b981;
+    transform: translateY(-6px);
+    box-shadow: 0 16px 24px rgba(0, 0, 0, 0.08), 0 6px 12px rgba(0, 0, 0, 0.04);
+    border-color: rgba(16, 185, 129, 0.3);
   }
   
   .sellingZoneCardHeader {
@@ -561,8 +895,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    background-color: var(--neutral-50, #f8fafc);
-    border-bottom: 1px solid var(--neutral-200, #e2e8f0);
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+    z-index: 1;
   }
   
   .sellingZoneName {
@@ -570,6 +906,12 @@
     font-weight: 600;
     margin: 0;
     color: #1e3a8a;
+    transition: all 0.3s ease;
+  }
+  
+  .sellingZoneCard:hover .sellingZoneName {
+    color: #10b981;
+    transform: translateX(4px);
   }
   
   .sellingZoneImageContainer {
@@ -583,11 +925,13 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.5s ease;
+    filter: brightness(0.95);
   }
   
   .sellingZoneCard:hover .sellingZoneImage {
-    transform: scale(1.05);
+    transform: scale(1.08);
+    filter: brightness(1.05);
   }
   
   .sellingZoneImageOverlay {
@@ -595,13 +939,13 @@
     bottom: 0;
     left: 0;
     right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     padding: 30px 16px 12px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s ease;
   }
   
   .sellingZoneCard:hover .sellingZoneImageOverlay {
@@ -612,11 +956,19 @@
     color: white;
     font-weight: 500;
     font-size: 14px;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(16, 185, 129, 0.6);
     padding: 6px 12px;
     border-radius: 20px;
     display: flex;
     align-items: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(4px);
+    transform: translateY(20px);
+    transition: all 0.4s ease;
+  }
+  
+  .sellingZoneCard:hover .viewLayoutText {
+    transform: translateY(0);
   }
   
   .sellingZoneSummary {
@@ -624,20 +976,33 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     padding: 12px 16px;
-    background-color: var(--neutral-50, #f8fafc);
-    border-top: 1px solid var(--neutral-200, #e2e8f0);
+    background: linear-gradient(to bottom, #f8fafc, #f1f5f9);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
   }
   
   .summaryItem {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  }
+  
+  .sellingZoneCard:hover .summaryItem {
+    background: rgba(16, 185, 129, 0.05);
+    transform: translateY(-2px);
   }
   
   .summaryLabel {
     font-size: 12px;
-    color: var(--text-secondary, #718096);
+    color: #718096;
     margin-bottom: 4px;
+    text-transform: uppercase;
+    font-weight: 500;
+    letter-spacing: 0.5px;
   }
   
   .summaryValue {
@@ -645,13 +1010,29 @@
     font-size: 18px;
     line-height: 1;
     color: #10b981;
+    background: linear-gradient(135deg, #10b981, #059669);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .sellingZoneCard:hover .summaryValue {
+    background: linear-gradient(135deg, #059669, #047857);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-fill-color: transparent;
+    transform: scale(1.05);
   }
   
   .sellingZoneFooter {
     padding: 12px 16px;
     display: flex;
     justify-content: center;
-    border-top: 1px solid var(--neutral-200, #e2e8f0);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    background: linear-gradient(to bottom, #f8fafc, #ffffff);
   }
   
   .viewDetailsButton {
@@ -663,17 +1044,26 @@
     font-weight: 500;
     display: flex;
     align-items: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
+    box-shadow: 0 2px 6px rgba(30, 58, 138, 0.1);
   }
   
   .viewDetailsButton:hover {
-    background-color: #1e3a8a;
+    background: linear-gradient(135deg, #1e3a8a, #3b82f6);
     color: white;
+    box-shadow: 0 4px 12px rgba(30, 58, 138, 0.2);
+    transform: translateY(-2px);
+    border-color: transparent;
   }
   
   .buttonArrowIcon {
     margin-left: 6px;
+    transition: transform 0.3s ease;
+  }
+  
+  .viewDetailsButton:hover .buttonArrowIcon {
+    transform: translateX(4px);
   }
   
   /* =========================
@@ -689,8 +1079,26 @@
   
   .sellingZoneDescription {
     line-height: 1.5;
-    color: var(--text-secondary, #4a5568);
+    color: #4a5568;
     margin-top: 0;
+    padding: 12px 16px;
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 10px;
+    border-left: 4px solid #3b82f6;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .sellingZoneDescription::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(59, 130, 246, 0.05), transparent);
+    pointer-events: none;
   }
   
   .sellingAreasTitle {
@@ -701,6 +1109,8 @@
     margin-bottom: 16px;
     padding-bottom: 8px;
     border-bottom: 2px solid #1e3a8a;
+    position: relative;
+    font-weight: 600;
   }
   
   .sellingAreasContainer {
@@ -711,17 +1121,37 @@
   }
   
   .sellingAreaCard {
-    background-color: white;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
     border-radius: 10px;
     overflow: hidden;
-    border: 1px solid var(--neutral-200, #e2e8f0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-    transition: all 0.2s ease;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .sellingAreaCard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 0;
+    background: linear-gradient(to bottom, #10b981, #059669);
+    transition: height 0.3s ease;
+    z-index: 1;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+  }
+  
+  .sellingAreaCard:hover::before {
+    height: 100%;
   }
   
   .sellingAreaCard:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.06);
+    border-color: rgba(16, 185, 129, 0.3);
   }
   
   .sellingAreaHeader {
@@ -729,8 +1159,10 @@
     justify-content: space-between;
     align-items: center;
     padding: 12px 16px;
-    background-color: var(--neutral-50, #f8fafc);
-    border-bottom: 1px solid var(--neutral-200, #e2e8f0);
+    background: linear-gradient(to right, #f8fafc, #f1f5f9);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+    position: relative;
+    z-index: 2;
   }
   
   .sellingAreaName {
@@ -738,77 +1170,129 @@
     font-weight: 600;
     margin: 0;
     color: #1e3a8a;
+    transition: all 0.3s ease;
+  }
+  
+  .sellingAreaCard:hover .sellingAreaName {
+    color: #10b981;
+    transform: translateX(4px);
   }
   
   .availabilityTag {
     display: flex;
     align-items: center;
     font-size: 14px;
-    color: var(--text-secondary, #718096);
+    color: #718096;
+    gap: 4px;
+    background: rgba(16, 185, 129, 0.08);
+    padding: 6px 12px;
+    border-radius: 30px;
+    transition: all 0.3s ease;
+  }
+  
+  .sellingAreaCard:hover .availabilityTag {
+    background: rgba(16, 185, 129, 0.15);
+    transform: scale(1.05);
   }
   
   .availabilityCount {
     color: #10b981;
     font-weight: 700;
     font-size: 16px;
+    transition: all 0.3s ease;
   }
   
-  .availabilityLabel {
-    color: var(--text-secondary, #718096);
+  .sellingAreaCard:hover .availabilityCount {
+    color: #059669;
   }
   
   .sellingAreaBody {
     padding: 12px 16px;
+    position: relative;
+    z-index: 2;
   }
   
   .sellingAreaDescription {
     font-size: 14px;
     line-height: 1.5;
-    color: var(--text-secondary, #4a5568);
+    color: #4a5568;
     margin-top: 0;
     margin-bottom: 12px;
   }
   
   .sellingAreaInfo {
-    background-color: var(--neutral-50, #f8fafc);
-    padding: 10px 12px;
-    border-radius: 8px;
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
+    padding: 12px;
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+  }
+  
+  .sellingAreaCard:hover .sellingAreaInfo {
+    background: linear-gradient(145deg, #f1f5f9 0%, #f8fafc 100%);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   }
   
   .sellingInfoItem {
     display: flex;
     flex-direction: column;
     margin-bottom: 4px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+  
+  .sellingAreaCard:hover .sellingInfoItem {
+    background: rgba(16, 185, 129, 0.05);
+    transform: translateY(-2px);
   }
   
   .sellingInfoLabel {
     font-size: 13px;
-    color: var(--text-secondary, #718096);
+    color: #718096;
     display: flex;
     align-items: center;
     margin-bottom: 4px;
+    font-weight: 500;
   }
   
   .sellingInfoIcon {
     margin-right: 6px;
-    color: #1e3a8a;
+    color: #10b981;
+    transition: all 0.3s ease;
+  }
+  
+  .sellingAreaCard:hover .sellingInfoIcon {
+    transform: translateY(-2px);
   }
   
   .sellingInfoValue {
     font-weight: 600;
     font-size: 16px;
-    color: var(--text-primary, #2d3748);
+    color: #2d3748;
+    transition: all 0.3s ease;
+  }
+  
+  .sellingAreaCard:hover .sellingInfoValue {
+    color: #10b981;
   }
   
   .sellingAreaFooter {
     padding: 12px 16px;
     display: flex;
     justify-content: center;
-    border-top: 1px solid var(--neutral-200, #e2e8f0);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
+    background: linear-gradient(to bottom, #f8fafc, #ffffff);
+    position: relative;
+    z-index: 2;
   }
   
   .contactButton {
-    background-color: #10b981;
+    background: linear-gradient(135deg, #10b981, #059669);
     color: white;
     border: none;
     border-radius: 8px;
@@ -816,15 +1300,16 @@
     font-weight: 500;
     display: flex;
     align-items: center;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     cursor: pointer;
     text-decoration: none;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
   }
   
   .contactButton:hover {
-    background-color: #059669;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #059669, #047857);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
   }
   
   /* =========================
@@ -839,32 +1324,56 @@
     font-size: var(--font-size-xs, 12px);
     font-weight: 600;
     line-height: 1;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.03em;
     white-space: nowrap;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+  }
+  
+  .statusBadge:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   }
   
   .statusIcon {
     margin-right: 4px;
+    transition: all 0.3s ease;
+  }
+  
+  .statusBadge:hover .statusIcon {
+    transform: scale(1.2);
   }
   
   .statusSelling {
-    background-color: rgba(72, 187, 120, 0.15);
+    background: linear-gradient(to right, rgba(72, 187, 120, 0.15), rgba(72, 187, 120, 0.1));
     color: #2f855a;
+    border: 1px solid rgba(72, 187, 120, 0.2);
+  }
+  
+  .statusSelling .statusIcon {
+    color: #38a169;
   }
   
   .statusComingSoon {
-    background-color: rgba(246, 173, 85, 0.15);
+    background: linear-gradient(to right, rgba(246, 173, 85, 0.15), rgba(246, 173, 85, 0.1));
     color: #c05621;
+    border: 1px solid rgba(246, 173, 85, 0.2);
+  }
+  
+  .statusComingSoon .statusIcon {
+    color: #dd6b20;
   }
   
   .statusSoldOut {
-    background-color: rgba(113, 128, 150, 0.15);
+    background: linear-gradient(to right, rgba(113, 128, 150, 0.15), rgba(113, 128, 150, 0.1));
     color: #4a5568;
+    border: 1px solid rgba(113, 128, 150, 0.2);
   }
   
   .statusUnknown {
-    background-color: rgba(160, 174, 192, 0.15);
+    background: linear-gradient(to right, rgba(160, 174, 192, 0.15), rgba(160, 174, 192, 0.1));
     color: #4a5568;
+    border: 1px solid rgba(160, 174, 192, 0.2);
   }
   
   /* =========================
@@ -876,6 +1385,7 @@
     max-width: calc(100% - 8px);
     margin-right: 8px;
     padding-right: 8px;
+    animation: fadeInUp 0.3s ease;
   }
   
   .detailHeader {
@@ -883,7 +1393,7 @@
     align-items: center;
     margin-bottom: 12px;
     padding-bottom: var(--spacing-2, 8px);
-    border-bottom: 1px solid var(--neutral-200, #e2e8f0);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
     flex-wrap: wrap;
     gap: 8px;
     width: 100%;
@@ -894,15 +1404,16 @@
   .backButton {
     display: flex;
     align-items: center;
-    background: none;
+    background: linear-gradient(to right, rgba(219, 234, 254, 0.5), rgba(219, 234, 254, 0.2));
     border: none;
     color: #1e3a8a;
     cursor: pointer;
     padding: 8px 12px;
     margin-right: var(--spacing-3, 12px);
     border-radius: 6px;
-    transition: all 0.2s ease;
+    transition: all 0.3s ease;
     flex-shrink: 0;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.1);
   }
   
   .backButton span {
@@ -911,7 +1422,9 @@
   }
   
   .backButton:hover {
-    background-color: var(--primary-light, #fffdeb);
+    background: linear-gradient(to right, rgba(219, 234, 254, 0.8), rgba(219, 234, 254, 0.5));
+    transform: translateX(-4px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
   }
   
   .detailTitle {
@@ -925,13 +1438,26 @@
     text-overflow: ellipsis;
     min-width: 0;
     max-width: 65%;
+    position: relative;
+  }
+  
+  .detailTitle::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 40px;
+    height: 3px;
+    background: linear-gradient(to right, #3b82f6, #1e3a8a);
+    border-radius: 2px;
+    display: none !important; /* Ẩn đường gạch ngang */
   }
   
   .zoneDescription {
     margin-bottom: 12px;
-    color: var(--text-secondary, #4a5568);
+    color: #4a5568;
     line-height: 1.4;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
     padding: 10px 12px 10px 10px;
     border-radius: 8px;
     border-left: 4px solid var(--primary-light, #bee3f8);
@@ -944,12 +1470,34 @@
     margin-right: 10px;
     display: flex;
     align-items: flex-start;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .zoneDescription::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    background: linear-gradient(to left, rgba(59, 130, 246, 0.05), transparent);
+    pointer-events: none;
   }
   
   .descriptionIcon {
     margin-right: 10px;
     color: #1e3a8a;
     flex-shrink: 0;
+    background: rgba(219, 234, 254, 0.3);
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(59, 130, 246, 0.1);
   }
   
   .infoGrid {
@@ -965,28 +1513,54 @@
   .infoBlock {
     display: flex;
     flex-direction: column;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
     padding: 10px;
     border-radius: 10px;
-    transition: all 0.2s ease;
-    border: 1px solid var(--neutral-200, #e2e8f0);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(226, 232, 240, 0.8);
     min-width: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .infoBlock::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.03) 0%, transparent 70%);
+    opacity: 0;
+    transition: all 0.3s ease;
+  }
+  
+  .infoBlock:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+    transform: translateY(-4px);
+    border-color: rgba(59, 130, 246, 0.2);
+  }
+  
+  .infoBlock:hover::after {
+    opacity: 1;
   }
   
   .infoBlockIcon {
     margin-right: 6px;
-    color: #1e3a8a;
+    color: #3b82f6;
+    transition: all 0.3s ease;
   }
   
-  .infoBlock:hover {
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  .infoBlock:hover .infoBlockIcon {
+    transform: translateY(-2px) scale(1.1);
   }
   
   /* =========================
      PRODUCT DETAILS
      ========================= */
   .thongTinSanPham {
-    border-top: 1px solid var(--neutral-200, #e2e8f0);
+    border-top: 1px solid rgba(226, 232, 240, 0.8);
     margin-top: 12px;
     padding-top: 10px;
     flex-grow: 1;
@@ -1000,12 +1574,12 @@
     align-items: center;
     margin-bottom: 12px;
     color: #1e3a8a;
-    border-bottom: 1px solid var(--neutral-200, #e2e8f0);
+    border-bottom: 1px solid rgba(226, 232, 240, 0.8);
     padding-bottom: 6px;
   }
   
   .sectionHeaderIcon {
-    color: #1e3a8a;
+    color: #3b82f6;
     margin-right: var(--spacing-2, 8px);
     flex-shrink: 0;
   }
@@ -1021,6 +1595,7 @@
     display: flex;
     align-items: center;
     max-width: 100%;
+    position: relative;
   }
   
   .thongTinSanPham .sectionTitle {
@@ -1038,48 +1613,80 @@
     margin: 0;
     width: 100%;
     max-width: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
   }
   
   .productItem {
-    border: 1px solid var(--neutral-200, #e2e8f0);
+    border: 1px solid rgba(226, 232, 240, 0.8);
     border-radius: 8px;
     padding: 10px;
-    margin-bottom: 10px;
-    background-color: white;
+    background: linear-gradient(145deg, #ffffff 0%, #f8fafc 100%);
     transition: all 0.3s ease;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
     overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    position: relative;
+  }
+  
+  .productItem::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 0;
+    background: linear-gradient(to bottom, #3b82f6, #1e3a8a);
+    transition: height 0.3s ease;
+    z-index: 1;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+  
+  .productItem:hover::before {
+    height: 100%;
   }
   
   .productItem:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-  
-  .productItem:last-child {
-    margin-bottom: 0;
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
+    transform: translateY(-4px);
+    border-color: rgba(59, 130, 246, 0.3);
   }
   
   .productTypeHeader {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
-    border-bottom: 1px solid var(--neutral-100, #f7fafc);
+    border-bottom: 1px solid rgba(241, 245, 249, 0.8);
     padding-bottom: 8px;
     width: 100%;
+    position: relative;
+    z-index: 2;
   }
   
   .productTypeIcon {
-    color: #1e3a8a;
+    color: #3b82f6;
     margin-right: 8px;
     flex-shrink: 0;
+  }
+  
+  .productItem:hover .productTypeIcon {
+    transform: scale(1.1) rotate(5deg);
   }
   
   .productTypeName {
     font-size: var(--font-size-md, 16px);
     font-weight: var(--font-weight-semibold, 600);
     color: #1e3a8a;
+    transition: all 0.3s ease;
+  }
+  
+  .productItem:hover .productTypeName {
+    color: #3b82f6;
+    transform: translateX(4px);
   }
   
   .productDetailsGrid {
@@ -1087,16 +1694,27 @@
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto auto;
     gap: 10px;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
     padding: 10px;
     border-radius: 8px;
     width: 100%;
+    position: relative;
+    z-index: 2;
   }
   
   .detailItem {
     display: flex;
     flex-direction: column;
     gap: 2px;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .productItem:hover .detailItem {
+    background: rgba(219, 234, 254, 0.2);
+    transform: translateY(-2px);
   }
   
   .detailLabel {
@@ -1112,6 +1730,12 @@
   .detailIcon {
     margin-right: 6px;
     flex-shrink: 0;
+    color: #3b82f6;
+    transition: all 0.3s ease;
+  }
+  
+  .productItem:hover .detailIcon {
+    transform: translateY(-2px);
   }
   
   .detailValue {
@@ -1121,18 +1745,24 @@
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: all 0.3s ease;
+  }
+  
+  .productItem:hover .detailValue {
+    color: #3b82f6;
   }
   
   .noProducts {
     font-style: italic;
     color: var(--text-secondary, #718096);
     padding: 16px;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
     border-radius: 8px;
     text-align: center;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    border: 1px dashed rgba(148, 163, 184, 0.5);
   }
   
   .noData {
@@ -1140,12 +1770,12 @@
     text-align: center;
     color: var(--text-secondary, #718096);
     font-style: italic;
-    background-color: var(--neutral-50, #f8fafc);
+    background: linear-gradient(145deg, #f8fafc 0%, #f1f5f9 100%);
     border-radius: 8px;
-    padding: 32px;
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    border: 1px dashed rgba(148, 163, 184, 0.5);
   }
   
   /* =========================
@@ -1174,14 +1804,31 @@
     transition: all 0.3s ease;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     text-decoration: none;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .ctaButton::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: all 0.4s ease;
+  }
+  
+  .ctaButton:hover::before {
+    left: 100%;
   }
   
   .ctaButton:hover {
-    background-color: #2563eb;
+    background: linear-gradient(135deg, #f97316, #ea580c);
     color: white;
     text-decoration: none;
     transform: translateY(-3px);
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 12px 20px rgba(245, 158, 11, 0.25);
   }
   
   .ctaButton:active {
@@ -1189,7 +1836,7 @@
   }
   
   .ctaButton:focus-visible {
-    outline: 2px solid var(--primary-color, #3182ce);
+    outline: 2px solid rgba(245, 158, 11, 0.4);
     outline-offset: 4px;
   }
   
@@ -1205,6 +1852,10 @@
     .infoGrid {
       grid-template-columns: 1fr 1fr;
       gap: var(--spacing-3, 12px);
+    }
+  
+    .projectTitle {
+      font-size: 2rem;
     }
   }
   
@@ -1368,4 +2019,55 @@
       top: -6px;
       right: -6px;
     }
+  
+    .infoCardsContainer {
+      grid-template-columns: 1fr;
+    }
+  
+    .zoneInfo {
+      grid-template-columns: 1fr;
+    }
+  
+    .infoGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .productDetailsGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  /* Xử lý đặc biệt cho tiêu đề "Mặt bằng tổng thể dự án" */
+  h1[id],
+  h2[id],
+  h3[id],
+  h4[id] {
+    border-bottom: none !important;
+  }
+  
+  h1[id]::after,
+  h2[id]::after,
+  h3[id]::after,
+  h4[id]::after {
+    display: none !important;
+  }
+  
+  /* Ẩn thẻ HR nếu có */
+  hr {
+    display: none !important;
+  }
+  
+  /* Xử lý với tiêu đề có dấu gạch chân tự động */
+  .underlined-title,
+  .underlined-heading,
+  .section-title,
+  .page-title {
+    border-bottom: none !important;
+  }
+  
+  .underlined-title::after,
+  .underlined-heading::after,
+  .section-title::after, 
+  .page-title::after {
+    display: none !important;
   }
