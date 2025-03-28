@@ -348,12 +348,14 @@ const config = {
             position: 'left',
             className: 'navbar-center-item',
           },
+
           {
-            href: '/#typicalFloor',
-            label: 'Tiện ích',
+            to: '/layout',
+            label: 'Mặt bằng',
             position: 'left',
             className: 'navbar-center-item',
           },
+
           {
             href: '/#legal',
             label: 'Pháp lý',

@@ -10,13 +10,14 @@ import Products from '../Products/Products'; // Import trực tiếp Products
 
 // Lazy load các component khác
 
-const TypicalFloor = React.lazy(() => import('../TypicalFloor/TypicalFloor'));
+// const TypicalFloor = React.lazy(() => import('../TypicalFloor/TypicalFloor'));
 const Gallery = React.lazy(() => import('../Gallery/Gallery'));
+// const GalleryComponent = React.lazy(() => import('../GalleryComponent/GalleryComponent'));
 const Contact = React.lazy(() => import('../Contact/Contact'));
 const Legal = React.lazy(() => import('../Legal/Legal'));
 const SalesPolicy = React.lazy(() => import('../SalesPolicy/SalesPolicy'));
 const LoanPolicy = React.lazy(() => import('../LoanPolicy/LoanPolicy'));
-const ProjectLayout = React.lazy(() => import('../ProjectLayout/ProjectLayout'));
+// const ProjectLayout = React.lazy(() => import('../ProjectLayout/ProjectLayout'));
 const PriceList = React.lazy(() => import('../PriceList/PriceList'));
 const FAQ = React.lazy(() => import('../FAQ/FAQ'));
 
@@ -43,9 +44,9 @@ const EconomyCityLanding = () => {
       
       {/* Sử dụng Suspense để bọc các component lazy còn lại */}
       <Suspense fallback={<div>Loading...</div>}>
-        <div id="typicalFloor">
+        {/* <div id="typicalFloor">
           <TypicalFloor />
-        </div>
+        </div> */}
 
         <div id="legal">
           <Legal />
@@ -63,13 +64,17 @@ const EconomyCityLanding = () => {
           <LoanPolicy />
         </div>
 
-        <div id="ProjectLayout">
+        {/* <div id="ProjectLayout">
           <ProjectLayout />
-        </div>
+        </div> */}
 
         <div id="gallery">
           <Gallery />
         </div>
+
+        {/* <div id="GalleryComponent">
+          <GalleryComponent />
+        </div> */}
 
         <div id="FAQ">
           <FAQ />

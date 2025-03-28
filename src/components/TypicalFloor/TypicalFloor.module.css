@@ -1,22 +1,33 @@
 /* src/components/EconomyCityLanding/TypicalFloor/TypicalFloor.module.css */
 
+.typicalFloor {
+  background: #EFF6FF;
+  padding: 4rem 0 8rem;
+  overflow: visible;
+  position: relative;
+}
+
 .container {
-  max-width: 80rem; /* 1280px như yêu cầu */
+  width: 100%;
+  max-width: 100%;
   margin: 0 auto;
-  padding: 0 1rem; /* Padding mobile: 1rem */
+  padding: 0 2rem;
   overflow: visible;
   position: relative;
 }
 
 .sectionHeader {
   text-align: center;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .badge {
   display: inline-block;
   padding: 0.25rem 1rem;
-  border-radius: 9999px; /* Border radius hình tròn cho icon/button */
+  border-radius: 9999px;
   background: linear-gradient(to right, #1d4ed8, #3b82f6);
   color: white;
   font-size: 0.875rem;
@@ -32,8 +43,8 @@
 
 .sectionTitle {
   font-size: 2rem;
-  font-weight: 700; /* Bold theo yêu cầu */
-  text-align: center; /* Center-align theo yêu cầu */
+  font-weight: 700;
+  text-align: center;
   color: #1e3a8a;
   margin-bottom: 0.75rem;
 }
@@ -42,7 +53,7 @@
   color: #64748b;
   margin: 1rem auto 1.5rem;
   font-size: 1.1rem;
-  max-width: 700px;
+  max-width: 800px;
   line-height: 1.5;
 }
 
@@ -55,6 +66,9 @@
   overflow: hidden;
   border-bottom: 2px solid #e5e7eb;
   position: relative;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .apartmentTab {
@@ -95,6 +109,37 @@
   background-color: #056ff1;
 }
 
+.mainContainer {
+  display: flex;
+  background-color: white;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1.5rem;
+  border-top: none;
+  position: relative;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mainContainer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #e5e7eb;
+  z-index: 2;
+}
+
+.leftColumn {
+  flex: 0.3;
+  padding: 1.5rem;
+  border-right: 1px solid #e2e8f0;
+}
+
 .overviewSection {
   margin-bottom: 1rem;
 }
@@ -127,34 +172,6 @@
   left: 0;
   color: #1e40af;
   font-weight: bold;
-}
-
-.mainContainer {
-  display: flex;
-  background-color: white;
-  border-radius: 0 0 10px 10px;
-  overflow: hidden;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-  margin-bottom: 1.5rem;
-  border-top: none;
-  position: relative;
-}
-
-.mainContainer::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: #e5e7eb;
-  z-index: 2;
-}
-
-.leftColumn {
-  flex: 0.4;
-  padding: 1.5rem;
-  border-right: 1px solid #e2e8f0;
 }
 
 .floorSelector {
@@ -251,7 +268,7 @@
 }
 
 .rightColumn {
-  flex: 0.6;
+  flex: 0.7;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -271,10 +288,10 @@
 
 .floorPlanWrapper {
   position: relative;
-  height: 300px;
+  height: 500px;
   width: 100%;
   overflow: hidden;
-  padding: 0.25rem 0;
+  padding: 0.5rem;
 }
 
 .floorPlanImage {
@@ -371,22 +388,26 @@
 
 .registerButtonFull {
   width: 100%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
   padding: 1rem;
   background: linear-gradient(to right, #f59e0b, #fbbf24);
   color: white;
   font-weight: 700;
   text-align: center;
   padding: 0.75rem 1rem;
-  border-radius: 0.75rem; /* 12px theo yêu cầu */
+  border-radius: 0.75rem;
   text-decoration: none;
   cursor: pointer;
   transition: all 0.3s ease;
   text-align: center;
   margin-bottom: 1.5rem;
   border: none;
-  box-shadow:none;
+  box-shadow: none;
   position: relative;
   overflow: hidden;
+  display: block;
 }
 
 .registerButtonFull:hover {
@@ -448,6 +469,30 @@
   align-items: center !important;
 }
 
+/* Responsive cho màn hình lớn */
+@media (min-width: 1600px) {
+  .propertyDetails {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  
+  .floorPlanWrapper {
+    height: 600px;
+  }
+}
+
+/* Responsive cho màn hình trung bình */
+@media (min-width: 992px) and (max-width: 1599px) {
+  .propertyDetails {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .floorPlanWrapper {
+    height: 450px;
+  }
+}
+
 @media (min-width: 641px) and (max-width: 991px) {
   .propertyDetails {
     grid-template-columns: repeat(2, 1fr);
@@ -455,7 +500,7 @@
   }
   
   .floorPlanWrapper {
-    height: 280px;
+    height: 350px;
   }
   
   .apartmentTab {
@@ -568,11 +613,4 @@
     display: inline-block; 
     font-size: 10px;
   }
-}
-
-.typicalFloor {
-  background: #EFF6FF;
-  padding: 4rem 0 8rem;
-  overflow: visible;
-  position: relative;
 }
