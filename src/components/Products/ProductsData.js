@@ -16,7 +16,7 @@ const productData = [
         { label: 'Thiết kế', value: '4-5 tầng' },
         { label: 'Giá bán', value: 'Từ 8 tỷ đồng' }
       ],
-      imageUrl: '/img/Lienke.png',
+      imageUrl: '/img/lien_ke.webp',
       imageAlt: 'Nhà phố thương mại Economy City Văn Lâm - Mặt tiền rộng rãi với thiết kế hiện đại',
       imageWidth: 800,
       imageHeight: 600,
@@ -37,7 +37,7 @@ const productData = [
         { label: 'Không gian', value: 'Riêng tư, an ninh' },
         { label: 'Giá bán', value: 'Từ 15 tỷ đồng' }
       ],
-      imageUrl: '/img/Bietthu.jpg',
+      imageUrl: '/img/Biet_thu_economy.webp',
       imageAlt: 'Biệt thự sang trọng Economy City Văn Lâm - Không gian sống đẳng cấp',
       imageWidth: 800,
       imageHeight: 600,
@@ -58,7 +58,7 @@ const productData = [
         { label: 'Thiết kế', value: 'Tối ưu công năng' },
         { label: 'Giá bán', value: 'Từ 1.5 tỷ đồng' }
       ],
-      imageUrl: '/img/Chungcu.jpg',
+      imageUrl: '/img/chung_cu_economy.webp',
       imageAlt: 'Căn hộ cao tầng Economy City Văn Lâm - Tầm nhìn toàn cảnh đô thị',
       imageWidth: 800,
       imageHeight: 600,
