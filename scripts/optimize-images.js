@@ -29,7 +29,7 @@ function convertToNonAccentVietnamese(str) {
   str = str.replace(/[^a-z0-9\s]/gi, "");
   
   // Thay thế dấu cách bằng dấu gạch ngang
-  str = str.replace(/\s+/g, "-");
+  str = str.replace(/\s+/g, "_");
   
   // Xóa các dấu gạch ngang liên tiếp
   str = str.replace(/-+/g, "-");

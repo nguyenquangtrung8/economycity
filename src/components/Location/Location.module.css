@@ -1,5 +1,5 @@
 /* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Roboto:wght@300;400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@300;400;500;700&display=swap');
 
 /* Main container */
 .location {
@@ -13,7 +13,7 @@
 .headerContainer {
   text-align: center;
   margin-bottom: 3.5rem;
-  max-width: 1200px;
+  max-width: 1300px;
   margin-left: auto;
   margin-right: auto;
   position: relative;
@@ -29,7 +29,7 @@
 .tag {
   display: inline-block;
   padding: 0.25rem 1rem;
-  border-radius: 9999px; /* Border radius hình tròn cho icon/button */
+  border-radius: 9999px;
   background: linear-gradient(to right, #1d4ed8, #3b82f6);
   color: white;
   font-size: 0.875rem;
@@ -38,13 +38,16 @@
 }
 
 .heading {
-  font-size: clamp(2rem, 5vw, 2.2rem);
-  font-weight: 700;
+  font-size: clamp(2.2rem, 5vw, 2.5rem);
+  font-weight: 800;
   text-align: center;
   color: #1e3a8a;
-  margin-bottom: 0.5rem;
-  line-height: 1.3;
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
   position: relative;
+  font-family: 'Montserrat', sans-serif;
+  text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+  animation: fadeInUp 0.8s ease forwards;
 }
 
 .seoDescription {
@@ -55,30 +58,68 @@
 
 .seoParagraph {
   text-align: left;
-  color: #343a40;
-  font-size: 1.05rem;
-  line-height: 2;
-  margin-bottom: 1.5rem;
-  font-family: 'Roboto', sans-serif;
+  color: #1e4070;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   letter-spacing: 0.02em;
+  font-style: normal;
 }
 
-.seoParagraph strong {
+.seoParagraph:nth-child(1) {
+  animation: fadeInUp 1s ease forwards;
+}
+
+.seoParagraph:nth-child(2) {
+  animation: fadeInUp 1.2s ease forwards;
+}
+
+.seoParagraph:nth-child(3) {
+  animation: fadeInUp 1.4s ease forwards;
+}
+
+.highlightText {
   color: #0052a5;
   font-weight: 700;
+  font-size: 1.2rem;
+  font-style: italic;
 }
 
-.seoParagraph:last-child {
-  margin-bottom: 0;
+.emphasizedText {
+  color: #0066cc;
+  font-weight: 600;
+  font-style: italic;
 }
 
-/* MAIN CONTENT WRAPPER */
+.accentText {
+  color: #10B981;
+  font-weight: 700;
+  margin-right: 6px;
+  font-size: 1.1rem;
+}
+
+.highlightGradient {
+  background: linear-gradient(to right, #1d4ed8, #3b82f6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-weight: 700;
+  padding: 0 4px;
+}
+
+.seoParagraph:hover .highlightGradient {
+  background-size: 200% 100%;
+  transition: all 0.5s ease;
+}
+
+/* MAIN CONTENT WRAPPER - Adjusted for new layout */
 .mainContentWrapper {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  max-width: 1200px;
+  max-width: 1300px;
   margin: 0 auto;
 }
 
@@ -90,12 +131,12 @@
   }
   
   .leftColumn {
-    flex: 0 0 30%;
+    flex: 0 0 35%;
     border-radius: 15px;
   }
   
   .rightColumn {
-    flex: 0 0 calc(70% - 1rem);
+    flex: 0 0 65%; /* Légèrement augmenté pour maximiser l'espace */
     border-radius: 15px;
   }
 }
@@ -110,47 +151,41 @@
 }
 
 .rightColumn {
-  background-color: #fff;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
-  padding: 25px;
+  background-color: transparent;
+  box-shadow: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
   border-radius: 15px;
+  overflow: hidden;
 }
 
-.sectionTitle {
-  font-size: 22px;
-  text-align: center;
-  color: #0052a5;
-  margin-bottom: 25px;
-  line-height: 1.2;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
-}
-
-/* Added new class for the section title with blue line */
-.sectionTitleWithLine {
-  font-size: 22px;
-  text-align: center;
-  color: #0052a5;
-  margin-bottom: 25px;
-  line-height: 1.2;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+.sectionTitleContainer {
   position: relative;
-  padding-bottom: 15px;
+  text-align: center;
+  margin-bottom: 30px;
+  margin-top: 20px;
 }
 
-.sectionTitleWithLine:after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 350px;
-  height: 4px;
-  background-color: #0066cc;
-  display: block;
+.sectionTitleUnderline {
+  text-align: center;
+  font-size: 27px;
+  font-weight: 700;
+  color: #0066cc;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  margin-bottom: 10px;
+  font-family: 'Montserrat', sans-serif;
+  line-height: 1.2;
+}
+
+.underline {
+  width: 80%;
+  max-width: 350px;
+  height: 3px;
+  background: #0066cc;
+  margin: 0 auto;
+  box-shadow: 0 1px 3px rgba(0, 102, 204, 0.3);
 }
 
 /* Tab Container */
@@ -164,21 +199,24 @@
   margin-bottom: 20px;
   border-bottom: 1px solid #e0e0e0;
   padding-bottom: 10px;
+  flex-wrap: wrap; /* Allows the tabs to wrap on narrow screens */
 }
 
 .tabButton {
-  padding: 15px 20px;
+  padding: 15px 10px; /* Reduced horizontal padding to fit 4 tabs */
   background: none;
   border: none;
   cursor: pointer;
   color: #666;
-  margin-right: 15px;
+  margin-right: 4px; /* Reduced margin to fit 4 tabs */
   border-radius: 5px;
   transition: all 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 80px;
+  min-width: 70px; /* Reduced min-width to fit 4 tabs */
+  flex: 1; /* Make tabs take equal width */
+  max-width: 25%; /* Ensure we can fit 4 tabs */
 }
 
 .tabButton.active {
@@ -365,119 +403,44 @@
   }
 }
 
-/* Map Container */
+/* Map Container - Updated for 1:1 ratio and full container */
 .mapContainer {
-  height: 500px; /* Increased height */
-  background-color: #f8f9fa;
+  aspect-ratio: 1/1; /* Set aspect ratio to 1:1 */
+  width: 100%;
+  background-color: #002147; /* Fond bleu foncé pour correspondre à la carte */
   border-radius: 10px;
-  margin-bottom: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
   overflow: hidden;
+  padding: 0; /* Supprimer tout padding */
 }
 
 .mapImage {
   width: 100%;
   height: 100%;
-  object-fit: contain;
-}
-
-/* Footer Charts */
-.footerCharts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
-  height: auto;
-}
-
-@media (min-width: 992px) {
-  .footerCharts {
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: 1fr;
-    height: 140px;
-  }
-}
-
-.donutChart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  padding: 10px;
+  object-fit: fill; /* Changer de cover à fill pour occuper tout l'espace */
+  object-position: center; /* Centrer l'image */
   border-radius: 10px;
-  transition: all 0.3s ease;
 }
 
-/* Added hover effect for donut charts */
-.donutChart:hover {
-  background-color: #f0f7ff;
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 102, 204, 0.15);
+.mapVideo {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Changer de cover à fill pour occuper tout l'espace */
+  object-position: center; /* Centrer la vidéo */
+  border-radius: 10px;
 }
 
-.donutChart:hover .donutChartContainer {
+/* Added hover effect for items */
+.tabItem:hover .tabItemIcon {
   transform: scale(1.1);
+  background-color: #d1ecff;
 }
 
-.donutChart:hover .chartTime {
-  color: #0066cc;
-  font-weight: 700;
-}
-
-.donutChartContainer {
-  width: 70px;
-  height: 70px;
-  border-radius: 50%;
-  background: conic-gradient(
-    #0066cc var(--progress), 
-    #e9ecef 0
-  );
-  position: relative;
-  margin-bottom: 10px;
-  transition: transform 0.3s ease;
-}
-
-.donutHole {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 45px;
-  height: 45px;
-  background: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.donutIcon {
-  font-size: 18px;
-  color: #0066cc;
-  transition: color 0.3s ease;
-}
-
-.donutChart:hover .donutIcon {
+.tabItem:hover .tabItemTitle {
   color: #0052a5;
-  transform: scale(1.1);
-}
-
-.chartLabel {
-  font-size: 13px;
-  color: #555;
-  margin-bottom: 2px;
-  transition: all 0.3s ease;
-}
-
-.chartTime {
-  font-size: 14px;
-  color: #003366;
-  font-weight: 700;
-  transition: all 0.3s ease;
 }
 
 /* Footer CTA Container - thay thế đường gạch ngang ở cuối component */
@@ -505,6 +468,7 @@
   transition: all 0.3s ease;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   min-width: 180px;
+  text-decoration: none;
 }
 
 .footerButton:hover {
@@ -520,6 +484,18 @@
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
 
+/* Animation keyframes */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 /* RESPONSIVE ADJUSTMENTS */
 @media (max-width: 991px) {
   .leftColumn, .rightColumn {
@@ -528,6 +504,17 @@
   
   .seoDescription {
     padding: 20px 25px;
+  }
+}
+
+@media (min-width: 768px) {
+  .seoDescription {
+    padding: 0 60px;
+  }
+  
+  .seoParagraph {
+    font-size: 1.15rem;
+    line-height: 2;
   }
 }
 
@@ -544,14 +531,13 @@
   }
   
   .mapContainer {
-    height: auto;
-    aspect-ratio: 1.5 / 1;
-    max-height: 450px;
+    aspect-ratio: 1/1; /* Maintain 1:1 ratio on mobile */
   }
   
   .tabButton {
-    padding: 10px 8px;
+    padding: 10px 5px;
     min-width: 60px;
+    max-width: 25%;
   }
   
   .sectionTitle {
@@ -571,31 +557,14 @@
     margin-bottom: 5px;
   }
   
+  .tabIcon img {
+    width: 24px;
+    height: 24px;
+  }
+  
   .seoParagraph {
     font-size: 0.95rem;
     line-height: 1.8;
-  }
-  
-  .donutChartContainer {
-    width: 60px;
-    height: 60px;
-  }
-  
-  .donutHole {
-    width: 38px;
-    height: 38px;
-  }
-  
-  .donutIcon {
-    font-size: 16px;
-  }
-  
-  .chartLabel {
-    font-size: 12px;
-  }
-  
-  .chartTime {
-    font-size: 13px;
   }
   
   .leftColumn, .rightColumn {
@@ -617,7 +586,8 @@
   
   .tabButton {
     margin: 0;
-    padding: 10px;
+    padding: 8px 4px;
+    min-width: 50px;
   }
   
   .seoDescription {
@@ -630,7 +600,7 @@
   
   .tabItem {
     padding: 10px 5px;
-    min-height: 100px;
+    min-height: 90px;
   }
   
   .tabItemIcon {
@@ -647,11 +617,12 @@
     font-size: 11px;
   }
   
-  .mapContainer {
-    aspect-ratio: 1.2 / 1;
-  }
-  
   .rightColumn, .leftColumn {
     padding: 15px;
+  }
+
+  /* Fix for rightColumn on mobile view */
+  .rightColumn {
+    padding: 0;
   }
 }

@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useRef, useEffect, useMemo } from 'react';
 import styles from './ProjectLayout.module.css';
-import { projectLayoutData } from './ProjectLayoutData';
+import { projectLayoutData, sellingLayoutData } from './ProjectLayoutData';
 // Import tất cả icon từ thư viện lucide-react
 import {
   Home, AreaChart, Building, Users,
   Box, DollarSign, MapPin, FileText, Layers,
   ArrowLeft, RefreshCw, Tag, ChevronRight, LayoutGrid,
-  Maximize2, SquareStack, Buildings, Globe, ShoppingBag
+  Maximize2, SquareStack, Buildings, Globe, ShoppingBag, 
+  ZoomIn, ZoomOut, Eye
 } from 'lucide-react';
 
 /**
@@ -100,58 +101,6 @@ const getProductTypes = (products) => {
 };
 
 /**
- * Dữ liệu mẫu cho các phân khu đang mở bán
- * Thông tin này sẽ được thay thế bằng dữ liệu thực từ API hoặc CMS
- */
-const sellingLayoutData = {
-  "zone-b": { // Phân khu Cát Tường
-    detailLayoutImage: "/img/cat-tuong-selling-layout.jpeg", // Ảnh layout chi tiết các căn đang bán
-    sellingAreas: [
-      {
-        name: "Dãy D1 - D2",
-        description: "Tọa lạc tại vị trí đẹp nhất phân khu, gồm các căn biệt thự và liền kề sang trọng, view hồ trung tâm.",
-        availableCount: 34,
-        totalCount: 48,
-        priceRange: [10500000000, 15800000000]
-      },
-      {
-        name: "Dãy T5",
-        description: "Nằm ở trục đường nội khu, phù hợp kinh doanh, gồm các căn liền kề có thiết kế hiện đại.",
-        availableCount: 22,
-        totalCount: 30,
-        priceRange: [9000000000, 12000000000]
-      }
-    ]
-  },
-  "zone-c": { // Phân khu Hưng Thịnh
-    detailLayoutImage: "/img/hung-thinh-selling-layout.jpeg", // Ảnh layout chi tiết các căn đang bán
-    sellingAreas: [
-      {
-        name: "Dãy BT3 - BT4",
-        description: "Khu biệt thự cao cấp gồm các căn góc và giữa, tiêu chuẩn thiết kế tân cổ điển.",
-        availableCount: 18,
-        totalCount: 22,
-        priceRange: [25000000000, 32000000000]
-      },
-      {
-        name: "Dãy L7 - L9",
-        description: "Liền kề shophouse kết hợp ở và kinh doanh, mặt tiền rộng, phù hợp làm văn phòng.",
-        availableCount: 27,
-        totalCount: 42,
-        priceRange: [15500000000, 19800000000]
-      },
-      {
-        name: "Dãy L12",
-        description: "Liền kề thương mại nằm trên trục đường chính, thiết kế hiện đại.",
-        availableCount: 15,
-        totalCount: 20,
-        priceRange: [13200000000, 18500000000]
-      }
-    ]
-  }
-};
-
-/**
  * Component hiển thị thông tin dự án dạng card
  */
 const ProjectInfoCard = ({ icon, title, value }) => {
@@ -211,13 +160,21 @@ const ProjectLayout = React.memo(() => {
   
   // Tab hiện tại (entire/selling)
   const [activeTab, setActiveTab] = useState('entire');
+  
+  // Hiển thị chi tiết bán hàng trong tab selling
+  const [showSellingDetail, setShowSellingDetail] = useState(false);
+  
+  // State cho việc xem layout chi tiết
+  const [showDetailLayout, setShowDetailLayout] = useState(false);
+  const [detailLayoutTitle, setDetailLayoutTitle] = useState('');
+  const [detailLayoutImage, setDetailLayoutImage] = useState('');
 
   // Zoom và pan
   const [zoomLevel, setZoomLevel] = useState(1);
-  const [zoomCenter, setZoomCenter] = useState({ x: 0, y: 0 });
   const [panPosition, setPanPosition] = useState({ x: 0, y: 0 });
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [zoomCenter, setZoomCenter] = useState({ x: 0, y: 0 }); // Thêm state zoomCenter
 
   // Hiển thị chỉ số zoom và thanh điều khiển
   const [showZoomIndicator, setShowZoomIndicator] = useState(false);
@@ -248,7 +205,7 @@ const ProjectLayout = React.memo(() => {
   // Reset view và position khi chuyển đổi giữa overview và detail
   useEffect(() => {
     if (viewMode === 'overview' && selectedZoneId) {
-         setSelectedZoneId(null);
+      setSelectedZoneId(null);
     }
     resetView();
   }, [viewMode, selectedZoneId]);
@@ -293,7 +250,7 @@ const ProjectLayout = React.memo(() => {
 
       return newZoom;
     });
-  }, [panPosition]);
+  }, [panPosition]); // Không cần thêm zoomCenter vì nó không được sử dụng trong phần tính toán, chỉ được set
 
   // Xử lý thanh trượt zoom
   const handleSliderChange = useCallback((e) => {
@@ -311,7 +268,7 @@ const ProjectLayout = React.memo(() => {
   const resetView = useCallback(() => {
     setZoomLevel(1);
     setPanPosition({ x: 0, y: 0 });
-    setZoomCenter({ x: 0, y: 0 });
+    setZoomCenter({ x: 0, y: 0 }); // Thêm reset cho zoomCenter
     
     // Ẩn thanh điều khiển zoom sau khi reset
     clearTimeout(zoomControlsTimeout.current);
@@ -328,20 +285,6 @@ const ProjectLayout = React.memo(() => {
       touches[0].clientY - touches[1].clientY
     );
   }, []);
-
-  // Lấy tọa độ trung tâm của touch
-  const getTouchCenter = useCallback((touches) => {
-    if (!touches || touches.length < 2 || !mapContainerRef.current) return null;
-
-    const rect = mapContainerRef.current.getBoundingClientRect();
-    const centerX = (touches[0].clientX + touches[1].clientX) / 2;
-    const centerY = (touches[0].clientY + touches[1].clientY) / 2;
-
-    return {
-      x: (centerX - rect.left) / zoomLevel - panPosition.x,
-      y: (centerY - rect.top) / zoomLevel - panPosition.y
-    };
-  }, [zoomLevel, panPosition]);
 
   // Mouse event handlers
   const handleMouseDown = useCallback((e) => {
@@ -393,24 +336,91 @@ const ProjectLayout = React.memo(() => {
     
     if (activeTab === 'entire') {
       setViewMode('detail');
+    } else if (activeTab === 'selling') {
+      // Trong tab selling, hiển thị chi tiết khu vực đang mở bán
+      setShowSellingDetail(true);
     }
-    // Trong tab selling, giữ nguyên ở chế độ overview nhưng thay đổi nội dung hiển thị
   }, [activeTab]);
 
+  // Xử lý xem layout chi tiết - ĐÃ SỬA
+  const handleViewLayoutDetail = useCallback((e, zoneId) => {
+    // Ngăn sự kiện nổi bọt để tránh kích hoạt ở container cha
+    e.preventDefault();
+    e.stopPropagation();
+    
+    console.log('Viewing layout for zone:', zoneId);
+    
+    if (sellingLayoutData[zoneId] && sellingLayoutData[zoneId].detailLayoutImage) {
+      // Lưu ảnh layout chi tiết vào state
+      setDetailLayoutImage(sellingLayoutData[zoneId].detailLayoutImage);
+      
+      // Cập nhật tiêu đề cho layout chi tiết
+      const zone = getSafeZoneData(projectLayoutData.zones, zoneId);
+      setDetailLayoutTitle(`Mặt bằng chi tiết ${zone?.name || 'khu vực đang mở bán'}`);
+      
+      // Hiển thị layout chi tiết
+      setShowDetailLayout(true);
+      
+      // Reset view để hiển thị đầy đủ layout chi tiết
+      resetView();
+    } else {
+      console.error('Không tìm thấy ảnh layout chi tiết cho khu vực:', zoneId);
+    }
+  }, [resetView, projectLayoutData.zones, sellingLayoutData]);
+
+  // Trở về chế độ xem bình thường (không phải layout chi tiết) - ĐÃ SỬA
+  const handleBackFromDetailLayout = useCallback((e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    
+    // Tắt chế độ xem layout chi tiết
+    setShowDetailLayout(false);
+    
+    // Reset view để quay về chế độ xem thông thường
+    resetView();
+  }, [resetView]);
+
+  // Xử lý nút "Xem chi tiết" trong tab selling
+  const handleViewSellingDetails = useCallback((e, zoneId) => {
+    // Ngăn sự kiện nổi bọt để tránh kích hoạt ở container cha
+    if (e) e.stopPropagation();
+    
+    setSelectedZoneId(zoneId);
+    setShowSellingDetail(true);
+  }, []);
+
   const handleBackToOverview = useCallback(() => {
-    if (selectedZoneId && activeTab === 'selling') {
+    // Nếu đang xem layout chi tiết, trở về chế độ bình thường trước
+    if (showDetailLayout) {
+      setShowDetailLayout(false);
+      return;
+    }
+    
+    if (activeTab === 'selling' && showSellingDetail) {
+      // Trong tab selling, quay lại danh sách các khu đang mở bán
+      setShowSellingDetail(false);
       setSelectedZoneId(null);
     } else {
+      // Trong tab entire, quay lại overview
       setViewMode('overview');
+      setSelectedZoneId(null);
     }
-  }, [selectedZoneId, activeTab]);
+    
+    // Reset view để hiển thị đúng
+    resetView();
+  }, [activeTab, showSellingDetail, showDetailLayout, resetView]);
 
   // Chuyển tab
   const handleTabChange = useCallback((tab) => {
     setActiveTab(tab);
     setViewMode('overview');
     setSelectedZoneId(null);
-  }, []);
+    setShowSellingDetail(false);
+    setShowDetailLayout(false);
+    resetView();
+  }, [resetView]);
 
   // Xử lý double tap
   const handleDoubleTap = useCallback((e, currentTime) => {
@@ -421,10 +431,6 @@ const ProjectLayout = React.memo(() => {
     const touchY = e.touches[0].clientY;
 
     if (Math.abs(zoomLevel - 1.0) < 0.1) {
-      setZoomCenter({
-        x: (touchX - rect.left) / zoomLevel - panPosition.x,
-        y: (touchY - rect.top) / zoomLevel - panPosition.y
-      });
       setZoomLevel(1.3);
       
       // Hiển thị thanh điều khiển zoom
@@ -434,7 +440,7 @@ const ProjectLayout = React.memo(() => {
     }
 
     e.preventDefault();
-  }, [zoomLevel, panPosition, resetView]);
+  }, [zoomLevel, resetView]);
 
   // Xử lý pinch gesture
   const handlePinchGesture = useCallback((e) => {
@@ -443,16 +449,12 @@ const ProjectLayout = React.memo(() => {
 
     if (touchDistance !== null && newDistance > MIN_TOUCH_DISTANCE) {
       const deltaScale = (newDistance - touchDistance) / 50;
-      const center = getTouchCenter(e.touches);
-      if (center) {
-        setZoomCenter(center);
-      }
       handleZoom(deltaScale);
     }
 
     setTouchDistance(newDistance);
     e.preventDefault();
-  }, [calculateTouchDistance, touchDistance, handleZoom, getTouchCenter]);
+  }, [calculateTouchDistance, touchDistance, handleZoom]);
 
   // Xử lý pan gesture
   const handlePanGesture = useCallback((e) => {
@@ -794,29 +796,34 @@ const ProjectLayout = React.memo(() => {
             onClick={handleBackToOverview}
             aria-label="Quay lại danh sách phân khu đang bán"
           >
-            <ArrowLeft size={20} strokeWidth={2} />
+            <ArrowLeft size={20} strokeWidth={2} className={styles.backIcon} />
             <span>Quay lại</span>
           </button>
           <h3 className={styles.detailTitle}>{selectedZone.name}</h3>
           <StatusBadge status={selectedZone.status} />
+          
+          {/* Thêm nút xem chi tiết layout */}
+          {!showDetailLayout && zoneDetails && zoneDetails.detailLayoutImage && (
+            <button 
+              className={styles.viewLayoutButton}
+              onClick={(e) => handleViewLayoutDetail(e, selectedZoneId)}
+            >
+              <Eye size={16} className={styles.viewLayoutIcon} />
+              Xem chi tiết layout
+            </button>
+          )}
         </div>
 
-        {zoneDetails ? (
-          <>
-            <div className={styles.sellingZoneInfo}>
-              <p className={styles.sellingZoneDescription}>{selectedZone.description}</p>
-            </div>
-            
-            <h4 className={styles.sellingAreasTitle}>
-              <LayoutGrid size={18} className={styles.titleIcon} />
-              Các dãy nhà đang mở bán
-            </h4>
-            
-            {renderSellingAreas(selectedZoneId)}
-          </>
-        ) : (
-          <div className={styles.noData}>Chưa có thông tin chi tiết về các căn đang bán trong phân khu này</div>
-        )}
+        <div className={styles.sellingZoneInfo}>
+          <p className={styles.sellingZoneDescription}>{selectedZone.description}</p>
+        </div>
+        
+        <h4 className={styles.sellingAreasTitle}>
+          <LayoutGrid size={18} className={styles.titleIcon} />
+          Các dãy nhà đang mở bán
+        </h4>
+        
+        {renderSellingAreas(selectedZoneId)}
       </div>
     );
   };
@@ -845,8 +852,8 @@ const ProjectLayout = React.memo(() => {
 
   // Render tab "Đang mở bán"
   const renderSellingTab = () => {
-    // Nếu đã chọn phân khu, hiển thị các dãy nhà đang bán
-    if (selectedZoneId) {
+    // Nếu đã chọn phân khu và hiển thị chi tiết
+    if (showSellingDetail && selectedZoneId) {
       return renderSellingZoneDetail();
     }
     
@@ -880,16 +887,22 @@ const ProjectLayout = React.memo(() => {
                   <StatusBadge status={zone.status} />
                 </div>
                 
-                {/* Hiển thị ảnh layout chi tiết các căn đang bán */}
+                {/* Hiển thị ảnh layout chi tiết các căn đang bán - ĐÃ CẬP NHẬT */}
                 <div className={styles.sellingZoneImageContainer}>
                   <img 
-                    src={sellingLayoutData[zone.id].detailLayoutImage} 
+                    src={sellingLayoutData[zone.id]?.detailLayoutImage || zone.image || projectLayoutData.masterPlanImage} 
                     alt={`Layout các căn đang bán ${zone.name}`} 
                     className={styles.sellingZoneImage}
                     loading="lazy"
                   />
-                  <div className={styles.sellingZoneImageOverlay}>
-                    <span className={styles.viewLayoutText}>Xem chi tiết layout</span>
+                  <div 
+                    className={styles.sellingZoneImageOverlay}
+                    onClick={(e) => handleViewLayoutDetail(e, zone.id)}
+                  >
+                    <button className={styles.viewLayoutButton}>
+                      <Maximize2 size={16} className={styles.viewLayoutIcon} />
+                      Xem chi tiết
+                    </button>
                   </div>
                 </div>
                 
@@ -910,7 +923,10 @@ const ProjectLayout = React.memo(() => {
                 </div>
                 
                 <div className={styles.sellingZoneFooter}>
-                  <button className={styles.viewDetailsButton}>
+                  <button 
+                    className={styles.viewDetailsButton}
+                    onClick={(e) => handleViewSellingDetails(e, zone.id)}
+                  >
                     Xem chi tiết
                     <ChevronRight size={16} className={styles.buttonArrowIcon} />
                   </button>
@@ -935,7 +951,7 @@ const ProjectLayout = React.memo(() => {
             onClick={handleBackToOverview}
             aria-label="Quay lại tổng quan dự án"
           >
-            <ArrowLeft size={20} strokeWidth={2} />
+            <ArrowLeft size={18} strokeWidth={2.5} className={styles.backIcon} />
             <span>Quay lại</span>
           </button>
           <h3 className={styles.detailTitle}>{selectedZone.name}</h3>
@@ -1003,46 +1019,81 @@ const ProjectLayout = React.memo(() => {
     );
   };
 
-  // Render Map View
+  // Render Map View - ĐÃ CẬP NHẬT
   const renderMapView = () => {
+    // Mặc định transform style từ zoom/pan
     const transformStyle = {
       transform: `scale(${zoomLevel}) translate(${panPosition.x}px, ${panPosition.y}px)`,
-      transformOrigin: 'center center'
+      transformOrigin: `${zoomCenter.x}px ${zoomCenter.y}px` // Sử dụng zoomCenter
     };
 
-    let imageSrc = projectLayoutData.masterPlanImage;
-    let imageAlt = "Mặt bằng tổng thể dự án";
-
-    // Hiển thị image khác nhau dựa trên trạng thái hiện tại
-    if (activeTab === 'selling') {
-      if (selectedZoneId && sellingLayoutData[selectedZoneId]) {
+    // Quyết định ảnh hiển thị
+    let imageSrc, imageAlt;
+    
+    // Ưu tiên hiển thị layout chi tiết nếu đang ở chế độ này
+    if (showDetailLayout) {
+      // Nếu đang ở chế độ xem chi tiết layout, sử dụng ảnh layout chi tiết
+      if (detailLayoutImage) {
+        imageSrc = detailLayoutImage;
+        imageAlt = detailLayoutTitle || 'Mặt bằng chi tiết khu vực đang mở bán';
+      } 
+      // Fallback nếu không có ảnh trong state
+      else if (selectedZoneId && sellingLayoutData[selectedZoneId]?.detailLayoutImage) {
         imageSrc = sellingLayoutData[selectedZoneId].detailLayoutImage;
-        imageAlt = `Mặt bằng chi tiết ${selectedZone?.name}`;
+        imageAlt = `Mặt bằng chi tiết ${selectedZone?.name || ''}`;
       }
-    } else if (viewMode === 'detail' && selectedZone && selectedZone.image) {
+      // Fallback cuối cùng
+      else {
+        imageSrc = projectLayoutData.masterPlanImage;
+        imageAlt = 'Mặt bằng tổng thể dự án';
+      }
+    }
+    // Nếu không ở chế độ xem chi tiết layout, hiển thị ảnh theo ngữ cảnh hiện tại
+    else if (activeTab === 'selling' && showSellingDetail && selectedZoneId) {
+      // Nếu đang xem chi tiết khu vực đang bán
+      const zone = getSafeZoneData(projectLayoutData.zones, selectedZoneId);
+      imageSrc = zone?.image || projectLayoutData.masterPlanImage;
+      imageAlt = `Mặt bằng ${zone?.name || ''}`;
+    }
+    else if (viewMode === 'detail' && selectedZone && selectedZone.image) {
+      // Nếu đang xem chi tiết khu vực từ tab toàn dự án
       imageSrc = selectedZone.image;
       imageAlt = `Mặt bằng ${selectedZone.name}`;
+    }
+    else {
+      // Mặc định: hiển thị bản đồ tổng thể
+      imageSrc = projectLayoutData.masterPlanImage;
+      imageAlt = 'Mặt bằng tổng thể dự án';
     }
 
     return (
       <div className={styles.svgMapContainer}>
+        {/* Thanh công cụ khi xem layout chi tiết */}
+        {showDetailLayout && (
+          <div className={styles.detailLayoutToolbar}>
+            <div className={styles.detailLayoutTitle}>{detailLayoutTitle}</div>
+            <button 
+              className={styles.backFromDetailButton}
+              onClick={handleBackFromDetailLayout}
+              aria-label="Quay lại chế độ xem bình thường"
+            >
+              <ArrowLeft size={16} />
+              <span>Quay lại</span>
+            </button>
+          </div>
+        )}
+        
         <div
           className={styles.mapImage}
           style={transformStyle}
           ref={mapImageRef}
         >
            <img
-              key={imageSrc}
               src={imageSrc}
               alt={imageAlt}
-              className={`${styles.mapImageContent} ${activeTab === 'selling' && !selectedZoneId ? styles.sellingModeMap : ''}`}
+              className={`${styles.mapImageContent} ${showDetailLayout ? styles.detailLayoutMode : ''}`}
               loading="lazy"
             />
-            
-            {/* Highlight selling zones if in selling tab and not yet selected a zone */}
-            {activeTab === 'selling' && !selectedZoneId && (
-              <div className={styles.sellingZonesOverlay}></div>
-            )}
         </div>
 
         {showZoomControls && (

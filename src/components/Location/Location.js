@@ -1,8 +1,9 @@
+// src/components/Location/Location.js
 import React, { useState, useEffect } from 'react';
 import styles from './Location.module.css';
 import { locationData } from './LocationData';
 
-// Fallback data để tránh lỗi nếu locationData không được import đúng
+// Dữ liệu mặc định để tránh lỗi nếu locationData không được import đúng
 const defaultData = {
   badge: "VỊ TRÍ",
   title: "VỊ TRÍ DỰ ÁN",
@@ -18,77 +19,43 @@ const defaultData = {
 const tabMapping = {
   'Tiện ích nội khu': 'under1km',
   'Tiện ích ngoại khu': 'under5km',
-  'Kết nối giao thông': 'transport'
+  'Kết nối giao thông': 'transport',
+  'Thời gian di chuyển': 'traveltime'
 };
 
 // Mapping ngược lại để hiển thị tab
 const tabNameMapping = {
   'under1km': 'Dưới 1Km',
   'under5km': 'Dưới 5Km',
-  'transport': 'Kết nối giao thông'
+  'transport': 'Kết nối giao thông',
+  'traveltime': 'Thời gian di chuyển'
 };
 
-// Custom icon mapping for better UI
-const getIconByType = (type, text) => {
-  // Nội khu
-  if (type === 'under1km') {
-    if (text.includes('Clubhouse')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/1998/1998621.png" alt="Clubhouse" />;
-    } else if (text.includes('Quảng trường')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/2947/2947808.png" alt="Quảng trường" />;
-    } else if (text.includes('Trường') || text.includes('mầm non')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/1998/1998621.png" alt="Trường học" />;
-    } else if (text.includes('Công viên') || text.includes('cây xanh')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/3069/3069033.png" alt="Công viên" />;
-    } else if (text.includes('Hồ') || text.includes('điều hòa')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/1135/1135560.png" alt="Hồ điều hòa" />;
-    } else if (text.includes('thể thao')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/2947/2947808.png" alt="Khu thể thao" />;
-    }
-  }
-  // Ngoại khu
-  else if (type === 'under5km') {
-    if (text.includes('UBND') || text.includes('Ủy ban')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/1998/1998621.png" alt="UBND" />;
-    } else if (text.includes('TTTM') || text.includes('thương mại')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/2947/2947808.png" alt="TTTM" />;
-    } else if (text.includes('KCN') || text.includes('công nghiệp')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/3069/3069033.png" alt="KCN" />;
-    } else if (text.includes('Bệnh viện') || text.includes('Y tế')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/1998/1998621.png" alt="Bệnh viện" />;
-    }
-  }
-  // Giao thông
-  else if (type === 'transport') {
-    if (text.includes('Quốc lộ')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/1998/1998621.png" alt="Quốc lộ" />;
-    } else if (text.includes('Vành đai')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/2947/2947808.png" alt="Vành đai" />;
-    } else if (text.includes('Đường sắt')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/1135/1135560.png" alt="Đường sắt" />;
-    } else if (text.includes('Cao tốc')) {
-      return <img src="https://cdn-icons-png.flaticon.com/512/2947/2947808.png" alt="Cao tốc" />;
-    }
+// Hàm lấy icon từ dữ liệu item
+const getIconByType = (item) => {
+  if (item && item.icon) {
+    return <img src={item.icon} alt={item.text || 'Icon'} />;
   }
   
-  // Default icon nếu không có icon phù hợp
-  return <img src="https://cdn-icons-png.flaticon.com/512/1946/1946488.png" alt="Location" />;
+  // Fallback icon nếu không có icon trong data
+  return <img src="/img/icons/default.svg" alt="Default icon" />;
 };
 
-// Travel time icons
-const getTravelTimeIcon = (destination) => {
-  if (destination.includes("Hà Nội")) {
-    return <div className={styles.donutIcon}>🏙️</div>;
-  } else if (destination.includes("KCN") || destination.includes("công nghiệp")) {
-    return <div className={styles.donutIcon}>🏭</div>;
-  } else if (destination.includes("Sân bay")) {
-    return <div className={styles.donutIcon}>✈️</div>;
-  } else if (destination.includes("Park") || destination.includes("thương mại")) {
-    return <div className={styles.donutIcon}>🌊</div>;
+// Hàm lấy icon cho tab
+const getTabIcon = (group) => {
+  // Sử dụng tabIcon nếu có
+  if (group.tabIcon) {
+    return <img src={group.tabIcon} alt={group.title || 'Tab'} />;
   }
   
-  // Default icon
-  return <div className={styles.donutIcon}>🕒</div>;
+  // Fallback: Sử dụng icon của item đầu tiên nếu có
+  const firstItem = group.items && group.items.length > 0 ? group.items[0] : null;
+  if (firstItem && firstItem.icon) {
+    return <img src={firstItem.icon} alt={group.title || 'Tab'} />;
+  }
+  
+  // Fallback nếu không có icon nào
+  return <img src="/img/icons/default.svg" alt={group.title || 'Tab'} />;
 };
 
 /**
@@ -124,7 +91,7 @@ const Location = () => {
         <h2 className={styles.heading}>Trái Tim Thành Phố Tương Lai</h2>
         <div className={styles.seoDescription}>
           <p className={styles.seoParagraph}>
-          Economy City nằm tại trung tâm Như Quỳnh, Văn Lâm, Hưng Yên, đối diện Huyện ủy và UBND, sở hữu lợi thế kết nối vượt trội. Cách Hà Nội 20km, dự án kết nối qua cao tốc Hà Nội - Hải Phòng, Vành đai 3.5, Vành đai 4. Vị trí đắc địa mang lại tiện ích sống tối ưu và tiềm năng phát triển bền vững. Dự án hứa hẹn gia tăng giá trị vượt bậc, trở thành tâm điểm đầu tư khu vực phía Đông Hà Nội
+            Economy City nằm tại trung tâm Như Quỳnh, Văn Lâm, Hưng Yên, đối diện Huyện ủy và UBND, sở hữu lợi thế kết nối vượt trội. Cách Hà Nội 20km, dự án kết nối qua cao tốc Hà Nội - Hải Phòng, Vành đai 3.5, Vành đai 4. Vị trí đắc địa mang lại tiện ích sống tối ưu và tiềm năng phát triển bền vững. Dự án hứa hẹn gia tăng giá trị vượt bậc, trở thành tâm điểm đầu tư khu vực phía Đông Hà Nội
           </p>
         </div>
       </div>
@@ -133,7 +100,10 @@ const Location = () => {
       <div className={styles.mainContentWrapper}>
         {/* Cột bên trái: Danh sách kết nối */}
         <div className={styles.leftColumn}>
-          <h2 className={styles.sectionTitleWithLine}>Kết nối đa chiều, thuận tiện di chuyển</h2>
+          <div className={styles.sectionTitleContainer}>
+            <h2 className={styles.sectionTitleUnderline}>Kết nối đa chiều, thuận tiện di chuyển</h2>
+            <div className={styles.underline}></div>
+          </div>
           
           {/* Tab Navigation */}
           <div className={styles.tabContainer}>
@@ -145,8 +115,7 @@ const Location = () => {
                   onClick={() => setActiveTabIndex(index)}
                 >
                   <span className={styles.tabIcon}>
-                    {getIconByType(tabMapping[group.title], group.title === 'Tiện ích nội khu' ? 'Clubhouse' : 
-                                  group.title === 'Tiện ích ngoại khu' ? 'UBND' : 'Quốc lộ')}
+                    {getTabIcon(group)}
                   </span>
                   <span className={styles.tabText}>
                     {tabNameMapping[tabMapping[group.title]] || group.title}
@@ -160,9 +129,15 @@ const Location = () => {
               {currentTabGroup.items && currentTabGroup.items.slice(0, 6).map((item, idx) => (
                 <div key={idx} className={styles.tabItem}>
                   <div className={styles.tabItemIcon}>
-                    {getIconByType(currentTabType, item.text)}
+                    {getIconByType(item)}
                   </div>
-                  {item.text.includes(" ") ? (
+                  {/* Kiểm tra xem item có thuộc tính subtitle không (cho tab thời gian) */}
+                  {item.subtitle ? (
+                    <>
+                      <h3 className={styles.tabItemTitle}>{item.text}</h3>
+                      <p className={styles.tabItemSubtitle}>{item.subtitle}</p>
+                    </>
+                  ) : item.text.includes(" ") ? (
                     <>
                       <h3 className={styles.tabItemTitle}>
                         {item.text.split(" ")[0]}
@@ -195,51 +170,37 @@ const Location = () => {
           </div>
         </div>
 
-        {/* Cột bên phải: Bản đồ và thời gian di chuyển */}
+        {/* Cột bên phải: Video vị trí (giờ sẽ chiếm toàn bộ không gian) */}
         <div className={styles.rightColumn}>
           <div className={styles.mapContainer}>
-            {data.mapImage && data.mapImage.src ? (
+            {data.localVideoSrc ? (
+              <video 
+                className={styles.mapVideo}
+                src={data.localVideoSrc}
+                poster={data.mapImage?.src}
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+              >
+                <source src={data.localVideoSrc} type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+            ) : data.mapImage && data.mapImage.src ? (
               <img 
                 src={data.mapImage.src} 
                 alt={data.mapImage.alt || 'Bản đồ vị trí'} 
                 className={styles.mapImage}
               />
             ) : (
-              <p>Ảnh bản đồ vị trí sẽ được hiển thị ở đây</p>
+              <p>Video giới thiệu vị trí sẽ được hiển thị ở đây</p>
             )}
-          </div>
-          
-          {/* Phần thời gian di chuyển */}
-          <div className={styles.footerCharts}>
-            {data.travelTimes?.items && data.travelTimes.items.map((item, index) => {
-              // Tính phần trăm cho biểu đồ hình tròn dựa trên thời gian
-              const timeStr = item.duration.split('-')[1] || item.duration;
-              const minutes = parseInt(timeStr.match(/\d+/)[0], 10);
-              // Chuyển đổi phút thành độ (360 độ = vòng tròn đầy đủ)
-              const degrees = Math.min(360, (minutes / 45) * 360);
-              
-              return (
-                <div key={index} className={styles.donutChart}>
-                  <div 
-                    className={styles.donutChartContainer}
-                    style={{
-                      '--progress': `${degrees}deg`
-                    }}
-                  >
-                    <div className={styles.donutHole}>
-                      {getTravelTimeIcon(item.destination)}
-                    </div>
-                  </div>
-                  <div className={styles.chartLabel}>{item.destination}</div>
-                  <div className={styles.chartTime}>{item.duration}</div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </div>
 
-      {/* Nút CTA ở cuối component, thay thế đường gạch ngang */}
+      {/* Nút CTA ở cuối component */}
       <div className={styles.footerCtaContainer}>
         <a href="#contact" className={styles.footerButton}>Tìm hiểu thêm</a>
       </div>
