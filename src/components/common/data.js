@@ -262,22 +262,22 @@ export const featuresData = [
 export const galleryImages = [
   { 
     id: 'overview', 
-    src: "TT HOANG HON.jpg", 
+    src: "tam_diem_giao_thuong_economy.webp", 
     alt: "Phối cảnh dự án Economy City Văn Lâm" 
   },
   { 
     id: 'square', 
-    src: "Quảng trường.jpg", 
+    src: "45.webp", 
     alt: "Phối cảnh quảng trường trung tâm" 
   },
   { 
     id: 'shophouse', 
-    src: "Lienke.png", 
+    src: "lien_ke.webp", 
     alt: "Phối cảnh nhà phố thương mại" 
   },
   { 
     id: 'villa', 
-    src: "Bietthu.jpg", 
+    src: "03.webp", 
     alt: "Phối cảnh biệt thự" 
   },
   { 
@@ -287,17 +287,17 @@ export const galleryImages = [
   },
   { 
     id: 'facilities', 
-    src: "Tiện ích nội khu.jpg", 
+    src: "tien_ich_noi_khu.webp", 
     alt: "Phối cảnh tiện ích nội khu" 
   },
   { 
     id: 'park', 
-    src: "cong_vien_economy.webp", 
+    src: "17.webp", 
     alt: "Công viên xanh mát" 
   },
   { 
     id: 'clubhouse', 
-    src: "Clubhouse.jpg", 
+    src: "5.webp", 
     alt: "Clubhouse đẳng cấp" 
   }
 ];

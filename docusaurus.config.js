@@ -332,7 +332,7 @@ const config = {
           },
           {
             href: '/#features',
-            label: 'Lợi thế cạnh tranh',
+            label: 'Lợi thế độc quyền',
             position: 'left',
             className: 'navbar-center-item',
           },
