@@ -51,14 +51,25 @@ const MobileCard = memo(({ feature, index, isActive }) => (
   </div>
 ));
 
-// Component card cho desktop/tablet
+// Component card cho desktop/tablet - Đã sửa để tránh flicker khi hover
 const DesktopCard = memo(({ item, isActive, onSelect }) => {
   const { data, index, position } = item;
   
+  // Handler click cho non-active card để chọn
+  const handleCardClick = useCallback(() => {
+    if (!isActive) {
+      onSelect(index);
+    }
+  }, [isActive, index, onSelect]);
+  
+  // Disable pointer events cho mọi phần tử con để tránh flicker
+  // Các sự kiện mouse sẽ "xuyên qua" và được xử lý bởi thẻ cha
   return (
     <div
       className={`${styles.featureCard} ${isActive ? styles.activeCard : styles.nonActiveCard}`}
       style={{
+        // Sử dụng transform dựa trên position để hiển thị đúng vị trí
+        // position = -1 (bên trái), 0 (giữa), 1 (bên phải)
         transform: `translateX(${position * 150}%) scale(${isActive ? 1 : 0.85})`,
         opacity: isActive ? 1 : 0.8,
         zIndex: isActive ? 20 : 10 - Math.abs(position),
@@ -68,6 +79,7 @@ const DesktopCard = memo(({ item, isActive, onSelect }) => {
       aria-hidden={!isActive}
       aria-label={`Slide ${index + 1} of ${featuresData.length}: ${data.title}`}
       id={`desktop-slide-${index}`}
+      onClick={!isActive ? handleCardClick : undefined} // Chỉ xử lý click cho non-active card
     >
       {isActive ? (
         // Active card: Full content with description
@@ -94,17 +106,17 @@ const DesktopCard = memo(({ item, isActive, onSelect }) => {
           )}
         </>
       ) : (
-        // Non-active card: Không có mô tả, nhưng vẫn hiển thị đầy đủ card với ảnh
+        // Non-active card: Hiển thị mô tả với truncate
         <>
-          <div className={styles.cardContent} onClick={() => onSelect(index)}>
+          <div className={styles.cardContent}>
             <div className={styles.iconContainer} aria-hidden="true">
               <FeatureIcon iconName={data.icon} />
             </div>
             <h3 className={styles.featureTitle}>{data.title}</h3>
-            {/* Không hiển thị phần mô tả ở đây */}
+            <p className={styles.featureDescription}>{data.description}</p>
           </div>
           {data.image && (
-            <div className={styles.featureImageContainer} onClick={() => onSelect(index)}>
+            <div className={styles.featureImageContainer}>
               <img
                 src={data.image}
                 alt=""
@@ -311,6 +323,7 @@ const SixFeatures = () => {
   }, [screenSize]);
   
   // Hợp nhất xử lý navigation
+  // Sử dụng useCallback và debounce để tránh gọi quá nhiều lần
   const handleNavigation = useCallback((action, index = null) => {
     const totalItems = featuresData.length;
     let nextIndex;
@@ -407,7 +420,7 @@ const SixFeatures = () => {
     };
   }, [screenSize, handleInteractionStart, debouncedScrollHandler]);
   
-  // Memoize getVisibleItemsDesktop function - Đã thay đổi để chỉ hiển thị 3 card
+  // Memoize getVisibleItemsDesktop function
   const getVisibleItemsDesktop = useCallback(() => {
     const items = [];
     const totalItems = featuresData.length;
@@ -416,6 +429,7 @@ const SixFeatures = () => {
     const position1Left = (activeIndex - 1 + totalItems) % totalItems;
     const position1Right = (activeIndex + 1) % totalItems;
     
+    // Luôn hiển thị 3 card: 1 active ở giữa và 2 non-active ở hai bên
     items.push({ data: featuresData[position1Left], index: position1Left, position: -1 });
     items.push({ data: featuresData[centerIndex], index: centerIndex, position: 0 });
     items.push({ data: featuresData[position1Right], index: position1Right, position: 1 });
@@ -448,6 +462,15 @@ const SixFeatures = () => {
     )),
     [activeMobileCard]
   );
+  
+  // Xử lý pause/resume autoplay - Sử dụng memoized handlers để tránh re-render
+  const handleMouseEnter = useCallback(() => {
+    dispatch({ type: 'PAUSE_AUTOPLAY' });
+  }, []);
+  
+  const handleMouseLeave = useCallback(() => {
+    dispatch({ type: 'RESUME_AUTOPLAY' });
+  }, []);
   
   return (
     <section id="features" className={styles.featuresSection} aria-labelledby="features-title">
@@ -539,8 +562,8 @@ const SixFeatures = () => {
         {screenSize !== 'mobile' && (
           <div
             className={styles.carouselContainer}
-            onMouseEnter={() => dispatch({ type: 'PAUSE_AUTOPLAY' })}
-            onMouseLeave={() => dispatch({ type: 'RESUME_AUTOPLAY' })}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
             role="region"
             aria-roledescription="carousel"
             aria-label="Các lý do nổi bật để sở hữu Economy City"
@@ -601,15 +624,7 @@ const SixFeatures = () => {
                 style={{ animationPlayState: isPaused ? 'paused' : 'running' }}
               ></div>
             </div>
-            <style jsx>{`
-              @keyframes autoPlayProgress {
-                from { width: 0%; }
-                to { width: 100%; }
-              }
-              .${styles.autoPlayProgress} {
-                animation: autoPlayProgress 5s linear forwards;
-              }
-            `}</style>
+            {/* Không cần thêm style JSX nếu đã định nghĩa trong CSS */}
           </div>
         )}
 

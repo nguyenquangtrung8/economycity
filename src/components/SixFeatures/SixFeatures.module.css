@@ -71,11 +71,16 @@
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   display: flex;
   flex-direction: column;
-  transition: transform 0.5s ease, opacity 0.5s ease;
+  transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), 
+              opacity 0.5s cubic-bezier(0.25, 0.1, 0.25, 1), 
+              border-color 0.4s ease,
+              box-shadow 0.4s ease;
   overflow: hidden;
   border: 2px solid transparent;
   transform: translateZ(0);
   will-change: transform, opacity;
+  backface-visibility: hidden;
+  perspective: 1000;
 }
 
 .cardContent {
@@ -135,6 +140,9 @@
   aspect-ratio: 16/9;
   flex-shrink: 0;
   background-color: #e5e7eb;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 .featureImage {
@@ -142,8 +150,10 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transform: none;
-  transition: none;
+  transform: translateZ(0);
+  transition: transform 0.3s ease;
+  backface-visibility: hidden;
+  will-change: transform;
 }
 
 /* Fallback for browsers not supporting aspect-ratio */
@@ -180,6 +190,12 @@
   min-height: 480px;
   width: 100%;
   perspective: 1000px;
+  transform-style: preserve-3d;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* Đảm bảo có đủ không gian cho cả 3 cards */
+  margin: 0 auto;
+  padding: 0 15%;
 }
 
 /* Desktop/tablet card styles */
@@ -190,21 +206,19 @@
   
   .featureCard:not(.mobileCard) {
     position: absolute;
-    width: 320px; /* Tăng kích thước của card */
+    width: 320px; /* Kích thước của card không active */
     opacity: 1; 
-    transform: translateZ(0) scale(0.85);
-    z-index: 1;
     min-height: 465px;
-    transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.5s ease;
+    transition: opacity 0.5s ease, box-shadow 0.5s ease, border-color 0.5s ease, transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
   }
 
-  .activeCard {
-    transform: translateX(0) scale(1) !important;
-    opacity: 1 !important;
+  /* Sử dụng specificity cao hơn thay vì !important */
+  .cardsWrapper .activeCard {
+    opacity: 1;
     box-shadow: 0 15px 30px -5px rgba(29, 78, 216, 0.15), 0 10px 15px -3px rgba(29, 78, 216, 0.1);
     border: 2px solid #fbbf24;
-    z-index: 20 !important;
-    width: 380px !important; /* Tăng kích thước của card active */
+    z-index: 20;
+    width: 380px;
     min-height: 480px;
     border-top-left-radius: 185px;
     border-top-right-radius: 185px;
@@ -236,6 +250,14 @@
   border-bottom-left-radius: 0px;
   width: 330px;
   min-height: 330px;
+  pointer-events: auto;
+  /* QUAN TRỌNG: Không sử dụng transform ở đây, để transform trong inline style */
+}
+
+/* Hiệu ứng hover cho card không active - tăng specificity thay vì dùng !important */
+.cardsWrapper .nonActiveCard:hover {
+  border-color: #e49c10;
+  box-shadow: 0 8px 15px -3px rgba(59, 130, 246, 0.15);
 }
 
 /* CSS cho cardContent trong nonActiveCard */
@@ -256,16 +278,34 @@
   margin-bottom: 0.5rem;
 }
 
+/* Sửa phần mô tả cho non-active card */
 .nonActiveCard .featureDescription {
-  display: none;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-height: 1.8em;
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: 4b5563;
+  line-height: 1.8;
+}
+
+/* Tăng cỡ chữ cho phần mô tả trong non-active card */
+.cardsWrapper .nonActiveCard .featureDescription {
+  font-size: 1rem !important;
+  max-height: 2em !important;
 }
 
 /* Cấu hình container ảnh cho card không active */
 .nonActiveCard .featureImageContainer {
   margin-top: 0;
-  height: 150px;
+  height: 150px !important;
   flex: 1 0 auto;
   cursor: pointer;
+  transition: none !important;
 }
 
 .nonActiveCard .featureImage {
@@ -305,22 +345,32 @@
   height: 2.25rem;
 }
 
-/* Loại bỏ hiệu ứng hover cho card không active */
-.nonActiveCard:hover {
-  transform: none !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+/* Tối ưu animation với chỉ định rõ ràng */
+@keyframes autoPlayProgress {
+  from { width: 0%; }
+  to { width: 100%; }
 }
 
-/* Loại bỏ hiệu ứng hover cho icon trong nonActiveCard */
-.nonActiveCard:hover .iconContainerLarge,
-.nonActiveCard:hover .iconContainer {
-  transform: none;
+.autoPlayProgress {
+  
+  height: 100%;
+  width: 0%;
+  background-color: #1d4ed8;
+  will-change: width;
+  animation: autoPlayProgress 5s linear forwards;
 }
 
-/* Loại bỏ hiệu ứng hover trên ảnh */
-.nonActiveCard:hover .featureImage,
-.featureCard:hover .featureImage {
-  transform: none !important;
+/* Tối ưu performance với will-change */
+.cardsWrapper > div {
+  will-change: transform;
+}
+
+/* Ngăn chặn flickering trong một số trình duyệt */
+.cardsWrapper img {
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
 }
 
 /* ===== MOBILE VIEW ===== */
@@ -565,23 +615,11 @@
 
 /* Autoplay progress indicator */
 .autoPlayIndicator {
-  position: absolute;
-  bottom: -1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100px;
-  height: 4px;
-  background-color: rgba(29, 78, 216, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
-  z-index: 10;
+  display: none;
 }
 
 .autoPlayProgress {
-  height: 100%;
-  width: 0%;
-  background-color: #1d4ed8;
-  will-change: width;
+  display: none;
 }
 
 /* ===== CTA SECTION ===== */
@@ -598,7 +636,7 @@
   gap: 0.5rem;
   padding: 0.9rem 1.8rem;
   background: linear-gradient(to right, #f59e0b, #fbbf24);
-  color: #1f2937;
+  color: #ffffff;
   font-weight: 700;
   font-size: 0.95rem;
   border-radius: 0.5rem;
@@ -764,27 +802,27 @@
   .iconContainerLarge,
   .featureTitleLarge,
   .autoPlayProgress {
-    transition-duration: 0.001ms !important;
-    animation: none !important;
-    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important; /* !important cần thiết để ghi đè tất cả các transitions */
+    animation-duration: 0.001ms !important; /* !important cần thiết cho accessibility */
+    scroll-behavior: auto !important; /* !important cần thiết cho accessibility */
   }
 
   .swipeIcon,
   .mobileScrollIndicator {
-    animation: none !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
+    animation: none !important; /* !important cần thiết cho accessibility */
+    opacity: 0;
+    visibility: hidden;
   }
 
-  .nonActiveCard:hover .iconContainerLarge {
-    transform: none !important;
+  .cardsWrapper .nonActiveCard:hover .iconContainerLarge {
+    transform: none;
   }
   
   .ctaButton:hover {
-    transform: none !important;
+    transform: none;
   }
   
   .ctaButton:hover .ctaArrow {
-    transform: none !important;
+    transform: none;
   }
 }

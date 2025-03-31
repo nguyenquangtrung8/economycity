@@ -1,277 +1,190 @@
-// ProjectLayoutData.js
-// Dữ liệu cấu hình cho layout dự án Economy City Văn Lâm
+/**
+ * Dữ liệu mặt bằng dự án Economy City Văn Lâm
+ * @typedef {Object} ProjectZone
+ * @property {string} id - ID định danh phân khu
+ * @property {string} name - Tên phân khu
+ * @property {number} area - Diện tích (m²)
+ * @property {number} buildingDensity - Mật độ xây dựng (%)
+ * @property {'selling'|'coming-soon'|'sold-out'} status - Trạng thái phân khu
+ * @property {string} description - Mô tả phân khu
+ * @property {Array<{type: string, count: number, areaRange: number[], priceRange: number[]}>} products - Sản phẩm
+ * @property {string} image - Đường dẫn hình ảnh phân khu
+ */
 
+/**
+ * Dữ liệu mặt bằng tổng thể dự án
+ * @type {Object}
+ */
 export const projectLayoutData = {
-  // Thông tin cơ bản của dự án
-  totalArea: 370000, // 37 ha = 370,000 m²
-  totalBuildingDensity: 1044, // Tổng số căn thấp tầng
-  overallBuildingDensity: 38, // Mật độ xây dựng chung (%)
-  metaDescription: "Tổng diện tích 37 ha, gồm 1.044 căn thấp tầng và 8 tòa chung cư cao cấp, phân bố trong 4 phân khu chính.",
-  masterPlanImage: "/img/layout/economy-city-master-plan.jpg", // Hình ảnh tổng thể dự án
+  id: "economy-city",
+  name: "Economy City Văn Lâm",
+  totalArea: 370000,
+  totalBuildingDensity: 1044, // Tổng số căn trên toàn dự án
+  overallBuildingDensity: 32.3, // Thêm mật độ xây dựng tổng thể cho dự án
 
-  // Danh sách các phân khu
+  // Metadata cho SEO
+  metaTitle: "Economy City Văn Lâm - Mặt bằng tổng thể dự án",
+  metaDescription: "Khám phá mặt bằng tổng thể dự án Economy City Văn Lâm với tổng diện tích 37ha, bao gồm 4 phân khu chức năng với mật độ xây dựng thấp và nhiều không gian xanh.",
+  // Hình ảnh bản đồ tổng thể - đã tối ưu hóa
+  masterPlanImage: "/img/mat_bang_economy.webp",
+  // Các phân khu
   zones: [
     {
-      id: "cat-tuong-1",
-      name: "Phân khu Cát Tường",
-      status: "selling", // selling, coming-soon, sold-out
-      area: 85000, // 8.5 ha
-      buildingDensity: 35, // Mật độ xây dựng (%)
-      description: "Phân khu Cát Tường nằm tại vị trí đắc địa của dự án, bao gồm các biệt thự đơn lập, biệt thự song lập và nhà phố liền kề với thiết kế hiện đại, không gian sống sang trọng và đẳng cấp.",
-      image: "/img/layout/cat-tuong-layout.jpg",
+      id: "zone-a",
+      name: "Phân khu Phú Quý",
+      area: 95000,
+      buildingDensity: 226,
+      status: "coming-soon", // sắp mở bán
+      description: "Phân khu phía Đông với không gian sống hiện đại, nhiều tiện ích và không gian xanh. Gần trục đường chính và dễ dàng kết nối với khu vực trung tâm.",
       products: [
         {
-          type: "Biệt thự đơn lập",
+          type: "Biệt thự",
+          count: 68,
+          areaRange: [250, 300],
+          priceRange: [25000000000, 35000000000]
+        },
+        {
+          type: "Liền kề",
+          count: 158,
+          areaRange: [170, 210],
+          priceRange: [15000000000, 21000000000]
+        }
+      ],
+      image: "/img/phu_quy_economy.webp"
+    },
+    {
+      id: "zone-b",
+      name: "Phân khu Cát Tường",
+      area: 85000,
+      buildingDensity: 296,
+      status: "selling", // đang mở bán
+      description: "Phân khu trung tâm với nhiều tiện ích cao cấp, bao gồm shophouse và nhà phố thương mại. Vị trí đắc địa, phù hợp cho cả ở và kinh doanh.",
+      products: [
+        {
+          type: "Liền kề",
+          count: 296,
+          areaRange: [85, 120],
+          priceRange: [9000000000, 15000000000]
+        },
+      ],
+      image: "/img/cat_tuong_economy.webp"
+    },
+    {
+      id: "zone-c",
+      name: "Phân khu Hưng Thịnh",
+      area: 75000,
+      buildingDensity: 256,
+      status: "selling", // đang mở bán
+      description: "Phân khu phía Tây với thiết kế đa dạng, bao gồm nhà phố và liền kề. Môi trường sống xanh, gần các tiện ích thể thao và giải trí.",
+      products: [
+        {
+          type: "Biệt thự",
           count: 32,
-          buildingAreaRange: [65, 70],
-          areaRange: [200, 300],
+          areaRange: [80, 110],
           priceRange: [8500000000, 12000000000]
         },
         {
-          type: "Biệt thự song lập",
-          count: 48,
-          buildingAreaRange: [70, 75],
-          areaRange: [180, 250],
-          priceRange: [7500000000, 10000000000]
-        },
-        {
-          type: "Nhà phố liền kề",
-          count: 102,
-          buildingAreaRange: [80, 85],
-          areaRange: [75, 120],
-          priceRange: [5000000000, 7000000000]
+          type: "Liền kề",
+          count: 224,
+          areaRange: [150, 180],
+          priceRange: [13000000000, 18000000000]
         }
-      ]
+      ],
+      image: "/img/hung_thinh_economy.webp"
     },
     {
-      id: "hung-thinh-1",
-      name: "Phân khu Hưng Thịnh",
-      status: "selling",
-      area: 76000, // 7.6 ha
-      buildingDensity: 40,
-      description: "Phân khu Hưng Thịnh bao gồm các sản phẩm nhà phố thương mại (shophouse) cao cấp, là nơi lý tưởng cho cả nhu cầu ở và kinh doanh, đặc biệt là các hoạt động thương mại dịch vụ.",
-      image: "/img/layout/hung-thinh-layout.jpg",
+      id: "zone-d",
+      name: "Phân khu Thịnh Vượng",
+      area: 115000,
+      buildingDensity: 237,
+      status: "coming-soon", // sắp mở bán
+      description: "Phân khu cao cấp nhất với mật độ xây dựng thấp, nhiều không gian xanh và biệt thự sang trọng. Phù hợp cho những khách hàng tìm kiếm không gian riêng tư.",
       products: [
         {
-          type: "Shophouse",
-          count: 86,
-          buildingAreaRange: [85, 90],
-          areaRange: [100, 150],
-          priceRange: [9000000000, 15000000000]
+          type: "Biệt thự",
+          count: 131,
+          areaRange: [280, 350],
+          priceRange: [30000000000, 45000000000]
         },
         {
-          type: "Nhà phố liền kề",
-          count: 120,
-          buildingAreaRange: [80, 85],
-          areaRange: [75, 120],
-          priceRange: [5500000000, 7500000000]
-        }
-      ]
-    },
-    {
-      id: "phu-quy-1",
-      name: "Phân khu Phú Quý",
-      status: "coming-soon",
-      area: 62000, // 6.2 ha
-      buildingDensity: 42,
-      description: "Phân khu Phú Quý sẽ mở bán trong đợt tiếp theo, bao gồm các sản phẩm nhà phố cao cấp với vị trí đắc địa, gần các tiện ích công cộng và công viên trung tâm của dự án.",
-      image: "/img/layout/phu-quy-layout.jpg",
-      products: [
-        {
-          type: "Biệt thự đơn lập",
-          count: 24,
-          buildingAreaRange: [65, 70],
-          areaRange: [220, 320],
-          priceRange: [9000000000, 13000000000]
+          type: "Liền kề",
+          count: 106,
+          areaRange: [220, 260],
+          priceRange: [22000000000, 29000000000]
         },
-        {
-          type: "Nhà phố liền kề",
-          count: 96,
-          buildingAreaRange: [80, 85],
-          areaRange: [90, 130],
-          priceRange: [6000000000, 8000000000]
-        }
-      ]
-    },
-    {
-      id: "an-khang-1",
-      name: "Phân khu An Khang",
-      status: "coming-soon",
-      area: 58000, // 5.8 ha
-      buildingDensity: 38,
-      description: "Phân khu An Khang là khu vực với không gian sống yên tĩnh, gần gũi thiên nhiên với nhiều mảng xanh và tiện ích nội khu cao cấp, phù hợp cho các gia đình trẻ tìm kiếm môi trường sống lý tưởng.",
-      image: "/img/layout/an-khang-layout.jpg",
-      products: [
-        {
-          type: "Biệt thự song lập",
-          count: 36,
-          buildingAreaRange: [70, 75],
-          areaRange: [180, 250],
-          priceRange: [7800000000, 10500000000]
-        },
-        {
-          type: "Nhà phố liền kề",
-          count: 86,
-          buildingAreaRange: [80, 85],
-          areaRange: [85, 125],
-          priceRange: [5500000000, 7500000000]
-        }
-      ]
-    },
-    {
-      id: "cao-tang-1",
-      name: "Khu Chung cư Cao tầng",
-      status: "coming-soon",
-      area: 89000, // 8.9 ha
-      buildingDensity: 45,
-      description: "Khu Chung cư Cao tầng sẽ phát triển 8 tòa chung cư hiện đại, với khoảng 4.000 căn hộ đa dạng diện tích, đáp ứng nhu cầu của nhiều đối tượng khách hàng khác nhau.",
-      image: "/img/layout/chung-cu-layout.jpg",
-      products: [
-        {
-          type: "Căn hộ 1 phòng ngủ",
-          count: 1200,
-          buildingAreaRange: [100, 100],
-          areaRange: [45, 55],
-          priceRange: [1800000000, 2200000000]
-        },
-        {
-          type: "Căn hộ 2 phòng ngủ",
-          count: 1800,
-          buildingAreaRange: [100, 100],
-          areaRange: [65, 80],
-          priceRange: [2500000000, 3200000000]
-        },
-        {
-          type: "Căn hộ 3 phòng ngủ",
-          count: 1000,
-          buildingAreaRange: [100, 100],
-          areaRange: [90, 120],
-          priceRange: [3500000000, 4500000000]
-        }
-      ]
+      ],
+      image: "/img/thinh_vuong_economy.webp"
     }
-  ]
-};
-
-// Thông tin chi tiết về các khu vực đang bán
-export const sellingLayoutData = {
-  "cat-tuong-1": {
-    detailLayoutImage: "/img/layout/cat-tuong-detail.jpg",
-    sellingAreas: [
-      {
-        name: "Cát Tường 1 - 17.5M",
-        totalCount: 36,
-        availableCount: 14,
-        description: "Dãy biệt thự đơn lập và song lập với vị trí đắc địa nhất khu Cát Tường, view công viên và hồ điều hòa.",
-        priceRange: [8500000000, 12000000000],
-      },
-      {
-        name: "Cát Tường 2 - 15.5M",
-        totalCount: 42,
-        availableCount: 18,
-        description: "Dãy biệt thự song lập và nhà phố với thiết kế hiện đại, không gian sống tiện nghi và đẳng cấp.",
-        priceRange: [7000000000, 10000000000],
-      },
-      {
-        name: "Cát Tường 3 - 15.5M",
-        totalCount: 48,
-        availableCount: 12,
-        description: "Dãy nhà phố liền kề với thiết kế tối ưu, phù hợp cho cả nhu cầu ở và đầu tư cho thuê.",
-        priceRange: [5000000000, 7000000000],
-      },
-      {
-        name: "Cát Tường 4 - 15.5M",
-        totalCount: 56,
-        availableCount: 12,
-        description: "Khu nhà phố thương mại kết hợp, vị trí đẹp gần trục đường chính, phù hợp kinh doanh.",
-        priceRange: [6000000000, 8000000000],
-      }
-    ],
-    // Thêm thông tin chi tiết về loại sản phẩm cho phân khu Cát Tường
-    productStats: {
-      totalLots: 182,
-      availableLots: 56,
-      productTypes: [
-        { 
-          type: "Biệt thự đơn lập", 
-          total: 32, 
-          available: 12, 
-          icon: "HomeIcon",
-          areaRange: [200, 300], // Diện tích từ 200-300m²
-          priceRange: [8500000000, 12000000000] // Giá từ 8.5-12 tỷ
-        },
-        { 
-          type: "Biệt thự song lập", 
-          total: 48, 
-          available: 16, 
-          icon: "BuildingIcon",
-          areaRange: [180, 250], // Diện tích từ 180-250m² 
-          priceRange: [7500000000, 10000000000] // Giá từ 7.5-10 tỷ
-        },
-        { 
-          type: "Nhà phố liền kề", 
-          total: 102, 
-          available: 28, 
-          icon: "StoreIcon",
-          areaRange: [75, 120], // Diện tích từ 75-120m²
-          priceRange: [5000000000, 7000000000] // Giá từ 5-7 tỷ 
-        }
-      ]
-    }
-  },
-  "hung-thinh-1": {
-    detailLayoutImage: "/img/layout/hung-thinh-detail.jpg",
-    sellingAreas: [
-      {
-        name: "Hưng Thịnh A",
-        totalCount: 40,
-        availableCount: 22,
-        description: "Dãy shophouse vị trí đắc địa nhất dự án, mặt tiền đường lớn, phù hợp kinh doanh đa ngành nghề.",
-        priceRange: [9000000000, 15000000000],
-      },
-      {
-        name: "Hưng Thịnh B",
-        totalCount: 46,
-        availableCount: 18,
-        description: "Shophouse và nhà phố thương mại tích hợp, có mặt tiền rộng và không gian kinh doanh linh hoạt.",
-        priceRange: [8500000000, 12000000000],
-      },
-      {
-        name: "Hưng Thịnh C",
-        totalCount: 62,
-        availableCount: 24,
-        description: "Nhà phố liền kề với thiết kế phù hợp cho cả kinh doanh và sinh sống, vị trí gần tiện ích nội khu.",
-        priceRange: [5500000000, 7500000000],
-      },
-      {
-        name: "Hưng Thịnh D",
-        totalCount: 58,
-        availableCount: 16,
-        description: "Nhà phố liền kề thiết kế hiện đại, không gian tối ưu cho gia đình nhiều thế hệ.",
-        priceRange: [5800000000, 7200000000],
-      }
-    ],
-    productStats: {
-      totalLots: 206,
-      availableLots: 80,
-      productTypes: [
-        { 
-          type: "Shophouse", 
-          total: 86, 
-          available: 40, 
-          icon: "StoreIcon",
-          areaRange: [100, 150], // Diện tích từ 100-150m²
-          priceRange: [9000000000, 15000000000] // Giá từ 9-15 tỷ
-        },
-        { 
-          type: "Nhà phố liền kề", 
-          total: 120, 
-          available: 40, 
-          icon: "BuildingIcon",
-          areaRange: [75, 120], // Diện tích từ 75-120m²
-          priceRange: [5500000000, 7500000000] // Giá từ 5.5-7.5 tỷ
-        }
-      ]
+  ],
+  
+  // Các tiện ích chính - đã loại bỏ polygon không cần thiết
+  amenities: {
+    centralPlaza: {
+      name: "Quảng trường trung tâm",
+      area: 5.6
+    },
+    lake: {
+      name: "Hồ điều hòa",
+      area: 1.2
+    },
+    clubhouse: {
+      name: "Clubhouse",
+      area: 2000
     }
   }
 };
+
+/**
+ * Dữ liệu chi tiết các khu vực đang mở bán
+ * Thông tin này sẽ được sử dụng trong tab "Đang mở bán"
+ */
+export const sellingLayoutData = {
+  "zone-b": { // Phân khu Cát Tường
+    detailLayoutImage: "/img/cat_tuong_economy.webp", // Ảnh layout chi tiết các căn đang bán
+    sellingAreas: [
+      {
+        name: "Dãy D1 - D2",
+        description: "Tọa lạc tại vị trí đẹp nhất phân khu, gồm các căn biệt thự và liền kề sang trọng, view hồ trung tâm.",
+        availableCount: 34,
+        totalCount: 48,
+        priceRange: [10500000000, 15800000000]
+      },
+      {
+        name: "Dãy T5",
+        description: "Nằm ở trục đường nội khu, phù hợp kinh doanh, gồm các căn liền kề có thiết kế hiện đại.",
+        availableCount: 22,
+        totalCount: 30,
+        priceRange: [9000000000, 12000000000]
+      }
+    ]
+  },
+  "zone-c": { // Phân khu Hưng Thịnh
+    detailLayoutImage: "/img/hung_thinh_economy.webp", // Ảnh layout chi tiết các căn đang bán
+    sellingAreas: [
+      {
+        name: "Dãy BT3 - BT4",
+        description: "Khu biệt thự cao cấp gồm các căn góc và giữa, tiêu chuẩn thiết kế tân cổ điển.",
+        availableCount: 18,
+        totalCount: 22,
+        priceRange: [25000000000, 32000000000]
+      },
+      {
+        name: "Dãy L7 - L9",
+        description: "Liền kề shophouse kết hợp ở và kinh doanh, mặt tiền rộng, phù hợp làm văn phòng.",
+        availableCount: 27,
+        totalCount: 42,
+        priceRange: [15500000000, 19800000000]
+      },
+      {
+        name: "Dãy L12",
+        description: "Liền kề thương mại nằm trên trục đường chính, thiết kế hiện đại.",
+        availableCount: 15,
+        totalCount: 20,
+        priceRange: [13200000000, 18500000000]
+      }
+    ]
+  }
+};
+
+// Xuất projectLayoutData và sellingLayoutData
+export default { projectLayoutData, sellingLayoutData };
