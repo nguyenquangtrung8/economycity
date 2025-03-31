@@ -292,7 +292,7 @@ export const galleryImages = [
   },
   { 
     id: 'park', 
-    src: "Công viên.jpg", 
+    src: "cong_vien_economy.webp", 
     alt: "Công viên xanh mát" 
   },
   { 

@@ -221,7 +221,8 @@
   top: 0;
   z-index: 5;
   background-color: white;
-  padding: 8px 0;
+  padding: 0;
+  border-radius: 8px;
   flex-wrap: wrap;
   width: 100%; /* Đảm bảo chiều rộng đầy đủ */
   box-sizing: border-box;
@@ -234,7 +235,7 @@
   padding: 16px;
   border-radius: 8px;
   background-color: white;
-  border: 1px solid #e2e8f0;
+  border: none;
   cursor: pointer;
   transition: all 0.15s ease;
   text-align: left;
@@ -646,10 +647,10 @@
 /* THÊM BORDER CHO PHẦN KHÔNG THAM GIA GÓI HTLS */
 .tabs__content > div > div:not(.bank__options_grid, .bank__support_card) {
   border: 1px solid #e2e8f0;
-  border-radius: 8px;
+  border-radius: 0px;
   padding: 16px;
   background-color: white;
-  margin-bottom: 24px;
+  margin-bottom: 0px;
 }
 
 /* ------ Document Tab (Block) ------ */
@@ -729,9 +730,7 @@
 
 /* ------ Footer (Block) ------ */
 .footer {
-  border-top: 1px solid #e2e8f0;
-  padding: 24px;
-  background-color: white;
+  background-color: none;
 }
 
 .footer__content {

@@ -188,7 +188,58 @@
   box-shadow: 0 1px 3px rgba(0, 102, 204, 0.3);
 }
 
-/* Tab Container */
+/* Styles mới cho Description Content */
+.descriptionContent {
+  padding: 20px 15px;
+  margin-bottom: 20px;
+}
+
+.descriptionParagraph {
+  text-align: left;
+  color: #1e4070;
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 1.2rem;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  font-style: normal;
+}
+
+.highlightPoints {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 25px;
+}
+
+.highlightItem {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 15px 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  transition: all 0.3s ease;
+  min-height: 100px;
+}
+
+.highlightItem:hover {
+  background-color: #f0f7ff;
+  transform: translateY(-3px);
+  box-shadow: 0 3px 10px rgba(0, 82, 165, 0.1);
+}
+
+.highlightIcon {
+  width: 40px;
+  height: 40px;
+  margin-bottom: 12px;
+}
+
+/* Tab Container - Giữ lại cho khả năng tương thích */
 .tabContainer {
   margin-bottom: 20px;
 }
@@ -570,6 +621,28 @@
   .leftColumn, .rightColumn {
     border-radius: 10px;
     margin-bottom: 20px;
+  }
+
+  /* Styles responsive for description content */
+  .highlightPoints {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
+  .highlightItem {
+    padding: 12px 8px;
+    min-height: 90px;
+  }
+  
+  .highlightIcon {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 8px;
+  }
+  
+  .descriptionParagraph {
+    font-size: 0.95rem;
+    line-height: 1.6;
   }
 }
 
