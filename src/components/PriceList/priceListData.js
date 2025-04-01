@@ -245,69 +245,6 @@ export const productsData = [
     code: 'GH 1'
   },
   
-  // Biệt thự
-  {
-    id: 17,
-    category: 'Biệt thự',
-    type: 'BT5-7',
-    description: 'Biệt thự đơn lập',
-    area: '225.5',
-    width: '11',
-    floors: '4',
-    direction: 'Đông Nam',
-    contractPrice: '24.128',  // Giá HĐMB NƠ (tỷ đồng)
-    transferPrice: '31.570', // Giá trị HĐCN (tỷ đồng)
-    totalArea: '560.25',  // Tổng diện tích sàn XD (m2)
-    hot: true,
-    code: 'GH 1'
-  },
-  {
-    id: 18,
-    category: 'Biệt thự',
-    type: 'BT10-5',
-    description: 'Biệt thự song lập',
-    area: '175.8',
-    width: '9',
-    floors: '4',
-    direction: 'Đông Bắc',
-    contractPrice: '18.810',  // Giá HĐMB NƠ (tỷ đồng)
-    transferPrice: '24.612', // Giá trị HĐCN (tỷ đồng)
-    totalArea: '438.5',  // Tổng diện tích sàn XD (m2)
-    hot: false,
-    code: 'GH 1'
-  },
-  
-  // Căn hộ cao tầng
-  {
-    id: 19,
-    category: 'Căn hộ cao tầng',
-    type: 'CH02-06A',
-    description: 'Căn hộ 2 phòng ngủ',
-    area: '65.2',
-    width: '-',
-    floors: '1',
-    direction: 'Nam',
-    contractPrice: '2.150',  // Giá HĐMB NƠ (tỷ đồng)
-    transferPrice: '2.736', // Giá trị HĐCN (tỷ đồng)
-    totalArea: '65.2',  // Tổng diện tích sàn XD (m2)
-    hot: false,
-    code: 'GH 1'
-  },
-  {
-    id: 20,
-    category: 'Căn hộ cao tầng',
-    type: 'CH03-12B',
-    description: 'Căn hộ 3 phòng ngủ',
-    area: '85.6',
-    width: '-',
-    floors: '1',
-    direction: 'Đông Nam',
-    contractPrice: '2.996',  // Giá HĐMB NƠ (tỷ đồng)
-    transferPrice: '3.852', // Giá trị HĐCN (tỷ đồng)
-    totalArea: '85.6',  // Tổng diện tích sàn XD (m2)
-    hot: true,
-    code: 'GH 1'
-  }
 ];
 
 // Hàm tính toán giá trị thanh toán
