@@ -53,7 +53,7 @@ const Location = () => {
               </div>
               <div className={styles.highlightItem}>
                 <img src="/img/road_ql.png" alt="Giao thông" className={styles.highlightIcon} />
-                <span>Kết nối 4 tuyến đường chính</span>
+                <span>Kết nối 3 tuyến đường & % cây cầu chính</span>
               </div>
               <div className={styles.highlightItem}>
                 <img src="/img/factory.png" alt="Tiện ích" className={styles.highlightIcon} />
