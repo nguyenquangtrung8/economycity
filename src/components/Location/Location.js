@@ -38,10 +38,10 @@ const Location = () => {
         <div className={styles.leftColumn}>
           {/* Phần mô tả thay thế cho tab content */}
           <div className={styles.descriptionContent}>
-            <p className={styles.descriptionParagraph}>
-              Economy City nằm tại trung tâm Như Quỳnh, Văn Lâm, Hưng Yên, đối diện Huyện ủy và UBND, sở hữu lợi thế kết nối vượt trội. Cách Hà Nội 20km, dự án kết nối qua cao tốc Hà Nội - Hải Phòng, Vành đai 3.5, Vành đai 4.
+            <p className={styles.magazineStyle}>
+              <span className={styles.dropCap}>E</span><span className={styles.brandTitle}>conomy City</span> nằm tại trung tâm Như Quỳnh, Văn Lâm, Hưng Yên, đối diện Huyện ủy và UBND, sở hữu lợi thế kết nối vượt trội. Cách Hà Nội 20km, dự án kết nối qua cao tốc Hà Nội - Hải Phòng, Vành đai 3.5, Vành đai 4.
             </p>
-            <p className={styles.descriptionParagraph}>
+            <p className={styles.magazineStyle}>
               Vị trí đắc địa mang lại tiện ích sống tối ưu và tiềm năng phát triển bền vững. Dự án hứa hẹn gia tăng giá trị vượt bậc, trở thành tâm điểm đầu tư khu vực phía Đông Hà Nội.
             </p>
             
