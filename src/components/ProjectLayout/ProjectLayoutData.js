@@ -143,18 +143,20 @@ export const sellingLayoutData = {
     detailLayoutImage: "/img/cat_tuong_economy.webp", // Ảnh layout chi tiết các căn đang bán
     sellingAreas: [
       {
-        name: "Dãy D1 - D2",
-        description: "Tọa lạc tại vị trí đẹp nhất phân khu, gồm các căn biệt thự và liền kề sang trọng, view hồ trung tâm.",
+        name: "Dãy CT1 - CT2",
+        description: "Tọa lạc tại vị trí đẹp nhất phân khu, gồm các căn liền kề sang trọng, view hồ trung tâm.",
         availableCount: 34,
         totalCount: 48,
-        priceRange: [10500000000, 15800000000]
+        priceRange: [10500000000, 15800000000],
+        productType: "Liền kề"
       },
       {
-        name: "Dãy T5",
+        name: "Dãy CT5",
         description: "Nằm ở trục đường nội khu, phù hợp kinh doanh, gồm các căn liền kề có thiết kế hiện đại.",
         availableCount: 22,
         totalCount: 30,
-        priceRange: [9000000000, 12000000000]
+        priceRange: [9000000000, 12000000000],
+        productType: "Liền kề"
       }
     ]
   },
@@ -162,25 +164,28 @@ export const sellingLayoutData = {
     detailLayoutImage: "/img/hung_thinh_economy.webp", // Ảnh layout chi tiết các căn đang bán
     sellingAreas: [
       {
-        name: "Dãy BT3 - BT4",
+        name: "Dãy HT3 - HT4",
         description: "Khu biệt thự cao cấp gồm các căn góc và giữa, tiêu chuẩn thiết kế tân cổ điển.",
         availableCount: 18,
         totalCount: 22,
-        priceRange: [25000000000, 32000000000]
+        priceRange: [25000000000, 32000000000],
+        productType: "Biệt thự"
       },
       {
-        name: "Dãy L7 - L9",
+        name: "Dãy HT7 - HT9",
         description: "Liền kề shophouse kết hợp ở và kinh doanh, mặt tiền rộng, phù hợp làm văn phòng.",
         availableCount: 27,
         totalCount: 42,
-        priceRange: [15500000000, 19800000000]
+        priceRange: [15500000000, 19800000000],
+        productType: "Liền kề"
       },
       {
-        name: "Dãy L12",
+        name: "Dãy HT12",
         description: "Liền kề thương mại nằm trên trục đường chính, thiết kế hiện đại.",
         availableCount: 15,
         totalCount: 20,
-        priceRange: [13200000000, 18500000000]
+        priceRange: [13200000000, 18500000000],
+        productType: "Liền kề"
       }
     ]
   }
