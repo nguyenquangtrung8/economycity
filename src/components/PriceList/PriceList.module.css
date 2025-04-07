@@ -1,140 +1,4 @@
-/* Nút xem giá */
-.btnShowPrice {
-  background-color: #ff5722;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btnShowPrice:hover {
-  background-color: #e64a19;
-}
-
-/* Modal nhập mật khẩu */
-.passwordModal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1001;
-  transform: translateZ(0); /* Force hardware acceleration */
-}
-
-.passwordModalContent {
-  background-color: white;
-  border-radius: 8px;
-  width: 90%;
-  max-width: 400px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  position: relative;
-  z-index: 1002;
-  transform: translateZ(0); /* Force hardware acceleration */
-}
-
-.passwordModalHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem;
-  border-bottom: 1px solid #eee;
-}
-
-.passwordModalTitle {
-  margin: 0;
-  font-size: 1.2rem;
-  color: #1a4ca1;
-  font-weight: 600;
-}
-
-.passwordModalBody {
-  padding: 1.5rem 1rem;
-}
-
-.passwordModalText {
-  margin-bottom: 1rem;
-  font-size: 0.95rem;
-  color: #555;
-}
-
-.passwordInputWrapper {
-  width: 100%;
-  margin-bottom: 1rem;
-  position: relative;
-  z-index: 1002;
-}
-
-.passwordInput {
-  width: 100%;
-  padding: 0.75rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-size: 1rem;
-  -webkit-appearance: none; /* Cải thiện hiển thị trên iOS */
-  transform: translateZ(0); /* Force hardware acceleration */
-  will-change: transform; /* Optimize for animations */
-  background-color: white;
-  position: relative;
-  z-index: 1002;
-}
-
-.passwordInput:focus {
-  border-color: #1a4ca1;
-  outline: none;
-  box-shadow: 0 0 0 2px rgba(26, 76, 161, 0.2);
-}
-
-.passwordInput:focus {
-  border-color: #1a4ca1;
-  outline: none;
-}
-
-.btnSubmitPassword {
-  width: 100%;
-  padding: 0.75rem;
-  background-color: #1a4ca1;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.btnSubmitPassword:hover {
-  background-color: #143b82;
-}
-
-.passwordModalFooter {
-  padding: 1rem;
-  border-top: 1px solid #eee;
-  text-align: center;
-}
-
-.passwordModalNote {
-  font-size: 0.85rem;
-  color: #666;
-  margin: 0;
-}
-
-.phoneLink {
-  color: #1a4ca1;
-  font-weight: 600;
-  text-decoration: none;
-}
-
-.phoneLink:hover {
-  text-decoration: underline;
-}/* CSS Module cho component PriceList */
+/* CSS Module cho component PriceList */
 
 /* Container chính bọc toàn bộ component */
 .priceTableSection {
@@ -415,6 +279,23 @@
   background-color: #143b82;
 }
 
+/* Nút xem giá */
+.btnShowPrice {
+  background-color: #ff5722;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btnShowPrice:hover {
+  background-color: #e64a19;
+}
+
 /* Kích thước cột được điều chỉnh cụ thể */
 .priceTable th:nth-child(1),
 .priceTable td:nth-child(1) { /* Phân khúc */
@@ -464,66 +345,6 @@
 .priceTable th:nth-child(10),
 .priceTable td:nth-child(10) { /* Phương án */
   width: 10%;
-}
-
-/* Giải pháp mới cho mobile: Hiển thị modal toàn màn hình */
-@media (max-width: 768px) {
-  /* Modal cho mobile */
-  .mobilePaymentModal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: white;
-    z-index: 1000;
-    overflow-y: auto;
-    padding: 1rem;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .modalHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 0.75rem;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 1rem;
-    position: sticky;
-    top: 0;
-    background-color: white;
-    z-index: 10;
-  }
-  
-  .modalTitle {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #1a4ca1;
-    margin: 0;
-  }
-  
-  .modalClose {
-    background: none;
-    border: none;
-    color: #666;
-    font-size: 1.5rem;
-    padding: 0.25rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .modalBody {
-    flex: 1;
-    overflow-y: auto;
-  }
-  
-  /* Ẩn bảng expandedRow để tránh xung đột */
-  .expandedRow {
-    display: none;
-  }
 }
 
 /* Payment Options Styles */
@@ -713,12 +534,6 @@
   height: 16px;
 }
 
-.benefitIcon {
-  margin-right: 0.5rem;
-  width: 16px;
-  height: 16px;
-}
-
 .paymentCta {
   text-align: center;
 }
@@ -794,6 +609,171 @@
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Giải pháp mới cho mobile: Hiển thị modal toàn màn hình */
+.mobilePaymentModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: white;
+  z-index: 1000;
+  overflow-y: auto;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 1rem;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 10;
+}
+
+.modalTitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #1a4ca1;
+  margin: 0;
+}
+
+.modalClose {
+  background: none;
+  border: none;
+  color: #666;
+  font-size: 1.5rem;
+  padding: 0.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalBody {
+  flex: 1;
+  overflow-y: auto;
+}
+
+/* Modal mật khẩu */
+.passwordModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.passwordModalContent {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 400px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1001;
+}
+
+.passwordModalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.75rem;
+}
+
+.passwordModalTitle {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #1a4ca1;
+  margin: 0;
+}
+
+.passwordModalBody {
+  margin: 1rem 0;
+}
+
+.passwordModalText {
+  font-size: 0.95rem;
+  color: #555;
+  margin-bottom: 1rem;
+}
+
+.passwordInputWrapper {
+  position: relative;
+  margin: 1.5rem 0;
+  width: 100%;
+}
+
+.passwordInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.passwordInput:focus {
+  outline: 2px solid #1a4ca1;
+  box-shadow: 0 0 0 3px rgba(26, 76, 161, 0.2);
+}
+
+.btnSubmitPassword {
+  background-color: #1a4ca1;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.2s ease;
+}
+
+.btnSubmitPassword:hover {
+  background-color: #0f3a7a;
+}
+
+.btnSubmitPassword:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(26, 76, 161, 0.3);
+}
+
+.passwordModalFooter {
+  margin-top: 1.5rem;
+  border-top: 1px solid #eee;
+  padding-top: 1rem;
+}
+
+.passwordModalNote {
+  font-size: 0.85rem;
+  color: #666;
+  text-align: center;
+  margin: 0;
+}
+
+.phoneLink {
+  color: #1a4ca1;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.phoneLink:hover {
+  text-decoration: underline;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 992px) {
   .priceTitle {
@@ -825,13 +805,13 @@
     gap: 1rem;
   }
   
-  /* Actualizado para mantener 2 columnas en móvil */
+  /* Cập nhật để giữ 2 cột trên mobile */
   .paymentPlans {
     grid-template-columns: repeat(2, 1fr);
     gap: 0.5rem;
   }
   
-  /* Forzar 1 columna solo en pantallas muy pequeñas */
+  /* Chỉ chuyển sang 1 cột khi màn hình rất nhỏ */
   @media (max-width: 480px) {
     .paymentPlans {
       grid-template-columns: 1fr;
@@ -967,6 +947,11 @@
   
   .paymentValue {
     font-size: 0.9rem;
+  }
+  
+  /* Ẩn bảng expandedRow để tránh xung đột */
+  .expandedRow {
+    display: none;
   }
 }
 
